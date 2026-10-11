@@ -85,3 +85,33 @@ assert.deepEqual(ids('ver+ linksom'),[]);
 assert.deepEqual(ids('clockwise linksom'),[]);
 '''
     subprocess.run(['node', '-e', fixture + functions + assertions], check=True)
+
+
+def test_radio_win_rate_uses_starts_in_each_direction_not_share_of_wins():
+    import subprocess
+    from pathlib import Path
+    js = Path('src/f1_analysis/catalogue.js').read_text()
+    parser = js[js.index('const normalizeSearch='):js.index('function renderSearchHelp()')]
+    counts = js[js.index('function radioCounts()'):js.index('function renderRadioEgg()')]
+    fixture = r'''
+const assert=require('assert/strict');
+const countryCodes={};
+const data={circuits:[],search_drivers:{max:{name:'Max Verstappen',code:'VER'},jos:{name:'Jos Verstappen',code:'VER'}},races:[
+ {direction:'clockwise',search_entries:[['max',true,false,false,false]]},
+ {direction:'clockwise',search_entries:[['max',false,true,false,false]]},
+ {direction:'clockwise',search_entries:[['max',false,false,false,false]]},
+ {direction:'clockwise',search_entries:[['max',false,false,false,false]]},
+ {direction:'anti-clockwise',search_entries:[['max',true,false,false,false]]},
+ {direction:'anti-clockwise',search_entries:[['max',false,true,false,false]]},
+ {direction:'clockwise',search_entries:[['jos',true,false,false,false]]},
+ {direction:'clockwise',scheduled:true,search_entries:[['max',true,false,false,false]]},
+ {direction:null,search_entries:[['max',false,false,false,false]]}]};
+'''
+    assertions = r'''
+assert.deepEqual(radioCounts(),{
+ clockwise:{starts:4,wins:1,percentage:25},
+ anticlockwise:{starts:2,wins:1,percentage:50},unknown:1});
+data.races=[];
+assert.equal(radioCounts().clockwise.percentage,null);
+'''
+    subprocess.run(['node', '-e', fixture + parser + counts + assertions], check=True)
