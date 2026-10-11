@@ -51,7 +51,15 @@ def catalogue_body(root,rows,prefix):
   c=race['Circuit']
   enriched.append({'year':current_year,'name':race['raceName'],'gp':c['circuitName'],'circuit':c['circuitName'],'circuitId':c['circuitId'],
                    'round':round_,'date':race['date'],'start':event['date_start'],'scheduled':True,'progress':record.get('progress',0),'waiting':record.get('status')=='wacht_op_data','href':None,'path':None,'analysis_kind':'scheduled'})
+ # Calendar timestamps identify the main race, never the sprint session.
+ agenda_by_round={int(event['round']):event for event in agenda}
  for row in enriched:
+  event=agenda_by_round.get(int(row.get('round') or 0)) if row['year']==current_year else None
+  if event:
+   row['start']=event['date_start']
+  if row.get('scheduled'):
+   completed=sorted((r for r in enriched if not r.get('scheduled') and r.get('circuitId')==row.get('circuitId')),key=lambda r:(r['year'],r['date']),reverse=True)
+   row['previous_edition_href']=completed[0]['href'] if completed else None
   row.setdefault('start',row.get('race_date') or row['date']+'T13:00:00Z')
   if row['year']==current_year and not row.get('scheduled') and not row.get('winner'):
    from bs4 import BeautifulSoup
