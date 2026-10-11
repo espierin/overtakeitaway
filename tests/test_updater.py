@@ -1,3 +1,4 @@
+import pytest
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -120,3 +121,8 @@ def test_progress_measures_observed_checks_without_invented_progress():
     assert updater.data_progress(data)==100
     data['laps']=[]
     assert 0<updater.data_progress(data)<100
+
+
+@pytest.fixture(autouse=True)
+def offline_search_reference(monkeypatch):
+    monkeypatch.setattr('f1_analysis.catalogue_search.refresh_reference', lambda root: None)

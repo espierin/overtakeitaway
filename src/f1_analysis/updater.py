@@ -225,6 +225,11 @@ def update(root, years=None, now=None, dry_run=False):
         except Exception as exc:
             record.update(status='mislukt', error=str(exc)); report['failed'].append({'session_key': key, 'error': str(exc)})
         write_json(state_path, state)
+    from .catalogue_search import refresh_reference
+    try:
+        refresh_reference(root)
+    except Exception as exc:
+        report['search_reference_warning'] = str(exc)
     from .render import update_index
     update_index(root)
     return report
