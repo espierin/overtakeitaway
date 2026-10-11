@@ -38,6 +38,19 @@ def readiness(data):
     return not missing, missing
 
 
+def data_progress(data):
+    """Percentage of nine observed publication checks, not an ETA."""
+    results=data.get('session_result', [])
+    winner=next((r for r in results if r.get('position')==1 and r.get('number_of_laps')),None)
+    drivers={r['driver_number'] for r in data.get('drivers', [])}
+    classified={r['driver_number'] for r in results}
+    finished=any(r.get('message','').upper() in ('SESSION FINISHED','SESSION ENDED') or r.get('flag','') in ('CHEQUERED','CHECKERED') for r in data.get('race_control', []))
+    final=bool(winner and any(r.get('driver_number')==winner['driver_number'] and r.get('lap_number')==int(winner['number_of_laps']) for r in data.get('laps', [])))
+    checks=[bool(data.get(name)) for name in ('drivers','laps','position','stints','race_control')]
+    checks.extend([finished,bool(winner),final,bool(drivers and drivers.issubset(classified))])
+    return round(sum(checks)/len(checks)*100)
+
+
 def plan(sessions, known, state, now, config):
     chosen = []
     for session in sorted(sessions, key=lambda s: s['date_start']):
@@ -96,13 +109,16 @@ def fastf1_probe(client, session, root):
     import yaml
     result = client.fetch(f'https://api.jolpi.ca/ergast/f1/{session["year"]}/{session["round"]}/results.json', publisher='Jolpica')
     races = result['MRData']['RaceTable']['Races']
+    session['data_progress'] = 0
     if not races or not races[0].get('Results'):
         return None, ['definitieve raceuitslag']
+    session['data_progress'] = 11  # One of nine checks: definitive classification.
     try:
         data, _ = acquire(client, session['year'], session['circuit_short_name'],
                           Path(root) / 'storage/probes' / str(session['session_key']),
                           yaml.safe_load((Path(root) / 'config/sources.yaml').read_text()))
         ready, missing = readiness(data)
+        session['data_progress'] = data_progress(data)
         return (data if ready else None), missing
     except (ValueError, IndexError, KeyError, SessionNotAvailableError, DataNotLoadedError, NoLapDataError) as exc:
         return None, ['volledige timinggegevens: ' + str(exc)]
@@ -156,7 +172,7 @@ def update(root, years=None, now=None, dry_run=False):
     if dry_run: return report
     for session in queue:
         key = str(session['session_key']); record = state['sessions'].setdefault(key, {})
-        record.update(last_attempt=now.isoformat(), year=session['year'])
+        record.update(last_attempt=now.isoformat(), year=session['year'], round=session.get('round'))
         try:
             if session.get('timing_source') == 'fastf1':
                 data, missing = fastf1_probe(client, session, root)
@@ -166,6 +182,7 @@ def update(root, years=None, now=None, dry_run=False):
                     data = {ep: client.api(ep, session_key=session['session_key'])
                             for ep in ['drivers', 'session_result', 'laps', 'position', 'stints', 'race_control']}
                     ready, missing = readiness(data)
+                    session['data_progress'] = data_progress(data)
                 except ValueError as exc:
                     ready, missing = False, ['OpenF1: ' + str(exc)]
                 if not ready and session.get('timing_source') == 'openf1':
@@ -176,7 +193,7 @@ def update(root, years=None, now=None, dry_run=False):
                     else:
                         missing.extend(absent)
             if not ready:
-                record.update(status='wacht_op_data', missing=missing)
+                record.update(status='wacht_op_data', missing=missing, progress=session.get('data_progress', 0))
                 report['waiting'].append({'session_key': key, 'missing': missing})
             else:
                 if session.get('timing_source') != 'fastf1':
@@ -202,7 +219,7 @@ def update(root, years=None, now=None, dry_run=False):
                     command.extend(['--f1gures-import',str(imported)])
                 result = subprocess.run(command,cwd=root, check=False)
                 if result.returncode: raise ValueError(f'Analyse faalde (code {result.returncode})')
-                record.update(status='bijgewerkt', completed_at=utcnow(),probe_sha256=probe_sha)
+                record.update(status='bijgewerkt', progress=100, completed_at=utcnow(),probe_sha256=probe_sha)
                 record.pop('missing', None); record.pop('error', None)
                 report['updated'].append(session['session_key'])
         except Exception as exc:

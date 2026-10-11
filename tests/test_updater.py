@@ -111,3 +111,12 @@ def test_delayed_fastf1_session_is_waiting_not_failure(tmp_path,monkeypatch):
     monkeypatch.setattr(history,'acquire',unavailable)
     data,missing=updater.fastf1_probe(Client(),{'year':2026,'round':1,'session_key':202601,'circuit_short_name':'Test'},tmp_path)
     assert data is None and 'Timing nog niet beschikbaar' in missing[0]
+
+
+def test_progress_measures_observed_checks_without_invented_progress():
+    assert updater.data_progress({})==0
+    data={'drivers':[{'driver_number':1}],'laps':[{'driver_number':1,'lap_number':50}],'position':[{}], 'stints':[{}],
+          'race_control':[{'message':'SESSION FINISHED'}],'session_result':[{'driver_number':1,'position':1,'number_of_laps':50}]}
+    assert updater.data_progress(data)==100
+    data['laps']=[]
+    assert 0<updater.data_progress(data)<100

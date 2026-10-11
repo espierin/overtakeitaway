@@ -43,12 +43,14 @@ def catalogue_body(root,rows,prefix):
  current_year=datetime.now(timezone.utc).year
  calendar_file=root/'_storage/season-calendar.json'
  agenda=json.loads(calendar_file.read_text()).get('seasons',{}).get(str(current_year),[]) if calendar_file.exists() else []
+ update_state=json.loads((root/'_storage/update-state.json').read_text()).get('sessions',{}) if (root/'_storage/update-state.json').exists() else {}
  for event in agenda:
   race=event['jolpica_race'];round_=int(event['round'])
   if any(r['year']==current_year and int(r.get('round') or 0)==round_ for r in enriched):continue
+  record=next((v for k,v in update_state.items() if str(k)==str(event['session_key']) or (v.get('year')==current_year and v.get('round')==round_)),{})
   c=race['Circuit']
   enriched.append({'year':current_year,'name':race['raceName'],'gp':c['circuitName'],'circuit':c['circuitName'],'circuitId':c['circuitId'],
-                   'round':round_,'date':race['date'],'start':event['date_start'],'scheduled':True,'href':None,'path':None,'analysis_kind':'scheduled'})
+                   'round':round_,'date':race['date'],'start':event['date_start'],'scheduled':True,'progress':record.get('progress',0),'waiting':record.get('status')=='wacht_op_data','href':None,'path':None,'analysis_kind':'scheduled'})
  for row in enriched:
   row.setdefault('start',row.get('race_date') or row['date']+'T13:00:00Z')
   if row['year']==current_year and not row.get('scheduled') and not row.get('winner'):
