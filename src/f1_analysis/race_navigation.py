@@ -3,12 +3,62 @@ from pathlib import Path
 from urllib.parse import unquote,urlparse
 from html import escape
 import os,json,re,unicodedata
+from functools import lru_cache
+from collections import defaultdict
+
+
+def edition_targets(rows):
+    """Build season neighbours and neighbouring years on the exact circuit."""
+    seasons=defaultdict(list);circuits=defaultdict(list)
+    for row in rows:
+        seasons[row['year']].append(row)
+        if row.get('circuitId'):circuits[row['circuitId']].append(row)
+    def order(r):return (r.get('date') or r.get('race_date') or '',int(r.get('round') or 0),r['href'])
+    for season in seasons.values():season.sort(key=order)
+    for editions in circuits.values():editions.sort(key=lambda r:(r['year'],*order(r)))
+    result={}
+    for season in seasons.values():
+        for i,row in enumerate(season):
+            editions=circuits.get(row.get('circuitId'),[])
+            earlier=[r for r in editions if r['year']<row['year']];later=[r for r in editions if r['year']>row['year']]
+            result[row['href']]=[season[(i-1)%len(season)] if len(season)>1 else None,
+                                season[(i+1)%len(season)] if len(season)>1 else None,
+                                earlier[-1] if earlier else None,later[0] if later else None]
+    return result
+
+@lru_cache(maxsize=8)
+def _catalogue(path,mtime):
+    rows=json.loads(Path(path).read_text()).get('races',[])
+    return {unquote(r['href']):r for r in rows},edition_targets(rows)
+
+def catalogue_navigation(root):
+    path=Path(root)/'race-updates.json'
+    return _catalogue(str(path.resolve()),path.stat().st_mtime_ns) if path.exists() else ({},{})
+
+def refresh_navigation(text,source,root):
+    """Repair archived navigation from the full current published catalogue."""
+    current=Path(source).relative_to(root).as_posix();rows,targets=catalogue_navigation(root)
+    if current not in rows or current not in targets:return text
+    markup='<nav class="race-navigation" aria-label="Racenavigatie">'
+    for label,target in zip(('Vorige race','Volgende race','Vorig jaar','Volgend jaar'),targets[current]):
+        if target:
+            href=os.path.relpath(Path(root)/unquote(target['href']),Path(source).parent)
+            title=str(target['year'])+' · '+target.get('name',target.get('circuit',''))
+            markup+=f'<a href="{escape(href,quote=True)}" title="{escape(title,quote=True)}">{label}</a>'
+        else:markup+=f'<button disabled>{label}</button>'
+    markup+='</nav>'
+    return re.sub(r'<nav\b[^>]*class=["\']race-navigation["\'][^>]*>.*?</nav>',lambda _:markup,text,flags=re.S)
 
 def circuit_key(run,row):
+    catalogue,_=catalogue_navigation(Path(run).parents[4])
+    metadata=catalogue.get(Path(run).relative_to(Path(run).parents[4]).as_posix()+'/overzicht.html',{})
+    if row.get('circuitId') or metadata.get('circuitId'):return row.get('circuitId') or metadata['circuitId']
     filename='archive.json' if row.get('analysis_kind')=='historisch-overzicht' else 'input.json'
     p=run/'data/normalized'/filename
     if p.exists():
         d=json.loads(p.read_text());race=d.get('session',{}).get('jolpica_race',{})
+        circuit=race.get('Circuit',d.get('jolpica_circuit',{}))
+        if circuit.get('circuitId'):return circuit['circuitId']
         url=d.get('circuit_wikipedia') or race.get('Circuit',{}).get('url') or d.get('jolpica_circuit',{}).get('url')
         if url:return unquote(urlparse(url).path).split('/')[-1].lower()
     return ''.join(c for c in unicodedata.normalize('NFKD',row.get('gp','').lower()) if c.isalnum())

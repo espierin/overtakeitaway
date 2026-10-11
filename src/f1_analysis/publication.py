@@ -664,6 +664,8 @@ def with_primary_race_facts(text):
 
 def with_race_notifications(text, source, root):
     """Install one shared visitor notifier on every published HTML page."""
+    from .race_navigation import refresh_navigation
+    text=refresh_navigation(text,source,root)
     text=with_primary_race_facts(text)
     if "'Eerste stop':'First stop'" not in text:
         text=text.replace('const exact={',"const exact={'Eerste stop':'First stop','Tweede stop':'Second stop','Beoordeling':'Assessment',",1)
