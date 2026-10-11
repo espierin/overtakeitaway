@@ -25,3 +25,34 @@ def test_equal_gains_show_all_and_pitlane_is_excluded():
 
 def test_unknown_fastest_not_inferred_from_incomplete_laps():
  assert 'fastest' not in facts({'jolpica_results':[row(1,1,1)]})
+
+
+def test_primary_classification_fills_race_facts_when_jolpica_is_delayed():
+ data={'jolpica_results':[], 'drivers':[{'driver_number':1,'full_name':'One','name_acronym':'ONE','team_colour':'00ffff'}, {'driver_number':2,'full_name':'Two','name_acronym':'TWO','team_colour':'ff0000'}],
+       'starting_grid':[{'driver_number':1,'position':3},{'driver_number':2,'position':1}],
+       'session_result':[{'driver_number':1,'position':1,'number_of_laps':2,'duration':180.}, {'driver_number':2,'position':2,'number_of_laps':2,'duration':183.5}],
+       'laps':[{'driver_number':n,'lap_number':lap,'lap_duration':v} for n,lap,v in [(1,1,91.),(1,2,89.),(2,1,90.),(2,2,93.5)]]}
+ f=facts(data)
+ assert f['winner']['number']==1 and f['pole']['number']==2 and f['gainers'][0]['gain']==2
+ assert f['margin']==3.5 and f['fastest']['fastest_time']=='1:29.000'
+ data['laps'].pop()
+ assert 'fastest' not in facts(data)
+
+
+def test_primary_results_do_not_override_supplementary_official_facts():
+ data={'jolpica_results':[row(1,1,1,'1:10:00',1)],'session_result':[{'driver_number':1,'position':2,'number_of_laps':50}]}
+ assert facts(data)['winner']['number']==1
+
+
+def test_publication_fills_existing_dashboard_facts_without_replacing_known_values():
+ import json,re
+ from f1_analysis.publication import with_primary_race_facts
+ payload={'drivers':[{'driver_number':1,'name':'One','code':'ONE','grid':2,'result':{'position':1,'number_of_laps':1,'duration':90.}}],
+          'styles':{'1':{'color':'#abcdef'}},'all_laps':[{'driver':1,'lap':1,'duration':90.}],
+          'highlights':{'pole_margin':0.25}}
+ text='<script id="dashboard-data">'+json.dumps(payload)+'</script>'
+ repaired=with_primary_race_facts(text)
+ facts=json.loads(re.search(r'>(.*?)</script>',repaired)[1])['highlights']
+ assert facts['winner']['number']==1 and facts['fastest']['fastest_lap']==1
+ assert facts['gainers'][0]['gain']==1 and facts['pole_margin']==0.25
+ assert with_primary_race_facts(repaired)==repaired

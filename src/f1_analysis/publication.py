@@ -640,8 +640,31 @@ def verify_site(root):
             'races': len(list((root / 'analyses').glob('*/*/latest.json'))), 'checked_links': checked, 'media': len(media)}
 
 
+def with_primary_race_facts(text):
+    """Refresh missing race facts from the same complete data as the selections."""
+    from .highlights import facts
+    pattern=re.compile(r'(<script\b[^>]*\bid=["\']dashboard-data["\'][^>]*>)(.*?)(</script>)',re.S|re.I)
+    def replace(match):
+        payload=json.loads(match[2])
+        existing=payload.get('highlights',{})
+        if all(existing.get(k) for k in ('winner','pole','fastest','gainers')):return match[0]
+        drivers=payload.get('drivers',[]);styles=payload.get('styles',{})
+        data={'drivers':[{'driver_number':d['driver_number'],'full_name':d.get('name'),'name_acronym':d.get('code'),
+                          'team_colour':styles.get(str(d['driver_number']),{}).get('color','')} for d in drivers],
+              'session_result':[dict(d.get('result',{}),driver_number=d['driver_number']) for d in drivers if d.get('result')],
+              'starting_grid':[{'driver_number':d['driver_number'],'position':d.get('grid')} for d in drivers],
+              'laps':[{'driver_number':l['driver'],'lap_number':l['lap'],'lap_duration':l.get('duration'),
+                       'is_deleted':any('deleted' in str(r).lower() or 'verwijderd' in str(r).lower() for r in l.get('reasons',[]))} for l in payload.get('all_laps',[])]}
+        primary=facts(data)
+        payload['highlights']={**primary,**existing}
+        if payload['highlights']==existing:return match[0]
+        return match[1]+json.dumps(payload,ensure_ascii=False).replace('<','\\u003c')+match[3]
+    return pattern.sub(replace,text)
+
+
 def with_race_notifications(text, source, root):
     """Install one shared visitor notifier on every published HTML page."""
+    text=with_primary_race_facts(text)
     asset=Path(root)/'assets/race-updates.js'
     if not asset.is_file() or 'data-race-updates' in text:return text
     href=relative(asset,Path(source).parent)
@@ -653,6 +676,7 @@ def compare_pages(root, site):
     """Prove that packaging preserved visible text, controls, executable code and data."""
     from bs4 import BeautifulSoup
     root,site=Path(root).resolve(),Path(site).resolve();pages=payloads=0
+    if not (site/'index.html').is_file():raise ValueError('Publicatie ontbreekt: '+str(site))
     def code(soup,parent):
         result=[]
         for node in soup.find_all('script'):

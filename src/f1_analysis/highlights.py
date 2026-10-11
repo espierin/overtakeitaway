@@ -27,6 +27,36 @@ def facts(data,archive_raw=None,root=None):
             source=next((x for x in data.get('drivers',[]) if x['driver_number']==_int(r['number'])),{})
             color=source.get('team_colour','').lstrip('#')
             rows.append({'code':source.get('name_acronym') or d.get('code') or d['familyName'][:3].upper(),'color':'#'+color if len(color)==6 else '#B3BECE','id':_int(r['number']),'number':_int(r['number']),'name':d['givenName']+' '+d['familyName'],'grid':_int(r.get('grid')),'position':_int(r.get('position')),'classified':r.get('positionText','').isdigit(),'laps':_int(r.get('laps')),'time':r.get('Time',{}).get('time'),'millis':_int(r.get('Time',{}).get('millis')),'fastest':_int(f.get('rank')),'fastest_time':f.get('Time',{}).get('time'),'fastest_lap':_int(f.get('lap'))})
+    if archive_raw is None:
+        # Race facts must not disappear while the supplementary Jolpica feed lags.
+        # The primary final classification and actual grid already power selection cards.
+        grid={r['driver_number']:_int(r.get('position')) for r in data.get('starting_grid',[])}
+        drivers={d['driver_number']:d for d in data.get('drivers',[])}
+        for result in data.get('session_result',[]):
+            number=_int(result.get('driver_number'));driver=drivers.get(number,{})
+            if any(r['number']==number for r in rows):continue
+            colour=driver.get('team_colour','').lstrip('#')
+            rows.append({'code':driver.get('name_acronym') or driver.get('last_name','')[:3].upper(),
+                         'color':'#'+colour if len(colour)==6 else '#B3BECE','id':number,'number':number,
+                         'name':driver.get('full_name') or driver.get('name_acronym') or str(number),
+                         'grid':grid.get(number),'position':_int(result.get('position')),
+                         'classified':not result.get('dns') and not result.get('dsq'),
+                         'laps':_int(result.get('number_of_laps')),'time':result.get('duration'),'fastest':None})
+        # Infer a fastest measured lap only when every completed lap is present.
+        # An incomplete timing feed cannot establish a race-wide minimum.
+        results=data.get('session_result',[]);laps=data.get('laps',[])
+        measured={(l.get('driver_number'),l.get('lap_number')) for l in laps
+                  if isinstance(l.get('lap_duration'),(float,int)) and math.isfinite(l['lap_duration']) and l['lap_duration']>0}
+        complete=bool(results) and any(r.get('number_of_laps') for r in results) and all(
+            all((r.get('driver_number'),lap) in measured for lap in range(1,int(r.get('number_of_laps') or 0)+1)) for r in results)
+        eligible=[l for l in laps if isinstance(l.get('lap_duration'),(float,int)) and math.isfinite(l['lap_duration'])
+                  and l['lap_duration']>0 and not l.get('is_deleted') and not l.get('deleted')]
+        if complete and eligible and not any(r.get('fastest')==1 for r in rows):
+            lap=min(eligible,key=lambda l:l['lap_duration'])
+            driver=next((r for r in rows if r['number']==lap['driver_number']),None)
+            if driver:
+                minutes,seconds=divmod(lap['lap_duration'],60)
+                driver.update(fastest=1,fastest_time=f'{int(minutes)}:{seconds:06.3f}',fastest_lap=lap['lap_number'],fact_source='complete-measured-laps')
     out={}
     for key,predicate in [('pole',lambda r:r['grid']==1),('winner',lambda r:r['position']==1),('fastest',lambda r:r['fastest']==1)]:
         matches=[r for r in rows if predicate(r)]
@@ -39,7 +69,7 @@ def facts(data,archive_raw=None,root=None):
     if winner and second and winner['laps']==second['laps']:
         gap=None
         if winner.get('millis') is not None and second.get('millis') is not None:gap=(second['millis']-winner['millis'])/1000
-        elif (second.get('time') or '').startswith('+'):gap=_seconds(second['time'])
+        elif str(second.get('time') or '').startswith('+'):gap=_seconds(second['time'])
         else:
             a=_seconds(winner['time']);b=_seconds(second['time'])
             if a is not None and b is not None:gap=b-a
