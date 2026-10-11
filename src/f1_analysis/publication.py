@@ -547,7 +547,10 @@ def build_site(root, output, max_bytes=None, from_year=1950):
                 def style(m):
                     attrs, body = m.groups()
                     # Keep relative image URLs and style-element IDs untouched.
-                    if attrs.strip() or 'url(' in body or '@import' in body: return m.group(0)
+                    # Image URLs supplied through custom properties also resolve
+                    # against this stylesheet, even when url() lives on the element.
+                    variable_image = re.search(r'(?:background(?:-image)?|mask(?:-image)?)\s*:[^;{}]*var\(', body, re.I)
+                    if attrs.strip() or 'url(' in body or '@import' in body or variable_image: return m.group(0)
                     return f'<link rel="stylesheet" href="{shared(body, "css", source)}">'
                 text = SCRIPT.sub(script, text); text = STYLE.sub(style, text)
                 def link(m):

@@ -200,3 +200,14 @@ def test_packed_page_corruption_is_detected(tmp_path):
     packed=next((out/'_documents').glob('*.html.gz'))
     packed.write_bytes(gzip.compress(b'<h1>changed</h1>'))
     with pytest.raises(ValueError,match='Paginahash'):verify_site(out)
+
+
+def test_inline_variable_background_keeps_document_url_base(tmp_path):
+    root=tmp_path/'project';root.mkdir();project(root)
+    page=root/'index.html'
+    css='.race-card{background-image:linear-gradient(black,transparent),var(--circuit-background)}'
+    page.write_text('<style>'+css+'</style><div class="race-card" style="--circuit-background:url(assets/circuit.webp)"></div>')
+    out=tmp_path/'site';build_site(root,out)
+    published=BeautifulSoup(site_html(out/'index.html',out),'html.parser')
+    assert published.style.string==css
+    assert not published.find('link',rel='stylesheet')
