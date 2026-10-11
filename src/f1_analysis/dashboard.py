@@ -46,7 +46,7 @@ def dashboard(run,b,archive_body):
     sections[map_index+1:map_index+1]=strategy_sections
     originals={d['driver_number']:d for d in b['data']['drivers']}
     menu=[{**d,'surname':originals.get(d['driver_number'],{}).get('last_name') or d['name'].split(' ')[-1],'color':payload['styles'][d['driver_number']]['color']} for d in b['drivers']]
-    body='<script>'+Path(__file__).with_name('race_explorer.js').read_text()+'</script>'+highlight_style()+highlight_script()+sidebar(menu)+'<div class="race-hero">'+branding(seasons_url='../../../../../index.html')+'''<link rel="stylesheet" href="interactive/dashboard.css"><div class="dash-header"><h1>'''+race_title(b['data'])+'''</h1>'''+race_metadata(b['data'])+'''</div></div>
+    body='<script data-race-explorer>'+Path(__file__).with_name('race_explorer.js').read_text()+'</script>'+highlight_style()+highlight_script()+sidebar(menu)+'<div class="race-hero">'+branding(seasons_url='../../../../../index.html')+'''<link rel="stylesheet" href="interactive/dashboard.css"><div class="dash-header"><h1>'''+race_title(b['data'])+'''</h1>'''+race_metadata(b['data'])+'''</div></div>
 '''+navigation(run)+toolbar(payload['laps'])+'''
 <div id="kpis" class="kpi-grid"></div>
 <div class="chart-grid">'''

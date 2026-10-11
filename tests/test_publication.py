@@ -58,6 +58,25 @@ def test_compact_site_preserves_pixels_payload_scripts_and_visible_content(tmp_p
     assert site_html(second/run.relative_to(root)/'overzicht.html',second)==site_html(out/run.relative_to(root)/'overzicht.html',out)
 
 
+def test_archived_dashboards_receive_shared_components_without_changing_race_data(tmp_path):
+    from f1_analysis.publication import with_dashboard_components
+    root=tmp_path/'project';root.mkdir();run=project(root);(root/'assets').mkdir()
+    for name in ['race-explorer','circuit-map','strategy-popup','overtake-popup']:
+        (root/'assets'/f'{name}.js').write_text('// shared component')
+    original=(run/'overzicht.html').read_text().replace('<body>','<body><script data-race-explorer src="old-explorer.js"></script>')
+    updated=with_dashboard_components(original,run/'overzicht.html',root)
+    soup=BeautifulSoup(updated,'html.parser')
+    assert soup.find(id='dashboard-data').string=='{"x":42}'
+    assert len(soup.select('script[data-race-explorer]'))==1
+    assert soup.select_one('script[data-race-explorer]')['src'].endswith('/assets/race-explorer.js')
+    assert not soup.select_one('script[data-race-explorer]').has_attr('defer')
+    for attribute in ['data-circuit-map','data-strategy-popup','data-overtake-popup']:
+        assert len(soup.select(f'script[{attribute}]'))==1
+        assert soup.select_one(f'script[{attribute}]').has_attr('defer')
+    assert with_dashboard_components(updated,run/'overzicht.html',root)==updated
+    assert with_dashboard_components('<html><body>Archive</body></html>',run/'overzicht.html',root)=='<html><body>Archive</body></html>'
+
+
 def test_fastf1_offline_inputs_survive_season_restore(tmp_path):
     root=tmp_path/'project';root.mkdir();run=project(root)
     cache=root/'cache/history/2025-01-v1'

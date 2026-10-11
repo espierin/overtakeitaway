@@ -662,14 +662,32 @@ def with_primary_race_facts(text):
     return pattern.sub(replace,text)
 
 
+def with_dashboard_components(text, source, root):
+    # Stored dashboards keep their original race inputs. Shared presentation
+    # components also apply fixes when an older season archive is restored.
+    if 'dashboard-data' in text:
+        explorer_asset=Path(root)/'assets/race-explorer.js'
+        if explorer_asset.exists():
+            explorer_src=relative(explorer_asset,Path(source).parent)
+            text=re.sub(r'<script\b(?=[^>]*\bdata-race-explorer\b)[^>]*>[\s\S]*?</script>',
+                        lambda _: f'<script data-race-explorer src="{explorer_src}"></script>',text)
+        for name,attribute in [('circuit-map','data-circuit-map'),('strategy-popup','data-strategy-popup'),('overtake-popup','data-overtake-popup')]:
+            asset=Path(root)/f'assets/{name}.js'
+            if asset.exists() and attribute not in text:
+                src=relative(asset,Path(source).parent)
+                text=text.replace('</body>',f'<script defer {attribute} src="{src}"></script></body>',1)
+    return text
+
+
 def with_race_notifications(text, source, root):
-    """Install one shared visitor notifier on every published HTML page."""
+    """Install shared presentation fixes and visitor notifications on every page."""
     from .branding import with_original_wordmark, with_hero_flag
     text=with_original_wordmark(text)
     text=with_hero_flag(text,source,root)
     from .race_navigation import refresh_navigation
     text=refresh_navigation(text,source,root)
     text=with_primary_race_facts(text)
+    text=with_dashboard_components(text,source,root)
     if "'Eerste stop':'First stop'" not in text:
         text=text.replace('const exact={',"const exact={'Eerste stop':'First stop','Tweede stop':'Second stop','Beoordeling':'Assessment',",1)
 
