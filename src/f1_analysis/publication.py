@@ -670,6 +670,10 @@ def with_race_notifications(text, source, root):
 
     if "['Eerste stop','First stop']" not in text:
         text=text.replace('const phrases=[',"const phrases=[['Eerste stop','First stop'],['Tweede stop','Second stop'],['Beoordeling','Assessment'],",1)
+    overtake_asset=Path(root)/'assets/overtake-popup.js'
+    if overtake_asset.exists() and 'data-overtake-popup' not in text and 'dashboard-data' in text:
+        overtake_src=os.path.relpath(overtake_asset,Path(source).parent).replace(os.sep,'/')
+        text=text.replace('</body>',f'<script defer data-overtake-popup src="{overtake_src}"></script></body>',1)
     strategy_asset=Path(root)/'assets/strategy-popup.js'
     if strategy_asset.exists() and 'data-strategy-popup' not in text and 'dashboard-data' in text:
         strategy_src=os.path.relpath(strategy_asset,Path(source).parent).replace(os.sep,'/')
