@@ -157,9 +157,19 @@ def update(root, years=None, now=None, dry_run=False):
                 data, missing = fastf1_probe(client, session, root)
                 ready = data is not None
             else:
-                data = {ep: client.api(ep, session_key=session['session_key'])
-                        for ep in ['drivers', 'session_result', 'laps', 'position', 'stints', 'race_control']}
-                ready, missing = readiness(data)
+                try:
+                    data = {ep: client.api(ep, session_key=session['session_key'])
+                            for ep in ['drivers', 'session_result', 'laps', 'position', 'stints', 'race_control']}
+                    ready, missing = readiness(data)
+                except ValueError as exc:
+                    ready, missing = False, ['OpenF1: ' + str(exc)]
+                if not ready and session.get('timing_source') == 'openf1':
+                    alternative, absent = fastf1_probe(client, session, root)
+                    if alternative is not None:
+                        data, ready = alternative, True
+                        session['timing_source'] = 'fastf1'
+                    else:
+                        missing.extend(absent)
             if not ready:
                 record.update(status='wacht_op_data', missing=missing)
                 report['waiting'].append({'session_key': key, 'missing': missing})

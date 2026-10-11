@@ -77,3 +77,25 @@ def test_no_results_waits_without_loading_timing(tmp_path):
         def fetch(self,*args,**kwargs):return {'MRData':{'RaceTable':{'Races':[]}}}
     data,missing=updater.fastf1_probe(Client(),{'year':2026,'round':1},tmp_path)
     assert data is None and missing==['definitieve raceuitslag']
+
+
+def test_inaccessible_openf1_uses_verified_fastf1_data(tmp_path,monkeypatch):
+    root=tmp_path/'project';root.mkdir();project(root)
+    (root/'config/publication.yaml').write_text('settle_days: 14\nretry_minutes: 30\nretry_hours: .5\nrefresh_hours: 6\nminimum_delay_minutes: 0\nmax_races_per_update: 3\n')
+    (root/'config/defaults.yaml').write_text('slotfase_fractie: 0.25\n')
+    (root/'config/history.yaml').write_text('{}')
+    session={'session_key':99,'session_name':'Race','year':2026,'round':1,'timing_source':'openf1','circuit_short_name':'Test',
+             'date_start':'2026-01-01T12:00:00Z','date_end':'2026-01-01T14:00:00Z'}
+    class FakeClient:
+        def __init__(self,*args,**kwargs):pass
+        def api(self,*args,**kwargs):raise ValueError('timing niet beschikbaar')
+    calls=[]
+    monkeypatch.setattr(updater,'Client',FakeClient)
+    monkeypatch.setattr(updater,'discover_calendar',lambda *args:[session])
+    monkeypatch.setattr(updater,'fastf1_probe',lambda *args:({'drivers':[{'driver_number':1}],'timing_source':'FastF1'},[]))
+    monkeypatch.setattr(updater,'optional_probe',lambda *args:{})
+    monkeypatch.setattr(updater,'recipe_hash',lambda *args:'recipe')
+    monkeypatch.setattr(updater.subprocess,'run',lambda command,**kwargs:(calls.append(command) or SimpleNamespace(returncode=0)))
+    report=updater.update(root,[2026],updater.parse_date('2026-01-01T15:00:00Z'))
+    assert report['updated']==[99] and not report['failed']
+    assert '--timing-source' in calls[0] and 'fastf1' in calls[0] and '--refresh' not in calls[0]
