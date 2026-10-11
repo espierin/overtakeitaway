@@ -1,0 +1,16 @@
+# Alleen opslag/verwerking; de inhoud en bediening van dashboards blijven gelijk.
+from_year: 1950
+# GitHub Pages: limiet 1 GB; houd marge voor groei en gedeelde afbeeldingen.
+max_site_bytes: 900000000
+archive_tag_prefix: f1-data-
+snapshot_tag: f1-site-state
+# Voltooide races regelmatig opnieuw ophalen om latere bronaanvullingen mee te nemen.
+settle_days: 14
+retry_hours: 1
+refresh_hours: 6
+minimum_delay_minutes: 45
+max_races_per_update: 3
+# Onder deze termijn niet archiveren/opruimen zonder mogelijkheid tot herladen.
+cache_retention_days: 21
+archive_versions: 2
+snapshot_versions: 3

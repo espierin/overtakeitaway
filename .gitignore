@@ -1,0 +1,21 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.egg-info/
+storage/
+_storage/
+_media/
+_shared/
+analyses/
+cache/
+build/
+dist/
+index.html
+# Onderzoeksdownloads en tijdelijke bewijzen blijven lokaal.
+research/**/*.pdf
+research/**/*.png
+*.log
+_documents/
+
+# Tijdelijke GitHub Pages-herstelmap van de publicatieworkflow.
+.site/

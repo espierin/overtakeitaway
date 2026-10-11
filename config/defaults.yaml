@@ -1,0 +1,15 @@
+slotfase_fractie: 0.25
+pit_marge_seconden: 8
+registratievenster_seconden: 8
+deduplicatie_seconden: 3
+verkeer_grens_seconden: 1.5
+strategie_gap_grens_seconden: 5
+strategie_max_stopafstand_ronden: 8
+locatie_venster_seconden: 6
+locatie_max_afstand: 220
+locatie_max_spreiding_segmenten: 18
+heatmap_segmenten: 100
+analytisch_teamorders_uitsluiten: true
+analytisch_technisch_verlies_uitsluiten: false
+request_interval_seconden: 1.1
+retries: 4

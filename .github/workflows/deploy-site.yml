@@ -1,0 +1,43 @@
+name: Gecontroleerde website publiceren
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: f1-publication
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.14'
+          cache: pip
+      - name: Publicatiegereedschap installeren
+        run: |
+          python -m pip install -r requirements-lock.txt
+          python -m pip install --no-deps -e .
+      - name: Gecontroleerde website uit Releases herstellen
+        run: |
+          mkdir -p .site/config
+          cp config/publication.yaml .site/config/publication.yaml
+          python -m f1_analysis.github_storage --root .site load
+          python -m f1_analysis.publication verify --site .site
+          rm -rf .site/storage .site/config
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: .site
+      - name: Website publiceren
+        id: deployment
+        uses: actions/deploy-pages@v4

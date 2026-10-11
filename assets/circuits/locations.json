@@ -1,0 +1,541 @@
+[
+  {
+    "id": "adelaide",
+    "circuit": "Adelaide Street Circuit",
+    "locality": "Adelaide",
+    "country": "Australia",
+    "image": "adelaide.webp"
+  },
+  {
+    "id": "ain-diab",
+    "circuit": "Ain Diab",
+    "locality": "Casablanca",
+    "country": "Morocco",
+    "image": "ain-diab.webp"
+  },
+  {
+    "id": "aintree",
+    "circuit": "Aintree",
+    "locality": "Liverpool",
+    "country": "UK",
+    "image": "aintree.webp"
+  },
+  {
+    "id": "albert_park",
+    "circuit": "Albert Park Grand Prix Circuit",
+    "locality": "Melbourne",
+    "country": "Australia",
+    "image": "albert_park.webp"
+  },
+  {
+    "id": "americas",
+    "circuit": "Circuit of the Americas",
+    "locality": "Austin",
+    "country": "USA",
+    "image": "americas.webp"
+  },
+  {
+    "id": "anderstorp",
+    "circuit": "Scandinavian Raceway",
+    "locality": "Anderstorp",
+    "country": "Sweden",
+    "image": "anderstorp.webp"
+  },
+  {
+    "id": "avus",
+    "circuit": "AVUS",
+    "locality": "Berlin",
+    "country": "Germany",
+    "image": "avus.webp"
+  },
+  {
+    "id": "bahrain",
+    "circuit": "Bahrain International Circuit",
+    "locality": "Sakhir",
+    "country": "Bahrain",
+    "image": "bahrain.webp"
+  },
+  {
+    "id": "baku",
+    "circuit": "Baku City Circuit",
+    "locality": "Baku",
+    "country": "Azerbaijan",
+    "image": "baku.webp"
+  },
+  {
+    "id": "boavista",
+    "circuit": "Circuito da Boavista",
+    "locality": "Oporto",
+    "country": "Portugal",
+    "image": "boavista.webp"
+  },
+  {
+    "id": "brands_hatch",
+    "circuit": "Brands Hatch",
+    "locality": "Kent",
+    "country": "UK",
+    "image": "brands_hatch.webp"
+  },
+  {
+    "id": "bremgarten",
+    "circuit": "Circuit Bremgarten",
+    "locality": "Bern",
+    "country": "Switzerland",
+    "image": "bremgarten.webp"
+  },
+  {
+    "id": "buddh",
+    "circuit": "Buddh International Circuit",
+    "locality": "Uttar Pradesh",
+    "country": "India",
+    "image": "buddh.webp"
+  },
+  {
+    "id": "catalunya",
+    "circuit": "Circuit de Barcelona-Catalunya",
+    "locality": "Barcelona",
+    "country": "Spain",
+    "image": "catalunya.webp"
+  },
+  {
+    "id": "charade",
+    "circuit": "Charade Circuit",
+    "locality": "Clermont-Ferrand",
+    "country": "France",
+    "image": "charade.webp"
+  },
+  {
+    "id": "dallas",
+    "circuit": "Fair Park",
+    "locality": "Dallas",
+    "country": "USA",
+    "image": "dallas.webp"
+  },
+  {
+    "id": "detroit",
+    "circuit": "Detroit Street Circuit",
+    "locality": "Detroit",
+    "country": "USA",
+    "image": "detroit.webp"
+  },
+  {
+    "id": "dijon",
+    "circuit": "Dijon-Prenois",
+    "locality": "Dijon",
+    "country": "France",
+    "image": "dijon.webp"
+  },
+  {
+    "id": "donington",
+    "circuit": "Donington Park",
+    "locality": "Castle Donington",
+    "country": "UK",
+    "image": "donington.webp"
+  },
+  {
+    "id": "essarts",
+    "circuit": "Rouen-Les-Essarts",
+    "locality": "Rouen",
+    "country": "France",
+    "image": "essarts.webp"
+  },
+  {
+    "id": "estoril",
+    "circuit": "Autódromo do Estoril",
+    "locality": "Estoril",
+    "country": "Portugal",
+    "image": "estoril.webp"
+  },
+  {
+    "id": "fuji",
+    "circuit": "Fuji Speedway",
+    "locality": "Oyama",
+    "country": "Japan",
+    "image": "fuji.webp"
+  },
+  {
+    "id": "galvez",
+    "circuit": "Autódromo Juan y Oscar Gálvez",
+    "locality": "Buenos Aires",
+    "country": "Argentina",
+    "image": "galvez.webp"
+  },
+  {
+    "id": "george",
+    "circuit": "Prince George Circuit",
+    "locality": "Eastern Cape Province",
+    "country": "South Africa",
+    "image": "george.webp"
+  },
+  {
+    "id": "hockenheimring",
+    "circuit": "Hockenheimring",
+    "locality": "Hockenheim",
+    "country": "Germany",
+    "image": "hockenheimring.webp"
+  },
+  {
+    "id": "hungaroring",
+    "circuit": "Hungaroring",
+    "locality": "Budapest",
+    "country": "Hungary",
+    "image": "hungaroring.webp"
+  },
+  {
+    "id": "imola",
+    "circuit": "Autodromo Enzo e Dino Ferrari",
+    "locality": "Imola",
+    "country": "Italy",
+    "image": "imola.webp"
+  },
+  {
+    "id": "indianapolis",
+    "circuit": "Indianapolis Motor Speedway",
+    "locality": "Indianapolis",
+    "country": "USA",
+    "image": "indianapolis.webp"
+  },
+  {
+    "id": "interlagos",
+    "circuit": "Autódromo José Carlos Pace",
+    "locality": "São Paulo",
+    "country": "Brazil",
+    "image": "interlagos.webp"
+  },
+  {
+    "id": "istanbul",
+    "circuit": "Istanbul Park",
+    "locality": "Istanbul",
+    "country": "Turkey",
+    "image": "istanbul.webp"
+  },
+  {
+    "id": "jacarepagua",
+    "circuit": "Autódromo Internacional Nelson Piquet",
+    "locality": "Rio de Janeiro",
+    "country": "Brazil",
+    "image": "jacarepagua.webp"
+  },
+  {
+    "id": "jarama",
+    "circuit": "Jarama",
+    "locality": "Madrid",
+    "country": "Spain",
+    "image": "jarama.webp"
+  },
+  {
+    "id": "jeddah",
+    "circuit": "Jeddah Corniche Circuit",
+    "locality": "Jeddah",
+    "country": "Saudi Arabia",
+    "image": "jeddah.webp"
+  },
+  {
+    "id": "jerez",
+    "circuit": "Circuito de Jerez",
+    "locality": "Jerez de la Frontera",
+    "country": "Spain",
+    "image": "jerez.webp"
+  },
+  {
+    "id": "kyalami",
+    "circuit": "Kyalami",
+    "locality": "Midrand",
+    "country": "South Africa",
+    "image": "kyalami.webp"
+  },
+  {
+    "id": "las_vegas",
+    "circuit": "Las Vegas Street Circuit",
+    "locality": "Nevada",
+    "country": "USA",
+    "image": "las_vegas.webp"
+  },
+  {
+    "id": "lemans",
+    "circuit": "Le Mans",
+    "locality": "Le Mans",
+    "country": "France",
+    "image": "lemans.webp"
+  },
+  {
+    "id": "long_beach",
+    "circuit": "Long Beach",
+    "locality": "California",
+    "country": "USA",
+    "image": "long_beach.webp"
+  },
+  {
+    "id": "losail",
+    "circuit": "Lusail International Circuit",
+    "locality": "Lusail",
+    "country": "Qatar",
+    "image": "losail.webp"
+  },
+  {
+    "id": "magny_cours",
+    "circuit": "Circuit de Nevers Magny-Cours",
+    "locality": "Magny Cours",
+    "country": "France",
+    "image": "magny_cours.webp"
+  },
+  {
+    "id": "marina_bay",
+    "circuit": "Marina Bay Street Circuit",
+    "locality": "Marina Bay",
+    "country": "Singapore",
+    "image": "marina_bay.webp"
+  },
+  {
+    "id": "miami",
+    "circuit": "Miami International Autodrome",
+    "locality": "Miami",
+    "country": "USA",
+    "image": "miami.webp"
+  },
+  {
+    "id": "monaco",
+    "circuit": "Circuit de Monaco",
+    "locality": "Monte Carlo",
+    "country": "Monaco",
+    "image": "monaco.webp"
+  },
+  {
+    "id": "monsanto",
+    "circuit": "Monsanto Park Circuit",
+    "locality": "Lisbon",
+    "country": "Portugal",
+    "image": "monsanto.webp"
+  },
+  {
+    "id": "montjuic",
+    "circuit": "Montjuïc",
+    "locality": "Barcelona",
+    "country": "Spain",
+    "image": "montjuic.webp"
+  },
+  {
+    "id": "monza",
+    "circuit": "Autodromo Nazionale di Monza",
+    "locality": "Monza",
+    "country": "Italy",
+    "image": "monza.webp"
+  },
+  {
+    "id": "mosport",
+    "circuit": "Mosport International Raceway",
+    "locality": "Ontario",
+    "country": "Canada",
+    "image": "mosport.webp"
+  },
+  {
+    "id": "mugello",
+    "circuit": "Autodromo Internazionale del Mugello",
+    "locality": "Mugello",
+    "country": "Italy",
+    "image": "mugello.webp"
+  },
+  {
+    "id": "nivelles",
+    "circuit": "Nivelles-Baulers",
+    "locality": "Brussels",
+    "country": "Belgium",
+    "image": "nivelles.webp"
+  },
+  {
+    "id": "nurburgring",
+    "circuit": "Nürburgring",
+    "locality": "Nürburg",
+    "country": "Germany",
+    "image": "nurburgring.webp"
+  },
+  {
+    "id": "okayama",
+    "circuit": "Okayama International Circuit",
+    "locality": "Okayama",
+    "country": "Japan",
+    "image": "okayama.webp"
+  },
+  {
+    "id": "pedralbes",
+    "circuit": "Circuit de Pedralbes",
+    "locality": "Barcelona",
+    "country": "Spain",
+    "image": "pedralbes.webp"
+  },
+  {
+    "id": "pescara",
+    "circuit": "Pescara Circuit",
+    "locality": "Pescara",
+    "country": "Italy",
+    "image": "pescara.webp"
+  },
+  {
+    "id": "phoenix",
+    "circuit": "Phoenix street circuit",
+    "locality": "Phoenix",
+    "country": "USA",
+    "image": "phoenix.webp"
+  },
+  {
+    "id": "portimao",
+    "circuit": "Autódromo Internacional do Algarve",
+    "locality": "Portimão",
+    "country": "Portugal",
+    "image": "portimao.webp"
+  },
+  {
+    "id": "red_bull_ring",
+    "circuit": "Red Bull Ring",
+    "locality": "Spielberg",
+    "country": "Austria",
+    "image": "red_bull_ring.webp"
+  },
+  {
+    "id": "reims",
+    "circuit": "Reims-Gueux",
+    "locality": "Reims",
+    "country": "France",
+    "image": "reims.webp"
+  },
+  {
+    "id": "ricard",
+    "circuit": "Circuit Paul Ricard",
+    "locality": "Le Castellet",
+    "country": "France",
+    "image": "ricard.webp"
+  },
+  {
+    "id": "riverside",
+    "circuit": "Riverside International Raceway",
+    "locality": "California",
+    "country": "USA",
+    "image": "riverside.webp"
+  },
+  {
+    "id": "rodriguez",
+    "circuit": "Autódromo Hermanos Rodríguez",
+    "locality": "Mexico City",
+    "country": "Mexico",
+    "image": "rodriguez.webp"
+  },
+  {
+    "id": "sebring",
+    "circuit": "Sebring International Raceway",
+    "locality": "Florida",
+    "country": "USA",
+    "image": "sebring.webp"
+  },
+  {
+    "id": "sepang",
+    "circuit": "Sepang International Circuit",
+    "locality": "Kuala Lumpur",
+    "country": "Malaysia",
+    "image": "sepang.webp"
+  },
+  {
+    "id": "shanghai",
+    "circuit": "Shanghai International Circuit",
+    "locality": "Shanghai",
+    "country": "China",
+    "image": "shanghai.webp"
+  },
+  {
+    "id": "silverstone",
+    "circuit": "Silverstone Circuit",
+    "locality": "Silverstone",
+    "country": "UK",
+    "image": "silverstone.webp"
+  },
+  {
+    "id": "sochi",
+    "circuit": "Sochi Autodrom",
+    "locality": "Sochi",
+    "country": "Russia",
+    "image": "sochi.webp"
+  },
+  {
+    "id": "spa",
+    "circuit": "Circuit de Spa-Francorchamps",
+    "locality": "Spa",
+    "country": "Belgium",
+    "image": "spa.webp"
+  },
+  {
+    "id": "suzuka",
+    "circuit": "Suzuka Circuit",
+    "locality": "Suzuka",
+    "country": "Japan",
+    "image": "suzuka.webp"
+  },
+  {
+    "id": "tremblant",
+    "circuit": "Circuit Mont-Tremblant",
+    "locality": "Quebec",
+    "country": "Canada",
+    "image": "tremblant.webp"
+  },
+  {
+    "id": "valencia",
+    "circuit": "Valencia Street Circuit",
+    "locality": "Valencia",
+    "country": "Spain",
+    "image": "valencia.webp"
+  },
+  {
+    "id": "vegas",
+    "circuit": "Las Vegas Strip Street Circuit",
+    "locality": "Las Vegas",
+    "country": "USA",
+    "image": "vegas.webp"
+  },
+  {
+    "id": "villeneuve",
+    "circuit": "Circuit Gilles Villeneuve",
+    "locality": "Montreal",
+    "country": "Canada",
+    "image": "villeneuve.webp"
+  },
+  {
+    "id": "watkins_glen",
+    "circuit": "Watkins Glen",
+    "locality": "New York State",
+    "country": "USA",
+    "image": "watkins_glen.webp"
+  },
+  {
+    "id": "yas_marina",
+    "circuit": "Yas Marina Circuit",
+    "locality": "Abu Dhabi",
+    "country": "UAE",
+    "image": "yas_marina.webp"
+  },
+  {
+    "id": "yeongam",
+    "circuit": "Korean International Circuit",
+    "locality": "Yeongam County",
+    "country": "Korea",
+    "image": "yeongam.webp"
+  },
+  {
+    "id": "zandvoort",
+    "circuit": "Circuit Park Zandvoort",
+    "locality": "Zandvoort",
+    "country": "Netherlands",
+    "image": "zandvoort.webp"
+  },
+  {
+    "id": "zeltweg",
+    "circuit": "Zeltweg",
+    "locality": "Styria",
+    "country": "Austria",
+    "image": "zeltweg.webp"
+  },
+  {
+    "id": "zolder",
+    "circuit": "Zolder",
+    "locality": "Heusden-Zolder",
+    "country": "Belgium",
+    "image": "zolder.webp"
+  }
+]

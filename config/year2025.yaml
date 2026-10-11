@@ -1,0 +1,3 @@
+# Eén download per coureur met dezelfde gefocuste tijdvensters voor de berekening.
+locatie_ophalen: per_coureur
+max_pit_detail_exports: 20

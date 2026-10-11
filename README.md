@@ -1,0 +1,275 @@
+> Website: https://espierin.github.io/overtakeitaway/
+> Repository: https://github.com/espierin/overtakeitaway
+
+# Formula 1 Statistics
+
+Lokaal Python-programma voor controleerbare Grand Prix-analyses in het Nederlands, vanaf 2023. Geen websitehosting, accounts of betaalde AI-API nodig. OpenF1 is de timingbron; openbare aanvullende bronnen worden geregistreerd. F1gures biedt openbare sitebestanden, geen door ons vastgestelde gedocumenteerde API; bij onbereikbaarheid werkt de rest en is expliciete import mogelijk.
+
+## Installatie
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install -e '.[test]'
+```
+
+In deze workspace is dit al uitgevoerd. Start vanuit de projectmap. Met een geactiveerde virtualenv kan `python` worden gebruikt; zonder activeren gebruik je `.venv/bin/python`.
+
+## Via Codex
+
+Zeg bijvoorbeeld: “Analyseer de Grand Prix van Nederland van 2025 en genereer alle rapporten en infographics.” Codex voert dan uit:
+
+```bash
+.venv/bin/python -m f1_analysis analyse --year 2025 --gp Nederland
+```
+
+“Nederland”, “Dutch GP” en “Zandvoort” verwijzen naar dezelfde hoofdrace. Bij meerdere passende evenementen volgt een duidelijke foutmelding. Sprintgegevens worden afzonderlijk gehouden en niet in deze versie geanalyseerd.
+
+Singapore opnieuw analyseren met cache:
+
+```bash
+.venv/bin/python -m f1_analysis analyse --year 2025 --gp Singapore
+```
+
+Andere opdrachten:
+
+```bash
+.venv/bin/python -m f1_analysis races --year 2025
+.venv/bin/python -m f1_analysis analyse --year 2025 --gp Singapore --offline
+.venv/bin/python -m f1_analysis analyse --year 2025 --gp Singapore --refresh
+.venv/bin/python -m f1_analysis analyse --year 2025 --gp Singapore --from-run analyses/2025/singapore/runs/UITVOERING
+.venv/bin/python -m f1_analysis render --run analyses/2025/singapore/runs/UITVOERING
+.venv/bin/python -m pytest -q
+```
+
+`--from-run` analyseert opgeslagen genormaliseerde input opnieuw, met de huidige regels en correcties; locatievragen gebruiken alleen cache. `render` tekent dezelfde opgeslagen analyse opnieuw. Beide maken een nieuwe map. `--root /absoluut/projectpad` is een globale optie vóór het subcommando. `--refresh` vernieuwt bewust bronnen; zonder deze optie worden historische bestanden hergebruikt. Offline ontbrekende bronnen blijven zichtbaar als beperking.
+
+Open `analyses/index.html` in een browser. Iedere uitvoering heeft `overzicht.html`, zeven rapporten in Markdown én HTML, PNG/SVG-grafieken en een interactieve kaart die offline werkt. `latest.json` verwijst naar de laatste geslaagde uitvoering, die ook gedeeltelijk mag zijn. Mislukte uitvoeringen behouden hun manifest en wijzigen deze verwijzing niet.
+
+## Instellingen en tellingen
+
+`config/defaults.yaml` bevat onder meer de slotfase (laatste 25%, naar boven afgerond), pitmarge, timingvensters, verkeersfilter en locatiegrenzen. Met `--config eigen.yaml` overschrijf je specifieke instellingen.
+
+OpenF1 `overtakes` bevat ook pitstop- en andere positiewisselingen en kan onvolledig zijn. De oorspronkelijke feedtelling, de geclassificeerde basistelling op de baan vanaf ronde 2 en een aanvullende analytische telling blijven gescheiden. Teamwisselingen worden in de aanvullende telling standaard uitgesloten; technisch positieverlies blijft standaard in de basis én aanvullende telling. Incidentwisselingen worden apart bewaard. De telling is timinggebaseerd en geen videoverificatie van elke manoeuvre.
+
+Voor een expliciete alternatieve selectie:
+
+```yaml
+analytisch_technisch_verlies_uitsluiten: true
+```
+
+Alle gebeurtenissen, bronregistraties, uitsluitingen en correcties staan in `exports/gebeurtenissen.json` en `.csv`. Ronde 1 krijgt altijd een apart rapport. Pitlanestarters krijgen geen verzonnen numerieke gridpositie. De rondeconventie gebruikt de eigen lopende ronde van de inhaler; de andere coureursronde blijft in de export.
+
+## F1gures en aanvullende bronnen
+
+De downloader ontdekt het openbare racecomponent en het daarin gebruikte JSON-pad op de pagina zelf. Alleen expliciete ronde-eindposities in een bekende gegevensvorm worden geanalyseerd; bij ontbrekende posities, onbekende schema's of nog niet gevalideerde neutralisatie-uitbreiding blijft import nodig. OpenF1 en FastF1 zijn geen volledig onafhankelijke oorspronkelijke timingmetingen.
+
+Importeer een CSV of JSON-lijst:
+
+```bash
+.venv/bin/python -m f1_analysis analyse --year 2025 --gp Singapore --f1gures-import mijn-passes.csv
+```
+
+Verplichte velden per rij: `lap_number`, `overtaking_driver_number`, `overtaken_driver_number`, `source_url`, `source_title`, `definition`. Optioneel: `year`, `session_key`, `date`, `compound`. Bron-URL moet HTTPS zijn. De import blijft als handmatig aangeleverd herkenbaar. Er is een schema-voorbeeld in `config/f1gures-import.example.csv` met alleen de kolomkoppen; het bevat geen verzonnen gebeurtenissen.
+
+`config/sources.yaml` is het uitbreidbare bronregister. Voor volgende GP's voeg je relevante officiële verslagen en gecontroleerde claims toe met `year`, `gp`, titel, URL en uitgever. Gecontroleerde claimregels zijn expliciete onderzoeksaantekeningen, geen automatisch uit een artikel geraden oorzaken. Ze worden alleen toegepast als de bron lokaal opgehaald is en de gebeurteniscontext past. Afwezigheid van specifieke bronnen blijft een beperking.
+
+## Correcties en reproduceerbaarheid
+
+Correcties staan per GP in `analyses/JAAR/GP/corrections/overrides.yaml`. Elke correctie vereist gebeurtenis-ID, reden, bron-URL en gewijzigde velden:
+
+```yaml
+events:
+  - event_id: bestaande-ID-uit-export
+    reason: Onderbouwing van de wijziging
+    source_url: https://betreffende-bron.example/document
+    set:
+      type: mogelijke_teamorder
+```
+
+Oorspronkelijke en gewijzigde waarden worden samen opgeslagen. Een onbekende ID of ongeoorloofd veld faalt expliciet. Manifesten bevatten configuratie, sessies, bron-URL's, ophaaltijden, code-identificatie, hashes, dekking, status, correcties en bestandsoverzicht. Cachebestanden worden door de exacte URL geïdentificeerd. De index toont per race uitsluitend de nieuwste geslaagde uitvoering. De jaarverwerking verwijdert oudere uitvoeringen na een geslaagde vervanging; broncache en correcties blijven behouden.
+
+## Grenzen van versie 0.1
+
+- Geen garantie op volledigheid van de overtakes-feed. Startregistraties zijn geen bewezen afzonderlijke manoeuvres.
+- F1gures is in Singapore automatisch opgehaald: de vergelijking staat in het inhaalrapport en `exports/bronvergelijking.json`. Gegevens kunnen bij andere uitvoeringen ontbreken wanneer het openbare JSON-bestand onbereikbaar is. Dan is geen onafhankelijke telling beschikbaar.
+- Strategie vergelijkt afgeronde pitstopcycli van nabije tegenstanders; brandstof, verkeer, banden en baanontwikkeling worden niet causaal gescheiden. Een rondetijdtrend is geen zuivere degradatie.
+- Locaties gebruiken beide coureurs in een tijdvenster en blijven meestal geschatte zones. Geen geografische oriëntatie of schaal in meters uit arbitraire OpenF1-coördinaten. Ontbrekende punten worden niet ingevuld.
+- Teamradio: audiolinkregister, geen automatische transcriptie. Geen afzonderlijke remtelemetrie- of DRS-oorzaakanalyse.
+- De eerste proef wordt als gedeeltelijk gemarkeerd. Het jaarendpoint voor circuitgeometrie geeft een basiskaart uit 2023 terug; de baanvariant is visueel gecontroleerd aan de officiële FIA-kaart van 2025 (19 bochten). Benaderde bochtlabels zijn zichtbaar; dit bevestigt geen manoeuvrecoördinaten. De oude tunnelpassage bij The Float behoort tot de variant tot en met 2022. De baanvorm is gemeten in de race van 2025. Voor andere races zonder geregistreerde officiële jaarcontrole meldt het programma dit expliciet. Het programma geeft ontbrekende datasets en verificatieonderdelen expliciet weer; nooit een geforceerde telling van 27.
+
+De tests gebruiken kleine stabiele fixtures. De echte Singapore-uitvoering controleert bronopslag, alle rapporten en figuren, optellingen, kaartdekking en lokale HTML-links. De hoofdinfographic is exact 3840 × 2160 pixels.
+
+Circuitkaarten zoeken bij elke nieuwe analyse het circuit op Wikipedia op (bij voorkeur via de circuitlink in Jolpica). Het artikel en de bronmetadata worden gecachet en opgeslagen. Offline analyses gebruiken dezelfde bron. `config/sources.yaml` bevat onder `circuit_annotations` de gecontroleerde koppeling van bochtnamen, historische namen en pit-in/out-zones aan een racejaar. Breid deze koppeling na broncontrole uit voor een volgende circuitvariant; gevonden tabelnamen zonder jaarcontrole blijven kandidaten. Niet elke bocht heeft een naam: het nummer blijft dan zichtbaar. Bij onbereikbare bronnen meldt het programma de ontbrekende dekking.
+
+PNG-, SVG- en interactieve kaarten tonen bochtnummers/namen, start/finish en rijrichtingspijlen. Paarse markeringen met ≈ geven de indicatieve pit-in/out-zone op de hoofdbaan aan; ze tekenen geen exacte pitlane of snelheidslimietlijn. Voor Singapore 2025 zijn Sheares, Memorial en de historische naam Singapore Sling gekoppeld aan Wikipedia, en de pit-in/out-zones aan de FIA-pitlanetekening.
+
+Grafiekstijl: aantallen acties en heatmaptellingen hebben uitsluitend gehele aswaarden; rondetijden en tijdsverschillen behouden passende decimalen. Coureurs gebruiken `team_colour` uit de OpenF1-racegegevens van het gekozen jaar. Teamgenoten hebben dezelfde kleur: het laagste startnummer is doorgetrokken, de andere coureur gestippeld. Startnummer en afkorting staan in de labels; aslabels krijgen een cursief, vet nummerlabel met een kader in teamkleur. De stijl is geïnspireerd op F1-weergaven en gebruikt de beschikbare lokale lettertypen. Bij staafdiagrammen onderscheidt gevuld versus gestippeld kader uitgevoerd en ondergaan. Banden blijven in compoundkleuren. De gebruikte kleuren en lijnstijlen staan in `data/derived/driver-styles.json`.
+
+De interactieve circuitkaart toont bij hover, toetsenbordfocus of een tik op een inhaalmarker een popup met ronde, inhalende coureur en ingehaalde coureur, inclusief startnummers en teamkleuren. Acties die dezelfde kaartzone delen worden samen weergegeven. Filters bepalen welke acties de popup toont; de popup blijft binnen het venster en sluit met Escape. In de actie-staafdiagrammen staan startnummer en achternaam boven de balkgroepen.
+
+Het analyseoverzicht is nu een volledig offline interactief dashboard met tien gekoppelde grafieken: acties per ronde, acties per coureur, inhaler/ingehaalde-paren, circuitkaart, posities, bandenstints, rondetijden, ronde 1, pitstopcyclusoverzicht en cyclusdetails. Coureur- en teamselectie, rondereeks en compound koppelen de grafieken. Gebeurtenisfilters voor type, locatie en teldefinitie gelden voor actiegegevens; de andere grafieken vermelden hun eigen context. Hover benadrukt zonder tellingen te wijzigen. Klikken kiest een ronde, coureur, paar of stint; slepen op een lege plotachtergrond kiest een rondereeks. Rondevelden vormen het toetsenbordalternatief. Pitcycli blijven beoordeeld op de volledige cyclus na beide stops; ronde 1 houdt een vaste begin/eindvergelijking.
+
+Vanuit kaartmarkers en tabelregels opent een dialoog met ronde, beide coureurs, banden, classificatie, onzekerheid, bronclaims en oorspronkelijke bronregistraties. De huidige selectie is als CSV te downloaden en in de adresbalk te bewaren. `Alles herstellen` verwijdert alle filters. De vaste verslagen en alle PNG/SVG-exports staan onderaan in een uitklapbaar archief. Inhaler/ingehaalde-labels staan verticaal, met beide startnummers en namen. De interactieve onderdelen gebruiken lokale JavaScript en CSS; er is geen server of hosting nodig.
+
+Validatie van het dashboard staat in `research/qa/check-dashboard.cjs`: de echte gegenereerde JavaScript draait met een DOM-testadapter. Deze controle toetst tellingen, gekoppelde selecties, details, lege selecties, CSV en bewaarde filters. Los gerenderde SVG-grafieken worden visueel gecontroleerd. Dit vervangt geen volledige browserrendercontrole als de app-browserverbinding niet beschikbaar is.
+
+Alle 24 hoofdraces van 2025 genereren en oudere uitvoeringen opruimen:
+
+```bash
+.venv/bin/python -u research/generate_2025.py
+```
+
+De hervatbare jaarverwerking schrijft `analyses/2025/season-manifest.json` en houdt één nieuwste uitvoering per race aan. Open `index.html` voor het raceoverzicht. De jaarconfiguratie haalt locatiegegevens per coureur op en gebruikt daaruit dezelfde lokale gebeurtenisvensters. Een onbruikbare vijfde ronde voor de baanvorm valt terug op een andere volledige gemeten ronde. Alle pitstopvergelijkingen blijven beschikbaar in het dashboard en de gegevens; maximaal twintig vergelijkingen met de grootste absolute tijdwinst krijgen daarnaast een losse PNG/SVG-detailgrafiek.
+
+Bij de coureurselectie staan **Alles selecteren** en **Niets selecteren**. Niets selecteren geeft nul geselecteerde coureurs en gebeurtenissen in alle gekoppelde grafieken. Daarna kan één coureur of team worden toegevoegd. Alles selecteren kiest alle coureurs en wist een eventueel paarfilter; de andere filters blijven behouden. Deze keuze wordt ook in de bewaarde selectie opgenomen.
+
+Historische seizoenen vanaf 2020 kunnen met dezelfde opdrachten worden verwerkt. Voor 2020–2022 gebruikt het programma het openbare F1-timingarchief via FastF1 3.8.3 en Jolpica voor kalender, werkelijke grid en uitslag. Positiewisselingen worden uit de verwerkte timing gereconstrueerd en als kandidaten gecontroleerd; dit is geen officiële gebeurtenissenfeed. Synthetische FastF1-ronden worden uitgesloten. De originele archiefbestanden, verwerkt model en bronhashes blijven lokaal bewaard. Ontbrekende gegevens blijven zichtbaar als onbekend.
+
+Alle hoofdraces van meerdere jaren genereren en alleen de nieuwste uitvoering per race behouden:
+
+```bash
+.venv/bin/python research/generate_seasons.py --years 2024 2023 2022 2021 2020
+```
+
+De kalender omvat respectievelijk 24, 22, 22, 22 en 17 races. Dubbele races op één circuit blijven afzonderlijke evenementen. De voortgang wordt per jaar opgeslagen in `analyses/<jaar>/season-manifest.json`; een herstart gebruikt broncache en slaat actuele geslaagde uitvoeringen over. Dashboardfilters, bronpopups, rijdernummers en Alles/Niets selecteren gelden voor alle jaren. Parallelle seizoenbouwers delen de aanvraagbegrenzing voor OpenF1.
+
+## Historisch archief 1950–2019
+
+Het overzicht is uitgebreid tot het eerste wereldkampioenschapsseizoen, **1950**. De 1.018 races van 1950–2019 hebben elk een historisch raceoverzicht; samen met de 131 bestaande uitgebreide timinganalyses van 2020–2025 zijn dit **1.149 races in 76 seizoenen**. Indianapolis telt mee in de jaren waarin deze race onderdeel van het wereldkampioenschap was. De hoofdindex en `analyses/index.html` groeperen races per decennium en seizoen, nieuwste eerst. Zoeken op jaar, race, circuit of datadekking opent de passende groepen; Alles uitklappen/inklappen helpt bij navigatie.
+
+De historische overzichten gebruiken de publieke Jolpica CSV-databasedump, die veertien dagen vertraagd beschikbaar is. De originele ZIP staat onveranderd onder `analyses/sources/jolpica/<sha256>.zip`; de downloadhash is gecontroleerd tegen de broncatalogus. Iedere race bewaart de bijbehorende originele bronrecords, een genormaliseerd model, exports, zeven rapporten en een 3840 × 2160 infographic in PNG plus SVG. Manifesten tonen bron, ophaaltijd, hash en dekking. De opgeslagen database maakt de bestaande overzichten volledig offline bruikbaar.
+
+Uitslagen en startposities zijn beschikbaar vanaf 1950. Afzonderlijke rondegegevens beginnen in deze dump in 1996, pitstopregistraties in 2011; de feitelijke dekking staat per race vermeld. Posities aan het ronde-einde zijn **geen inhaalfeed**. Inhaalacties, bandencompounds, neutralisaties, pit-in/out en circuitlocaties zijn in deze historische overzichten onbekend. Ook 2018–2019 gebruikt in deze uitbreiding het uitslagenarchief; de uitgebreidere FastF1-timingbron is daarvoor niet automatisch verwerkt. Ontbrekende pitregistraties betekenen geen bevestigde nul stops. Historische teamkleuren zijn niet uit actuele databasekleuren afgeleid; neutrale lijnen met lijnpatronen voorkomen een onbevestigde historische kleurclaim. Startnummers komen uit de race zelf. Gedeelde auto's met meerdere coureurs blijven afzonderlijke bronentries met hetzelfde nummer.
+
+De historische dashboards hebben Alles/Niets selecteren, teamfilter, coureursselectie, zoekveld, sorteerbare uitslag, klikbare brongegevens, rondebereik en hoverinformatie bij posities en rondetijden. Bronwaarden zijn niet gefilterd voor pitstops of neutralisaties; er wordt geen bandenstrategie uit afgeleid.
+
+Een historische race opnieuw ophalen of uit cache bekijken:
+
+```bash
+.venv/bin/python -m f1_analysis analyse --year 1950 --gp 'British Grand Prix' --offline
+.venv/bin/python -m f1_analysis analyse --year 1996 --gp Monaco --offline
+```
+
+Alle historische overzichten opbouwen of hervatten:
+
+```bash
+.venv/bin/python research/generate_archive.py --from-year 1950 --through-year 2019 --offline
+```
+
+Laat `--offline` weg om de publieke download op te halen als die nog niet in de cache staat. Iedere race behoudt één nieuwste geslaagde uitvoering. Het programma verwerkt uitsluitend daadwerkelijke, niet geannuleerde hoofdraces uit de brondatabase; ontbrekende feiten worden niet aangevuld.
+
+Controle van het uitgebreide archief:
+
+```bash
+.venv/bin/python -m pytest -q
+.venv/bin/python research/verify_archive.py
+.venv/bin/python research/verify_seasons.py --years 2020 2021 2022 2023 2024 2025
+node research/qa/check-archive.cjs
+node research/qa/check-season.cjs
+```
+
+De JavaScript-controles voeren de werkelijke dashboardscripts uit in een NodeVM met een eenvoudige DOM; dit is geen visuele browsertest. Integratiecontroles controleren bronrecords, dekking, bestandshashes, links, PNG-afmetingen en één nieuwste uitvoering per race. Bewijsbestanden staan onder `research/qa/`.
+
+Het standaard rijdersfilter staat als vaste timingtoren links naast ieder dashboard. Rijders staan alfabetisch op achternaam, met hun startnummer, drielettercode en een teamkleurstrook. Klikken schakelt uitsluitend die rijder aan/uit; de andere selecties blijven behouden. Alles/Niets staat onderaan. Het menu blijft op dezelfde plaats tijdens het scrollen; bij een lang deelnemersveld kan alleen de lijst binnen het menu scrollen. Historische overzichten gebruiken broncodes wanneer beschikbaar en anders een afkorting voor de weergave; onbevestigde historische teamkleuren blijven neutraal.
+
+De bovenbalk met racefilters schuift met de pagina mee tot hij de bovenrand bereikt en blijft daar vervolgens staan. De rondekeuze gebruikt twee verschuifbare bolletjes op één balk, van ronde 1 tot de laatste ronde, met directe updates van de grafieken en een zichtbaar van–tot-label. De bolletjes kruisen elkaar niet. Reset herstelt de volledige race en alle rijders. Reeks vooruit/achteruit behoudt de lengte van de selectie; knoppen zijn uitgeschakeld aan de grenzen en beide grijs bij selectie van de hele race. Telling, type en banden zijn uit de bovenbalk verwijderd; de onderliggende telmethode en aparte ronde-1-analyse blijven vermeld in de rapportage.
+
+Teams selecteren staat in- en uitklapbaar onder de rijders in het linker filtermenu, in NL en EN. De eerste teamklik na een individuele selectie of Alles/Niets vervangt de rijdersselectie door dat team. Volgende teamklikken voegen alle rijders van het team toe of verwijderen ze; andere geselecteerde teams blijven behouden. Het laatste team uitzetten geeft een lege selectie. Een individuele rijderklik hervat de individuele selectiemodus; de volgende teamklik begint opnieuw met alleen dat team. Rondebereik en overige grafiekcontext blijven behouden.
+
+De highlightkaarten tonen beschikbare racefeiten (winnaar, P1 op de startopstelling, officiële snelste ronde, winsttijd en grootste opmars) en aantallen voor de gekozen rondereeks, onafhankelijk van de geselecteerde rijders (inhaalacties, succesvolle undercuts/overcuts en de actiefste inhaler). Succesvolle strategiegevallen vereisen de bestaande beoordeling `Geslaagd` met positiewinst na een complete pitstopcyclus. Gelijke maxima blijven gezamenlijk zichtbaar; ontbrekende highlights worden volledig weggelaten, vastgestelde nulwaarden blijven staan. Rijders gebruiken dezelfde nummer–kleurstrook–afkorting als het zijmenu, met volledige naam als hovertekst. Historische overzichten leiden geen overtakes of strategie uit alleen rondeposities af.
+
+## Compacte GitHub-publicatie en automatische verwerking
+
+De bestaande lokale website, analyseberekeningen en dashboardbediening blijven hetzelfde. De nieuwe modules vormen een aparte opslag- en publicatielaag. De lokale `index.html` blijft rechtstreeks te openen. De compacte publicatie is voor HTTP/HTTPS bedoeld, inclusief GitHub Pages.
+
+### Opslagindeling
+
+- `src/`, `config/`, `tests/`, installatiebestanden en `.github/` gaan in de coderepository. Grote uitvoer, cache en lokale omgevingen staan in `.gitignore`.
+- `storage/archives/` bevat onveranderlijke, gecomprimeerde seizoenarchieven van de nieuwste geslaagde uitvoering van elke race. Dat omvat oorspronkelijke invoer, tussenmodellen, correcties, manifesten, originele PNG/SVG-bestanden en beschikbare oorspronkelijke HTTP-cachebestanden die bij de geregistreerde bronhash passen. De historische Jolpica-dump en zijn aanvraagcache worden afzonderlijk gedeeld opgeslagen.
+- `_storage/index.json` registreert archiefnamen, SHA-256, omvang en toekomstige GitHub Release-tags. Bestandsnamen bevatten een inhoudshash. Een bestaand archief wordt nooit stilzwijgend vervangen.
+- `dist/pages/` bevat alleen de gepubliceerde website en daadwerkelijk gelinkte gegevens. Identieke scripts en stijlen worden één keer opgeslagen, zonder hun inhoud te veranderen. Paginabestanden worden verliesloos met gzip bewaard; een onzichtbare lader pakt het volledige oorspronkelijke document uit voordat de dashboardscripts starten. Dashboard-JSON, bediening en uiteindelijke DOM blijven identiek. JSON/CSV-downloads blijven rechtstreeks beschikbaar.
+- Grafieken worden verliesloos opgeslagen: PNG-pixels als WebP, SVG-bytes als gzip. Afbeeldingen in dashboards hebben dezelfde pixels en afmetingen. De bestaande PNG/SVG-links openen via de technische medialader weer het oorspronkelijke formaat. Een service worker bewaart daarbij de oorspronkelijke URL en bestandsnaam; oudere browsers gebruiken een blob-weergave. PNG wordt uit dezelfde pixels opnieuw gecodeerd; originele PNG-bytes en metadata blijven in het seizoenarchief. De service worker werkt ook onder een GitHub Pages-projectpad. Voor deze compacte publicatie zijn moderne browsers met WebP, Canvas en DecompressionStream nodig.
+- GitHub Releases bewaren de oorspronkelijke archieven én een geverifieerde compacte website-snapshot. Een nieuwe statusreferentie wordt pas geüpload nadat de bestanden en GitHub-opslaghashes zijn gecontroleerd. Er is geen externe opslagdienst nodig.
+
+### Voorbereiden vanuit deze projectmap
+
+```bash
+.venv/bin/python -m f1_analysis.publication archive
+.venv/bin/python -m f1_analysis.publication build
+.venv/bin/python -m f1_analysis.publication verify
+.venv/bin/python -m f1_analysis.publication compare
+```
+
+Als je ondertussen aan de website werkt, gebruik dan een vaste bronkopie:
+
+```bash
+.venv/bin/python -m f1_analysis.publication freeze --output storage/frozen-source-next
+.venv/bin/python -m f1_analysis.publication --root storage/frozen-source-next build --output ../../dist/pages-next
+.venv/bin/python -m f1_analysis.publication --root storage/frozen-source-next compare --site ../../dist/pages-next
+```
+
+`freeze` vereist eerst volledige seizoenarchieven. Gewijzigde dashboardbestanden worden apart verliesloos gearchiveerd als presentatieaanvulling; bij herstel komt deze na het seizoenarchief. De kopie schrijft niets terug naar de website. Voor grotere herhalingen kan de bestaande `storage/media-cache` naar de bronkopie worden gekopieerd; dit bespaart uitsluitend verwerkingstijd. Rond websitewijzigingen af en maak een nieuwe gecontroleerde publicatie voordat je GitHub activeert.
+
+`build` verwacht een lege uitvoermap. Gebruik bij een volgende proef bijvoorbeeld `--output dist/pages-next`, of verwijder uitsluitend de vorige publicatie-uitvoer. De publicatiestap schrijft eerst naar een tijdelijke map en vervangt de uitvoermap pas na controle van links, SVG-hashes, PNG-pixels en het ruimtebudget. De standaard publicatie omvat 1950–heden; `--from-year` beperkt de selectie. De primaire index wordt dan met dezelfde bestaande vormgeving beperkt tot de gekozen jaren; de standaard gebruikt het volledige archief.
+
+Instellingen staan in `config/publication.yaml`: maximaal 900 miljoen websitebytes, drie races per update, minimaal 45 minuten na het geregistreerde sessie-einde, een uur tussen pogingen voor ontbrekende races, zes uur tussen heranalyses van reeds gepubliceerde recente races en veertien dagen waarin recente races opnieuw worden verwerkt. Alle data worden eerst opgehaald; alleen na controle wordt een nieuw `latest.json` gepubliceerd. Een lege inhaal- of pitstopfeed wordt niet automatisch als fout behandeld. Bevestigd race-einde, uitslag voor alle deelnemers, definitieve winnaarafstand, laatste winnaarsronde, ronden, posities, stints en race control zijn wel voorwaarden. Deze technische dekking vervangt geen handmatige bronverificatie: analyses blijven terecht als gedeeltelijk gemarkeerd.
+
+### Gecontroleerde momentopname
+
+Op 11 oktober 2026 is een vaste kopie gecontroleerd terwijl de lokale website verder werd bewerkt. De publicatie bevat alle 1.149 beschikbare races uit 1950–2025: 647.816.526 bytes (circa 648 MB), 9.248 unieke grafiekbestanden en 63.341 gecontroleerde links. De actieve oorspronkelijke seizoen- en bronarchieven plus de presentatieaanvulling bedragen samen 2.534.235.447 bytes (circa 2,53 GB); het grootste afzonderlijke archief is circa 378 MB. Deze archieven komen in Releases en tellen niet als websitebestanden. De 69 tests zijn geslaagd. Alle 9.325 pagina’s hebben dezelfde zichtbare tekst, bediening, scripts, dashboardgegevens en opmaak als de vaste bronkopie. De browsercontrole van een historisch en een modern dashboard leverde identieke screenshots op; selectie en taalwisseling werken. De kopie staat in `storage/frozen-source`, de openbare uitvoer in `dist/pages`. De live website en lokale brongegevens blijven beschikbaar. De codebundel is eveneens een momentopname; herhaal de voorbereiding na verdere wijzigingen.
+
+### Eenmalig activeren op GitHub
+
+1. Maak een openbare repository en plaats alleen de code, configuratie, tests, installatiebestanden en `.github/` daarin. De voorbereide codebundel staat na de controle in `storage/github-ready-code.zip`.
+2. Kies bij **Settings → Pages → Build and deployment** als bron **GitHub Actions**. Geef de workflow schrijfrechten voor repository-inhoud, Pages en de deployment-identiteit; de workflow vraagt die rechten zelf aan. Organisatiebeleid of branchbeveiliging moet de maandelijkse onderhoudscommit toestaan.
+3. Meld lokaal de GitHub CLI aan met een account dat in de repository mag schrijven. Exporteer een token alleen voor deze opdracht, niet in bestanden of Git. Vul de echte eigenaar/repository in:
+
+```bash
+GH_TOKEN="$(gh auth token)" .venv/bin/python -m f1_analysis.github_storage \
+  --repository EIGENAAR/REPOSITORY bootstrap
+```
+
+De Pages-instellingen en workflow volgen de [officiële GitHub Pages-handleiding](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
+
+Deze expliciete opdracht uploadt de bestaande, gecontroleerde seizoenarchieven en de eerste website-snapshot naar Releases. Zij maakt geen repository en publiceert nog geen Pages-site. Het GitHub-account en de repository zijn niet in dit project vastgelegd.
+
+4. Start in **Actions** de workflow **Races bijwerken en website publiceren** eenmalig handmatig. Daarna controleert deze elk uur op minuut 17 automatisch nieuwe data. De computer thuis hoeft niet aan te blijven.
+
+De workflow herstelt de compacte snapshot, ontdekt kandidaten met verse bronaanvragen, herstelt alleen de benodigde volledige seizoenen, analyseert beschikbare races, archiveert/verifieert ze en publiceert Pages. Onbeschikbare races worden later opnieuw geprobeerd. Gelijke timingfeeds, uitslagen en onafhankelijke gegevens worden via inhoudshashes herkend: een controle zonder inhoudelijke verandering maakt geen nieuwe analyse of groot seizoenarchief. Alleen kleine retry-statussen worden bijgewerkt. Problemen bij één race laten bestaande geslaagde uitvoeringen staan; geslaagde races kunnen worden gepubliceerd terwijl de workflow de fout zichtbaar meldt. Een mislukte archivering of publicatiecontrole blokkeert publicatie en opruimen.
+
+Een kleine maandelijkse onderhoudscommit houdt de planning actief, ook tijdens de winterstop: openbare GitHub-workflows kunnen anders na 60 dagen zonder repositoryactiviteit worden uitgeschakeld. Verbied je automatische commits op de standaardbranch, dan moet je deze planning zelf actief houden. Na geslaagde publicatie worden oude beheerde Release-bestanden opgeruimd. Er blijven minimaal twee seizoenversies en drie herstelstatussen beschikbaar, plus ieder archief waar die statussen naar verwijzen. De huidige status en zijn bronarchieven worden nooit verwijderd. Instellingen: `archive_versions` en `snapshot_versions`. Onbekende bestanden en oudere statussen zonder referentiegraaf blokkeren automatische verwijdering.
+
+### Opruimen en herstellen
+
+```bash
+# Eerst alleen tonen wat veilig kan worden verwijderd:
+.venv/bin/python -m f1_analysis.publication cleanup
+# Na controle van de geverifieerde archieven daadwerkelijk opruimen:
+.venv/bin/python -m f1_analysis.publication cleanup --apply
+```
+
+Opruimen verwijdert alleen geverifieerd gearchiveerde interne rungegevens en oude gearchiveerde HTTP-cachebestanden. Bestanden waar lokale HTML-rapporten naar linken blijven staan. Dashboards, figuren, correcties, de nieuwste verwijzingen en seizoenarchieven blijven staan. Een gewijzigd bestand zonder exact overeenkomende archiefhash blokkeert het opruimen. Het standaard cachevenster is 21 dagen. Lokale originelen worden tijdens het voorbereiden niet automatisch verwijderd; de GitHub-workflow ruimt pas na gecontroleerde opslag en publicatie op. Het wegvallen van de tijdelijke GitHub-runner is veilig omdat de invoer al in Releases staat.
+
+`--from-run` en `render` kunnen ontbrekende invoer automatisch uit de lokaal aanwezige seizoenarchieven herstellen. Een volledig seizoen terughalen van GitHub:
+
+```bash
+GH_TOKEN="$(gh auth token)" .venv/bin/python -m f1_analysis.github_storage \
+  --repository EIGENAAR/REPOSITORY restore-years --years 2025
+```
+
+Voor deze opdracht moet `_storage/index.json` beschikbaar zijn; zo nodig eerst `github_storage load`. Volledige archieven kunnen ook onafhankelijk worden hersteld:
+
+```bash
+.venv/bin/python -m f1_analysis.publication restore \
+  storage/archives/season-JAAR-INHOUDSHASH.tar.gz --sha256 VOLLEDIGE_SHA256
+```
+
+Afwijkende bestaande bestanden worden standaard niet overschreven. `--overwrite` is expliciet nodig voor vervanging. Download-, archief- en bestandsverificatie vinden vóór herstel plaats; absolute paden, symlinks, dubbele archiefpaden en paden buiten het project worden geweigerd.
+
+### Grenzen en controle
+
+Dit project heeft lokaal opslag-/hersteltests en websitecontroles. De daadwerkelijke GitHub-rechten, eerste upload en Pages-deployment kunnen pas worden getoetst wanneer een repository is gekozen en geactiveerd. De geplande verwerking gebruikt geen AI-API of Codex-abonnement. Zij maakt geen automatische causale bronclaims, bochtverificaties of handmatige correcties. GitHub-planning is geen realtimegarantie; er kunnen vertragingen zijn. Het websitebudget houdt ruimte over onder de Pages-limiet van 1 GB, maar bij toekomstige groei blijft een controle nodig.
+
+### Actuele publicatie — 11 oktober 2026
+
+De actuele bundel bevat alle 1.149 races en de laatste gecontroleerde dashboard- en indexopmaak, inclusief de 77 circuitachtergronden. De upload bewaart de bronarchieven en presentatieaanvulling in GitHub Releases; de website wordt gepubliceerd via GitHub Pages onder `/overtakeitaway/`. De workflow **Gecontroleerde website publiceren** herstelt en publiceert de gecontroleerde snapshot zonder vooraf nieuwe racegegevens te verwerken. **Races bijwerken en website publiceren** verzorgt de bestaande periodieke gegevensverwerking.

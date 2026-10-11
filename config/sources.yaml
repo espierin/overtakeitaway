@@ -1,0 +1,154 @@
+sources:
+  - id: openf1-documentatie
+    title: OpenF1 API-documentatie
+    url: https://openf1.org/docs/
+    publisher: OpenF1
+    type: documentatie
+    claims: [Historische dekking vanaf 2023, Overtakes omvat ook pitstopwisselingen en straffen]
+  - id: jolpica-documentatie
+    title: Jolpica results-documentatie
+    url: https://raw.githubusercontent.com/jolpica/jolpica-f1/main/docs/endpoints/results.md
+    publisher: Jolpica
+    format: md
+    type: documentatie
+    claims: [Gedocumenteerde openbare uitslag- en startgridvelden]
+  - id: singapore-fia-grid
+    year: 2025
+    gp: Singapore
+    title: FIA definitieve startopstelling — document 55
+    url: https://www.fia.com/system/files/decision-document/2025_singapore_grand_prix_-_final_starting_grid.pdf
+    publisher: FIA
+    format: pdf
+    type: officieel
+    claims: [Gasly en Albon starten uit de pitlane]
+    verified_facts:
+      pitlane_starters: [10, 23]
+  - id: singapore-fia-resultaat
+    year: 2025
+    gp: Singapore
+    title: FIA definitieve raceclassificatie — document 62
+    url: https://www.fia.com/system/files/decision-document/2025_singapore_grand_prix_-_final_race_classification.pdf
+    publisher: FIA
+    format: pdf
+    type: officieel
+    claims: [Definitieve uitslag, Hamilton krijgt vijf seconden straf voor baanlimieten]
+  - id: singapore-mercedes
+    year: 2025
+    gp: Singapore
+    title: Mercedes raceverslag Singapore 2025
+    url: https://www.mercedesamgf1.com/reports/race-report-victory-in-singapore
+    publisher: Mercedes-AMG PETRONAS F1 Team
+    type: officiele-verklaring
+    claims: [Antonelli passeert Leclerc bij bocht 16 in zijn tweede stint]
+    verified_facts:
+      passes:
+        - overtaker: 12
+          overtaken: 16
+          turn: 16
+          stint: 2
+          explanation: Mercedes bevestigt de inhaalmanoeuvre bij bocht 16; het verslag noemt geen ronde.
+  - id: singapore-f1-verslag
+    year: 2025
+    gp: Singapore
+    title: Formula 1 raceverslag Singapore 2025
+    url: https://www.formula1.com/en/latest/article/russell-storms-to-victory-in-singapore-as-mclaren-seal-teams.7cMITGtnc9fdxEaukmGVvI
+    publisher: Formula 1
+    type: redactioneel
+    claims: [Hamilton meldt remproblemen, Ferrari wisselt de coureurs terug]
+    verified_facts:
+      swaps:
+        - overtaker: 44
+          overtaken: 16
+          min_lap: 50
+          type: mogelijke_teamorder
+          explanation: Formula 1 beschrijft een Ferrari-wisseling om Antonelli aan te vallen.
+        - overtaker: 16
+          overtaken: 44
+          min_lap: 59
+          type: technisch_positieverlies
+          explanation: Formula 1 meldt remproblemen bij Hamilton en een terugwisseling. De basistelling blijft zichtbaar.
+  - id: singapore-banden
+    year: 2025
+    gp: Singapore
+    title: Formula 1 — reacties van teams en Pirelli
+    url: https://www.formula1.com/en/latest/article/what-the-teams-said-race-day-in-singapore-2025.68kVSFy7LPRy7yQsTpOuja
+    publisher: Formula 1 / Pirelli
+    type: officiele-verklaring
+    claims: [Pirelli beoordeelt medium als consistente keuze, Hard presteert eveneens goed]
+  - id: singapore-fia-pitstops
+    year: 2025
+    gp: Singapore
+    title: FIA timing — pitstopoverzicht
+    url: https://www.fia.com/sites/default/files/2025_18_sgp_f1_r0_timing_racepitstopsummary_v01.pdf
+    publisher: FIA
+    format: pdf
+    type: gestructureerde-officiele-timing
+    claims: [Pitlane-duur en pit-entry-tijd, Vergelijking met OpenF1 toont exitregistratie met enkele seconden timingverschil]
+  - id: singapore-hulkenberg
+    year: 2025
+    gp: Singapore
+    title: Formula 1 — Hulkenberg over zijn spin
+    url: https://www.formula1.com/en/video/hulkenberg-sums-up-his-singapore-grand-prix-not-our-day-not-our-race.1845151440818059667
+    publisher: Formula 1
+    type: officiele-verklaring
+    claims: [Hulkenberg spint in de slothelft; exacte koppeling aan timing wordt afzonderlijk beoordeeld]
+    verified_facts:
+      incidents:
+        - driver: 27
+          lap: 44
+          turn: 8
+          explanation: Formula 1 bevestigt een late spin; race control meldt het gevecht met Colapinto bij bocht 8. Koppeling aan eigen ronde 44 berust op het timingvenster; geen schuldtoewijzing.
+  - id: singapore-fia-baan-2025
+    year: 2025
+    gp: Singapore
+    title: FIA officiële circuitkaart Singapore 2025 — document 7, kaartpagina 4
+    url: https://www.fia.com/system/files/decision-document/2025_singapore_grand_prix_-_event_notes_-_circuit_map_pit_lane_emergency_exits_map_and_quarantine_zone.pdf
+    publisher: FIA
+    format: pdf
+    type: officieel
+    claims: [Jaarvariant 2025 heeft 19 bochten en een rechte verbinding tussen bocht 15 en 16]
+    verified_facts:
+      circuit_layout:
+        corners: 19
+        compatible_basis_year: 2023
+        display_rotation_degrees: 25
+        verification: Visuele vergelijking met pagina 4 van de FIA-kaart; volgorde en verbindingen van alle 19 bochten komen overeen. Coördinaten blijven benaderingen uit racedata en MultiViewer, geen officiële cartografie.
+        note: De oude passage onder de tribune bij The Float hoort bij de variant tot en met 2022; in 2025 verbindt een rechte lijn bocht 15 met 16. De huidige bochten 16 en 17 blijven bestaan.
+  - id: singapore-officiele-baanwijziging
+    year: 2025
+    gp: Singapore
+    title: Singapore GP — officiële aankondiging baanwijziging vanaf 2023
+    url: https://singaporegp.sg/en/news/22/2022-updates-to-the-marina-bay-street-circuit/
+    publisher: Singapore GP
+    type: officieel
+    claims: [Oude bochten 16 tot en met 19 vervangen door een rechte lijn van 397.9 meter vanaf 2023]
+
+# Brongetoetste namen en indicatieve zones; uitbreidbaar per circuitvariant.
+circuit_annotations:
+  Singapore:
+    wikipedia_url: https://en.wikipedia.org/wiki/Marina_Bay_Street_Circuit
+    variants:
+      - first_year: 2025
+        last_year: 2025
+        corner_count: 19
+        names:
+          - number: 1
+            name: Sheares
+          - number: 7
+            name: Memorial
+          - number: 10
+            name: Singapore Sling
+            historical: true
+        pit_zones:
+          - label: Pit-in
+            after_turn: 18
+            before_turn: 19
+            fraction: 0.30
+            note: Indicatieve aftakzone bij bocht 18; geen snelheidslimietlijn.
+          - label: Pit-out
+            after_turn: 1
+            before_turn: 2
+            fraction: 0.45
+            note: Indicatieve aansluiting in de eerste bochtencombinatie; geen snelheidslimietlijn.
+        pit_source_url: https://www.fia.com/system/files/decision-document/2025_singapore_grand_prix_-_event_notes_-_circuit_map_pit_lane_emergency_exits_map_and_quarantine_zone.pdf
+        pit_source_title: FIA pitlanetekening Singapore 2025 — document 7, pagina 2

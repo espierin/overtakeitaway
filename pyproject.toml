@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "f1-analysis"
+version = "0.1.0"
+description = "Controleerbare lokale Grand Prix-analyses in het Nederlands"
+requires-python = ">=3.11"
+dependencies = ["requests>=2.31", "numpy>=1.26", "matplotlib>=3.8", "PyYAML>=6", "beautifulsoup4>=4.12", "fastf1==3.8.3", "Pillow>=10"]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[project.scripts]
+f1-analyse = "f1_analysis.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.setuptools.package-data]
+f1_analysis = ["*.js", "*.css", "assets/*.png", "assets/cards/*.png", "assets/charts/*.png"]

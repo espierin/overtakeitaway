@@ -1,0 +1,71 @@
+name: Races bijwerken en website publiceren
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: f1-publication
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      MPLBACKEND: Agg
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.14'
+          cache: pip
+      - name: Verwerking installeren
+        run: |
+          python -m pip install -r requirements-lock.txt
+          python -m pip install --no-deps -e .
+      - name: Opslagcontroles
+        run: python -m pytest -q
+      - name: Laatste gecontroleerde website herstellen
+        run: python -m f1_analysis.github_storage load
+      - name: Nieuwe en recente races ontdekken
+        run: python -m f1_analysis.updater --dry-run
+      - name: Benodigde seizoenarchieven herstellen
+        run: python -m f1_analysis.github_storage restore-planned
+      - name: Beschikbare racedata analyseren
+        id: races
+        continue-on-error: true
+        run: python -m f1_analysis.updater
+      - name: Bronnen archiveren en volledig verifiëren
+        if: steps.races.outputs.changed == 'true'
+        run: python -m f1_analysis.publication archive
+      - name: Compacte website opbouwen en links controleren
+        run: python -m f1_analysis.publication build
+      - name: Dashboardinhoud en bediening vergelijken
+        run: python -m f1_analysis.publication compare
+      - name: Gecontroleerde archieven en hervatbare status opslaan
+        run: python -m f1_analysis.github_storage publish
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist/pages
+      - name: Website publiceren
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Tijdelijke verwerking opruimen
+        run: python -m f1_analysis.publication cleanup --apply
+      - name: Verouderde opslag opruimen met behoud van herstelversies
+        run: python -m f1_analysis.github_storage prune
+      - name: Automatische planning actief houden
+        run: python -m f1_analysis.github_storage heartbeat
+      - name: Racefouten zichtbaar melden
+        if: steps.races.outcome == 'failure'
+        run: |
+          echo 'Een of meer races konden niet worden verwerkt. De bestaande website en geslaagde races zijn behouden; een volgende uitvoering probeert opnieuw.'
+          exit 1
