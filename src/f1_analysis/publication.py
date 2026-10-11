@@ -664,7 +664,8 @@ def with_primary_race_facts(text):
 
 def with_race_notifications(text, source, root):
     """Install one shared visitor notifier on every published HTML page."""
-    text=text.replace('overtake-wordmark-v2.png','overtake-wordmark-v3.svg').replace('overtake-wordmark-v1.png','overtake-wordmark-v3.svg').replace('filter:blur(.18px) drop-shadow','filter:drop-shadow')
+    from .branding import with_original_wordmark
+    text=with_original_wordmark(text)
     from .race_navigation import refresh_navigation
     text=refresh_navigation(text,source,root)
     text=with_primary_race_facts(text)
