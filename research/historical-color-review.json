@@ -1,0 +1,637 @@
+{
+  "records": [
+    {
+      "teams": [
+        "Maserati"
+      ],
+      "from_year": 1950,
+      "to_year": 1969,
+      "main_colors": "Red",
+      "primary_hex": "#D40000",
+      "display_hex": "#E52B36",
+      "evidence": "manufacturer-history-works-colour-reference",
+      "source_url": "https://www.maserati.com/us/en/news/f-tributo-special-edition",
+      "note": "Works reference; private Maserati entrants could use their own colours."
+    },
+    {
+      "teams": [
+        "Talbot-Lago"
+      ],
+      "from_year": 1950,
+      "to_year": 1954,
+      "main_colors": "French blue",
+      "primary_hex": "#71C7E5",
+      "display_hex": "#71C7E5",
+      "evidence": "exhibitor-history-original-colour",
+      "source_url": "https://interclassics.events/talbot-lago-t26c/",
+      "note": "Original French blue reference; Belgian private entries could be yellow."
+    },
+    {
+      "teams": [
+        "HWM"
+      ],
+      "from_year": 1951,
+      "to_year": 1955,
+      "main_colors": "Pale metallic green",
+      "primary_hex": "#92CA9A",
+      "display_hex": "#92CA9A",
+      "evidence": "historical-works-colour-description",
+      "source_url": "https://www.classicandsportscar.com/features/hwm-surreys-sports-cars-first-last",
+      "note": "John Heath's works colour, introduced in 1948."
+    },
+    {
+      "teams": [
+        "Connaught"
+      ],
+      "from_year": 1952,
+      "to_year": 1959,
+      "main_colors": "Connaught green",
+      "primary_hex": "#176D49",
+      "display_hex": "#278F58",
+      "evidence": "museum-car-and-historical-paint-reference",
+      "source_url": "https://collection.sciencemuseumgroup.org.uk/objects/co25227/connaught-type-b-syracuse-racing-car",
+      "corroborating_url": "https://en.wikipedia.org/wiki/British_racing_green"
+    },
+    {
+      "teams": [
+        "Vanwall"
+      ],
+      "from_year": 1954,
+      "to_year": 1960,
+      "main_colors": "British racing green",
+      "primary_hex": "#176D49",
+      "display_hex": "#278F58",
+      "evidence": "manufacturer-and-museum-works-reference",
+      "source_url": "https://www.vanwall1958.com/",
+      "corroborating_url": "https://museum.revsinstitute.org/the-collection/1958-vanwall/"
+    },
+    {
+      "teams": [
+        "Lancia"
+      ],
+      "from_year": 1954,
+      "to_year": 1955,
+      "main_colors": "Dark Lancia red",
+      "primary_hex": "#AF3442",
+      "display_hex": "#AF3442",
+      "evidence": "documented-correct-historical-restoration-colour",
+      "source_url": "https://rmsothebys.com/auctions/mc14/lots/r165-1955-lancia-d50a-formula-one-recreation/"
+    },
+    {
+      "teams": [
+        "Porsche"
+      ],
+      "from_year": 1962,
+      "to_year": 1962,
+      "main_colors": "Silver",
+      "primary_hex": "#B8C4CE",
+      "display_hex": "#B8C4CE",
+      "evidence": "manufacturer-museum-804-reference",
+      "source_url": "https://newsroom.porsche.com/en/press-kits/Porsche-Museum/Porsche-Typ-804.html",
+      "note": "804 works reference; privately entered 718 cars could differ."
+    },
+    {
+      "teams": [
+        "Behra-Porsche"
+      ],
+      "from_year": 1959,
+      "to_year": 1960,
+      "main_colors": "Bleu de France",
+      "primary_hex": "#287AC5",
+      "display_hex": "#287AC5",
+      "evidence": "explicit-constructor-history-colour",
+      "source_url": "https://en.wikipedia.org/wiki/Behra-Porsche"
+    },
+    {
+      "teams": [
+        "Scarab"
+      ],
+      "from_year": 1960,
+      "to_year": 1961,
+      "main_colors": "Blue and white",
+      "primary_hex": "#287AC5",
+      "display_hex": "#287AC5",
+      "evidence": "explicit-constructor-history-colour",
+      "source_url": "https://en.wikipedia.org/wiki/Scarab_(constructor)"
+    },
+    {
+      "teams": [
+        "Eagle-Climax",
+        "Eagle-Weslake"
+      ],
+      "from_year": 1966,
+      "to_year": 1969,
+      "main_colors": "Imperial blue",
+      "primary_hex": "#24467A",
+      "display_hex": "#287AC5",
+      "evidence": "constructor-history-works-colour",
+      "source_url": "https://legacy.allamericanracers.com/wp/eagle-f1-story/",
+      "corroborating_url": "https://en.wikipedia.org/wiki/All_American_Racers"
+    },
+    {
+      "teams": [
+        "Team Lotus",
+        "Lotus-Climax"
+      ],
+      "from_year": 1968,
+      "to_year": 1968,
+      "rounds": [
+        1
+      ],
+      "main_colors": "Green",
+      "primary_hex": "#176D49",
+      "display_hex": "#278F58",
+      "evidence": "dated-livery-transition",
+      "source_url": "https://en.wikipedia.org/wiki/Formula_One_sponsorship_liveries#Lotus_(1958%E2%80%931994)"
+    },
+    {
+      "teams": [
+        "Team Lotus",
+        "Lotus-Ford"
+      ],
+      "from_year": 1968,
+      "to_year": 1968,
+      "rounds": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "main_colors": "Red and white",
+      "primary_hex": "#E52B36",
+      "display_hex": "#E52B36",
+      "evidence": "dated-livery-transition",
+      "source_url": "https://en.wikipedia.org/wiki/Formula_One_sponsorship_liveries#Lotus_(1958%E2%80%931994)",
+      "note": "Gold Leaf works reference; privateer liveries may differ."
+    },
+    {
+      "teams": [
+        "McLaren"
+      ],
+      "from_year": 2015,
+      "to_year": 2015,
+      "rounds": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "main_colors": "Chrome and black",
+      "primary_hex": "#B8C4CE",
+      "display_hex": "#B8C4CE",
+      "evidence": "dated-livery-transition",
+      "source_url": "https://www.formula1.com/en/latest/article/mclaren-liveries-through-the-years.3M1dkzZe78TyKvRN0ZAsht"
+    },
+    {
+      "teams": [
+        "McLaren"
+      ],
+      "from_year": 2015,
+      "to_year": 2015,
+      "rounds": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "main_colors": "Dark graphite grey",
+      "primary_hex": "#626C78",
+      "display_hex": "#A0AAB7",
+      "evidence": "dated-livery-transition",
+      "source_url": "https://www.formula1.com/en/latest/article/mclaren-liveries-through-the-years.3M1dkzZe78TyKvRN0ZAsht"
+    },
+    {
+      "teams": [
+        "McLaren",
+        "McLaren-Ford"
+      ],
+      "from_year": 1972,
+      "to_year": 1972,
+      "main_colors": "White",
+      "primary_hex": "#E4E9EF",
+      "display_hex": "#E4E9EF",
+      "evidence": "works-livery-history-reference",
+      "source_url": "https://www.formula1.com/en/latest/article/mclaren-liveries-through-the-years.3M1dkzZe78TyKvRN0ZAsht",
+      "note": "Yardley works reference; private older chassis could retain orange."
+    },
+    {
+      "teams": [
+        "Ferrari"
+      ],
+      "from_year": 1964,
+      "to_year": 1964,
+      "rounds": [
+        9,
+        10
+      ],
+      "main_colors": "Blue and white",
+      "primary_hex": "#287AC5",
+      "display_hex": "#287AC5",
+      "evidence": "manufacturer-history-NART-exception",
+      "source_url": "https://www.ferrari.com/en-BE/formula1/1000-gp-mexican-1964",
+      "note": "NART-entered factory cars at the United States and Mexican Grands Prix."
+    },
+    {
+      "teams": [
+        "Team Lotus",
+        "Lotus-Climax"
+      ],
+      "from_year": 1962,
+      "to_year": 1962,
+      "main_colors": "Green",
+      "primary_hex": "#176D49",
+      "display_hex": "#278F58",
+      "evidence": "works-livery-reference-privateer-exception",
+      "source_url": "https://en.wikipedia.org/wiki/Formula_One_sponsorship_liveries#Lotus_(1958%E2%80%931994)"
+    },
+    {
+      "teams": [
+        "Alfa Romeo"
+      ],
+      "from_year": 1950,
+      "to_year": 1951,
+      "main_colors": "Red",
+      "primary_hex": "#D40000",
+      "display_hex": "#E52B36",
+      "evidence": "reviewed-historical-works-reference",
+      "source_url": "https://www.cert.museoalfaromeo.com/it-it/storia/Pages/1950-Alfetta-158.aspx",
+      "note": "Constructor reference; independently entered cars may differ. Approximate display colour, not an official historical digital specification."
+    },
+    {
+      "teams": [
+        "Brabham",
+        "Brabham-Climax"
+      ],
+      "from_year": 1962,
+      "to_year": 1962,
+      "main_colors": "Blue and gold",
+      "primary_hex": "#287AC5",
+      "display_hex": "#287AC5",
+      "evidence": "reviewed-historical-works-reference",
+      "source_url": "https://www.formula1.com/en/latest/article/going-for-gold.6ejsVpuzzGi0OEkUs0gaI.6ejsVpuzzGi0OEkUs0gaI",
+      "note": "Constructor reference; independently entered cars may differ. Approximate display colour, not an official historical digital specification."
+    },
+    {
+      "teams": [
+        "Brabham",
+        "Brabham-Climax",
+        "Brabham-BRM",
+        "Brabham-Ford",
+        "Brabham-Repco"
+      ],
+      "from_year": 1963,
+      "to_year": 1970,
+      "main_colors": "Dark green and gold",
+      "primary_hex": "#176D49",
+      "display_hex": "#278F58",
+      "evidence": "reviewed-historical-works-reference",
+      "source_url": "https://www.formula1.com/en/latest/article/going-for-gold.6ejsVpuzzGi0OEkUs0gaI.6ejsVpuzzGi0OEkUs0gaI",
+      "note": "Constructor reference; independently entered cars may differ. Approximate display colour, not an official historical digital specification."
+    },
+    {
+      "teams": [
+        "Honda"
+      ],
+      "from_year": 1964,
+      "to_year": 1968,
+      "main_colors": "Ivory white and red",
+      "primary_hex": "#E4E9EF",
+      "display_hex": "#E4E9EF",
+      "evidence": "reviewed-historical-works-reference",
+      "source_url": "https://global.honda/en/goodwood/2005/racingcolor/vol1.html",
+      "note": "Constructor reference; independently entered cars may differ. Approximate display colour, not an official historical digital specification."
+    },
+    {
+      "teams": [
+        "Honda"
+      ],
+      "from_year": 2007,
+      "to_year": 2007,
+      "main_colors": "Black background with Earth illustration",
+      "primary_hex": "#171A20",
+      "display_hex": "#8994A3",
+      "evidence": "reviewed-historical-works-reference",
+      "source_url": "https://global.honda/en/F1/machine/2008_HondaRA108/",
+      "note": "Constructor reference; independently entered cars may differ. Approximate display colour, not an official historical digital specification."
+    },
+    {
+      "teams": [
+        "Gordini",
+        "Simca"
+      ],
+      "from_year": 1950,
+      "to_year": 1957,
+      "main_colors": "French blue",
+      "primary_hex": "#287AC5",
+      "display_hex": "#287AC5",
+      "evidence": "reviewed-historical-works-reference",
+      "source_url": "https://www.themotormuseuminminiature.co.uk/1952-gordini-t16.php",
+      "note": "Constructor reference; independently entered cars may differ. Approximate display colour, not an official historical digital specification."
+    },
+    {
+      "teams": [
+        "BRP"
+      ],
+      "from_year": 1963,
+      "to_year": 1964,
+      "main_colors": "Meadow green",
+      "primary_hex": "#92CA9A",
+      "display_hex": "#92CA9A",
+      "evidence": "reviewed-historical-works-reference",
+      "source_url": "https://www.britishracecar.com/KurtDelBene-BRP.htm",
+      "note": "Constructor reference; independently entered cars may differ. Approximate display colour, not an official historical digital specification."
+    },
+    {
+      "teams": [
+        "Alta",
+        "ERA"
+      ],
+      "from_year": 1950,
+      "to_year": 1952,
+      "main_colors": "British racing green",
+      "primary_hex": "#176D49",
+      "display_hex": "#278F58",
+      "evidence": "reviewed-historical-works-reference",
+      "source_url": "https://en.wikipedia.org/wiki/1950_British_Grand_Prix",
+      "note": "Constructor reference; independently entered cars may differ. Approximate display colour, not an official historical digital specification."
+    },
+    {
+      "teams": [
+        "BRM"
+      ],
+      "from_year": 1970,
+      "to_year": 1970,
+      "main_colors": "White with Yardley colours",
+      "primary_hex": "#E4E9EF",
+      "display_hex": "#E4E9EF",
+      "evidence": "reviewed-historical-works-reference",
+      "source_url": "https://www.britishracingmotors.co.uk/cars/",
+      "note": "Constructor reference; independently entered cars may differ. Approximate display colour, not an official historical digital specification."
+    },
+    {
+      "teams": [
+        "Lola"
+      ],
+      "from_year": 1962,
+      "to_year": 1963,
+      "main_colors": "Dark blue with red nose",
+      "primary_hex": "#24467A",
+      "display_hex": "#287AC5",
+      "evidence": "reviewed-historical-works-reference",
+      "source_url": "https://primotipo.com/2015/09/18/formula-1-privateers-bob-anderson-brabham-bt11-climax/",
+      "note": "Constructor reference; independently entered cars may differ. Approximate display colour, not an official historical digital specification."
+    },
+    {
+      "teams": [
+        "BAR"
+      ],
+      "from_year": 2004,
+      "to_year": 2005,
+      "main_colors": "White",
+      "primary_hex": "#E4E9EF",
+      "display_hex": "#E4E9EF",
+      "evidence": "reviewed-dated-livery-reference",
+      "source_url": "https://en.wikipedia.org/wiki/Formula_One_sponsorship_liveries#British_American_Racing",
+      "note": "The blue/white alternative belongs to the third Friday practice car, not a general race livery. The two race cars retain the documented white primary colour.",
+      "scope": "documented-race-car-livery",
+      "source_sha256": "99cdf3422481ade5335de4d1c916b27706b68be6456018af2a71e34d4c32ef48",
+      "retrieval_url": "https://newikis.com/en/Formula_One_sponsorship_liveries"
+    },
+    {
+      "teams": [
+        "MF1"
+      ],
+      "from_year": 2006,
+      "to_year": 2006,
+      "main_colors": "Grey with red and white",
+      "primary_hex": "#A0AAB7",
+      "display_hex": "#A0AAB7",
+      "evidence": "reviewed-dated-livery-reference",
+      "source_url": "https://en.wikipedia.org/wiki/Formula_One_sponsorship_liveries#Midland",
+      "rounds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "source_sha256": "99cdf3422481ade5335de4d1c916b27706b68be6456018af2a71e34d4c32ef48",
+      "retrieval_url": "https://newikis.com/en/Formula_One_sponsorship_liveries"
+    },
+    {
+      "teams": [
+        "Spyker MF1"
+      ],
+      "from_year": 2006,
+      "to_year": 2006,
+      "main_colors": "Orange and silver",
+      "primary_hex": "#F28B27",
+      "display_hex": "#F28B27",
+      "evidence": "reviewed-dated-livery-reference",
+      "source_url": "https://au.motorsport.com/f1/news/spyker-mf1-reveals-new-livery/2106862/",
+      "rounds": [
+        16,
+        17,
+        18
+      ],
+      "note": "Original team release: orange/silver used from the Chinese Grand Prix onwards."
+    },
+    {
+      "teams": [
+        "Manor Marussia"
+      ],
+      "from_year": 2015,
+      "to_year": 2015,
+      "main_colors": "Red, White",
+      "primary_hex": "#E52B36",
+      "display_hex": "#E52B36",
+      "evidence": "reviewed-dated-livery-reference",
+      "source_url": "https://en.wikipedia.org/wiki/Formula_One_sponsorship_liveries#Marussia",
+      "source_sha256": "99cdf3422481ade5335de4d1c916b27706b68be6456018af2a71e34d4c32ef48",
+      "retrieval_url": "https://newikis.com/en/Formula_One_sponsorship_liveries"
+    },
+    {
+      "teams": [
+        "Lola"
+      ],
+      "from_year": 1985,
+      "to_year": 1986,
+      "main_colors": "Red with white and blue",
+      "primary_hex": "#E52B36",
+      "display_hex": "#E52B36",
+      "evidence": "reviewed-dated-livery-reference",
+      "source_url": "https://en.wikipedia.org/wiki/Formula_One_sponsorship_liveries#Haas_Lola",
+      "note": "Team Haas Lola entries, not earlier or later Lola private entrants.",
+      "source_sha256": "99cdf3422481ade5335de4d1c916b27706b68be6456018af2a71e34d4c32ef48",
+      "retrieval_url": "https://newikis.com/en/Formula_One_sponsorship_liveries"
+    },
+    {
+      "teams": [
+        "Lola"
+      ],
+      "from_year": 1987,
+      "to_year": 1991,
+      "main_colors": "Blue",
+      "primary_hex": "#287AC5",
+      "display_hex": "#287AC5",
+      "evidence": "reviewed-dated-livery-reference",
+      "source_url": "https://en.wikipedia.org/wiki/Formula_One_sponsorship_liveries#Larrousse",
+      "note": "Larrousse Lola entries in these seasons; not all Lola chassis in all years.",
+      "source_sha256": "99cdf3422481ade5335de4d1c916b27706b68be6456018af2a71e34d4c32ef48",
+      "retrieval_url": "https://newikis.com/en/Formula_One_sponsorship_liveries"
+    },
+    {
+      "teams": [
+        "Williams"
+      ],
+      "from_year": 1975,
+      "to_year": 1975,
+      "main_colors": "White with red",
+      "primary_hex": "#E4E9EF",
+      "display_hex": "#E4E9EF",
+      "evidence": "reviewed-dated-livery-reference",
+      "source_url": "https://en.wikipedia.org/wiki/Formula_One_sponsorship_liveries#Frank_Williams_Racing_Cars",
+      "source_sha256": "99cdf3422481ade5335de4d1c916b27706b68be6456018af2a71e34d4c32ef48",
+      "retrieval_url": "https://newikis.com/en/Formula_One_sponsorship_liveries"
+    },
+    {
+      "teams": [
+        "Williams",
+        "Wolf"
+      ],
+      "from_year": 1976,
+      "to_year": 1976,
+      "main_colors": "Black with gold",
+      "primary_hex": "#171A20",
+      "display_hex": "#8994A3",
+      "evidence": "reviewed-dated-livery-reference",
+      "source_url": "https://en.wikipedia.org/wiki/Formula_One_sponsorship_liveries#Frank_Williams_Racing_Cars",
+      "source_sha256": "99cdf3422481ade5335de4d1c916b27706b68be6456018af2a71e34d4c32ef48",
+      "retrieval_url": "https://newikis.com/en/Formula_One_sponsorship_liveries"
+    },
+    {
+      "teams": [
+        "Ligier"
+      ],
+      "from_year": 1991,
+      "to_year": 1992,
+      "main_colors": "Blue",
+      "primary_hex": "#287AC5",
+      "display_hex": "#287AC5",
+      "evidence": "reviewed-dated-livery-reference",
+      "source_url": "https://en.wikipedia.org/wiki/Formula_One_sponsorship_liveries#Ligier",
+      "note": "The table explicitly qualifies the white main colour as a 1993 exception.",
+      "source_sha256": "99cdf3422481ade5335de4d1c916b27706b68be6456018af2a71e34d4c32ef48",
+      "retrieval_url": "https://newikis.com/en/Formula_One_sponsorship_liveries"
+    },
+    {
+      "teams": [
+        "Ligier"
+      ],
+      "from_year": 1993,
+      "to_year": 1993,
+      "main_colors": "White with blue",
+      "primary_hex": "#E4E9EF",
+      "display_hex": "#E4E9EF",
+      "evidence": "reviewed-dated-livery-reference",
+      "source_url": "https://en.wikipedia.org/wiki/Formula_One_sponsorship_liveries#Ligier",
+      "note": "White main colour is explicitly dated 1993 in the source table.",
+      "source_sha256": "99cdf3422481ade5335de4d1c916b27706b68be6456018af2a71e34d4c32ef48",
+      "retrieval_url": "https://newikis.com/en/Formula_One_sponsorship_liveries"
+    },
+    {
+      "teams": [
+        "Matra-Ford"
+      ],
+      "from_year": 1968,
+      "to_year": 1968,
+      "main_colors": "Pale green primer",
+      "primary_hex": "#92CA9A",
+      "display_hex": "#92CA9A",
+      "evidence": "reviewed-dated-livery-reference",
+      "source_url": "https://www.museematra.com/matra-ms-80-1969-2019/",
+      "rounds": [
+        1
+      ],
+      "driver_ids": [
+        "430"
+      ],
+      "scope": "documented-driver-entry-livery"
+    },
+    {
+      "teams": [
+        "Matra-Ford"
+      ],
+      "from_year": 1968,
+      "to_year": 1968,
+      "main_colors": "Blue",
+      "primary_hex": "#287AC5",
+      "display_hex": "#287AC5",
+      "evidence": "reviewed-dated-livery-reference",
+      "source_url": "https://en.wikipedia.org/wiki/Formula_One_sponsorship_liveries#Matra",
+      "rounds": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "note": "MS10 race livery; green MS9 used only in opening round.",
+      "source_sha256": "99cdf3422481ade5335de4d1c916b27706b68be6456018af2a71e34d4c32ef48",
+      "retrieval_url": "https://newikis.com/en/Formula_One_sponsorship_liveries"
+    },
+    {
+      "teams": [
+        "March"
+      ],
+      "from_year": 1973,
+      "to_year": 1973,
+      "main_colors": "White with blue and red",
+      "primary_hex": "#E4E9EF",
+      "display_hex": "#E4E9EF",
+      "evidence": "reviewed-dated-livery-reference",
+      "source_url": "https://en.wikipedia.org/wiki/Formula_One_sponsorship_liveries#Hesketh",
+      "driver_ids": [
+        "515"
+      ],
+      "scope": "documented-driver-entry-livery",
+      "note": "Hesketh entered a March chassis for James Hunt during 1973.",
+      "source_sha256": "99cdf3422481ade5335de4d1c916b27706b68be6456018af2a71e34d4c32ef48",
+      "retrieval_url": "https://newikis.com/en/Formula_One_sponsorship_liveries"
+    }
+  ]
+}

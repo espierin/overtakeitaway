@@ -700,6 +700,10 @@ def with_race_notifications(text, source, root):
     if positions_asset.exists() and 'data-positions-gained' not in text and 'dashboard-data' in text:
         positions_src=os.path.relpath(positions_asset,Path(source).parent).replace(os.sep,'/')
         text=text.replace('</body>',f'<script defer data-positions-gained src="{positions_src}"></script></body>',1)
+    history_asset=Path(root)/'assets/historical-data.js'
+    if history_asset.exists() and 'data-historical-data' not in text and 'archive-data' in text and 'historical_supplement' in text:
+        history_src=os.path.relpath(history_asset,Path(source).parent).replace(os.sep,'/')
+        text=text.replace('</body>',f'<script defer data-historical-data src="{history_src}"></script></body>',1)
     return text
 
 

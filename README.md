@@ -3,6 +3,16 @@
 
 # Formula 1 Statistics
 
+## Historisch archief / Historical archive
+
+De races van 1950–2019 zijn eenmalig aangevuld met F1DB (CC BY 4.0), de f1resultsdatabase-compilatie (ODbL 1.0; STATS F1, Formula1.com en MotorsportStats), oorspronkelijke FIA-documenten, Pirelli-verslagen en gedateerde kleurreferenties. Verdwenen FIA-documenten zijn waar beschikbaar via de Wayback Machine opgeslagen met oorspronkelijke URL, opnamedatum en SHA-256. Bronbestanden, supplementen, controlelogs en de historische database staan in `analyses/sources/historical/` en het gedeelde GitHub-bronarchief. `historical_backfill.apply_retained` hergebruikt deze gegevens bij latere builds zonder ze opnieuw op te halen.
+
+The 1950–2019 races have been supplemented once using F1DB (CC BY 4.0), the f1resultsdatabase compilation (ODbL 1.0; STATS F1, Formula1.com and MotorsportStats), original FIA documents, Pirelli releases and dated colour references. Available Wayback copies retain the original URL, capture timestamp and SHA-256. Original source files, supplements, audit logs and the historical database are retained in `analyses/sources/historical/` and the shared GitHub source archive. Future builds reuse them through `historical_backfill.apply_retained` without retrieving them again.
+
+`coverage-report.html` beschrijft de werkelijke dekking in beide talen. Bestaande uitslagen en metingen blijven behouden; bronverschillen staan in het controlelog. Gedeelde auto’s zonder vastgelegde rijderwissel, onbekende privé-inschrijvingskleuren en ontbrekende telemetrie worden niet ingevuld met schattingen. Rondeposities zijn geen inhaaltelling.
+
+`coverage-report.html` documents actual coverage in both languages. Existing results and measurements are retained; source disagreements remain in the audit log. Untimestamped shared-car handovers, unknown private-entry colours and missing telemetry are not replaced by estimates. Lap positions are not overtaking counts.
+
 Lokaal Python-programma voor controleerbare Grand Prix-analyses in het Nederlands, vanaf 2023. Geen websitehosting, accounts of betaalde AI-API nodig. OpenF1 is de timingbron; openbare aanvullende bronnen worden geregistreerd. F1gures biedt openbare sitebestanden, geen door ons vastgestelde gedocumenteerde API; bij onbereikbaarheid werkt de rest en is expliciete import mogelijk.
 
 ## Installatie

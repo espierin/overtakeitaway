@@ -1,4 +1,5 @@
 from collections import defaultdict
+from pathlib import Path
 import pytest
 from f1_analysis.archive import Archive, seconds
 from f1_analysis.io import write_json,read_json
@@ -13,6 +14,7 @@ def test_duration_null_and_fractional_seconds():
 
 def archive_fixture():
     a=object.__new__(Archive)
+    a.root=Path('/nonexistent-archive-test-fixture')
     a.tables={'season':{'s':{'year':'1950'}},'round':{'r':{'season_id':'s','circuit_id':'c','number':'1','name':'British Grand Prix','date':'1950-05-13','wikipedia':'https://example.org/r'}},
               'circuit':{'c':{'name':'Silverstone','wikipedia':'https://example.org/c'}},'roundentry':{},'teamdriver':{},'driver':{},'team':{'t':{'id':'t','name':'Example','primary_color':'#FF0000'}}}
     session={'id':'q','round_id':'r','scheduled_laps':'70'}

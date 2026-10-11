@@ -81,11 +81,13 @@ class Archive:
         if not lap_count:warnings.append('Geen afzonderlijke rondetijden of posities per ronde beschikbaar voor deze race.')
         if not pit_count:warnings.append('Geen afzonderlijke pitstopregistraties beschikbaar; het aantal werkelijke stops is onbekend.')
         if any(n>1 for n in duplicate_numbers.values()):warnings.append('Startnummers komen meermaals voor. Coureurs blijven afzonderlijke bronentries; gedeelde auto’s worden niet samengevoegd of dubbel geïnterpreteerd als unieke auto’s.')
-        return {'year':year,'round':int(r['number']),'date':r['date'],'name':r['name'],'circuit':circuit['name'],'circuit_wikipedia':circuit['wikipedia'],
+        result = {'year':year,'round':int(r['number']),'date':r['date'],'name':r['name'],'circuit':circuit['name'],'circuit_wikipedia':circuit['wikipedia'],
                 'wikipedia':r['wikipedia'],'session_id':session['id'],'scheduled_laps':integer(session['scheduled_laps']),
                 'drivers':rows,'lap_records':lap_count,'pit_records':pit_count,'warnings':warnings,
                 'coverage_label':'Uitslag + rondegegevens'+(' + pitstops' if pit_count else '') if lap_count else 'Uitslagenarchief',
                 'raw':{'round':r,'session':session,'circuit':circuit,'entries':raw}}
+        from .historical_backfill import apply_retained
+        return apply_retained(result, result['raw'], self.root)
 
 
 def infographic(run, data):
@@ -126,12 +128,18 @@ def render_archive(run,data,manifest):
     ensure_banner(run.parents[4])
     js=Path(__file__).with_name('archive.js').read_text()
     escape=html.escape
-    highlight_facts=facts(data,read_json(run/'data/raw/race.json'),root=run.parents[4])
+    raw = read_json(run/'data/raw/race.json')
+    from .historical_backfill import apply_retained, supplemental_facts, coverage_notes, write_method_report
+    data = apply_retained(data, raw, run.parents[4])
+    highlight_facts=facts(data,raw,root=run.parents[4])
     from .historical_presentation import enrich_drivers,circuit_reference,circuit_section,presentation_style
     data=enrich_drivers(data,read_json(run/'data/raw/race.json'));reference=circuit_reference(run.parents[4],data)
     timing_file=run/'data/raw/fastf1/historical-timing.json'
     if timing_file.exists():
         data['timing']=read_json(timing_file);data=enrich_drivers(data,read_json(run/'data/raw/race.json'))
+    highlight_facts=supplemental_facts(data,highlight_facts)
+    if data.get('historical_supplement'):
+        write_json(run/'data/normalized/historical-supplement.json', data['historical_supplement'])
     for value in highlight_facts.values():
         for item in value if isinstance(value,list) else [value]:
             if isinstance(item,dict) and 'id' in item:item['color']=next((d['display_color'] for d in data['drivers'] if d['id']==item['id']),item.get('color','#B3BECE'))
@@ -155,7 +163,10 @@ def render_archive(run,data,manifest):
 <p><a href="{escape(data['wikipedia'],quote=True)}">Race op Wikipedia</a> · <a href="{escape(data['circuit_wikipedia'],quote=True)}">Circuit op Wikipedia</a></p>
 <script id="archive-data" type="application/json">{payload}</script><script>{js}</script>'''
     css='''<style>.card{margin-top:24px}.choices{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.choices label{font-size:14px}svg{max-height:none}.chart{min-width:700px}.chartwrap{overflow:auto}dialog{background:#181f2c;color:white;border:1px solid #596273;max-width:90vw;max-height:80vh}dialog::backdrop{background:#0009}button,label,a{cursor:pointer}input[type=number]{width:80px}th button{font-weight:bold}td button{padding:2px 6px}.muted{color:#b3bece}</style>'''
-    if timing_file.exists():body=body.replace('Historisch raceoverzicht. Inhaalacties, bandenstrategie en baanlocaties: onbekend.','Historisch raceoverzicht met aanvullende sector- en bandentiming. Inhaalregistraties en baanlocaties zijn niet beschikbaar.')
+    if data.get('timing'):body=body.replace('Historisch raceoverzicht. Inhaalacties, bandenstrategie en baanlocaties: onbekend.','Historisch raceoverzicht met aanvullende sector- en bandentiming. Inhaalregistraties en baanlocaties zijn niet beschikbaar.')
+    if data.get('historical_supplement'):
+        body = re.sub(r'<h2>Datadekking</h2>\s*<ul>.*?</ul>', lambda m: '<h2>Datadekking</h2><ul id="history-coverage-notes">' + ''.join('<li data-history-note data-nl="' + escape(nl,quote=True) + '" data-en="' + escape(en,quote=True) + '">' + escape(nl) + '</li>' for nl,en in coverage_notes()) + '</ul>', body, count=1, flags=re.S)
+        body += '<p><a href="data/normalized/historical-supplement.json" data-history-note data-nl="Aanvullende brongegevens en controlelog" data-en="Additional source data and audit log">Aanvullende brongegevens en controlelog</a> · <a href="../../../../../analyses/sources/historical/coverage-report.html" data-history-note data-nl="Dekking van het historische archief" data-en="Historical archive coverage">Dekking van het historische archief</a></p><script defer data-historical-data src="../../../../../assets/historical-data.js"></script>'
     (run/'overzicht.html').write_text(page('Overtake It Away · '+data['name']+' '+str(data['year']),css+body+language_script()))
     results=[[d['position'],d['number'],d['name'],d['team'],d['grid'],d['completed_laps'],d['points'],d['status']] for d in data['drivers']]
     classified=[d for d in data['drivers'] if d['classified']]
@@ -177,6 +188,7 @@ def render_archive(run,data,manifest):
         if name!='bronnen-en-methode':continue
         text=report+common;(run/'reports'/(name+'.md')).write_text(text);from .branding import language_controls,language_script
         (run/'reports'/(name+'.html')).write_text(page(name,language_controls()+markdown_html(text)+language_script()))
+    if data.get('historical_supplement'): write_method_report(run, data, manifest)
 
 
 def generate(archive,session,update=True):
