@@ -49,11 +49,61 @@ def plan(sessions, known, state, now, config):
         if key in known and not recent: continue
         last = record.get('last_attempt')
         interval=config.get('refresh_hours',config['retry_hours']) if key in known else config['retry_hours']
-        if last and parse_date(last) + timedelta(hours=interval) > now: continue
+        if last and parse_date(last) + timedelta(minutes=config.get('retry_minutes', interval * 60) if key not in known or record.get('status') in ('wacht_op_data', 'mislukt') else interval * 60) > now: continue
         # New and waiting races remain eligible even after the settlement window.
         chosen.append(session)
     chosen.sort(key=lambda s: (str(s['session_key']) in known, s['date_start']))
     return chosen[:config['max_races_per_update']]
+
+
+def discover_calendar(client, years, known, now, config):
+    """The season calendar leads discovery; OpenF1 is an optional timing adapter."""
+    from .history import calendar
+    from .acquire import calendar_match
+    sessions = []
+    calendars = {}
+    for year in years:
+        agenda = calendar(client, year)
+        calendars[str(year)] = agenda
+        try:
+            available = [s for s in client.api('sessions', year=year) if s.get('session_name') == 'Race']
+        except ValueError:
+            available = []
+        for race in agenda:
+            previous = next((item for item in known.values() if item[2]['input']['year'] == year
+                             and int(item[2].get('race_round') or item[2].get('session', {}).get('round') or -1) == race['round']), None)
+            match = next((s for s in available if calendar_match([race['jolpica_race']], s)), None)
+            # Keep the timing source of an existing dashboard when refreshing it.
+            fast = previous and previous[2].get('session', {}).get('session_key') == race['session_key']
+            session = dict(race)
+            if match and not fast:
+                session.update(match)
+                session['timing_source'] = 'openf1'
+            else:
+                session['timing_source'] = 'fastf1'
+                # This is a conservative screening time, never proof of completion.
+                session['date_end'] = (parse_date(race['date_start']) + timedelta(hours=config.get('race_screen_after_hours', 3))).isoformat()
+            sessions.append(session)
+    write_json(client.root / '_storage/season-calendar.json', {'checked_at': now.isoformat(), 'seasons': calendars})
+    return sessions
+
+
+def fastf1_probe(client, session, root):
+    """Wait for published results, then verify the complete public timing archive."""
+    from .history import acquire
+    import yaml
+    result = client.fetch(f'https://api.jolpi.ca/ergast/f1/{session["year"]}/{session["round"]}/results.json', publisher='Jolpica')
+    races = result['MRData']['RaceTable']['Races']
+    if not races or not races[0].get('Results'):
+        return None, ['definitieve raceuitslag']
+    try:
+        data, _ = acquire(client, session['year'], session['circuit_short_name'],
+                          Path(root) / 'storage/probes' / str(session['session_key']),
+                          yaml.safe_load((Path(root) / 'config/sources.yaml').read_text()))
+        ready, missing = readiness(data)
+        return (data if ready else None), missing
+    except (ValueError, IndexError, KeyError) as exc:
+        return None, ['volledige timinggegevens: ' + str(exc)]
 
 
 def recipe_hash(root, previous=None):
@@ -90,10 +140,9 @@ def update(root, years=None, now=None, dry_run=False):
     if any(year < 2023 for year in years): raise ValueError('Automatische OpenF1-updates beginnen in 2023')
     # Discovery and probes always bypass historical cache, including cached empty lists.
     client = Client(root, load_config(root, root / 'config/history.yaml'), refresh=True)
-    sessions = []
-    for year in years: sessions.extend(client.api('sessions', year=year))
     known = {str(m['session']['session_key']): (pointer, run, m)
              for pointer, run, m in latest_runs(root) if m['input']['year']>=2023 and m.get('session', {}).get('session_key')}
+    sessions = discover_calendar(client, years, known, now, config)
     state_path = root / '_storage/update-state.json'
     state = read_json(state_path) if state_path.exists() else {'schema': 1, 'sessions': {}}
     queue = plan(sessions, known, state['sessions'], now, config)
@@ -104,16 +153,21 @@ def update(root, years=None, now=None, dry_run=False):
         key = str(session['session_key']); record = state['sessions'].setdefault(key, {})
         record.update(last_attempt=now.isoformat(), year=session['year'])
         try:
-            data = {ep: client.api(ep, session_key=session['session_key'])
-                    for ep in ['drivers', 'session_result', 'laps', 'position', 'stints', 'race_control']}
-            ready, missing = readiness(data)
+            if session.get('timing_source') == 'fastf1':
+                data, missing = fastf1_probe(client, session, root)
+                ready = data is not None
+            else:
+                data = {ep: client.api(ep, session_key=session['session_key'])
+                        for ep in ['drivers', 'session_result', 'laps', 'position', 'stints', 'race_control']}
+                ready, missing = readiness(data)
             if not ready:
                 record.update(status='wacht_op_data', missing=missing)
                 report['waiting'].append({'session_key': key, 'missing': missing})
             else:
-                for ep in ['overtakes','pit','intervals','weather','team_radio','starting_grid']:
-                    try:data[ep]=client.api(ep,session_key=session['session_key'])
-                    except ValueError:data[ep]='unknown'
+                if session.get('timing_source') != 'fastf1':
+                    for ep in ['overtakes','pit','intervals','weather','team_radio','starting_grid']:
+                        try:data[ep]=client.api(ep,session_key=session['session_key'])
+                        except ValueError:data[ep]='unknown'
                 optional=optional_probe(client,session,data['drivers'],root)
                 probe_sha=hashlib.sha256(json.dumps({'data':data,'optional':optional,'recipe':recipe_hash(root,known.get(key))},sort_keys=True,separators=(',',':')).encode()).hexdigest()
                 if key in known and record.get('probe_sha256')==probe_sha:
@@ -124,6 +178,9 @@ def update(root, years=None, now=None, dry_run=False):
                 command=[sys.executable, '-m', 'f1_analysis', '--root', str(root), 'analyse',
                     '--year', str(session['year']), '--gp', session['circuit_short_name'],
                     '--session-key', key, '--require-ready', '--refresh', '--config', str(root / 'config/history.yaml')]
+                if session.get('timing_source') == 'fastf1':
+                    command.extend(['--timing-source', 'fastf1'])
+                    command.remove('--refresh')  # Reuse the freshly verified probe instead of fetching twice.
                 if key in known and known[key][2].get('f1gures_import'):
                     imported=known[key][1]/'data/raw/f1gures/import.json'
                     if not imported.is_file():raise ValueError('Handmatige inhaalimport ontbreekt; bestaande analyse behouden')
@@ -148,7 +205,7 @@ def main():
     write_json(Path(args.root) / '_storage/update-report.json', report)
     print(json.dumps(report, ensure_ascii=False, indent=2))
     if os.environ.get('GITHUB_OUTPUT'):
-        with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write('changed='+str(bool(report['updated'])).lower()+'\n')
+        with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write('changed='+str(bool(report['updated'])).lower()+'\n'+'planned='+str(bool(report['planned'])).lower()+'\n')
     if report['failed']: sys.exit(1)
 
 

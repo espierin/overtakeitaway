@@ -291,3 +291,9 @@ De inhaalregistraties uit FastF1 zijn gereconstrueerde kandidaten uit timing en 
 
 
 Op 11 oktober 2026 zijn de zestien beschikbare hoofdraces van 2026 toegevoegd, van Australië tot de verplaatste Bahrain Grand Prix in Maleisië. Het lokale overzicht bevat daarmee 1.165 races in 77 seizoenen. Singapore en de latere races blijven wachtend zolang de uitslag ontbreekt. De nieuwe pagina’s volgen de actuele interactieve website, met bron- en methoderapport, circuitkaart en CSV/JSON-exports. Madring gebruikt een indicatieve baanvorm uit de opgeslagen 2026-racetiming; de kalender gebruikt daar geen lay-out van Jarama. Wisselen van FastF1 naar OpenF1 behoudt dezelfde raceverwijzing en maakt geen tweede racekaart voor dezelfde kampioenschapsronde.
+
+### Automatische racecontrole
+
+GitHub Actions haalt elk half uur (op minuut 17 en 47, UTC) de agenda van het huidige en vorige seizoen opnieuw op. Alleen afgelopen races worden onderzocht. Waar OpenF1 een eindtijd levert begint de controle na dat tijdstip; anders begint de controle drie uur na de geplande start. Een definitieve uitslag, bevestigd race-einde en volledige laatste winnaarsronde zijn altijd vereist voordat een pagina wordt gepubliceerd.
+
+Ontbrekende gegevens en mislukte analyses worden na 30 minuten opnieuw geprobeerd. Bestaande analyses blijven behouden. OpenF1 wordt gebruikt waar beschikbaar, met het openbare F1-timingarchief via FastF1 als alternatief. Nieuwe pagina’s komen automatisch in de index, navigatie en wereldkaart. De eerste 14 dagen worden reeds gepubliceerde races elke zes uur gecontroleerd op aanvullingen. Zonder werk worden geen pagina’s opnieuw opgebouwd. GitHub kan geplande uitvoeringen vertragen; de planning is geen garantie op exacte starttijden.

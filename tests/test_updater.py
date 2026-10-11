@@ -22,6 +22,7 @@ def test_unchanged_sources_skip_reanalysis_but_late_overtakes_trigger_update(tmp
         def api(self,ep,**params):return source.get(ep,[])
     calls=[]
     monkeypatch.setattr(updater,'Client',FakeClient)
+    monkeypatch.setattr(updater,'discover_calendar',lambda *args:[session])
     monkeypatch.setattr(updater,'recipe_hash',lambda *args:'recipe')
     monkeypatch.setattr(updater,'optional_probe',lambda *args:{'f1gures':'unknown'})
     monkeypatch.setattr(updater.subprocess,'run',lambda *args,**kwargs:(calls.append(args) or SimpleNamespace(returncode=0)))
@@ -41,3 +42,38 @@ def test_failed_analysis_keeps_retry_eligible(tmp_path,monkeypatch):
     state={'99':{'last_attempt':'2025-10-11T12:00:00Z','status':'mislukt'}}
     now=updater.parse_date('2025-10-11T13:00:00Z')
     assert updater.plan([session],{},state,now,config)==[session]
+
+
+def test_half_hour_retries_waiting_known_race_and_excludes_future():
+    config={'minimum_delay_minutes':0,'settle_days':14,'retry_minutes':30,'retry_hours':.5,'refresh_hours':6,'max_races_per_update':3}
+    race={'session_key':99,'session_name':'Race','date_start':'2026-10-11T12:00:00Z','date_end':'2026-10-11T14:00:00Z'}
+    future={**race,'session_key':100,'date_end':'2026-10-12T14:00:00Z'}
+    state={'99':{'last_attempt':'2026-10-11T14:00:00Z','status':'wacht_op_data'}}
+    assert updater.plan([race,future],{'99':True},state,updater.parse_date('2026-10-11T14:29:00Z'),config)==[]
+    assert updater.plan([race,future],{'99':True},state,updater.parse_date('2026-10-11T14:30:00Z'),config)==[race]
+
+
+def test_calendar_discovery_survives_openf1_unavailable_and_preserves_existing_source(tmp_path,monkeypatch):
+    from f1_analysis import history
+    race={'year':2026,'session_key':202601,'round':1,'session_name':'Race','date_start':'2026-03-08T04:00:00Z','circuit_short_name':'Melbourne',
+          'jolpica_race':{'date':'2026-03-08','Circuit':{'Location':{'country':'Australia'}}}}
+    monkeypatch.setattr(history,'calendar',lambda *args:[race])
+    class Client:
+        root=tmp_path
+        def api(self,*args,**kwargs):raise ValueError('OpenF1 niet beschikbaar')
+    found=updater.discover_calendar(Client(),[2026],{},updater.parse_date('2026-03-08T08:00:00Z'),{})
+    assert found[0]['timing_source']=='fastf1'
+    assert updater.parse_date(found[0]['date_end'])==updater.parse_date('2026-03-08T07:00:00Z')
+    assert (tmp_path/'_storage/season-calendar.json').exists()
+    class Available(Client):
+        def api(self,*args,**kwargs):return [{'year':2026,'session_key':42,'session_name':'Race','date_start':race['date_start'],'date_end':'2026-03-08T06:00:00Z','country_name':'Australia'}]
+    assert updater.discover_calendar(Available(),[2026],{},updater.parse_date('2026-03-08T08:00:00Z'),{})[0]['session_key']==42
+    known={'202601':(None,None,{'input':{'year':2026},'race_round':1,'session':{'session_key':202601}})}
+    assert updater.discover_calendar(Available(),[2026],known,updater.parse_date('2026-03-08T08:00:00Z'),{})[0]['session_key']==202601
+
+
+def test_no_results_waits_without_loading_timing(tmp_path):
+    class Client:
+        def fetch(self,*args,**kwargs):return {'MRData':{'RaceTable':{'Races':[]}}}
+    data,missing=updater.fastf1_probe(Client(),{'year':2026,'round':1},tmp_path)
+    assert data is None and missing==['definitieve raceuitslag']

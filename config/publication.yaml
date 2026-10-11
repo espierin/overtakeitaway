@@ -6,9 +6,12 @@ archive_tag_prefix: f1-data-
 snapshot_tag: f1-site-state
 # Voltooide races regelmatig opnieuw ophalen om latere bronaanvullingen mee te nemen.
 settle_days: 14
-retry_hours: 1
+retry_minutes: 30
+retry_hours: 0.5
 refresh_hours: 6
-minimum_delay_minutes: 45
+minimum_delay_minutes: 0
+# Zonder werkelijk eindtijdstip: vanaf drie uur na de geplande start controleren.
+race_screen_after_hours: 3
 max_races_per_update: 3
 # Onder deze termijn niet archiveren/opruimen zonder mogelijkheid tot herladen.
 cache_retention_days: 21

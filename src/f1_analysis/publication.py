@@ -463,7 +463,7 @@ def build_site(root, output, max_bytes=None, from_year=1950):
         files.add(pointer)
         files.update(p for p in run.rglob('*') if p.is_file() and 'data' not in p.relative_to(run).parts)
         files.update(p for p in (pointer.parent / 'corrections').rglob('*') if p.is_file())
-    for name in ['index.html', 'analyses/index.html', 'analyses/index.json', '_storage/index.json', '_storage/update-state.json']:
+    for name in ['index.html', 'analyses/index.html', 'analyses/index.json', '_storage/index.json', '_storage/update-state.json', '_storage/season-calendar.json']:
         if (root / name).exists(): files.add(root / name)
     for directory in ['assets', '_shared', '_media', '_documents']:
         files.update(p for p in (root / directory).rglob('*') if p.is_file() and p.name != 'index.json')
