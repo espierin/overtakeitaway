@@ -141,7 +141,7 @@
   },
   {
     "id": "estoril",
-    "circuit": "Autódromo do Estoril",
+    "circuit": "Aut\u00f3dromo do Estoril",
     "locality": "Estoril",
     "country": "Portugal",
     "image": "estoril.webp"
@@ -155,7 +155,7 @@
   },
   {
     "id": "galvez",
-    "circuit": "Autódromo Juan y Oscar Gálvez",
+    "circuit": "Aut\u00f3dromo Juan y Oscar G\u00e1lvez",
     "locality": "Buenos Aires",
     "country": "Argentina",
     "image": "galvez.webp"
@@ -197,8 +197,8 @@
   },
   {
     "id": "interlagos",
-    "circuit": "Autódromo José Carlos Pace",
-    "locality": "São Paulo",
+    "circuit": "Aut\u00f3dromo Jos\u00e9 Carlos Pace",
+    "locality": "S\u00e3o Paulo",
     "country": "Brazil",
     "image": "interlagos.webp"
   },
@@ -211,7 +211,7 @@
   },
   {
     "id": "jacarepagua",
-    "circuit": "Autódromo Internacional Nelson Piquet",
+    "circuit": "Aut\u00f3dromo Internacional Nelson Piquet",
     "locality": "Rio de Janeiro",
     "country": "Brazil",
     "image": "jacarepagua.webp"
@@ -273,6 +273,13 @@
     "image": "losail.webp"
   },
   {
+    "id": "madring",
+    "circuit": "Madring",
+    "locality": "Madrid",
+    "country": "Spain",
+    "image": "madring.webp"
+  },
+  {
     "id": "magny_cours",
     "circuit": "Circuit de Nevers Magny-Cours",
     "locality": "Magny Cours",
@@ -309,7 +316,7 @@
   },
   {
     "id": "montjuic",
-    "circuit": "Montjuïc",
+    "circuit": "Montju\u00efc",
     "locality": "Barcelona",
     "country": "Spain",
     "image": "montjuic.webp"
@@ -344,8 +351,8 @@
   },
   {
     "id": "nurburgring",
-    "circuit": "Nürburgring",
-    "locality": "Nürburg",
+    "circuit": "N\u00fcrburgring",
+    "locality": "N\u00fcrburg",
     "country": "Germany",
     "image": "nurburgring.webp"
   },
@@ -379,8 +386,8 @@
   },
   {
     "id": "portimao",
-    "circuit": "Autódromo Internacional do Algarve",
-    "locality": "Portimão",
+    "circuit": "Aut\u00f3dromo Internacional do Algarve",
+    "locality": "Portim\u00e3o",
     "country": "Portugal",
     "image": "portimao.webp"
   },
@@ -414,7 +421,7 @@
   },
   {
     "id": "rodriguez",
-    "circuit": "Autódromo Hermanos Rodríguez",
+    "circuit": "Aut\u00f3dromo Hermanos Rodr\u00edguez",
     "locality": "Mexico City",
     "country": "Mexico",
     "image": "rodriguez.webp"
