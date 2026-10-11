@@ -96,5 +96,10 @@ def original_wordmark_style():
 def with_original_wordmark(text):
     text=text.replace('overtake-wordmark-v3.svg','overtake-wordmark-v2.png').replace('overtake-wordmark-v1.png','overtake-wordmark-v2.png')
     if 'site-wordmark' in text and 'id="original-wordmark-style"' not in text:
-        text=text.replace('</head>',original_wordmark_style()+'</head>',1)
+        if '</head>' in text:
+            text=text.replace('</head>',original_wordmark_style()+'</head>',1)
+        elif '</title>' in text:
+            text=text.replace('</title>','</title>'+original_wordmark_style(),1)
+        else:
+            text+=original_wordmark_style()
     return text
