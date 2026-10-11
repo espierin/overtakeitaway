@@ -665,6 +665,15 @@ def with_primary_race_facts(text):
 def with_race_notifications(text, source, root):
     """Install one shared visitor notifier on every published HTML page."""
     text=with_primary_race_facts(text)
+    if "'Eerste stop':'First stop'" not in text:
+        text=text.replace('const exact={',"const exact={'Eerste stop':'First stop','Tweede stop':'Second stop','Beoordeling':'Assessment',",1)
+
+    if "['Eerste stop','First stop']" not in text:
+        text=text.replace('const phrases=[',"const phrases=[['Eerste stop','First stop'],['Tweede stop','Second stop'],['Beoordeling','Assessment'],",1)
+    strategy_asset=Path(root)/'assets/strategy-popup.js'
+    if strategy_asset.exists() and 'data-strategy-popup' not in text and 'dashboard-data' in text:
+        strategy_src=os.path.relpath(strategy_asset,Path(source).parent).replace(os.sep,'/')
+        text=text.replace('</body>',f'<script defer data-strategy-popup src="{strategy_src}"></script></body>',1)
     asset=Path(root)/'assets/race-updates.js'
     if not asset.is_file() or 'data-race-updates' in text:return text
     href=relative(asset,Path(source).parent)
