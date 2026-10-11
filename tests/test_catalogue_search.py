@@ -6,12 +6,14 @@ def test_reference_matches_date_and_preserves_official_pole():
     row = {'year': 2021, 'round': 1, 'date': '2021-03-28'}
     assert race_entries(row, {}, reference)[0][3] is True
     assert race_entries({**row, 'date': '2021-04-01'}, {}, reference) == []
+    reference['races']['2021-1']['circuit'] = 'bahrain'
+    assert race_entries({**row, 'date': '2021-04-01', 'circuitId': 'bahrain'}, {}, reference)[0][3] is True
 
 
 def test_new_data_participation_retirement_and_fastest_lap():
     normalized = {
         'drivers': [{'driver_number': n, 'full_name': name, 'name_acronym': name[:3].upper()} for n, name in [(1, 'Winner'), (2, 'Retired'), (3, 'No Start'), (4, 'Disqualified')]],
-        'session_result': [{'driver_number': 1, 'position': 1}, {'driver_number': 2, 'position': 2, 'dnf': True}],
+        'session_result': [{'driver_number': 1, 'position': 1}, {'driver_number': 2, 'position': 2, 'dnf': True}, {'driver_number': 4, 'dnf': True}],
         'jolpica_results': [{'number': str(n), 'status': status, 'grid': '1', 'FastestLap': {'rank': '1' if n == 1 else '2'}} for n, status in [(1, 'Finished'), (2, 'Engine'), (3, 'Did not start'), (4, 'Disqualified')]]}
     entries = race_entries({'year': 2027, 'round': 1, 'date': '2027-03-01'}, normalized, {'drivers': {}, 'races': {}})
     assert len(entries) == 3
