@@ -664,8 +664,9 @@ def with_primary_race_facts(text):
 
 def with_race_notifications(text, source, root):
     """Install one shared visitor notifier on every published HTML page."""
-    from .branding import with_original_wordmark
+    from .branding import with_original_wordmark, with_hero_flag
     text=with_original_wordmark(text)
+    text=with_hero_flag(text,source,root)
     from .race_navigation import refresh_navigation
     text=refresh_navigation(text,source,root)
     text=with_primary_race_facts(text)

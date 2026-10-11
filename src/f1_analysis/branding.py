@@ -1,5 +1,6 @@
 """Website identity and offline language switch for index and race dashboards."""
 from pathlib import Path
+from functools import lru_cache
 
 def branding(asset_url="../../../../../assets/f1-banner-v3.png",seasons_url=None):
     from html import escape
@@ -103,3 +104,36 @@ def with_original_wordmark(text):
         else:
             text+=original_wordmark_style()
     return text
+
+
+def with_hero_flag(text, source, root):
+    """Use the race's country, including pages restored from published archives."""
+    import os, re
+    from html import escape
+    root, source = Path(root).resolve(), Path(source).resolve()
+    if 'race-hero' not in text or 'data-hero-flag' in text:
+        return text
+    country = 'finish' if source in (root/'index.html', root/'analyses/index.html') else None
+    if not country:
+        index = root/'race-updates.json'
+        if index.exists():
+            rows = _hero_race_countries(str(index), index.stat().st_mtime_ns)
+            key = str(source.parent.relative_to(root/'analyses')) if source.is_relative_to(root/'analyses') else ''
+            country = rows.get(key)
+    if not country:
+        return text
+    flag = root/'assets/flags'/(country.lower().replace(' ', '-')+'.webp')
+    script = root/'assets/hero-flag.js'
+    if not flag.exists() or not script.exists():
+        return text
+    url = escape(os.path.relpath(flag, source.parent).replace(os.sep, '/'), quote=True)
+    text = re.sub(r'<div class="race-hero([^\"]*)"', lambda m: m.group(0)+' data-hero-flag="'+url+'"', text, count=1)
+    script_url = escape(os.path.relpath(script, source.parent).replace(os.sep, '/'), quote=True)
+    tag = '<script defer data-hero-flag-script src="'+script_url+'"></script>'
+    return text.replace('</body>', tag+'</body>', 1) if '</body>' in text else text+tag
+
+
+@lru_cache(maxsize=4)
+def _hero_race_countries(index, version):
+    import json
+    return {r['path']: r.get('country') for r in json.loads(Path(index).read_text())['races'] if r.get('path')}

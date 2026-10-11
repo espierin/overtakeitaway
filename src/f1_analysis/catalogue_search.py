@@ -4,6 +4,13 @@ import csv, io, json, zipfile, re, unicodedata
 
 REFERENCE = 'catalogue-search-reference.json'
 
+# F1DB currently repeats the modern direction for these older configurations.
+# Keep corrections tied to the layout, so later editions retain their direction.
+DIRECTION_CORRECTIONS = {
+    'indianapolis-1': ('anti-clockwise', 'https://www.indianapolismotorspeedway.com/news-multimedia/news/2020/02/18/a-vision-ahead-of-its-time-2020'),
+    'kyalami-1': ('clockwise', 'https://www.kyalamigrandprixcircuit.com/about-kyalami/'),
+}
+
 def fold(text):
     return ''.join(c for c in unicodedata.normalize('NFKD', str(text or '').lower()) if not unicodedata.combining(c))
 
@@ -12,7 +19,11 @@ def reference_from_zip(body):
     def table(name):
         return list(csv.DictReader(io.StringIO(archive.read('f1db-'+name+'.csv').decode('utf-8-sig'))))
     drivers = {d['id']: {'name': d['name'], 'code': d['abbreviation']} for d in table('drivers')}
-    races = {r['id']: {'date': r['date'], 'circuit': r['circuitId'], 'entries': []} for r in table('races')}
+    circuits = {c['id']: {'name': c['name'], 'full_name': c['fullName'], 'latitude': float(c['latitude']), 'longitude': float(c['longitude']), 'direction': c['direction'].lower().replace('_', '-')} for c in table('circuits')}
+    races = {r['id']: {'date': r['date'], 'circuit': r['circuitId'], 'layout': r['circuitLayoutId'], 'direction': r['direction'].lower().replace('_', '-'), 'entries': []} for r in table('races')}
+    for race in races.values():
+        if race['layout'] in DIRECTION_CORRECTIONS:
+            race['direction'] = DIRECTION_CORRECTIONS[race['layout']][0]
     for result in table('races-race-results'):
         # DNS and failed qualification are race entries, not race participation.
         if result['positionText'] in ('DNS', 'DNQ', 'DNPQ', 'DNP', 'EX'):
@@ -22,7 +33,32 @@ def reference_from_zip(body):
             result['positionText'] == 'DNF' or bool(result['reasonRetired']) and result['positionText'] != 'DSQ',
             result['polePosition'] == 'true', result['fastestLap'] == 'true'])
     keyed = {f"{r['year']}-{r['round']}": races[r['id']] for r in table('races')}
-    return {'schema': 2, 'source': 'https://github.com/f1db/f1db', 'drivers': drivers, 'races': keyed}
+    return {'schema': 3, 'source': 'https://github.com/f1db/f1db', 'direction_sources': {layout: url for layout, (_, url) in DIRECTION_CORRECTIONS.items()}, 'drivers': drivers, 'circuits': circuits, 'races': keyed}
+
+
+def race_direction(row, normalized, reference, circuit=None):
+    """Prefer the historical race layout over a circuit's current direction."""
+    saved = reference.get('races', {}).get(f"{row['year']}-{int(row.get('round') or 0)}", {})
+    circuit_id = str(row.get('circuitId') or '').replace('_', '-')
+    if saved.get('date') == row.get('date') or saved.get('circuit') and saved['circuit'] == circuit_id:
+        return saved.get('direction')
+    direction = normalized.get('direction') or row.get('direction')
+    if direction:
+        return str(direction).lower().replace('_', '-')
+    # Fresh calendar entries may precede a reference release. Match the track,
+    # but never infer a direction from an unrelated round or a race name alone.
+    locations = reference.get('circuits', {})
+    match = locations.get(circuit_id)
+    if not match and circuit:
+        import math
+        location = circuit.get('Location', {})
+        if location.get('lat') is not None and location.get('long') is not None:
+            lat, lon = float(location['lat']), float(location['long'])
+            distance = lambda c: math.hypot(lat-c['latitude'], (lon-c['longitude'])*math.cos(math.radians(lat)))
+            closest = min(locations.values(), key=distance, default=None)
+            if closest and distance(closest) < .025:
+                match = closest
+    return match.get('direction') if match else None
 
 def load_reference(root):
     for path in (Path(root)/'assets'/REFERENCE, Path(__file__).parent/'assets'/REFERENCE):
@@ -32,7 +68,7 @@ def load_reference(root):
 
 def race_entries(row, normalized, reference):
     saved = reference['races'].get(f"{row['year']}-{int(row.get('round') or 0)}", {})
-    if saved.get('date') == row.get('date') or saved.get('circuit') and saved['circuit'] == row.get('circuitId'):
+    if saved.get('entries') and (saved.get('date') == row.get('date') or saved.get('circuit') and saved['circuit'] == row.get('circuitId')):
         return saved['entries']
     # New race data remain searchable before the historical reference is updated.
     results = {str(r['driver_number']): r for r in normalized.get('session_result', [])}
@@ -70,14 +106,14 @@ def refresh_reference(root):
     state_path = root/'_storage/catalogue-search-reference-state.json'
     state = json.loads(state_path.read_text()) if state_path.exists() else {}
     today = datetime.now(timezone.utc).date().isoformat()
-    if state.get('checked') == today:
+    if state.get('checked') == today and load_reference(root).get('schema') == 3:
         return
     def fetch(url):
         with urlopen(Request(url, headers={'User-Agent': 'OvertakeItAway/1.0'}), timeout=30) as response:
             return response.read()
     release = json.loads(fetch('https://api.github.com/repos/f1db/f1db/releases/latest'))
     reference = load_reference(root)
-    if reference.get('release') != release['tag_name'] or reference.get('schema') != 2:
+    if reference.get('release') != release['tag_name'] or reference.get('schema') != 3:
         asset = next(a for a in release['assets'] if a['name'] == 'f1db-csv.zip')
         body = fetch(asset['browser_download_url'])
         reference = reference_from_zip(body)

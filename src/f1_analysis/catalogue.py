@@ -26,7 +26,7 @@ def catalogue_body(root,rows,prefix):
    previous_drivers=previous_data.get('search_drivers',{})
  if (root/'race-updates.json').exists():
   previous.update({r['path']:r for r in json.loads((root/'race-updates.json').read_text())['races'] if r.get('path')})
- from .catalogue_search import load_reference, race_entries
+ from .catalogue_search import load_reference, race_entries, race_direction
  search_reference=load_reference(root)
  search_reference['drivers']={**previous_drivers,**search_reference['drivers']}
  enriched=[]
@@ -36,7 +36,7 @@ def catalogue_body(root,rows,prefix):
   d=json.loads(metadata.read_text()) if metadata.exists() else {}
   if not d and row['path'] in previous:
    old=previous[row['path']]
-   preserved={k:old[k] for k in ('name','circuit','circuitId','round','date','winner','winner_number','winner_colour','winner_code','search_entries') if k in old}
+   preserved={k:old[k] for k in ('name','circuit','circuitId','round','date','winner','winner_number','winner_colour','winner_code','search_entries','direction') if k in old}
    restored={**row,**preserved,'href':prefix+row['path']+'/overzicht.html'}
    restored['search_entries']=race_entries(restored,d,search_reference)
    enriched.append(restored)
@@ -80,6 +80,7 @@ def catalogue_body(root,rows,prefix):
     payload=json.loads(node.string);winner=next((x for x in payload.get('drivers',[]) if x.get('finish')==1),{})
     row.update(winner=winner.get('name') or row.get('winner'),winner_number=winner.get('driver_number') or row.get('winner_number'),winner_code=winner.get('code'),winner_colour=payload.get('styles',{}).get(str(winner.get('driver_number')),{}).get('color') or row.get('winner_colour'))
   c=next((c for c in circuits if c['circuitId']==row['circuitId']),None)
+  row['direction']=race_direction(row,{},search_reference,c)
   if not c:continue
   row['country']=c['Location']['country']
   row['flag_background']=asset_prefix+'flags/'+row['country'].lower().replace(' ','-')+'.webp'

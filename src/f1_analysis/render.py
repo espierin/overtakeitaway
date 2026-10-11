@@ -462,10 +462,10 @@ def update_index(root):
                      'coverage_label':m.get('coverage_label','Uitgebreide timinganalyse'),'analysis_kind':m.get('analysis_kind','timinganalyse')})
     rows.sort(key=lambda r:(r['year'],r['race_date'],r['gp']))
     write_json(base/'index.json',rows)
-    from .branding import branding,language_script,ensure_banner
+    from .branding import branding,language_script,ensure_banner,with_hero_flag
     ensure_banner(root)
     from .catalogue import catalogue_body
     def body(prefix):
         return catalogue_body(root,rows,prefix)
-    (base/'index.html').write_text(page('Overtake It Away · raceanalyses',body('')))
-    (root/'index.html').write_text(page('Overtake It Away · raceanalyses',body('analyses/')))
+    (base/'index.html').write_text(with_hero_flag(page('Overtake It Away · raceanalyses',body('')),base/'index.html',root))
+    (root/'index.html').write_text(with_hero_flag(page('Overtake It Away · raceanalyses',body('analyses/')),root/'index.html',root))
