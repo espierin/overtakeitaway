@@ -687,6 +687,10 @@ def with_race_notifications(text, source, root):
     if strategy_asset.exists() and 'data-strategy-popup' not in text and 'dashboard-data' in text:
         strategy_src=os.path.relpath(strategy_asset,Path(source).parent).replace(os.sep,'/')
         text=text.replace('</body>',f'<script defer data-strategy-popup src="{strategy_src}"></script></body>',1)
+    positions_asset=Path(root)/'assets/positions-gained.js'
+    if positions_asset.exists() and 'data-positions-gained' not in text and 'dashboard-data' in text:
+        positions_src=os.path.relpath(positions_asset,Path(source).parent).replace(os.sep,'/')
+        text=text.replace('</body>',f'<script defer data-positions-gained src="{positions_src}"></script></body>',1)
     events_asset=Path(root)/'assets/events-selection.js'
     if events_asset.exists() and 'data-events-selection' not in text and 'id="event-search"' in text:
         events_src=os.path.relpath(events_asset,Path(source).parent).replace(os.sep,'/')

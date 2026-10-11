@@ -83,6 +83,12 @@ assert.deepEqual(ids('counterclockwise'),[3]);
 assert.deepEqual(ids('ver+ clockwise'),[2]);
 assert.deepEqual(ids('ver+ linksom'),[]);
 assert.deepEqual(ids('clockwise linksom'),[]);
+assert.equal(radioSearchMatches('ver+ clockwise'),true);
+assert.equal(radioSearchMatches('monaco max verstappen linksom'),true);
+assert.equal(radioSearchMatches('anti clockwise verstappen@ 2021'),true);
+assert.equal(radioSearchMatches('verstappen'),false);
+assert.equal(radioSearchMatches('clockwise'),false);
+assert.equal(radioSearchMatches('sparken clockwise'),false);
 '''
     subprocess.run(['node', '-e', fixture + functions + assertions], check=True)
 
