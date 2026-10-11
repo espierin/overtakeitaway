@@ -99,3 +99,15 @@ def test_inaccessible_openf1_uses_verified_fastf1_data(tmp_path,monkeypatch):
     report=updater.update(root,[2026],updater.parse_date('2026-01-01T15:00:00Z'))
     assert report['updated']==[99] and not report['failed']
     assert '--timing-source' in calls[0] and 'fastf1' in calls[0] and '--refresh' not in calls[0]
+
+
+def test_delayed_fastf1_session_is_waiting_not_failure(tmp_path,monkeypatch):
+    from f1_analysis import history
+    from fastf1._api import SessionNotAvailableError
+    (tmp_path/'config').mkdir();(tmp_path/'config/sources.yaml').write_text('{}')
+    class Client:
+        def fetch(self,*args,**kwargs):return {'MRData':{'RaceTable':{'Races':[{'Results':[{'position':'1'}]}]}}}
+    def unavailable(*args):raise SessionNotAvailableError('Timing nog niet beschikbaar')
+    monkeypatch.setattr(history,'acquire',unavailable)
+    data,missing=updater.fastf1_probe(Client(),{'year':2026,'round':1,'session_key':202601,'circuit_short_name':'Test'},tmp_path)
+    assert data is None and 'Timing nog niet beschikbaar' in missing[0]

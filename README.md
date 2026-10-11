@@ -297,3 +297,9 @@ Op 11 oktober 2026 zijn de zestien beschikbare hoofdraces van 2026 toegevoegd, v
 GitHub Actions haalt elk half uur (op minuut 17 en 47, UTC) de agenda van het huidige en vorige seizoen opnieuw op. Alleen afgelopen races worden onderzocht. Waar OpenF1 een eindtijd levert begint de controle na dat tijdstip; anders begint de controle drie uur na de geplande start. Een definitieve uitslag, bevestigd race-einde en volledige laatste winnaarsronde zijn altijd vereist voordat een pagina wordt gepubliceerd.
 
 Ontbrekende gegevens en mislukte analyses worden na 30 minuten opnieuw geprobeerd. Bestaande analyses blijven behouden. OpenF1 wordt gebruikt waar beschikbaar, met het openbare F1-timingarchief via FastF1 als alternatief. Nieuwe pagina’s komen automatisch in de index, navigatie en wereldkaart. De eerste 14 dagen worden reeds gepubliceerde races elke zes uur gecontroleerd op aanvullingen. Zonder werk worden geen pagina’s opnieuw opgebouwd. GitHub kan geplande uitvoeringen vertragen; de planning is geen garantie op exacte starttijden.
+
+### Agenda en meldingen voor bezoekers
+
+De frontpagina toont voor het actuele kalenderjaar ook de geplande races. Races zonder gepubliceerde analyse zijn grijs en niet aanklikbaar. Een balk toont de vorige, meest recente en eerstvolgende race. Voor andere jaren ontbreekt deze balk.
+
+Elke gepubliceerde HTML-pagina controleert eenmaal per minuut het gedeelde `race-updates.json`-overzicht. De eerste keer wordt lokaal een uitgangspunt opgeslagen. Bij latere bezoeken of tijdens een open bezoek verschijnt een paarse kaart voor nieuwe of bijgewerkte racegegevens, inclusief de winnaar waar bekend. Sluiten markeert de getoonde updates als gezien. Deze voorkeur geldt per browser; de pagina wordt niet automatisch herladen.

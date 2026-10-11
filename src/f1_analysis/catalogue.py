@@ -1,6 +1,7 @@
 """Offline bilingual race catalogue and geographical circuit chooser."""
 from pathlib import Path
 import json,html,math
+from datetime import datetime, timezone
 from .historical_presentation import in_seasons
 from .branding import branding,language_script
 from .driver_sidebar import CSS as sidebar_css
@@ -23,8 +24,20 @@ def catalogue_body(root,rows,prefix):
   name=d.get('circuit') if isinstance(d.get('circuit'),str) else c.get('circuitName',row['gp'])
   circuit=byname.get(name) or next((x for x in circuits if x['url'].replace('http:','https:')==str(d.get('circuit_wikipedia','')).replace('http:','https:')),None)
   if not circuit and c.get('circuitId'):circuit=next((x for x in circuits if x['circuitId']==c['circuitId']),None)
-  enriched.append({**row,'name':d.get('name') or race.get('raceName') or row['meeting'] or row['gp'],'circuit':name,'circuitId':circuit['circuitId'] if circuit else None,'round':d.get('round') or race.get('round'),'date':d.get('date') or race.get('date') or row['race_date'][:10],'href':prefix+row['path']+'/overzicht.html'})
+  winner=next((x for x in d.get('session_result',[]) if x.get('position')==1),{})
+  driver=next((x for x in d.get('drivers',[]) if x.get('driver_number')==winner.get('driver_number')),{})
+  enriched.append({**row,'winner':driver.get('full_name') or driver.get('name_acronym'),'winner_number':driver.get('driver_number'),'winner_colour':driver.get('team_colour'),'name':d.get('name') or race.get('raceName') or row['meeting'] or row['gp'],'circuit':name,'circuitId':circuit['circuitId'] if circuit else None,'round':d.get('round') or race.get('round'),'date':d.get('date') or race.get('date') or row['race_date'][:10],'href':prefix+row['path']+'/overzicht.html'})
+ current_year=datetime.now(timezone.utc).year
+ calendar_file=root/'_storage/season-calendar.json'
+ agenda=json.loads(calendar_file.read_text()).get('seasons',{}).get(str(current_year),[]) if calendar_file.exists() else []
+ for event in agenda:
+  race=event['jolpica_race'];round_=int(event['round'])
+  if any(r['year']==current_year and int(r.get('round') or 0)==round_ for r in enriched):continue
+  c=race['Circuit']
+  enriched.append({'year':current_year,'name':race['raceName'],'gp':c['circuitName'],'circuit':c['circuitName'],'circuitId':c['circuitId'],
+                   'round':round_,'date':race['date'],'start':event['date_start'],'scheduled':True,'href':None,'path':None,'analysis_kind':'scheduled'})
  for row in enriched:
+  row.setdefault('start',row.get('race_date') or row['date']+'T13:00:00Z')
   c=next((c for c in circuits if c['circuitId']==row['circuitId']),None)
   if not c:continue
   background='circuits/'+c['circuitId']+'.webp'
@@ -56,12 +69,17 @@ def catalogue_body(root,rows,prefix):
  svg='<svg id="world-map" viewBox="0 0 1440 640" aria-label="Wereldkaart" role="img"><defs><pattern id="geo-grid" width="120" height="120" patternUnits="userSpaceOnUse"><path d="M120 0H0V120" fill="none" stroke="#51d6dd" stroke-opacity=".12"/></pattern></defs><rect width="1440" height="720" fill="#0b1019"/><g fill="#162a36" stroke="#51d6dd" stroke-opacity=".48" stroke-width=".7">'+''.join('<path d="'+p+'"/>' for p in paths)+'</g><rect width="1440" height="720" fill="url(#geo-grid)" pointer-events="none"/><g id="circuit-pins"></g></svg>'
  translations={'Circuitlay-outs':'Circuit layouts','Ontdek de race achter de uitslag':'Discover the race behind the result','Kies een seizoen, zoek een race of verken de circuits op de wereldkaart.':'Choose a season, search for a race or explore circuits on the world map.','Zoek een race of circuit':'Search for a race or circuit','Bijvoorbeeld Monaco, Spa of 1967':'For example Monaco, Spa or 1967','◎ Wereldkaart':'◎ World map','Alle circuits':'All circuits','Geen races gevonden. Probeer een andere zoekterm.':'No races found. Try another search term.','Kies een circuit':'Choose a circuit','Alle WK-circuits in het archief · sleep om te verplaatsen, scroll om te zoomen.':'All championship circuits in the archive · drag to pan, scroll to zoom.','Geselecteerd circuit':'Selected circuit','Zoek een circuit':'Search for a circuit','Naam, plaats of land':'Name, location or country','Wereld passend in beeld':'Fit world map','Wereldkaart':'World map','WERELDWIJD CIRCUITNETWERK':'GLOBAL CIRCUIT NETWORK','SEIZOENEN':'SEASONS','2021–heden':'2021–present','Groepen uitklappen':'Expand groups','Groepen inklappen':'Collapse groups','UITKLAPPEN':'EXPAND','INKLAPPEN':'COLLAPSE'}
  language=language_script().replace('const exact={','const exact={'+','.join(json.dumps(k,ensure_ascii=False)+':'+json.dumps(v,ensure_ascii=False) for k,v in translations.items())+',')
- data=json.dumps({'races':enriched,'circuits':circuits},ensure_ascii=False).replace('</','<\\/')
+ data=json.dumps({'races':enriched,'circuits':circuits,'current_year':current_year},ensure_ascii=False).replace('</','<\\/')
+ from .io import write_json
+ updates=[{**r,'id':str(r['year'])+'-'+str(r.get('round') or r['gp']),'version':r.get('created_at',r['path']),
+           'href':'analyses/'+r['path']+'/overzicht.html','background':r.get('background','').removeprefix('../'),
+           'track_image':r.get('track_image','').removeprefix('../')} for r in enriched if not r.get('scheduled')]
+ write_json(root/'race-updates.json',{'races':updates})
  year_label=str(min(r['year'] for r in rows))+'–'+str(max(r['year'] for r in rows)) if rows else '1950–heden'
  return '<style>'+sidebar_css+source.joinpath('catalogue.css').read_text()+'</style><aside class="driver-sidebar year-sidebar" aria-label="Seizoenen"><h2>SEIZOENEN</h2><div id="year-strip" class="driver-picker-list"></div><footer><button id="expand-years" title="Groepen uitklappen">UITKLAPPEN</button><button id="collapse-years" title="Groepen inklappen">INKLAPPEN</button></footer></aside><div class="race-hero catalogue-hero">'+branding('assets/f1-banner-v3.png' if prefix else '../assets/f1-banner-v3.png')+'''<div class="catalogue-intro"><span class="eyebrow">RACE EXPLORER</span><h1>Ontdek de race achter de uitslag</h1><p>Kies een seizoen, zoek een race of verken de circuits op de wereldkaart.</p><div id="catalogue-stats"></div></div></div><main>
 <div class="catalogue-tools"><label class="search-label"><span>Zoek een race of circuit</span><input id="catalog-search" type="search" placeholder="Bijvoorbeeld Monaco, Spa of 1967"></label><button id="open-world" class="accent-button">◎ Wereldkaart</button></div>
 <select id="year-select" aria-label="Seizoen" hidden></select><button id="clear-circuit" class="accent-button" hidden>Alle circuits</button>
-<a id="continue-race" hidden></a><div class="calendar-heading"><h2 id="calendar-title"></h2><span id="catalog-count" aria-live="polite"></span></div><div id="race-cards"></div><p id="empty-results" hidden>Geen races gevonden. Probeer een andere zoekterm.</p>
+<nav id="season-race-nav" class="season-race-nav" hidden></nav><div class="calendar-heading"><h2 id="calendar-title"></h2><span id="catalog-count" aria-live="polite"></span></div><div id="race-cards"></div><p id="empty-results" hidden>Geen races gevonden. Probeer een andere zoekterm.</p>
 </main><footer class="catalogue-footer"><span>'''+year_label+''' · Formula 1 World Championship</span><span>Circuits: <a href="https://api.jolpi.ca/ergast/f1/circuits/">Jolpica</a> · Kaart: <a href="https://www.naturalearthdata.com/">Natural Earth</a> · <span>Circuitlay-outs</span>: <a href="https://github.com/MisterSix2295/f1-circuits-svg">ROY Jules</a></span></footer>
 <dialog id="world-dialog"><div class="world-heading"><div><span class="eyebrow">WERELDWIJD CIRCUITNETWERK</span><h2>Kies een circuit</h2><p>Alle WK-circuits in het archief · sleep om te verplaatsen, scroll om te zoomen.</p></div><button id="close-world" aria-label="Sluiten">✕</button></div><div class="world-layout"><div class="world-canvas">'''+svg+'''<div class="world-controls"><button id="world-in" aria-label="Inzoomen">+</button><button id="world-out" aria-label="Uitzoomen">−</button><button id="world-fit" aria-label="Wereld passend in beeld">⛶</button></div><div id="map-tip" hidden></div><div class="map-key"><i></i><span>Geselecteerd circuit</span></div></div><aside class="circuit-sidebar"><label><span>Zoek een circuit</span><input id="circuit-search" type="search" placeholder="Naam, plaats of land"></label><div id="circuit-list"></div><div id="circuit-detail" hidden></div></aside></div></dialog>
 <script id="catalogue-data" type="application/json">'''+data+'</script>'+language+'<script>'+source.joinpath('catalogue.js').read_text()+'</script>'

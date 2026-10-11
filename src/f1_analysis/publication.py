@@ -457,13 +457,14 @@ def build_site(root, output, max_bytes=None, from_year=1950):
             for name in ['index.html','analyses/index.html','analyses/index.json']:
                 index_overrides[root/name]=(selected/name).read_text()
     def source_text(source):
-        return index_overrides[source] if source in index_overrides else (site_html(source,root) if source.suffix=='.html' else source.read_text())
+        text=index_overrides[source] if source in index_overrides else (site_html(source,root) if source.suffix=='.html' else source.read_text())
+        return with_race_notifications(text,source,root) if source.suffix=='.html' else text
     files = set()
     for pointer, run, _ in latest_runs(root, from_year):
         files.add(pointer)
         files.update(p for p in run.rglob('*') if p.is_file() and 'data' not in p.relative_to(run).parts)
         files.update(p for p in (pointer.parent / 'corrections').rglob('*') if p.is_file())
-    for name in ['index.html', 'analyses/index.html', 'analyses/index.json', '_storage/index.json', '_storage/update-state.json', '_storage/season-calendar.json']:
+    for name in ['index.html', 'analyses/index.html', 'analyses/index.json', '_storage/index.json', '_storage/update-state.json', '_storage/season-calendar.json', 'race-updates.json']:
         if (root / name).exists(): files.add(root / name)
     for directory in ['assets', '_shared', '_media', '_documents']:
         files.update(p for p in (root / directory).rglob('*') if p.is_file() and p.name != 'index.json')
@@ -639,6 +640,15 @@ def verify_site(root):
             'races': len(list((root / 'analyses').glob('*/*/latest.json'))), 'checked_links': checked, 'media': len(media)}
 
 
+def with_race_notifications(text, source, root):
+    """Install one shared visitor notifier on every published HTML page."""
+    asset=Path(root)/'assets/race-updates.js'
+    if not asset.is_file() or 'data-race-updates' in text:return text
+    href=relative(asset,Path(source).parent)
+    script='<script defer data-race-updates src="'+href+'"></script>'
+    return text.replace('</body>',script+'</body>') if '</body>' in text else text+script
+
+
 def compare_pages(root, site):
     """Prove that packaging preserved visible text, controls, executable code and data."""
     from bs4 import BeautifulSoup
@@ -666,7 +676,7 @@ def compare_pages(root, site):
         if relative_path.parts[0]=='_media':continue
         original=root/relative_path
         if not original.is_file():raise ValueError(f'Geen oorspronkelijke pagina: {relative_path}')
-        a=BeautifulSoup(site_html(original,root),'html.parser');b=BeautifulSoup(site_html(published,site),'html.parser')
+        a=BeautifulSoup(with_race_notifications(site_html(original,root),original,root),'html.parser');b=BeautifulSoup(site_html(published,site),'html.parser')
         if a.get_text()!=b.get_text():raise ValueError(f'Zichtbare tekst gewijzigd: {relative_path}')
         controls=lambda soup:[(n.name,dict(n.attrs),n.get_text()) for n in soup.find_all(['input','button','select','option','dialog'])]
         if controls(a)!=controls(b):raise ValueError(f'Bediening gewijzigd: {relative_path}')
@@ -688,6 +698,8 @@ def cleanup(root, directory, apply=False, cache_days=21):
     for _, run, _ in latest_runs(root):
         linked=set()
         for q in run.rglob('*.html'):
+            # Downloaded source HTML is evidence, not a generated site page.
+            if 'data' in q.relative_to(run).parts:continue
             from bs4 import BeautifulSoup
             soup=BeautifulSoup(site_html(q,root),'html.parser')
             for node in soup.find_all(['a','img','script','link']):

@@ -91,6 +91,8 @@ def discover_calendar(client, years, known, now, config):
 def fastf1_probe(client, session, root):
     """Wait for published results, then verify the complete public timing archive."""
     from .history import acquire
+    from fastf1._api import SessionNotAvailableError
+    from fastf1.exceptions import DataNotLoadedError, NoLapDataError
     import yaml
     result = client.fetch(f'https://api.jolpi.ca/ergast/f1/{session["year"]}/{session["round"]}/results.json', publisher='Jolpica')
     races = result['MRData']['RaceTable']['Races']
@@ -102,7 +104,7 @@ def fastf1_probe(client, session, root):
                           yaml.safe_load((Path(root) / 'config/sources.yaml').read_text()))
         ready, missing = readiness(data)
         return (data if ready else None), missing
-    except (ValueError, IndexError, KeyError) as exc:
+    except (ValueError, IndexError, KeyError, SessionNotAvailableError, DataNotLoadedError, NoLapDataError) as exc:
         return None, ['volledige timinggegevens: ' + str(exc)]
 
 
@@ -142,11 +144,14 @@ def update(root, years=None, now=None, dry_run=False):
     client = Client(root, load_config(root, root / 'config/history.yaml'), refresh=True)
     known = {str(m['session']['session_key']): (pointer, run, m)
              for pointer, run, m in latest_runs(root) if m['input']['year']>=2023 and m.get('session', {}).get('session_key')}
+    calendar_path = root / '_storage/season-calendar.json'
+    old_calendar = read_json(calendar_path).get('seasons', {}) if calendar_path.exists() else {}
     sessions = discover_calendar(client, years, known, now, config)
+    calendar_changed = old_calendar != read_json(calendar_path).get('seasons', {}) if calendar_path.exists() else False
     state_path = root / '_storage/update-state.json'
     state = read_json(state_path) if state_path.exists() else {'schema': 1, 'sessions': {}}
     queue = plan(sessions, known, state['sessions'], now, config)
-    report = {'checked_at': now.isoformat(), 'planned': [s['session_key'] for s in queue],
+    report = {'checked_at': now.isoformat(), 'calendar_changed': calendar_changed, 'planned': [s['session_key'] for s in queue],
               'planned_years': sorted({s['year'] for s in queue}), 'updated': [], 'unchanged': [], 'waiting': [], 'failed': []}
     if dry_run: return report
     for session in queue:
@@ -203,6 +208,9 @@ def update(root, years=None, now=None, dry_run=False):
         except Exception as exc:
             record.update(status='mislukt', error=str(exc)); report['failed'].append({'session_key': key, 'error': str(exc)})
         write_json(state_path, state)
+    if calendar_changed or report['updated']:
+        from .render import update_index
+        update_index(root)
     return report
 
 
@@ -215,7 +223,7 @@ def main():
     write_json(Path(args.root) / '_storage/update-report.json', report)
     print(json.dumps(report, ensure_ascii=False, indent=2))
     if os.environ.get('GITHUB_OUTPUT'):
-        with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write('changed='+str(bool(report['updated'])).lower()+'\n'+'planned='+str(bool(report['planned'])).lower()+'\n')
+        with open(os.environ['GITHUB_OUTPUT'],'a') as f:f.write('changed='+str(bool(report['updated'])).lower()+'\n'+'planned='+str(bool(report['planned']) or report.get('calendar_changed', False)).lower()+'\n')
     if report['failed']: sys.exit(1)
 
 

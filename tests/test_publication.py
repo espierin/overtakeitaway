@@ -211,3 +211,22 @@ def test_inline_variable_background_keeps_document_url_base(tmp_path):
     published=BeautifulSoup(site_html(out/'index.html',out),'html.parser')
     assert published.style.string==css
     assert not published.find('link',rel='stylesheet')
+
+
+def test_cleanup_does_not_interpret_raw_source_html_as_site_links(tmp_path):
+    root=tmp_path/'project';root.mkdir();run=project(root)
+    (run/'data/raw/source.html').write_text('<link href="/w/load.php"><a href="/wiki/Test">Original source</a>')
+    archive_seasons(root,root/'storage/archives')
+    report=cleanup(root,root/'storage/archives',apply=False)
+    assert report['files']>0
+
+
+def test_notifier_is_installed_on_catalogue_and_report_pages(tmp_path):
+    root=tmp_path/'project';root.mkdir();run=project(root)
+    (root/'assets').mkdir();(root/'assets/race-updates.js').write_text('window.notifier=true;')
+    (root/'race-updates.json').write_text('{"races":[]}')
+    out=tmp_path/'site';build_site(root,out)
+    for source in [out/'index.html',out/run.relative_to(root)/'overzicht.html']:
+        assert 'data-race-updates' in site_html(source,out)
+    assert (out/'race-updates.json').is_file()
+    assert compare_pages(root,out)['pages']==2
