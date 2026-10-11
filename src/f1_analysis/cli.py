@@ -17,6 +17,23 @@ def load_config(root,path):
     return base
 
 
+def canonical_race(root, data):
+    """Keep one race when a different timing source uses another circuit label."""
+    year = root / 'analyses' / str(data['session']['year'])
+    round_ = data.get('round')
+    matches = []
+    if round_ is not None:
+        for pointer in year.glob('*/latest.json'):
+            run = pointer.parent / read_json(pointer)['run']
+            manifest = read_json(run / 'manifest.json')
+            previous = manifest.get('race_round', manifest.get('session', {}).get('round'))
+            if previous is not None and int(previous) == int(round_):
+                matches.append(pointer.parent)
+    if len(matches) > 1:
+        raise ValueError('Meerdere bestaande analyses voor dezelfde kampioenschapsronde.')
+    return matches[0] if matches else year / slug(data['session']['circuit_short_name'])
+
+
 def analyse(args):
     from .render import render, update_index, check_links
     root=Path(args.root).resolve();config=load_config(root,args.config)
@@ -39,7 +56,7 @@ def analyse(args):
             parent=read_json(old/'manifest.json');warnings=list(parent.get('warnings',[]));client.sources=parent.get('sources',[])
             manifest['parent_run']=str(old)
         else:
-            if args.year<2023:
+            if args.year<2023 or getattr(args,'timing_source','openf1')=='fastf1':
                 from .history import acquire as acquire_history
                 data,warnings=acquire_history(client,args.year,args.gp,run/'data/raw',yaml.safe_load((root/'config/sources.yaml').read_text()))
             else:
@@ -48,7 +65,7 @@ def analyse(args):
             from .updater import readiness
             ready,missing=readiness(data)
             if not ready:raise ValueError('Race nog niet publiceerbaar: '+', '.join(missing))
-        canonical=root/'analyses'/str(args.year)/slug(data['session']['circuit_short_name'])
+        canonical=canonical_race(root,data)
         target=canonical/'runs'/run_id
         if target!=run:target.parent.mkdir(parents=True,exist_ok=True);run.rename(target);run=target
         corrections=canonical/'corrections'/'overrides.yaml'
@@ -88,7 +105,7 @@ def analyse(args):
         write_json(run/'exports/gebeurtenissen.json',events);write_csv(run/'exports/gebeurtenissen.csv',events)
         write_json(run/'exports/kerncijfers.json',stats);write_json(run/'exports/bronvergelijking.json',stats['f1gures_comparison']);write_csv(run/'exports/pitstopstrategie.csv',cycles)
         write_json(run/'data/derived/corrections.json',overrides)
-        manifest.update(session=data['session'],meeting=data['meeting'],sources=client.sources,warnings=bundle['warnings'],
+        manifest.update(session=data['session'],meeting=data['meeting'],race_round=data.get('round'),sources=client.sources,warnings=bundle['warnings'],
                         coverage={ep:len(data.get(ep,[])) for ep in ['drivers','laps','overtakes','pit','stints','position','intervals','starting_grid','session_result','f1gures']},
                         corrections=overrides,counting_rules={'lap_convention':'eigen lopende ronde inhalende coureur','standard_from_lap':2,'slotfase':[stats['late_start'],stats['late_end']]},
                         status='gedeeltelijk')
@@ -123,6 +140,7 @@ def main():
     p=sub.add_parser('analyse',help='Verzamel gegevens en genereer alle rapporten en figuren')
     p.add_argument('--year',type=int,required=True);p.add_argument('--gp',required=True)
     p.add_argument('--session-key',type=int,help='Exacte OpenF1-hoofdrace voor automatische verwerking')
+    p.add_argument('--timing-source',choices=['openf1','fastf1'],default='openf1',help='Timingbron; FastF1 gebruikt het openbare F1-timingarchief')
     p.add_argument('--require-ready',action='store_true',help='Publiceer pas als uitslag en timing beschikbaar zijn')
     p.add_argument('--offline',action='store_true',help='Gebruik uitsluitend cache')
     p.add_argument('--refresh',action='store_true',help='Haal brondata bewust opnieuw op')

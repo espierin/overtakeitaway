@@ -136,6 +136,14 @@ def archive_seasons(root, directory, from_year=1950, years=None):
         group = groups.setdefault(year, [])
         group.extend([pointer, *(p for p in run.rglob('*') if p.is_file()),
                       *(p for p in (pointer.parent / 'corrections').rglob('*') if p.is_file())])
+        normalized = run / 'data/normalized/input.json'
+        if normalized.is_file():
+            history_cache = read_json(normalized).get('history_cache')
+            if history_cache:
+                cached = inside(root, root / history_cache)
+                if not (cached / 'bundle.json').is_file() or not (cached / 'locations.json.gz').is_file():
+                    raise ValueError(f'FastF1-herstelgegevens ontbreken: {history_cache}')
+                group.extend(p for p in cached.rglob('*') if p.is_file())
         # Keep original HTTP response bytes and request metadata for offline reanalysis.
         # Identical requests are deduplicated within each season bundle.
         for source in manifest.get('sources',[]):

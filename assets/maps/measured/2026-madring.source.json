@@ -1,0 +1,22 @@
+{
+  "year": 2026,
+  "circuit": "Madring",
+  "method": "gemeten volledige ronde uit FastF1-racetiming; indicatieve vorm",
+  "reference_lap": {
+    "driver_number": 12,
+    "lap_number": 5
+  },
+  "analysis_run": "analyses/2026/madring/runs/20261011T141520.751822Z-0dbd7f",
+  "analysis_sha256": "9f9a4a1f1d79cdb7f6f0cbe950cd7fd89ab2d98bf28822e698e8908036c316ff",
+  "sources": [
+    {
+      "url": "https://livetiming.formula1.com/static/2026/2026-09-13_Spanish_Grand_Prix/2026-09-13_Race/Position.z.jsonStream",
+      "publisher": "Formula 1 timingarchief / FastF1",
+      "title": "Historische timing: Position.z.jsonStream",
+      "fetched_at": "2026-10-11T14:15:28.347712+00:00",
+      "status": "opgehaald",
+      "sha256": "78654e5088759ea92ecf66bac2abcbff3e34ceba7d9cf64ed4ff2f5fddc8d49f",
+      "access_method": "openbaar archief, verwerkt met FastF1 3.8.3"
+    }
+  ]
+}

@@ -273,3 +273,21 @@ Dit project heeft lokaal opslag-/hersteltests en websitecontroles. De daadwerkel
 ### Actuele publicatie — 11 oktober 2026
 
 De actuele bundel bevat alle 1.149 races en de laatste gecontroleerde dashboard- en indexopmaak, inclusief de 77 circuitachtergronden. De upload bewaart de bronarchieven en presentatieaanvulling in GitHub Releases; de website wordt gepubliceerd via GitHub Pages onder `/overtakeitaway/`. De workflow **Gecontroleerde website publiceren** herstelt en publiceert de gecontroleerde snapshot zonder vooraf nieuwe racegegevens te verwerken. **Races bijwerken en website publiceren** verzorgt de bestaande periodieke gegevensverwerking.
+
+
+### Lopend seizoen 2026
+
+Ook een lopend seizoen kan worden verwerkt. Het programma voegt alleen hoofdraces met een beschikbare uitslag toe; toekomstige races en races zonder uitslag blijven in het seizoenmanifest als wachtend vermeld. `status: bijgewerkt` betekent dat de beschikbare races zijn verwerkt, niet dat het seizoen is afgelopen.
+
+Tijdens een live sessie kan OpenF1 ook historische openbare aanvragen tijdelijk afsluiten. De expliciete alternatieve bron gebruikt het openbare F1-timingarchief via FastF1, met dezelfde timinganalyses en bronopslag als de eerdere FastF1-seizoenen:
+
+```bash
+.venv/bin/python -m f1_analysis analyse --year 2026 --gp Melbourne --timing-source fastf1 --require-ready --config config/history.yaml
+.venv/bin/python research/generate_current_season.py --year 2026
+.venv/bin/python research/verify_current_season.py --year 2026
+```
+
+De inhaalregistraties uit FastF1 zijn gereconstrueerde kandidaten uit timing en blijven als zodanig herkenbaar; dit is geen officiële inhaalfeed. De controles vereisen een bevestigd race-einde, volledige deelnemersuitslag en timing tot de laatste winnaarsronde. Het lopende seizoen houdt eigen bronbestanden, correcties, exports en een `analyses/2026/season-manifest.json` bij.
+
+
+Op 11 oktober 2026 zijn de zestien beschikbare hoofdraces van 2026 toegevoegd, van Australië tot de verplaatste Bahrain Grand Prix in Maleisië. Het lokale overzicht bevat daarmee 1.165 races in 77 seizoenen. Singapore en de latere races blijven wachtend zolang de uitslag ontbreekt. De nieuwe pagina’s volgen de actuele interactieve website, met bron- en methoderapport, circuitkaart en CSV/JSON-exports. Madring gebruikt een indicatieve baanvorm uit de opgeslagen 2026-racetiming; de kalender gebruikt daar geen lay-out van Jarama. Wisselen van FastF1 naar OpenF1 behoudt dezelfde raceverwijzing en maakt geen tweede racekaart voor dezelfde kampioenschapsronde.

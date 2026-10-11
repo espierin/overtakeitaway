@@ -58,6 +58,20 @@ def test_compact_site_preserves_pixels_payload_scripts_and_visible_content(tmp_p
     assert site_html(second/run.relative_to(root)/'overzicht.html',second)==site_html(out/run.relative_to(root)/'overzicht.html',out)
 
 
+def test_fastf1_offline_inputs_survive_season_restore(tmp_path):
+    root=tmp_path/'project';root.mkdir();run=project(root)
+    cache=root/'cache/history/2025-01-v1'
+    write_json(cache/'bundle.json',{'data':{'timing_source':'FastF1'}})
+    (cache/'locations.json.gz').write_bytes(gzip.compress(b'{"63":[]}'))
+    (cache/'raw').mkdir();(cache/'raw/timing.body').write_bytes(b'original timing')
+    write_json(run/'data/normalized/input.json',{'history_cache':'cache/history/2025-01-v1'})
+    registry=archive_seasons(root,root/'storage/archives')
+    entry=registry['seasons']['2025'];restored=tmp_path/'restored'
+    restore_bundle(root/'storage/archives'/entry['asset'],restored,entry['sha256'])
+    for filename in ['bundle.json','locations.json.gz','raw/timing.body']:
+        assert (restored/cache.relative_to(root)/filename).read_bytes()==(cache/filename).read_bytes()
+
+
 def test_archive_restores_exact_originals_and_cleanup_refuses_unarchived_changes(tmp_path):
     root=tmp_path/'project';root.mkdir();run=project(root)
     store=tmp_path/'archives'

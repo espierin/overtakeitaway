@@ -9,7 +9,7 @@ def circuit_key(run,row):
     p=run/'data/normalized'/filename
     if p.exists():
         d=json.loads(p.read_text());race=d.get('session',{}).get('jolpica_race',{})
-        url=d.get('circuit_wikipedia') or race.get('Circuit',{}).get('url')
+        url=d.get('circuit_wikipedia') or race.get('Circuit',{}).get('url') or d.get('jolpica_circuit',{}).get('url')
         if url:return unquote(urlparse(url).path).split('/')[-1].lower()
     return ''.join(c for c in unicodedata.normalize('NFKD',row.get('gp','').lower()) if c.isalnum())
 
