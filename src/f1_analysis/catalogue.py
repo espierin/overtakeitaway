@@ -29,7 +29,7 @@ def catalogue_body(root,rows,prefix):
   d=json.loads(metadata.read_text()) if metadata.exists() else {}
   if not d and row['path'] in previous:
    old=previous[row['path']]
-   preserved={k:old[k] for k in ('name','circuit','circuitId','round','date','winner','winner_number','winner_colour') if k in old}
+   preserved={k:old[k] for k in ('name','circuit','circuitId','round','date','winner','winner_number','winner_colour','winner_code') if k in old}
    enriched.append({**row,**preserved,'href':prefix+row['path']+'/overzicht.html'})
    continue
   race=d.get('session',{}).get('jolpica_race',{})
@@ -39,7 +39,7 @@ def catalogue_body(root,rows,prefix):
   if not circuit and c.get('circuitId'):circuit=next((x for x in circuits if x['circuitId']==c['circuitId']),None)
   winner=next((x for x in d.get('session_result',[]) if x.get('position')==1),{})
   driver=next((x for x in d.get('drivers',[]) if x.get('driver_number')==winner.get('driver_number')),{})
-  enriched.append({**row,'winner':driver.get('full_name') or driver.get('name_acronym'),'winner_number':driver.get('driver_number'),'winner_colour':driver.get('team_colour'),'name':d.get('name') or race.get('raceName') or row['meeting'] or row['gp'],'circuit':name,'circuitId':circuit['circuitId'] if circuit else None,'round':d.get('round') or race.get('round'),'date':d.get('date') or race.get('date') or row['race_date'][:10],'href':prefix+row['path']+'/overzicht.html'})
+  enriched.append({**row,'winner':driver.get('full_name') or driver.get('name_acronym'),'winner_number':driver.get('driver_number'),'winner_colour':driver.get('team_colour'),'winner_code':driver.get('name_acronym'),'name':d.get('name') or race.get('raceName') or row['meeting'] or row['gp'],'circuit':name,'circuitId':circuit['circuitId'] if circuit else None,'round':d.get('round') or race.get('round'),'date':d.get('date') or race.get('date') or row['race_date'][:10],'href':prefix+row['path']+'/overzicht.html'})
  current_year=datetime.now(timezone.utc).year
  calendar_file=root/'_storage/season-calendar.json'
  agenda=json.loads(calendar_file.read_text()).get('seasons',{}).get(str(current_year),[]) if calendar_file.exists() else []
@@ -61,16 +61,18 @@ def catalogue_body(root,rows,prefix):
    completed=sorted((r for r in enriched if not r.get('scheduled') and r.get('circuitId')==row.get('circuitId')),key=lambda r:(r['year'],r['date']),reverse=True)
    row['previous_edition_href']=completed[0]['href'] if completed else None
   row.setdefault('start',row.get('race_date') or row['date']+'T13:00:00Z')
-  if row['year']==current_year and not row.get('scheduled') and not row.get('winner'):
+  if row['year']==current_year and not row.get('scheduled') and (not row.get('winner') or not row.get('winner_code')):
    from bs4 import BeautifulSoup
    from .publication import site_html
    overview=root/'analyses'/row['path']/'overzicht.html'
    node=BeautifulSoup(site_html(overview,root),'html.parser').find(id='dashboard-data') if overview.exists() else None
    if node:
     payload=json.loads(node.string);winner=next((x for x in payload.get('drivers',[]) if x.get('finish')==1),{})
-    row.update(winner=winner.get('name'),winner_number=winner.get('driver_number'),winner_colour=payload.get('styles',{}).get(str(winner.get('driver_number')),{}).get('color'))
+    row.update(winner=winner.get('name') or row.get('winner'),winner_number=winner.get('driver_number') or row.get('winner_number'),winner_code=winner.get('code'),winner_colour=payload.get('styles',{}).get(str(winner.get('driver_number')),{}).get('color') or row.get('winner_colour'))
   c=next((c for c in circuits if c['circuitId']==row['circuitId']),None)
   if not c:continue
+  row['country']=c['Location']['country']
+  row['flag_background']=asset_prefix+'flags/'+row['country'].lower().replace(' ','-')+'.webp'
   background='circuits/'+c['circuitId']+'.webp'
   row['background']=asset_prefix+(background if (root/'assets'/background).exists() else 'f1-banner-v3.png')
   measured='maps/measured/'+str(row['year'])+'-'+c['circuitId']+'.svg'

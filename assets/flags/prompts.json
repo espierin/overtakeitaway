@@ -1,0 +1,181 @@
+{
+  "generator": "built-in image_gen",
+  "export": "Lossless WebP; original generated pixels preserved",
+  "flags": [
+    {
+      "country": "Argentina",
+      "file": "argentina.webp",
+      "prompt": "Edit this photograph of the Argentina national flag. Keep its authentic flag pattern, realistic waving woven fabric, national colours, low-key lighting and wide landscape format. Change the framing and edge treatment so the whole flag is concentrated in the middle, and ALL FOUR SIDES AND ALL FOUR CORNERS gradually and naturally disappear into PURE BLACK #000000. Make the soft fade VERY BROAD: approximately 25 to 30 percent of the image width/height from EACH edge, with a smooth continuous transition from discernible fabric to totally black at the perimeter. No hard rectangle, no vignette ring, no visible border against a black background, no texture or coloured pixels right at the edge. Keep the main flag symbols recognisable in the central area; do not erase them. The image will sit on an entirely black website card. Keep it dark enough for white overlaid type. No added text or elements."
+    },
+    {
+      "country": "Australia",
+      "file": "australia.webp",
+      "prompt": "Edit this photograph of the Australia national flag. Keep its authentic flag pattern, realistic waving woven fabric, national colours, low-key lighting and wide landscape format. Change the framing and edge treatment so the whole flag is concentrated in the middle, and ALL FOUR SIDES AND ALL FOUR CORNERS gradually and naturally disappear into PURE BLACK #000000. Make the soft fade VERY BROAD: approximately 25 to 30 percent of the image width/height from EACH edge, with a smooth continuous transition from discernible fabric to totally black at the perimeter. No hard rectangle, no vignette ring, no visible border against a black background, no texture or coloured pixels right at the edge. Keep the main flag symbols recognisable in the central area; do not erase them. The image will sit on an entirely black website card. Keep it dark enough for white overlaid type. No added text or elements."
+    },
+    {
+      "country": "Austria",
+      "file": "austria.webp",
+      "prompt": "Edit this photograph of the Austria national flag. Keep its authentic flag pattern, realistic waving woven fabric, national colours, low-key lighting and wide landscape format. Change the framing and edge treatment so the whole flag is concentrated in the middle, and ALL FOUR SIDES AND ALL FOUR CORNERS gradually and naturally disappear into PURE BLACK #000000. Make the soft fade VERY BROAD: approximately 25 to 30 percent of the image width/height from EACH edge, with a smooth continuous transition from discernible fabric to totally black at the perimeter. No hard rectangle, no vignette ring, no visible border against a black background, no texture or coloured pixels right at the edge. Keep the main flag symbols recognisable in the central area; do not erase them. The image will sit on an entirely black website card. Keep it dark enough for white overlaid type. No added text or elements."
+    },
+    {
+      "country": "Azerbaijan",
+      "file": "azerbaijan.webp",
+      "prompt": "Edit this photograph of the Azerbaijan national flag. Keep its authentic flag pattern, realistic waving woven fabric, national colours, low-key lighting and wide landscape format. Change the framing and edge treatment so the whole flag is concentrated in the middle, and ALL FOUR SIDES AND ALL FOUR CORNERS gradually and naturally disappear into PURE BLACK #000000. Make the soft fade VERY BROAD: approximately 25 to 30 percent of the image width/height from EACH edge, with a smooth continuous transition from discernible fabric to totally black at the perimeter. No hard rectangle, no vignette ring, no visible border against a black background, no texture or coloured pixels right at the edge. Keep the main flag symbols recognisable in the central area; do not erase them. The image will sit on an entirely black website card. Keep it dark enough for white overlaid type. No added text or elements."
+    },
+    {
+      "country": "Bahrain",
+      "file": "bahrain.webp",
+      "prompt": "Edit this national flag photo of Bahrain: preserve its authentic colours, identifiable national flag pattern, waving woven fabric and dark cinematic lighting. Move/reframe the whole flag into central area, then make the edge fade MUCH BROADER and softer in ALL directions AND all corners. Outer 25-30 percent of each side should transition very gradually into absolutely PURE BLACK #000000 at every image edge, no fabric texture or colour at perimeter. No hard rectangle, no vignette ring; naturally blend completely into black website background. Keep whole flag's symbols recognisable centrally. The white serrated band of Bahrain flag has EXACTLY FIVE white triangular points, not more. No other changes, no added text or elements."
+    },
+    {
+      "country": "Belgium",
+      "file": "belgium.webp",
+      "prompt": "Edit this national flag photo of Belgium: preserve its authentic colours, identifiable national flag pattern, waving woven fabric and dark cinematic lighting. Move/reframe the whole flag into central area, then make the edge fade MUCH BROADER and softer in ALL directions AND all corners. Outer 25-30 percent of each side should transition very gradually into absolutely PURE BLACK #000000 at every image edge, no fabric texture or colour at perimeter. No hard rectangle, no vignette ring; naturally blend completely into black website background. Keep whole flag's symbols recognisable centrally.  No other changes, no added text or elements."
+    },
+    {
+      "country": "Brazil",
+      "file": "brazil.webp",
+      "prompt": "Edit this national flag photo of Brazil: preserve its authentic colours, identifiable national flag pattern, waving woven fabric and dark cinematic lighting. Move/reframe the whole flag into central area, then make the edge fade MUCH BROADER and softer in ALL directions AND all corners. Outer 25-30 percent of each side should transition very gradually into absolutely PURE BLACK #000000 at every image edge, no fabric texture or colour at perimeter. No hard rectangle, no vignette ring; naturally blend completely into black website background. Keep whole flag's symbols recognisable centrally.  No other changes, no added text or elements."
+    },
+    {
+      "country": "Canada",
+      "file": "canada.webp",
+      "prompt": "Edit this national flag photo of Canada: preserve its authentic colours, identifiable national flag pattern, waving woven fabric and dark cinematic lighting. Move/reframe the whole flag into central area, then make the edge fade MUCH BROADER and softer in ALL directions AND all corners. Outer 25-30 percent of each side should transition very gradually into absolutely PURE BLACK #000000 at every image edge, no fabric texture or colour at perimeter. No hard rectangle, no vignette ring; naturally blend completely into black website background. Keep whole flag's symbols recognisable centrally.  No other changes, no added text or elements."
+    },
+    {
+      "country": "China",
+      "file": "china.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide landscape background photograph for a premium dark Formula 1 race card. Subject: the authentic current national flag of China, accurate pattern and colours, woven satin fabric waving with natural deep ripples. No pole, text, people or cars. Cinematic low-key illumination, very dark muted colours but recognisable flag; whites shaded grey. IMPORTANT: a VERY BROAD, very gradual natural soft fade to PURE BLACK #000000 in ALL directions. Roughly the outer quarter of the image on every side, including all corners, is an extremely soft transition from visible central fabric into complete black at the perimeter. No visible vignette ring, no rectangle or abrupt edge. Entire flag design remains recognisable within the central area. Wide horizontal composition, realistic woven threads, elegant motorsport editorial photography. Dark and readable for white text anywhere."
+    },
+    {
+      "country": "France",
+      "file": "france.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide landscape background photograph for a premium dark Formula 1 race card. Subject: the authentic current national flag of France, accurate pattern and colours, woven satin fabric waving with natural deep ripples. No pole, text, people or cars. Cinematic low-key illumination, very dark muted colours but recognisable flag; whites shaded grey. IMPORTANT: a VERY BROAD, very gradual natural soft fade to PURE BLACK #000000 in ALL directions. Roughly the outer quarter of the image on every side, including all corners, is an extremely soft transition from visible central fabric into complete black at the perimeter. No visible vignette ring, no rectangle or abrupt edge. Entire flag design remains recognisable within the central area. Wide horizontal composition, realistic woven threads, elegant motorsport editorial photography. Dark and readable for white text anywhere."
+    },
+    {
+      "country": "Germany",
+      "file": "germany.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide landscape background photograph for a premium dark Formula 1 race card. Subject: the authentic current national flag of Germany, accurate pattern and colours, woven satin fabric waving with natural deep ripples. No pole, text, people or cars. Cinematic low-key illumination, very dark muted colours but recognisable flag; whites shaded grey. IMPORTANT: a VERY BROAD, very gradual natural soft fade to PURE BLACK #000000 in ALL directions. Roughly the outer quarter of the image on every side, including all corners, is an extremely soft transition from visible central fabric into complete black at the perimeter. No visible vignette ring, no rectangle or abrupt edge. Entire flag design remains recognisable within the central area. Wide horizontal composition, realistic woven threads, elegant motorsport editorial photography. Dark and readable for white text anywhere."
+    },
+    {
+      "country": "Hungary",
+      "file": "hungary.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide landscape background photograph for a premium dark Formula 1 race card. Subject: the authentic current national flag of Hungary, accurate pattern and colours, woven satin fabric waving with natural deep ripples. No pole, text, people or cars. Cinematic low-key illumination, very dark muted colours but recognisable flag; whites shaded grey. IMPORTANT: a VERY BROAD, very gradual natural soft fade to PURE BLACK #000000 in ALL directions. Roughly the outer quarter of the image on every side, including all corners, is an extremely soft transition from visible central fabric into complete black at the perimeter. No visible vignette ring, no rectangle or abrupt edge. Entire flag design remains recognisable within the central area. Wide horizontal composition, realistic woven threads, elegant motorsport editorial photography. Dark and readable for white text anywhere."
+    },
+    {
+      "country": "India",
+      "file": "india.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide landscape background photo for a premium dark Formula 1 website card. Authentic current national flag of India, accurate design and colours, realistic woven fabric waving naturally with deep folds. Single flag only, no pole, people, cars or text. Cinematic low-key lighting, dark muted colours but recognisable flag symbols; white fabric is shaded dark grey, not bright. Flag occupies central area with substantial black negative space around it. VERY BROAD SMOOTH SOFT FADE to PURE BLACK #000000 in ALL four directions AND corners: outer 25-30% of each side transitions extremely gradually from central fabric into total black at all edges. NO visible rectangle, no hard edge, no ring. Keep complete national flag design recognisable in centre. Widescreen photograph, elegant dark motorsport editorial style, legible for overlaid white typography."
+    },
+    {
+      "country": "Italy",
+      "file": "italy.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide landscape background photo for a premium dark Formula 1 website card. Authentic current national flag of Italy, accurate design and colours, realistic woven fabric waving naturally with deep folds. Single flag only, no pole, people, cars or text. Cinematic low-key lighting, dark muted colours but recognisable flag symbols; white fabric is shaded dark grey, not bright. Flag occupies central area with substantial black negative space around it. VERY BROAD SMOOTH SOFT FADE to PURE BLACK #000000 in ALL four directions AND corners: outer 25-30% of each side transitions extremely gradually from central fabric into total black at all edges. NO visible rectangle, no hard edge, no ring. Keep complete national flag design recognisable in centre. Widescreen photograph, elegant dark motorsport editorial style, legible for overlaid white typography."
+    },
+    {
+      "country": "Japan",
+      "file": "japan.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide landscape background photo for a premium dark Formula 1 website card. Authentic current national flag of Japan, accurate design and colours, realistic woven fabric waving naturally with deep folds. Single flag only, no pole, people, cars or text. Cinematic low-key lighting, dark muted colours but recognisable flag symbols; white fabric is shaded dark grey, not bright. Flag occupies central area with substantial black negative space around it. VERY BROAD SMOOTH SOFT FADE to PURE BLACK #000000 in ALL four directions AND corners: outer 25-30% of each side transitions extremely gradually from central fabric into total black at all edges. NO visible rectangle, no hard edge, no ring. Keep complete national flag design recognisable in centre. Widescreen photograph, elegant dark motorsport editorial style, legible for overlaid white typography."
+    },
+    {
+      "country": "Korea",
+      "file": "korea.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide landscape background photo for a premium dark Formula 1 website card. Authentic current national flag of South Korea, accurate design and colours, realistic woven fabric waving naturally with deep folds. Single flag only, no pole, people, cars or text. Cinematic low-key lighting, dark muted colours but recognisable flag symbols; white fabric is shaded dark grey, not bright. Flag occupies central area with substantial black negative space around it. VERY BROAD SMOOTH SOFT FADE to PURE BLACK #000000 in ALL four directions AND corners: outer 25-30% of each side transitions extremely gradually from central fabric into total black at all edges. NO visible rectangle, no hard edge, no ring. Keep complete national flag design recognisable in centre. Widescreen photograph, elegant dark motorsport editorial style, legible for overlaid white typography."
+    },
+    {
+      "country": "Malaysia",
+      "file": "malaysia.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide landscape background photograph for a premium dark Formula 1 race card. Subject: the authentic current national flag of Malaysia, accurate design and colours. Realistic woven satin fabric waving naturally with deep folds. Single flag only, no pole, people, cars or added text. Cinematic low-key lighting, dark muted colours but recognisable pattern; white fabric is shaded dark grey. Flag occupies central area with generous black negative space around it. VERY BROAD SMOOTH SOFT FADE to PURE BLACK #000000 in ALL directions AND corners: outer 25-30 percent of EACH side gradually transitions from central fabric into totally black at all image edges. No visible rectangle, no abrupt edge, no vignette ring. Keep flag's pattern legible in centre. Widescreen photograph, elegant dark motorsport editorial style. Suitable behind white type."
+    },
+    {
+      "country": "Mexico",
+      "file": "mexico.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide landscape background photograph for a premium dark Formula 1 race card. Subject: the authentic current national flag of Mexico, accurate design and colours. Realistic woven satin fabric waving naturally with deep folds. Single flag only, no pole, people, cars or added text. Cinematic low-key lighting, dark muted colours but recognisable pattern; white fabric is shaded dark grey. Flag occupies central area with generous black negative space around it. VERY BROAD SMOOTH SOFT FADE to PURE BLACK #000000 in ALL directions AND corners: outer 25-30 percent of EACH side gradually transitions from central fabric into totally black at all image edges. No visible rectangle, no abrupt edge, no vignette ring. Keep flag's pattern legible in centre. Widescreen photograph, elegant dark motorsport editorial style. Suitable behind white type."
+    },
+    {
+      "country": "Monaco",
+      "file": "monaco.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide landscape background photograph for a premium dark Formula 1 race card. Subject: the authentic current national flag of Monaco, accurate design and colours. Realistic woven satin fabric waving naturally with deep folds. Single flag only, no pole, people, cars or added text. Cinematic low-key lighting, dark muted colours but recognisable pattern; white fabric is shaded dark grey. Flag occupies central area with generous black negative space around it. VERY BROAD SMOOTH SOFT FADE to PURE BLACK #000000 in ALL directions AND corners: outer 25-30 percent of EACH side gradually transitions from central fabric into totally black at all image edges. No visible rectangle, no abrupt edge, no vignette ring. Keep flag's pattern legible in centre. Widescreen photograph, elegant dark motorsport editorial style. Suitable behind white type."
+    },
+    {
+      "country": "Morocco",
+      "file": "morocco.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide landscape background photograph for a premium dark Formula 1 race card. Authentic current national flag of Morocco, correct design and colours, realistic woven fabric waving naturally with deep ripples. One flag, no pole, no people, no cars or added text. Cinematic very low-key illumination, muted but recognisable national colours; white fabric shaded grey. Flag concentrated in central area with generous pure black space around it. Very BROAD GRADUAL SOFT FADE to PURE BLACK #000000 in all four directions and all corners: outer 25-30 percent of each edge smoothly transitions from central visible flag into complete black at perimeter. No rectangle, no hard edge or visible vignette ring. Whole pattern recognisable centrally. Wide horizontal photograph, same elegant dark motorsport mood as matching country flag card collection. Readable behind white type."
+    },
+    {
+      "country": "Netherlands",
+      "file": "netherlands.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide landscape background photograph for a premium dark Formula 1 race card. Authentic current national flag of Netherlands, correct design and colours, realistic woven fabric waving naturally with deep ripples. One flag, no pole, no people, no cars or added text. Cinematic very low-key illumination, muted but recognisable national colours; white fabric shaded grey. Flag concentrated in central area with generous pure black space around it. Very BROAD GRADUAL SOFT FADE to PURE BLACK #000000 in all four directions and all corners: outer 25-30 percent of each edge smoothly transitions from central visible flag into complete black at perimeter. No rectangle, no hard edge or visible vignette ring. Whole pattern recognisable centrally. Wide horizontal photograph, same elegant dark motorsport mood as matching country flag card collection. Readable behind white type."
+    },
+    {
+      "country": "Portugal",
+      "file": "portugal.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide landscape background photograph for a premium dark Formula 1 race card. Authentic current national flag of Portugal, correct design and colours, realistic woven fabric waving naturally with deep ripples. One flag, no pole, no people, no cars or added text. Cinematic very low-key illumination, muted but recognisable national colours; white fabric shaded grey. Flag concentrated in central area with generous pure black space around it. Very BROAD GRADUAL SOFT FADE to PURE BLACK #000000 in all four directions and all corners: outer 25-30 percent of each edge smoothly transitions from central visible flag into complete black at perimeter. No rectangle, no hard edge or visible vignette ring. Whole pattern recognisable centrally. Wide horizontal photograph, same elegant dark motorsport mood as matching country flag card collection. Readable behind white type."
+    },
+    {
+      "country": "Qatar",
+      "file": "qatar.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide landscape background photograph for a premium dark Formula 1 race card. Authentic current national flag of Qatar, correct design and colours, realistic woven fabric waving naturally with deep ripples. One flag, no pole, no people, no cars or added text. Cinematic very low-key illumination, muted but recognisable national colours; white fabric shaded grey. Flag concentrated in central area with generous pure black space around it. Very BROAD GRADUAL SOFT FADE to PURE BLACK #000000 in all four directions and all corners: outer 25-30 percent of each edge smoothly transitions from central visible flag into complete black at perimeter. No rectangle, no hard edge or visible vignette ring. Whole pattern recognisable centrally. Wide horizontal photograph, same elegant dark motorsport mood as matching country flag card collection. Readable behind white type."
+    },
+    {
+      "country": "Russia",
+      "file": "russia.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide landscape background photo for a premium dark Formula 1 race card. The authentic current national flag of Russia, accurate pattern, symbols and colours, naturally waving realistic woven fabric with deep folds. One flag, no flagpole, cars, people or extra text. Cinematic very low-key lighting, dark muted but recognisable colours; white fabric shaded dark grey. Central flag design surrounded by generous pure black negative space. EXTREMELY BROAD SOFT GRADUAL FADE to PURE BLACK #000000 in ALL four directions and all corners, covering outer 25-30 percent of EACH side; no discernible edge, rectangle or vignette ring on a black background. Flag details remain recognisable centrally. Wide horizontal composition, rich textile texture, same elegant dark motorsport photographic style as other national flag cards. Dark enough for white overlaid text."
+    },
+    {
+      "country": "Saudi Arabia",
+      "file": "saudi-arabia.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide landscape background photo for a premium dark Formula 1 race card. The authentic current national flag of Saudi Arabia, accurate pattern, symbols and colours, naturally waving realistic woven fabric with deep folds. One flag, no flagpole, cars, people or extra text. Cinematic very low-key lighting, dark muted but recognisable colours; white fabric shaded dark grey. Central flag design surrounded by generous pure black negative space. EXTREMELY BROAD SOFT GRADUAL FADE to PURE BLACK #000000 in ALL four directions and all corners, covering outer 25-30 percent of EACH side; no discernible edge, rectangle or vignette ring on a black background. Flag details remain recognisable centrally. Wide horizontal composition, rich textile texture, same elegant dark motorsport photographic style as other national flag cards. Dark enough for white overlaid text."
+    },
+    {
+      "country": "Singapore",
+      "file": "singapore.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide landscape background photo for a premium dark Formula 1 race card. The authentic current national flag of Singapore, accurate pattern, symbols and colours, naturally waving realistic woven fabric with deep folds. One flag, no flagpole, cars, people or extra text. Cinematic very low-key lighting, dark muted but recognisable colours; white fabric shaded dark grey. Central flag design surrounded by generous pure black negative space. EXTREMELY BROAD SOFT GRADUAL FADE to PURE BLACK #000000 in ALL four directions and all corners, covering outer 25-30 percent of EACH side; no discernible edge, rectangle or vignette ring on a black background. Flag details remain recognisable centrally. Wide horizontal composition, rich textile texture, same elegant dark motorsport photographic style as other national flag cards. Dark enough for white overlaid text."
+    },
+    {
+      "country": "South Africa",
+      "file": "south-africa.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide landscape background photo for a premium dark Formula 1 race card. The authentic current national flag of South Africa, accurate pattern, symbols and colours, naturally waving realistic woven fabric with deep folds. One flag, no flagpole, cars, people or extra text. Cinematic very low-key lighting, dark muted but recognisable colours; white fabric shaded dark grey. Central flag design surrounded by generous pure black negative space. EXTREMELY BROAD SOFT GRADUAL FADE to PURE BLACK #000000 in ALL four directions and all corners, covering outer 25-30 percent of EACH side; no discernible edge, rectangle or vignette ring on a black background. Flag details remain recognisable centrally. Wide horizontal composition, rich textile texture, same elegant dark motorsport photographic style as other national flag cards. Dark enough for white overlaid text."
+    },
+    {
+      "country": "Spain",
+      "file": "spain.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide landscape background photograph for a premium dark Formula 1 race card. Authentic current national flag of Spain, accurate flag pattern and colours, naturally waving woven satin fabric, deep realistic ripples. Single flag only. No flagpole, cars, people or added text. Very low-key cinematic lighting, subdued national colours recognisable centrally; white parts shaded grey. Central fabric framed by generous black negative space. VERY BROAD SMOOTH GRADUAL SOFT FADE to PURE BLACK #000000 in every direction and every corner, outer 25-30 percent of EACH side blended naturally from central fabric into absolutely black perimeter. No rectangular boundary, hard edge or vignette ring. Whole national design legible centrally. Wide horizontal shot, same dark elegant motorsport photographic style as matching flag collection. White text must be readable on top."
+    },
+    {
+      "country": "Sweden",
+      "file": "sweden.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide landscape background photograph for a premium dark Formula 1 race card. Authentic current national flag of Sweden, accurate flag pattern and colours, naturally waving woven satin fabric, deep realistic ripples. Single flag only. No flagpole, cars, people or added text. Very low-key cinematic lighting, subdued national colours recognisable centrally; white parts shaded grey. Central fabric framed by generous black negative space. VERY BROAD SMOOTH GRADUAL SOFT FADE to PURE BLACK #000000 in every direction and every corner, outer 25-30 percent of EACH side blended naturally from central fabric into absolutely black perimeter. No rectangular boundary, hard edge or vignette ring. Whole national design legible centrally. Wide horizontal shot, same dark elegant motorsport photographic style as matching flag collection. White text must be readable on top."
+    },
+    {
+      "country": "Switzerland",
+      "file": "switzerland.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide landscape background photograph for a premium dark Formula 1 race card. Authentic current national flag of Switzerland, accurate flag pattern and colours, naturally waving woven satin fabric, deep realistic ripples. Single flag only. No flagpole, cars, people or added text. Very low-key cinematic lighting, subdued national colours recognisable centrally; white parts shaded grey. Central fabric framed by generous black negative space. VERY BROAD SMOOTH GRADUAL SOFT FADE to PURE BLACK #000000 in every direction and every corner, outer 25-30 percent of EACH side blended naturally from central fabric into absolutely black perimeter. No rectangular boundary, hard edge or vignette ring. Whole national design legible centrally. Wide horizontal shot, same dark elegant motorsport photographic style as matching flag collection. White text must be readable on top."
+    },
+    {
+      "country": "Turkey",
+      "file": "turkey.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide landscape background photograph for a premium dark Formula 1 race card. Authentic current national flag of Turkey, accurate flag pattern and colours, naturally waving woven satin fabric, deep realistic ripples. Single flag only. No flagpole, cars, people or added text. Very low-key cinematic lighting, subdued national colours recognisable centrally; white parts shaded grey. Central fabric framed by generous black negative space. VERY BROAD SMOOTH GRADUAL SOFT FADE to PURE BLACK #000000 in every direction and every corner, outer 25-30 percent of EACH side blended naturally from central fabric into absolutely black perimeter. No rectangular boundary, hard edge or vignette ring. Whole national design legible centrally. Wide horizontal shot, same dark elegant motorsport photographic style as matching flag collection. White text must be readable on top."
+    },
+    {
+      "country": "UAE",
+      "file": "uae.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide landscape background photograph for a premium dark Formula 1 race card. Subject: authentic United Arab Emirates national flag, red vertical band at hoist and green, white, black horizontal bands. Realistic naturally waving woven satin fabric with deep ripples. Single flag, no pole, cars, people or text. Very low-key cinematic lighting, dark muted but recognisable national colours; whites shaded grey. Flag design within central portion and generous pure black space around it. VERY BROAD, GRADUAL, NATURAL SOFT FADE to PURE BLACK #000000 in ALL four directions and all corners. Outer 25-30 percent of EACH side smoothly disappears from visible central fabric into totally black image perimeter. No rectangle, abrupt border or visible vignette ring. Whole authentic flag recognisable centrally. Wide horizontal composition, same dark elegant motorsport photo setting as matching national flag collection. Good readability for overlaid white type."
+    },
+    {
+      "country": "UK",
+      "file": "uk.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide landscape background photograph for a premium dark Formula 1 race card. Subject: authentic United Kingdom Union Jack flag, accurate union flag diagonals. Realistic naturally waving woven satin fabric with deep ripples. Single flag, no pole, cars, people or text. Very low-key cinematic lighting, dark muted but recognisable national colours; whites shaded grey. Flag design within central portion and generous pure black space around it. VERY BROAD, GRADUAL, NATURAL SOFT FADE to PURE BLACK #000000 in ALL four directions and all corners. Outer 25-30 percent of EACH side smoothly disappears from visible central fabric into totally black image perimeter. No rectangle, abrupt border or visible vignette ring. Whole authentic flag recognisable centrally. Wide horizontal composition, same dark elegant motorsport photo setting as matching national flag collection. Good readability for overlaid white type."
+    },
+    {
+      "country": "USA",
+      "file": "usa.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide landscape background photograph for a premium dark Formula 1 race card. Subject: authentic United States national flag, 50 white stars on blue canton at upper hoist, 13 alternating red and white stripes. Realistic naturally waving woven satin fabric with deep ripples. Single flag, no pole, cars, people or text. Very low-key cinematic lighting, dark muted but recognisable national colours; whites shaded grey. Flag design within central portion and generous pure black space around it. VERY BROAD, GRADUAL, NATURAL SOFT FADE to PURE BLACK #000000 in ALL four directions and all corners. Outer 25-30 percent of EACH side smoothly disappears from visible central fabric into totally black image perimeter. No rectangle, abrupt border or visible vignette ring. Whole authentic flag recognisable centrally. Wide horizontal composition, same dark elegant motorsport photo setting as matching national flag collection. Good readability for overlaid white type."
+    },
+    {
+      "country": "Finish",
+      "file": "finish.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide landscape background photograph for a premium dark Formula 1 race card. Subject: a classic Formula 1 black-and-white chequered finish flag, with a precise regular alternating square checkerboard pattern. Realistic woven satin fabric waving naturally with deep folds. Single flag only, no pole, people, cars or added text. Cinematic low-key lighting, dark muted colours but recognisable pattern; white fabric is shaded dark grey. Flag occupies central area with generous black negative space around it. VERY BROAD SMOOTH SOFT FADE to PURE BLACK #000000 in ALL directions AND corners: outer 25-30 percent of EACH side gradually transitions from central fabric into totally black at all image edges. No visible rectangle, no abrupt edge, no vignette ring. Keep flag's pattern legible in centre. Widescreen photograph, elegant dark motorsport editorial style. Suitable behind white type."
+    }
+  ]
+}
