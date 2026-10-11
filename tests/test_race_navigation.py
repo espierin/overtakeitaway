@@ -27,3 +27,10 @@ def test_archived_navigation_is_repaired_when_a_later_edition_arrives(tmp_path):
  assert '2024/a-1/runs/test/overzicht.html' in updated
  assert 'keepModulePosition()' in updated
  assert updated.count('<button disabled>')==3
+
+def test_current_season_does_not_wrap_before_actual_final_race_has_data():
+ first=race(2026,1,'a','2026-03-01');latest=race(2026,17,'b','2026-10-11')
+ targets=edition_targets([first,latest],{2026:23})
+ assert targets[latest['href']][1] is None
+ assert targets[first['href']][0] is None
+ assert targets[first['href']][1]==latest

@@ -7,8 +7,9 @@ from functools import lru_cache
 from collections import defaultdict
 
 
-def edition_targets(rows):
+def edition_targets(rows,final_rounds=None):
     """Build season neighbours and neighbouring years on the exact circuit."""
+    final_rounds=final_rounds or {}
     seasons=defaultdict(list);circuits=defaultdict(list)
     for row in rows:
         seasons[row['year']].append(row)
@@ -21,19 +22,24 @@ def edition_targets(rows):
         for i,row in enumerate(season):
             editions=circuits.get(row.get('circuitId'),[])
             earlier=[r for r in editions if r['year']<row['year']];later=[r for r in editions if r['year']>row['year']]
-            result[row['href']]=[season[(i-1)%len(season)] if len(season)>1 else None,
-                                season[(i+1)%len(season)] if len(season)>1 else None,
+            complete=int(season[-1].get('round') or 0)>=final_rounds.get(row['year'],0)
+            result[row['href']]=[season[(i-1)%len(season)] if len(season)>1 and (i>0 or complete) else None,
+                                season[(i+1)%len(season)] if len(season)>1 and (i<len(season)-1 or complete) else None,
                                 earlier[-1] if earlier else None,later[0] if later else None]
     return result
 
 @lru_cache(maxsize=8)
-def _catalogue(path,mtime):
+def _catalogue(path,mtime,calendar_mtime):
     rows=json.loads(Path(path).read_text()).get('races',[])
-    return {unquote(r['href']):r for r in rows},edition_targets(rows)
+    calendar=Path(path).parent/'_storage/season-calendar.json'
+    seasons=json.loads(calendar.read_text()).get('seasons',{}) if calendar.exists() else {}
+    final_rounds={int(year):max((int(r.get('round') or 0) for r in races),default=0) for year,races in seasons.items()}
+    return {unquote(r['href']):r for r in rows},edition_targets(rows,final_rounds)
 
 def catalogue_navigation(root):
     path=Path(root)/'race-updates.json'
-    return _catalogue(str(path.resolve()),path.stat().st_mtime_ns) if path.exists() else ({},{})
+    calendar=Path(root)/'_storage/season-calendar.json'
+    return _catalogue(str(path.resolve()),path.stat().st_mtime_ns,calendar.stat().st_mtime_ns if calendar.exists() else 0) if path.exists() else ({},{})
 
 def refresh_navigation(text,source,root):
     """Repair archived navigation from the full current published catalogue."""
