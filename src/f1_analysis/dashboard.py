@@ -55,7 +55,7 @@ def dashboard(run,b,archive_body):
         if hint:body+=f'<p class="muted">{hint}</p>'
         if id=='pace':body+='<label><input id="show-excluded" type="checkbox"> Toon ook uitgesloten ronden</label>'
         body+=f'<div id="{id}" class="chart"></div></section>'
-    body+='''</div><section class="interactive-card" id="section-events"><h2>Gebeurtenissen in de selectie</h2><label>Zoeken <input id="event-search" type="search" placeholder="Coureur, nummer, type of ID"></label><div id="event-table" class="table-scroll"></div></section>
+    body+='''</div><details class="interactive-card" id="section-events"><summary>Gebeurtenissen in de selectie</summary><label>Zoeken <input id="event-search" type="search" placeholder="Coureur, nummer, type of ID"></label><div id="event-table" class="table-scroll"></div></details>
 <dialog id="event-dialog"><button id="close-dialog">Sluiten</button><div id="event-detail"></div></dialog><div id="dash-tooltip" role="tooltip" hidden></div>
 <details class="interactive-card"><summary>Bronnen, dekking en beperkingen</summary><div id="source-register"></div></details>
 <p><a href="reports/bronnen-en-methode.html">Bronnen en methode</a> · <a href="exports/gebeurtenissen.csv">Gebeurtenissen CSV</a> · <a href="exports/gebeurtenissen.json">Gebeurtenissen JSON</a> · <a href="exports/kerncijfers.json">Kerncijfers</a> · <a href="exports/pitstopstrategie.csv">Pitstopcycli CSV</a></p>
