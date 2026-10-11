@@ -687,19 +687,20 @@ def with_race_notifications(text, source, root):
     if strategy_asset.exists() and 'data-strategy-popup' not in text and 'dashboard-data' in text:
         strategy_src=os.path.relpath(strategy_asset,Path(source).parent).replace(os.sep,'/')
         text=text.replace('</body>',f'<script defer data-strategy-popup src="{strategy_src}"></script></body>',1)
-    positions_asset=Path(root)/'assets/positions-gained.js'
-    if positions_asset.exists() and 'data-positions-gained' not in text and 'dashboard-data' in text:
-        positions_src=os.path.relpath(positions_asset,Path(source).parent).replace(os.sep,'/')
-        text=text.replace('</body>',f'<script defer data-positions-gained src="{positions_src}"></script></body>',1)
     events_asset=Path(root)/'assets/events-selection.js'
     if events_asset.exists() and 'data-events-selection' not in text and 'id="event-search"' in text:
         events_src=os.path.relpath(events_asset,Path(source).parent).replace(os.sep,'/')
         text=text.replace('</body>',f'<script defer data-events-selection src="{events_src}"></script></body>',1)
     asset=Path(root)/'assets/race-updates.js'
-    if not asset.is_file() or 'data-race-updates' in text:return text
-    href=relative(asset,Path(source).parent)
-    script='<script defer data-race-updates src="'+href+'"></script>'
-    return text.replace('</body>',script+'</body>') if '</body>' in text else text+script
+    if asset.is_file() and 'data-race-updates' not in text:
+        href=relative(asset,Path(source).parent)
+        script='<script defer data-race-updates src="'+href+'"></script>'
+        text=text.replace('</body>',script+'</body>') if '</body>' in text else text+script
+    positions_asset=Path(root)/'assets/positions-gained.js'
+    if positions_asset.exists() and 'data-positions-gained' not in text and 'dashboard-data' in text:
+        positions_src=os.path.relpath(positions_asset,Path(source).parent).replace(os.sep,'/')
+        text=text.replace('</body>',f'<script defer data-positions-gained src="{positions_src}"></script></body>',1)
+    return text
 
 
 def compare_pages(root, site):
