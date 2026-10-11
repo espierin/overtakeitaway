@@ -14,11 +14,24 @@ def catalogue_body(root,rows,prefix):
  byname={c['circuitName']:c for c in circuits}
  layouts=json.loads((map_assets/'historical/circuits.json').read_text()) if (map_assets/'historical/circuits.json').exists() else []
  asset_prefix='assets/' if prefix else '../assets/'
+ previous={}
+ if (root/'index.html').exists():
+  from bs4 import BeautifulSoup
+  from .publication import site_html
+  node=BeautifulSoup(site_html(root/'index.html',root),'html.parser').find(id='catalogue-data')
+  if node:previous={r['path']:r for r in json.loads(node.string)['races'] if r.get('path')}
+ if (root/'race-updates.json').exists():
+  previous.update({r['path']:r for r in json.loads((root/'race-updates.json').read_text())['races'] if r.get('path')})
  enriched=[]
  for row in rows:
   run=root/'analyses'/row['path'];archive=run/'data/normalized/archive.json';timing=run/'data/normalized/input.json'
   metadata=archive if archive.exists() else timing
   d=json.loads(metadata.read_text()) if metadata.exists() else {}
+  if not d and row['path'] in previous:
+   old=previous[row['path']]
+   preserved={k:old[k] for k in ('name','circuit','circuitId','round','date','winner','winner_number','winner_colour') if k in old}
+   enriched.append({**row,**preserved,'href':prefix+row['path']+'/overzicht.html'})
+   continue
   race=d.get('session',{}).get('jolpica_race',{})
   c=race.get('Circuit',d.get('jolpica_circuit',{}))
   name=d.get('circuit') if isinstance(d.get('circuit'),str) else c.get('circuitName',row['gp'])
@@ -38,6 +51,14 @@ def catalogue_body(root,rows,prefix):
                    'round':round_,'date':race['date'],'start':event['date_start'],'scheduled':True,'href':None,'path':None,'analysis_kind':'scheduled'})
  for row in enriched:
   row.setdefault('start',row.get('race_date') or row['date']+'T13:00:00Z')
+  if row['year']==current_year and not row.get('scheduled') and not row.get('winner'):
+   from bs4 import BeautifulSoup
+   from .publication import site_html
+   overview=root/'analyses'/row['path']/'overzicht.html'
+   node=BeautifulSoup(site_html(overview,root),'html.parser').find(id='dashboard-data') if overview.exists() else None
+   if node:
+    payload=json.loads(node.string);winner=next((x for x in payload.get('drivers',[]) if x.get('finish')==1),{})
+    row.update(winner=winner.get('name'),winner_number=winner.get('driver_number'),winner_colour=payload.get('styles',{}).get(str(winner.get('driver_number')),{}).get('color'))
   c=next((c for c in circuits if c['circuitId']==row['circuitId']),None)
   if not c:continue
   background='circuits/'+c['circuitId']+'.webp'
