@@ -31,7 +31,7 @@ jobs:
         run: |
           mkdir -p .site/config
           cp config/publication.yaml .site/config/publication.yaml
-          python -m f1_analysis.github_storage --root .site load
+          python -m f1_analysis.github_storage --root .site load --compact
           python -m f1_analysis.publication verify --site .site
           rm -rf .site/storage .site/config
       - uses: actions/configure-pages@v5

@@ -52,6 +52,12 @@ def test_retry_state_does_not_duplicate_large_site_snapshot_and_can_resume(tmp_p
     load_state(restored,github)
     assert read_json(restored/'_storage/update-state.json')['sessions']['42']['last_attempt']=='2026-10-11T18:00:00Z'
     assert (restored/'index.html').exists()
+    assert (restored/'analyses/2025/test/runs/one/data/normalized/input.json').exists()
+    compact=tmp_path/'compact';(compact/'config').mkdir(parents=True)
+    shutil.copyfile(root/'config/publication.yaml',compact/'config/publication.yaml')
+    load_state(compact,github,compact=True)
+    assert not (compact/'analyses/2025/test/runs/one/data/normalized/input.json').exists()
+    assert (compact/'analyses/2025/test/runs/one/data/normalized/input.json.gz').exists()
 
 
 def test_retention_preserves_current_and_fallback_references(tmp_path):

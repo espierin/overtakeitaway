@@ -280,6 +280,12 @@ Afwijkende bestaande bestanden worden standaard niet overschreven. `--overwrite`
 
 Dit project heeft lokaal opslag-/hersteltests en websitecontroles. De daadwerkelijke GitHub-rechten, eerste upload en Pages-deployment kunnen pas worden getoetst wanneer een repository is gekozen en geactiveerd. De geplande verwerking gebruikt geen AI-API of Codex-abonnement. Zij maakt geen automatische causale bronclaims, bochtverificaties of handmatige correcties. GitHub-planning is geen realtimegarantie; er kunnen vertragingen zijn. Het websitebudget houdt ruimte over onder de Pages-limiet van 1 GB, maar bij toekomstige groei blijft een controle nodig.
 
+### Verliesloze databestanden en racewissels — 12 oktober 2026
+
+De publicatie bewaart JSON en CSV als gzip, met controle van alle oorspronkelijke bytes en SHA-256-hashes in `_data/index.json`. De browser pakt gegevens automatisch uit; CSV-downloads en de JSON-viewer leveren het oorspronkelijke bestand met zijn oorspronkelijke naam. Kleine operationele verwijzingen en de opslagregisters blijven direct leesbaar. `github_storage load` herstelt gewone bestanden voor automatische verwerking; `load --compact` behoudt de gecomprimeerde bestanden voor Pages. Seizoen- en bronarchieven worden hierdoor niet gewijzigd. `publication verify` controleert zowel de opgeslagen gzip als iedere uitgepakte inhoud.
+
+Race- en jaarnavigatie laadt de nieuwe pagina in een afzonderlijk document terwijl de huidige pagina zichtbaar blijft. De wissel vindt plaats na laden, lettertypen, grafiekweergave en herstel van de modulepositie. Alleen het actieve racedocument blijft bestaan. Bij een laadfout blijft de huidige race beschikbaar. Terug/vooruit en herladen blijven werken met de echte race-URL.
+
 ### Actuele publicatie — 11 oktober 2026
 
 De actuele bundel bevat alle 1.149 races en de laatste gecontroleerde dashboard- en indexopmaak, inclusief de 77 circuitachtergronden. De upload bewaart de bronarchieven en presentatieaanvulling in GitHub Releases; de website wordt gepubliceerd via GitHub Pages onder `/overtakeitaway/`. De workflow **Gecontroleerde website publiceren** herstelt en publiceert de gecontroleerde snapshot zonder vooraf nieuwe racegegevens te verwerken. **Races bijwerken en website publiceren** verzorgt de bestaande periodieke gegevensverwerking.

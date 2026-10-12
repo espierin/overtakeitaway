@@ -49,7 +49,7 @@ def test_compact_site_preserves_pixels_payload_scripts_and_visible_content(tmp_p
     with Image.open(run/'figures/png/plot.png') as a, Image.open((out/run.relative_to(root)/image['src']).resolve()) as b:
         assert a.convert('RGBA').tobytes()==b.convert('RGBA').tobytes()
     assert not (out/run.relative_to(root)/'data/raw').exists()
-    assert (out/run.relative_to(root)/'data/normalized/input.json').exists()
+    assert (out/run.relative_to(root)/'data/normalized/input.json.gz').exists()
     assert verify_site(out)['races']==1
     assert compare_pages(root,out)['pages']==2
     # Compact snapshot is itself a valid source, so subsequent updates are idempotent.
@@ -247,5 +247,5 @@ def test_notifier_is_installed_on_catalogue_and_report_pages(tmp_path):
     out=tmp_path/'site';build_site(root,out)
     for source in [out/'index.html',out/run.relative_to(root)/'overzicht.html']:
         assert 'data-race-updates' in site_html(source,out)
-    assert (out/'race-updates.json').is_file()
+    assert (out/'race-updates.json.gz').is_file()
     assert compare_pages(root,out)['pages']==2

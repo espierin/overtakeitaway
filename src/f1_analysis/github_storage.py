@@ -93,7 +93,7 @@ class Releases:
         time.sleep(2)
 
 
-def load_state(root, github):
+def load_state(root, github, compact=False):
     root = Path(root); release = github.release(settings(root)['snapshot_tag'])
     if release is None: raise ValueError('Nog geen bootstrap-opslag. Voer eerst github_storage bootstrap uit.')
     assets = github.assets(release)
@@ -104,6 +104,9 @@ def load_state(root, github):
     asset = next(a for a in assets if a['name'] == state['asset'])
     package = github.download(asset, root / 'storage/downloads' / asset['name'], state['sha256'])
     restore_bundle(package, root, state['sha256'], overwrite=True)
+    if not compact:
+        from .data_storage import materialize_data
+        materialize_data(root)
     if 'update_state' in state:write_json(root/'_storage/update-state.json',state['update_state'])
     return state
 
@@ -238,7 +241,7 @@ def main():
     parser.add_argument('--root', default='.')
     parser.add_argument('--repository', default=os.environ.get('GITHUB_REPOSITORY'))
     sub = parser.add_subparsers(dest='command', required=True)
-    sub.add_parser('load')
+    sub.add_parser('load').add_argument('--compact',action='store_true')
     sub.add_parser('heartbeat')
     sub.add_parser('prune')
     p = sub.add_parser('restore-years'); p.add_argument('--years', nargs='+', type=int, required=True)
@@ -248,7 +251,7 @@ def main():
     args = parser.parse_args(); root = Path(args.root).resolve(); github = Releases(args.repository)
     if args.command == 'prune':result=prune(root,github)
     elif args.command == 'heartbeat': result = heartbeat(github)
-    elif args.command == 'load': result = load_state(root, github)
+    elif args.command == 'load': result = load_state(root, github, args.compact)
     elif args.command == 'restore-years': result = restore_years(root, github, args.years)
     elif args.command == 'restore-planned':
         report = read_json(root / '_storage/update-report.json')

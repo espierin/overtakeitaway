@@ -1,5 +1,5 @@
 from __future__ import annotations
-import csv, hashlib, json, time, unicodedata, subprocess
+import csv, gzip, hashlib, json, time, unicodedata, subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 import requests
@@ -27,7 +27,9 @@ def write_json(path, data):
 
 
 def read_json(path):
-    return json.loads(Path(path).read_text(encoding='utf-8'))
+    path=Path(path)
+    if path.exists():return json.loads(path.read_text(encoding='utf-8'))
+    return json.loads(gzip.decompress(path.with_name(path.name+'.gz').read_bytes()))
 
 
 def slug(value):

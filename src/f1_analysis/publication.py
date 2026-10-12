@@ -24,6 +24,7 @@ from PIL import Image
 import yaml
 
 from .io import read_json, write_json
+from .data_storage import pack_data, verify_data, materialize_data
 
 
 def digest(path):
@@ -389,13 +390,7 @@ self.addEventListener('fetch',event=>{
  })());
 });'''
 
-DOCUMENT_LOADER='''const packedDocument=document.currentScript.dataset.f1Document;
-(async()=>{try{
- const response=await fetch(new URL(packedDocument,location.href));
- if(!response.ok)throw Error('Pagina ontbreekt');
- const content=await new Response(response.body.pipeThrough(new DecompressionStream('gzip'))).text();
- document.open();document.write(content);document.close();
-}catch(e){document.body.textContent=e.message||'Pagina kon niet worden geopend';}})();'''
+DOCUMENT_LOADER=Path(__file__).with_name('document_loader.js').read_text()
 
 
 def site_html(source,root=None):
@@ -415,15 +410,16 @@ def pack_documents(site):
     site=Path(site);directory=site/'_documents';directory.mkdir(exist_ok=True)
     used=set();count=0
     for source in list(site.rglob('*.html')):
-        if '_media' in source.relative_to(site).parts:continue
+        if source.relative_to(site).parts[0] in ('_media','_data'):continue
         content=site_html(source,site);sha=hashlib.sha256(content.encode()).hexdigest()
         name=sha+'.html.gz';used.add(name);target=directory/name
         if not target.exists():target.write_bytes(gzip.compress(content.encode(),compresslevel=6,mtime=0))
         # A short storage bootstrap disappears before the original document executes.
         title=re.search(r'<title>([\s\S]*?)</title>',content,re.I)
         title=title.group(1) if title else 'Overtake It Away'
-        source.write_text('<!doctype html><html><head><meta charset="utf-8"><title>'+title+'</title>'
-                          '<style>html{background:#10141d}</style></head><body><script data-f1-document="'+
+        shell=' data-f1-shell' if source.name=='overzicht.html' and ('dashboard-data' in content or 'archive-data' in content) else ''
+        source.write_text('<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+title+'</title>'
+                          '<style>html{background:#10141d}</style></head><body><script'+shell+' data-f1-document="'+
                           html.escape(relative(target,source.parent),quote=True)+'" src="'+
                           html.escape(relative(directory/'loader.js',source.parent),quote=True)+'"></script></body></html>')
         count+=1
@@ -439,6 +435,7 @@ def build_site(root, output, max_bytes=None, from_year=1950):
         raise ValueError('Publicatiemap mag het bronproject niet vervangen/omsluiten')
     if output.exists() and any(output.iterdir()):
         raise ValueError(f'Publicatiemap moet leeg zijn: {output}')
+    materialize_data(root)
     output.parent.mkdir(parents=True, exist_ok=True)
     staging = Path(tempfile.mkdtemp(prefix='f1-pages-', dir=output.parent))
     media = read_json(root / '_media/index.json') if (root / '_media/index.json').exists() else {}
@@ -491,6 +488,7 @@ def build_site(root, output, max_bytes=None, from_year=1950):
             for url in urls:
                 target = local_target(root, source, url)
                 if target is None: continue
+                if target == root/'_data/reader.js':continue
                 if not target.is_file():
                     raise ValueError(f'Ontbrekende bronlink: {source.relative_to(root)} → {url}')
                 if target not in files: files.add(target); pending.append(target)
@@ -576,7 +574,10 @@ def build_site(root, output, max_bytes=None, from_year=1950):
                 if source.name=='manifest.json':
                     data['publication']={'originals':'verified-season-archive-with-optional-presentation-overlay','archive_registry':relative(staging/'_storage/index.json',dest.parent),
                                          'hash_scope':'file_hashes refer to the original archived files; published HTML/JSON may be repackaged and PNG is losslessly re-encoded'}
-                dest.write_text(json.dumps(data, ensure_ascii=False, separators=(',', ':'), allow_nan=False))
+                if source.name=='manifest.json':
+                    dest.write_text(json.dumps(data, ensure_ascii=False, separators=(',', ':'), allow_nan=False))
+                elif source in index_overrides:dest.write_text(source_text(source))
+                else:dest.write_bytes(source.read_bytes())
             else: shutil.copyfile(source, dest)
         (staging / '_media').mkdir(exist_ok=True)
         used=set()
@@ -595,8 +596,10 @@ def build_site(root, output, max_bytes=None, from_year=1950):
         (staging / '_media/view.html').write_text(MEDIA_VIEWER)
         (staging / 'media-worker.js').write_text(MEDIA_WORKER.replace('MEDIA_VERSION',digest(staging/'_media/index.json')))
         (staging / '.nojekyll').touch()
+        data_report=pack_data(staging)
         pack_documents(staging)
         report = verify_site(staging)
+        report['data_compression']=data_report
         base_bytes=report['bytes']
         for _ in range(10):
             total=base_bytes+len(json.dumps(report,ensure_ascii=False,indent=2,allow_nan=False).encode())
@@ -623,13 +626,16 @@ def verify_site(root):
             if not url: continue
             target = local_target(root, source, url)
             if target is not None:
-                if not target.is_file(): raise ValueError(f'Publicatielink ontbreekt: {source} → {url}')
+                packed=target.with_name(target.name+'.gz')
+                if not target.is_file() and not (target.suffix in ('.json','.csv') and packed.is_file()):
+                    raise ValueError(f'Publicatielink ontbreekt: {source} → {url}')
                 checked += 1
     for source in root.rglob('*.css'):
         for m in CSS_URL.finditer(source.read_text()):
             target = local_target(root, source, m.group(1))
             if target is not None and not target.is_file(): raise ValueError(f'CSS-bron ontbreekt: {source} → {m.group(1)}')
     media = read_json(root / '_media/index.json')
+    verify_data(root)
     for sha, entry in media.items():
         target = inside(root, root / '_media' / entry['file'])
         if not target.is_file(): raise ValueError(f'Media ontbreken: {sha}')
@@ -682,6 +688,10 @@ def with_dashboard_components(text, source, root):
 def with_race_notifications(text, source, root):
     """Install shared presentation fixes and visitor notifications on every page."""
     from .branding import with_original_wordmark, with_hero_flag
+    if 'data-f1-reader' not in text:
+        src=relative(Path(root)/'_data/reader.js',Path(source).parent)
+        script=f'<script data-f1-reader src="{src}"></script>'
+        text=text.replace('</head>',script+'</head>',1) if '</head>' in text else script+text
     text=with_original_wordmark(text)
     text=with_hero_flag(text,source,root)
     from .race_navigation import refresh_navigation
@@ -736,7 +746,8 @@ def compare_pages(root, site):
             src=node.get('src')
             if src:
                 if urlsplit(src).scheme:result.append(('external',src));continue
-                text=(parent/unquote(urlsplit(src).path)).resolve().read_text()
+                target=(parent/unquote(urlsplit(src).path)).resolve()
+                text=Path(__file__).with_name('data_reader.js').read_text() if node.has_attr('data-f1-reader') else target.read_text()
             else:text=node.string or ''
             result.append((node.get('type',''),text))
         return result
@@ -750,7 +761,7 @@ def compare_pages(root, site):
         return result
     for published in site.rglob('*.html'):
         relative_path=published.relative_to(site)
-        if relative_path.parts[0]=='_media':continue
+        if relative_path.parts[0] in ('_media','_data'):continue
         original=root/relative_path
         if not original.is_file():raise ValueError(f'Geen oorspronkelijke pagina: {relative_path}')
         a=BeautifulSoup(with_race_notifications(site_html(original,root),original,root),'html.parser');b=BeautifulSoup(site_html(published,site),'html.parser')
@@ -768,6 +779,7 @@ def cleanup(root, directory, apply=False, cache_days=21):
     from datetime import datetime, timezone
     root, directory = Path(root).resolve(), Path(directory).resolve()
     registry = read_json(root / '_storage/index.json'); candidates = []; inventory = {}
+    published_data=verify_data(root)
     for entry in [*registry['seasons'].values(),*([registry['sources']] if registry.get('sources') else [])]:
         if not (directory/entry['asset']).is_file():continue
         meta = verify_bundle(directory / entry['asset'], entry['sha256'])
@@ -789,6 +801,7 @@ def cleanup(root, directory, apply=False, cache_days=21):
                 if not p.is_file(): continue
                 if p.resolve() in linked:continue
                 name = p.relative_to(root).as_posix()
+                if name.endswith('.gz') and name[:-3] in published_data:continue
                 if inventory.get(name) != digest(p): raise ValueError(f'Geen gelijk archief voor {p}')
                 # Linked source data must remain readable locally.
                 candidates.append(p)
