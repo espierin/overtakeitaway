@@ -8,11 +8,14 @@
    document.open();document.write(content);document.close();
   }catch(e){document.body.textContent=e.message;}})();return;
  }
- const style=document.createElement('style');style.textContent='html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080b12}#race-frame,#race-preload{position:fixed;inset:0;width:100%;height:100%;border:0;background:#080b12}#race-preload{visibility:hidden;pointer-events:none}#race-loading{position:fixed;right:24px;bottom:24px;z-index:3;padding:10px 16px;border:1px solid #51d6dd;border-top:3px solid #51d6dd;border-radius:4px;background:#080b12eF;color:#fff;font:600 13px system-ui}';document.head.append(style);
+ const style=document.createElement('style');style.textContent='html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080b12}#race-frame,#race-preload{position:fixed;inset:0;width:100%;height:100%;border:0;background:#080b12}#race-preload{visibility:hidden;pointer-events:none}#race-loading{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;color:#fff;font:600 13px system-ui}#race-loading[hidden]{display:none}.race-loading-wheel{display:block;width:140px;height:140px;filter:drop-shadow(0 8px 22px #000c) drop-shadow(0 0 12px #a855f740);animation:race-tire-spin 1.4s linear infinite}.race-loading-wheel img{display:block;width:100%;height:100%}.race-loading-error{margin:0}#race-loading[data-error="true"]{max-width:min(420px,85vw);padding:14px 18px;border:1px solid #ff4655;border-radius:6px;background:#080b12ef}#race-loading[data-error="true"] .race-loading-wheel{display:none}@keyframes race-tire-spin{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.race-loading-wheel{animation:none}}';document.head.append(style);
  let current=null,pending=null,generation=0;
  const language=()=>{try{return localStorage.getItem('overtake-it-away-language')==='en';}catch{return false;}};
- const indicator=document.createElement('div');indicator.id='race-loading';indicator.role='status';document.body.append(indicator);
- const status=text=>{indicator.textContent=text;indicator.hidden=!text;};
+ const indicator=document.createElement('div');indicator.id='race-loading';indicator.role='status';indicator.hidden=true;
+ const wheel=document.createElement('a');wheel.className='race-loading-wheel';wheel.href='https://commons.wikimedia.org/wiki/File:F1_tire_Pirelli_PZero_Purple.svg';wheel.target='_blank';wheel.rel='noopener';wheel.title='MiniPictures · CC BY-SA 4.0';wheel.setAttribute('aria-label','Pirelli · MiniPictures · CC BY-SA 4.0');
+ const tire=document.createElement('img');tire.src=new URL('../assets/loading-tire.svg',bootstrap.src).href;tire.alt='';wheel.append(tire);
+ const errorMessage=document.createElement('p');errorMessage.className='race-loading-error';indicator.append(wheel,errorMessage);document.body.append(indicator);
+ const status=(text,error=false)=>{indicator.setAttribute('aria-label',text);indicator.dataset.error=String(error);errorMessage.textContent=error?text:'';indicator.hidden=!text;};
  const clean=url=>{url=new URL(url,location.href);url.searchParams.delete('f1-frame');return url;};
  const frameURL=url=>{url=new URL(url);url.searchParams.set('f1-frame','1');return url.href;};
  const ready=async frame=>{
@@ -31,7 +34,7 @@
   const frame=document.createElement('iframe');frame.id='race-preload';frame.title=language()?'Race dashboard':'Racedashboard';pending=frame;
   status(language()?'Loading race…':'Race laden…');
   const timer=setTimeout(()=>fail(new Error(language()?'Loading took too long. Please try again.':'Het laden duurt te lang. Probeer opnieuw.')),30000);
-  const fail=error=>{if(token!==generation)return;clearTimeout(timer);frame.remove();pending=null;status(error.message);};
+  const fail=error=>{if(token!==generation)return;clearTimeout(timer);frame.remove();pending=null;status(error.message,true);};
   frame.onload=async()=>{try{
     if(token!==generation)return;
     if(frame.contentDocument.querySelector('script[data-f1-document]'))return; // The gzip bootstrap replaces its own document.

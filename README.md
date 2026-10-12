@@ -329,3 +329,8 @@ Ontbrekende gegevens en mislukte analyses worden na 30 minuten opnieuw geprobeer
 De frontpagina toont voor het actuele kalenderjaar ook de geplande races. Races zonder gepubliceerde analyse zijn grijs en niet aanklikbaar. Een balk toont de vorige, meest recente en eerstvolgende race. Voor andere jaren ontbreekt deze balk.
 
 Elke gepubliceerde HTML-pagina controleert eenmaal per minuut het gedeelde `race-updates.json`-overzicht. De eerste keer wordt lokaal een uitgangspunt opgeslagen. Bij latere bezoeken of tijdens een open bezoek verschijnt een paarse kaart voor nieuwe of bijgewerkte racegegevens, inclusief de winnaar waar bekend. Sluiten markeert de getoonde updates als gezien. Deze voorkeur geldt per browser; de pagina wordt niet automatisch herladen.
+
+De draaiende paarse band tijdens racewissels gebruikt de ongewijzigde SVG
+[F1 tire Pirelli PZero Purple](https://commons.wikimedia.org/wiki/File:F1_tire_Pirelli_PZero_Purple.svg)
+van MiniPictures, onder [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+De animatie staat uit bij de browservoorkeur voor minder beweging.
