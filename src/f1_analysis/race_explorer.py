@@ -106,9 +106,14 @@ def playback_data(data):
         clocks[step]=min(clocks.get(step,t),t)
     pits=[]
     for p in data.get('pit',[]):
-        if not p.get('entry_date'):continue
-        a=stamp(p['entry_date'])-origin
-        b=stamp(p['date'])-origin if p.get('date') else a+(p.get('lane_duration') or 0)
+        if p.get('entry_date'):
+            a=stamp(p['entry_date'])-origin
+            b=stamp(p['date'])-origin if p.get('date') else a+(p.get('lane_duration') or 0)
+        elif p.get('session_key') and p.get('date') and (p.get('lane_duration') or p.get('pit_duration')):
+            # OpenF1's completed pit-lane timing message; use lane time,
+            # never the stationary stop_duration, to recover the entry.
+            b=stamp(p['date'])-origin;a=b-(p.get('lane_duration') or p['pit_duration'])
+        else:continue
         if b>a:pits.append({'driver':p['driver_number'],'lap':p['lap_number'],'start':a,'end':b})
     tyres=[]
     for s in data.get('stints',[]):
