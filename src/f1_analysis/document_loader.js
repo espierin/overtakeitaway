@@ -16,18 +16,21 @@
  const clean=url=>{url=new URL(url,location.href);url.searchParams.delete('f1-frame');return url;};
  const frameURL=url=>{url=new URL(url);url.searchParams.set('f1-frame','1');return url.href;};
  const ready=async frame=>{
-  const win=frame.contentWindow,doc=frame.contentDocument;
-  // load includes linked scripts/images; web fonts and two paints complete the graphs and scroll restoration.
-  await doc.fonts.ready;await new Promise(resolve=>win.requestAnimationFrame(()=>win.requestAnimationFrame(resolve)));
+  const doc=frame.contentDocument;
+  // Hidden frames can suspend animation callbacks. Readiness must not depend on a paint.
+  await Promise.race([doc.fonts.ready,new Promise(resolve=>setTimeout(resolve,1500))]);
   if(!doc.querySelector('[data-f1-reader]'))throw Error(language()?'Race could not be loaded':'Race kon niet worden geladen');
-  if(doc.documentElement.style.visibility==='hidden')await new Promise(resolve=>win.requestAnimationFrame(resolve));
+  for(let i=0;i<100&&(doc.documentElement.style.visibility==='hidden'||doc.querySelector('.race-navigation')&&doc.documentElement.dataset.raceNavigationReady!=='true');i++)await new Promise(resolve=>setTimeout(resolve,20));
+  if(doc.documentElement.style.visibility==='hidden')throw Error(language()?'Race view could not be restored':'Racebeeld kon niet worden hersteld');
+  // Force layout once before exposing the prepared document.
+  doc.documentElement.getBoundingClientRect();
  };
  const navigate=async(input,historyMode='push')=>{
   const url=clean(input);if(url.origin!==location.origin){location.assign(url);return;}
   const token=++generation;if(pending)pending.remove();
   const frame=document.createElement('iframe');frame.id='race-preload';frame.title=language()?'Race dashboard':'Racedashboard';pending=frame;
   status(language()?'Loading race…':'Race laden…');
-  const timer=setTimeout(()=>fail(new Error(language()?'Loading took too long. Please try again.':'Het laden duurt te lang. Probeer opnieuw.')),60000);
+  const timer=setTimeout(()=>fail(new Error(language()?'Loading took too long. Please try again.':'Het laden duurt te lang. Probeer opnieuw.')),30000);
   const fail=error=>{if(token!==generation)return;clearTimeout(timer);frame.remove();pending=null;status(error.message);};
   frame.onload=async()=>{try{
     if(token!==generation)return;

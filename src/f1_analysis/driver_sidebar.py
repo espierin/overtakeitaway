@@ -28,7 +28,7 @@ def sidebar(drivers, all_id='select-all', none_id='select-none', archive=False):
     rows=sorted(drivers,key=lambda d:(d.get('surname') or d['name'].split(' ')[-1]).casefold())
     content=f'<aside class="driver-sidebar" aria-label="Rijdersfilter" style="--driver-count:{max(1,len(rows))}"><h2>COUREURS</h2><div id="'+('drivers' if archive else 'driver-picker')+'" class="driver-picker-list">'
     for d in rows:
-        number=d.get('number',d.get('driver_number'));value=d['id'] if archive else number
+        number=d.get('display_number',d.get('number',d.get('driver_number')));value=d['id'] if archive else d['driver_number']
         code=d.get('code') or slug(d.get('surname') or d['name'].split(' ')[-1]).replace('-','')[:3].upper()
         color=d.get('color') or '#B3BECE'
         attrs=f'data-entry-filter="{esc(value)}"' if archive else f'data-action="driver" data-value="{esc(value)}" data-driver="{esc(value)}"'

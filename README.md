@@ -286,6 +286,16 @@ De publicatie bewaart JSON en CSV als gzip, met controle van alle oorspronkelijk
 
 Race- en jaarnavigatie laadt de nieuwe pagina in een afzonderlijk document terwijl de huidige pagina zichtbaar blijft. De wissel vindt plaats na laden, lettertypen, grafiekweergave en herstel van de modulepositie. Alleen het actieve racedocument blijft bestaan. Bij een laadfout blijft de huidige race beschikbaar. Terug/vooruit en herladen blijven werken met de echte race-URL.
 
+Verborgen documenten kunnen tekenmomenten uitstellen. De gereedmelding en het herstel van de modulepositie gebruiken daarom geen animatiecallback. De voorpagina opent bij ieder nieuw bezoek met het huidige kalenderjaar; tijdens het bezoek blijft ieder ander seizoen gewoon te kiezen.
+
+### Historische dashboards in dezelfde vorm — 12 oktober 2026
+
+De publicatie zet bewaarde historische rondekaarten om naar dezelfde dashboardonderdelen en rijdersbadges als recente races. Onvoldoende gedekte onderdelen worden volledig weggelaten. Volgordewisselingen tussen gemeten ronde-einden worden als **gereconstrueerde positiewisselingen** aangeduid, nooit als bevestigde inhaalacties op de baan. Geregistreerde stops kunnen context geven; een bijbehorende stop bewijst de oorzaak niet. Afgeleide pitstopcycli vereisen complete opeenvolgende rondetijden, een omgekeerde volgorde en een omgekeerd tijdsverschil, zonder bekende neutralisatie of uitzonderlijk lange ronde in het venster. Onbekende compounds worden niet ingevuld.
+
+De raceontwikkeling gebruikt gemeten rondeposities. De heatmap gebruikt sectortijden wanneer die voldoende beschikbaar zijn, anders complete rondetijden; ontbrekende timing levert geen synthetische heatmap op. Starthelden sorteert op positie na ronde 1, De lange race op de einduitslag. Positiewinst en -verlies krijgen respectievelijk een groen opwaarts en rood neerwaarts driehoekje. Originele brongegevens, gedeelde-auto-inschrijvingen, bronverwijzingen en oorspronkelijke CSV's blijven behouden. Historische circuit-SVG's zijn schematische referenties, zonder afgeleide inhaallocaties.
+
+Gedeelde scripts en stijlbladen voorkomen dat de website voor iedere race dezelfde presentatiebestanden opslaat. Herstelde seizoenarchieven krijgen deze presentatie bij iedere publicatie opnieuw, zodat oudere opgeslagen pagina's toekomstige correcties niet terugdraaien.
+
 ### Actuele publicatie — 11 oktober 2026
 
 De actuele bundel bevat alle 1.149 races en de laatste gecontroleerde dashboard- en indexopmaak, inclusief de 77 circuitachtergronden. De upload bewaart de bronarchieven en presentatieaanvulling in GitHub Releases; de website wordt gepubliceerd via GitHub Pages onder `/overtakeitaway/`. De workflow **Gecontroleerde website publiceren** herstelt en publiceert de gecontroleerde snapshot zonder vooraf nieuwe racegegevens te verwerken. **Races bijwerken en website publiceren** verzorgt de bestaande periodieke gegevensverwerking.

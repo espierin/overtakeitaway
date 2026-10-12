@@ -1,0 +1,45 @@
+/* Historical observations use the shared dashboard, without claiming track overtakes. */
+(()=>{
+ 'use strict';if(!D.historical)return;
+ const original=JSON.parse(document.getElementById('archive-data').textContent),T=(nl,en)=>document.documentElement.lang==='en'?en:nl;
+ const entry=d=>D.drivers.find(r=>r.entry_id===d.id),chosen=()=>original.drivers.filter(d=>driverAllowed(entry(d)?.driver_number));
+ window.archiveApp={data:original,selected:chosen,badge:d=>actionDriverBadge(entry(d)?.driver_number)};
+ const register=$('source-register');
+ register.innerHTML='<p data-history-description></p><div id="historical-results" class="table-scroll"></div><div id="historical-circuit-reference"></div><p data-history-downloads></p><div id="historical-additional-data"></div>';
+ function sources(){
+  register.querySelector('[data-history-description]').textContent=T('Gemeten rondeposities en rondetijden zijn behouden. Positiewisselingen zijn afgeleid uit opeenvolgende rondewaarnemingen: pitstops, uitval en inhaalacties kunnen niet altijd worden onderscheiden. Ontbrekende gegevens worden niet ingevuld.','Measured lap positions and times are retained. Position changes are reconstructed from consecutive lap observations: pit stops, retirements and track overtakes cannot always be distinguished. Missing observations are not filled in.');
+  const rows=chosen().slice().sort((a,b)=>(a.position??Infinity)-(b.position??Infinity));
+  $('historical-results').innerHTML='<h3>'+T('Officiële einduitslag','Official race classification')+'</h3><table><thead><tr>'+[T('Positie','Position'),T('Coureur','Driver'),T('Team','Team'),T('Start','Grid'),T('Ronden','Laps'),T('Status','Status')].map(s=>'<th>'+esc(s)+'</th>').join('')+'</tr></thead><tbody>'+rows.map(d=>'<tr><td>'+esc(d.position??'—')+'</td><td>'+window.archiveApp.badge(d)+'</td><td>'+esc(d.team)+'</td><td>'+esc(d.grid??'—')+'</td><td>'+esc(d.completed_laps??'—')+'</td><td>'+esc(d.status||'—')+'</td></tr>').join('')+'</tbody></table>';
+  register.querySelector('[data-history-downloads]').innerHTML='<a href="exports/uitslag.csv">'+T('Uitslag CSV','Classification CSV')+'</a> · <a href="exports/ronden.csv">'+T('Ronden CSV','Laps CSV')+'</a> · <a href="exports/pitstops.csv">'+T('Pitstops CSV','Pit stops CSV')+'</a> · <a href="manifest.json">'+T('Volledig manifest','Complete manifest')+'</a>';
+  const ref=D.historical_reference;
+  if(ref)$('historical-circuit-reference').innerHTML='<h3>'+T('Historische circuitkaart','Historical circuit map')+'</h3><img style="width:min(100%,500px);max-height:300px;object-fit:contain" src="'+esc(ref.path)+'" alt="'+T('Historische circuitvariant','Historical circuit variant')+'"><p class="source-note">'+T('Schematische circuitvariant voor dit seizoen; geen gemeten locaties van positiewisselingen.','Schematic circuit variant for this season; no measured locations of position changes.')+' <a href="'+esc(ref.source_url)+'">SVG · ROY Jules</a></p>';
+ }
+ eventTip=e=>'<strong>'+T('Ronde','Lap')+' '+esc(e.lap)+'</strong><p>'+T('Positiewinst','Position gained')+': '+actionDriverBadge(e.overtaker)+'</p><p>'+T('Positieverlies','Position lost')+': '+actionDriverBadge(e.overtaken)+'</p><small>'+T(e.type==='pitstopwisseling'?'Geregistreerde pitstop in dit ronde-interval; oorzaak niet bevestigd.':'Volgorde gewijzigd tussen ronde-einden; exacte locatie onbekend.',e.type==='pitstopwisseling'?'Recorded pit stop in this lap interval; cause not confirmed.':'Order reversed between lap endings; exact location unknown.')+'</small>';
+ kpis=()=>{
+  const events=D.events.filter(e=>rangeAllowed(e.lap)),by=new Map();for(const e of events)by.set(e.overtaker,(by.get(e.overtaker)||0)+1);
+  const best=Math.max(0,...by.values()),most=[...by].filter(([n,v])=>v===best).map(([n,v])=>{const d=D.drivers.find(d=>d.driver_number===n);return {id:n,number:displayNumber(n),name:d.name,code:d.code,color:color(n),count:v};});
+  $('kpis').innerHTML=window.raceHighlights(D.highlights||{},$('lapchart')?{overtakes:events.length,mostAvailable:true,most}:null,'driver');
+  for(const [id,label] of [['overtakes',T('Positiewisselingen','Position changes')],['most',T('Meeste positiewinstmomenten','Most position gains')]]){
+   const card=$('kpis').querySelector('[data-highlight="'+id+'"]');if(card){card.querySelector('.highlight-label').textContent=label;const value=card.querySelector('.highlight-time');if(value)value.textContent=best+' '+T(best===1?'positiewisseling':'positiewisselingen',best===1?'position change':'position changes');}
+  }
+ };
+ const showChanges=events=>{
+  $('event-detail').innerHTML='<h2>'+T('Gereconstrueerde positiewisselingen','Reconstructed position changes')+'</h2><p>'+T('De ronde is bekend; de exacte baanlocatie en oorzaak zijn niet vastgesteld.','The lap is known; the exact track location and cause have not been established.')+'</p><div class="kpi-grid action-info-cards">'+events.map(e=>'<article class="kpi highlight" data-highlight="overtakes"><span class="highlight-scope">'+T('Ronde','Lap')+' '+esc(e.lap)+'</span><div class="strategy-driver-pair">'+actionDriverBadge(e.overtaker)+'<span class="strategy-arrow">➜</span>'+actionDriverBadge(e.overtaken)+'</div><p>'+T('Volgorde gewijzigd tussen ronde-einden.','Order reversed between lap endings.')+'</p>'+e.pit_context.map(p=>'<p>'+actionDriverBadge(p.driver_number)+' · '+T('Geregistreerde pitstop, ronde','Recorded pit stop, lap')+' '+p.lap_number+(p.source_duration!=null?' · '+T('bronduur','source duration')+' '+p.source_duration+' s':'')+'</p>').join('')+'</article>').join('')+'</div>';hideTip();if(!$('event-dialog').open)$('event-dialog').showModal();
+ };
+ showActionMap=ids=>showChanges(ids.split(',').map(id=>D.events.find(e=>e.event_id===id)).filter(Boolean));
+ showEvents=ids=>showActionMap(ids);
+ showPositionChange=value=>{const [n,lap,,from,to]=value.split(':').map(Number),events=positionChangeEvents(n,lap,from,to);showChanges(events);if(!events.length)$('event-detail').innerHTML+='<p>'+actionDriverBadge(n)+' · '+T('Ronde','Lap')+' '+lap+' · P'+from+' → P'+to+'</p>';};
+ const oldDrawEvents=drawEvents;
+ drawEvents=()=>{oldDrawEvents();const heads=$('event-table').querySelectorAll('th');if(heads[1])heads[1].textContent=T('Positiewinst','Position gained');if(heads[2])heads[2].textContent=T('Positieverlies','Position lost');for(const node of $('event-table').querySelectorAll('td:nth-child(4)'))node.textContent=T('Afgeleid uit rondeposities','Reconstructed from lap positions');};
+ const oldRender=render;
+ render=()=>{
+  oldRender();sources();
+  const heads=$('event-table')?.querySelectorAll('th');if(heads?.[1])heads[1].textContent=T('Positiewinst','Position gained');if(heads?.[2])heads[2].textContent=T('Positieverlies','Position lost');for(const node of $('event-table')?.querySelectorAll('td:nth-child(4)')||[])node.textContent=T('Afgeleid uit rondeposities','Reconstructed from lap positions');
+  for(const [id,label] of [['lapchart',T('Teamkleur: positiewinst tussen ronde-einden. Klik voor de gekoppelde rijders en geregistreerde stops.','Team colour: positions gained between lap endings. Click for the drivers and recorded stops.')],['driverchart',T('Boven nul: positiewinstmomenten. Onder nul: positieverliesmomenten. Dit zijn geen bevestigde inhaalacties op de baan.','Above zero: position gains. Below zero: position losses. These are not confirmed track overtakes.')]]){const note=$(id)?.querySelector('.source-note');if(note)note.textContent=label;}
+  tooltipItems=tooltipItems.map(s=>s.replaceAll('inhaalacties',T('positiewisselingen','position changes')).replaceAll('Haalt in',T('Positiewinst','Position gained')).replaceAll('Ingehaald',T('Positieverlies','Position lost')));
+  const note=$('firstlap')?.querySelector('.source-note');if(note)note.textContent=T('Vierkant: beginpositie · cirkel: eindpositie. Kleine punten: gemeten positiewijzigingen per ronde. Links: volgorde na ronde 1. Rechts: eindklassering van de gehele race.','Square: starting position · circle: final position. Small dots: measured lap position changes. Left: order after lap 1. Right: final race classification.');
+ };
+ const annotateStrategy=()=>{if(!$('event-detail').querySelector('.strategy-popup-summary')||!D.cycles.find(c=>c.cycle_id===window.strategyPopupCycle)?.inferred||$('event-detail').querySelector('[data-historical-strategy]'))return;const note=document.createElement('p');note.className='source-note';note.dataset.historicalStrategy='';note.textContent=T('Afgeleide pitstopcyclus: volgorde en tijdsverschil veranderden na de geregistreerde stops. Bandenvoordeel, verkeer en de oorzaak zijn niet bevestigd.','Reconstructed pit-stop cycle: order and time gap changed after recorded stops. Tyre advantage, traffic and cause are not confirmed.');$('event-detail').prepend(note);};
+ new MutationObserver(annotateStrategy).observe($('event-detail'),{childList:true});
+ render();let last=document.documentElement.lang;new MutationObserver(()=>{if(last!==document.documentElement.lang){last=document.documentElement.lang;render();}}).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+})();

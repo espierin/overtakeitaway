@@ -68,7 +68,10 @@ def test_archived_dashboards_receive_shared_components_without_changing_race_dat
     soup=BeautifulSoup(updated,'html.parser')
     assert soup.find(id='dashboard-data').string=='{"x":42}'
     assert len(soup.select('script[data-race-explorer]'))==1
-    assert soup.select_one('script[data-race-explorer]')['src'].endswith('/assets/race-explorer.js')
+    from urllib.parse import urlsplit
+    explorer_url=urlsplit(soup.select_one('script[data-race-explorer]')['src'])
+    assert explorer_url.path.endswith('/assets/race-explorer.js')
+    assert explorer_url.query.startswith('v=')
     assert not soup.select_one('script[data-race-explorer]').has_attr('defer')
     for attribute in ['data-circuit-map','data-strategy-popup','data-overtake-popup']:
         assert len(soup.select(f'script[{attribute}]'))==1
@@ -249,3 +252,17 @@ def test_notifier_is_installed_on_catalogue_and_report_pages(tmp_path):
         assert 'data-race-updates' in site_html(source,out)
     assert (out/'race-updates.json.gz').is_file()
     assert compare_pages(root,out)['pages']==2
+
+
+def test_restored_catalogue_uses_current_shared_season_selector(tmp_path):
+    from f1_analysis.publication import with_race_notifications
+    (tmp_path/'assets').mkdir();(tmp_path/'_shared').mkdir()
+    (tmp_path/'assets/catalogue.js').write_text('let year=new Date().getFullYear();')
+    (tmp_path/'_shared/old-catalogue.js').write_text("const data=document.getElementById('catalogue-data');function compileRaceSearch(){}let year=+store.get('catalogue-year');")
+    text='<html><head></head><body><script id="catalogue-data" type="application/json">{}</script><script src="_shared/old-catalogue.js"></script></body></html>'
+    updated=with_race_notifications(text,tmp_path/'index.html',tmp_path)
+    soup=BeautifulSoup(updated,'html.parser')
+    assert soup.select_one('script[data-catalogue]')['src']=='assets/catalogue.js'
+    assert not soup.select('script[src="_shared/old-catalogue.js"]')
+    assert soup.find(id='catalogue-data').string=='{}'
+    assert with_race_notifications(updated,tmp_path/'index.html',tmp_path)==updated

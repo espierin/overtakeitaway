@@ -421,7 +421,7 @@ def pack_documents(site):
         source.write_text('<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+title+'</title>'
                           '<style>html{background:#10141d}</style></head><body><script'+shell+' data-f1-document="'+
                           html.escape(relative(target,source.parent),quote=True)+'" src="'+
-                          html.escape(relative(directory/'loader.js',source.parent),quote=True)+'"></script></body></html>')
+                          html.escape(relative(directory/'loader.js',source.parent),quote=True)+'?v='+hashlib.sha256(DOCUMENT_LOADER.encode()).hexdigest()[:12]+'"></script></body></html>')
         count+=1
     for p in directory.glob('*.gz'):
         if p.name not in used:p.unlink()
@@ -465,6 +465,12 @@ def build_site(root, output, max_bytes=None, from_year=1950):
         if (root / name).exists(): files.add(root / name)
     for directory in ['assets', '_shared', '_media', '_documents']:
         files.update(p for p in (root / directory).rglob('*') if p.is_file() and p.name != 'index.json')
+    # Presentation files are shared, so restoring a season must not reintroduce
+    # thousands of unused copies. Actual links below still include any needed file.
+    if (root/'assets/dashboard-core.js').exists():
+        files={p for p in files if not (p.parent.name=='interactive' and p.name in ('dashboard.js','archive.js','archive.css'))}
+    if (root/'assets/dashboard.css').exists():
+        files={p for p in files if not (p.parent.name=='interactive' and p.name=='dashboard.css')}
     try:
         # Include original data/source files actually linked from reports, not all internal data.
         pending = list(files); seen = set()
@@ -652,6 +658,7 @@ def with_primary_race_facts(text):
     pattern=re.compile(r'(<script\b[^>]*\bid=["\']dashboard-data["\'][^>]*>)(.*?)(</script>)',re.S|re.I)
     def replace(match):
         payload=json.loads(match[2])
+        if payload.get('historical'):return match[0]
         existing=payload.get('highlights',{})
         if all(existing.get(k) for k in ('winner','pole','fastest','gainers')):return match[0]
         drivers=payload.get('drivers',[]);styles=payload.get('styles',{})
@@ -672,9 +679,18 @@ def with_dashboard_components(text, source, root):
     # Stored dashboards keep their original race inputs. Shared presentation
     # components also apply fixes when an older season archive is restored.
     if 'dashboard-data' in text:
+        css_asset=Path(root)/'assets/dashboard.css'
+        if css_asset.exists():
+            css_src=relative(css_asset,Path(source).parent)
+            text=text.replace('href="interactive/dashboard.css"',f'href="{css_src}"')
+        core_asset=Path(root)/'assets/dashboard-core.js'
+        if core_asset.exists():
+            core_src=relative(core_asset,Path(source).parent)
+            text=re.sub(r'<script\b[^>]*\bsrc=["\'][^"\']*interactive/dashboard\.js["\'][^>]*>\s*</script>',
+                        lambda _: f'<script data-dashboard-core src="{core_src}"></script>',text)
         explorer_asset=Path(root)/'assets/race-explorer.js'
         if explorer_asset.exists():
-            explorer_src=relative(explorer_asset,Path(source).parent)
+            explorer_src=relative(explorer_asset,Path(source).parent)+'?v='+hashlib.sha256(explorer_asset.read_bytes()).hexdigest()[:12]
             text=re.sub(r'<script\b(?=[^>]*\bdata-race-explorer\b)[^>]*>[\s\S]*?</script>',
                         lambda _: f'<script data-race-explorer src="{explorer_src}"></script>',text)
         for name,attribute in [('circuit-map','data-circuit-map'),('strategy-popup','data-strategy-popup'),('overtake-popup','data-overtake-popup')]:
@@ -688,6 +704,21 @@ def with_dashboard_components(text, source, root):
 def with_race_notifications(text, source, root):
     """Install shared presentation fixes and visitor notifications on every page."""
     from .branding import with_original_wordmark, with_hero_flag
+    from .historical_dashboard import modernize
+    text=modernize(text,source,root)
+    # Older packed catalogues must use the same initial season as new builds.
+    if 'catalogue-data' in text:
+        text=text.replace("let year=+store.get('catalogue-year')||years[0]", "let year=new Date().getFullYear()")
+        catalogue_asset=Path(root)/'assets/catalogue.js'
+        if catalogue_asset.exists():
+            def catalogue_script(match):
+                src=re.search(r'\bsrc=["\']([^"\']+)["\']',match[1])
+                target=local_target(root,source,src[1]) if src else None
+                code=target.read_text() if target and target.is_file() else match[2]
+                if 'compileRaceSearch' in code and 'catalogue-data' in code:
+                    return '<script data-catalogue src="'+relative(catalogue_asset,Path(source).parent)+'"></script>'
+                return match[0]
+            text=re.sub(r'<script\b([^>]*)>(.*?)</script>',catalogue_script,text,flags=re.S)
     if 'data-f1-reader' not in text:
         src=relative(Path(root)/'_data/reader.js',Path(source).parent)
         script=f'<script data-f1-reader src="{src}"></script>'
@@ -704,6 +735,11 @@ def with_race_notifications(text, source, root):
     if "['Eerste stop','First stop']" not in text:
         text=text.replace('const phrases=[',"const phrases=[['Eerste stop','First stop'],['Tweede stop','Second stop'],['Beoordeling','Assessment'],",1)
     position_asset=Path(root)/'assets/race-navigation-position.js'
+    init_asset=Path(root)/'assets/race-navigation-init.js'
+    if init_asset.exists() and 'race-navigation' in text:
+        init_src=relative(init_asset,Path(source).parent)
+        text=re.sub(r'<script\b(?=[^>]*\bdata-race-navigation\b)[^>]*>[\s\S]*?</script>',
+                    lambda _: f'<script defer data-race-navigation src="{init_src}"></script>',text)
     if position_asset.exists() and 'data-navigation-position' not in text and 'race-navigation' in text:
         position_src=os.path.relpath(position_asset,Path(source).parent).replace(os.sep,'/')
         text=text.replace('</body>',f'<script defer data-navigation-position src="{position_src}"></script></body>',1)
@@ -726,12 +762,16 @@ def with_race_notifications(text, source, root):
         text=text.replace('</body>',script+'</body>') if '</body>' in text else text+script
     positions_asset=Path(root)/'assets/positions-gained.js'
     if positions_asset.exists() and 'data-positions-gained' not in text and 'dashboard-data' in text:
-        positions_src=os.path.relpath(positions_asset,Path(source).parent).replace(os.sep,'/')
+        positions_src=os.path.relpath(positions_asset,Path(source).parent).replace(os.sep,'/')+'?v='+hashlib.sha256(positions_asset.read_bytes()).hexdigest()[:12]
         text=text.replace('</body>',f'<script defer data-positions-gained src="{positions_src}"></script></body>',1)
     history_asset=Path(root)/'assets/historical-data.js'
     if history_asset.exists() and 'data-historical-data' not in text and 'archive-data' in text and 'historical_supplement' in text:
         history_src=os.path.relpath(history_asset,Path(source).parent).replace(os.sep,'/')
         text=text.replace('</body>',f'<script defer data-historical-data src="{history_src}"></script></body>',1)
+    if positions_asset.exists():
+        positions_version=hashlib.sha256(positions_asset.read_bytes()).hexdigest()[:12]
+        text=re.sub(r'(?<=src=")([^"?]*assets/positions-gained\.js)(?:\?[^" ]*)?(?=")',
+                    lambda m:m[1]+'?v='+positions_version,text)
     return text
 
 
