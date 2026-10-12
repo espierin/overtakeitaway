@@ -4,3 +4,15 @@ Source: https://commons.wikimedia.org/wiki/File:F1_tire_Pirelli_PZero_Purple.svg
 License: Creative Commons Attribution-ShareAlike 4.0 International
 https://creativecommons.org/licenses/by-sa/4.0/
 Original SVG unchanged. The website rotates its display with CSS.
+
+Additional unchanged SVGs from the same author and CC BY-SA 4.0 license:
+https://commons.wikimedia.org/wiki/File:F1_tire_Pirelli_PZero_Red.svg
+https://commons.wikimedia.org/wiki/File:F1_tire_Pirelli_PZero_Yellow.svg
+https://commons.wikimedia.org/wiki/File:F1_tire_Pirelli_PZero_White.svg
+https://commons.wikimedia.org/wiki/File:F1_tire_Pirelli_PZero_Orange.svg
+https://commons.wikimedia.org/wiki/File:F1_tire_Pirelli_PZero_Gray.svg
+https://commons.wikimedia.org/wiki/File:F1_tire_Pirelli_PZero_Light_blue.svg
+https://commons.wikimedia.org/wiki/File:F1_tire_Pirelli_PZero_Pink.svg
+https://commons.wikimedia.org/wiki/File:F1_tire_Pirelli_PZero_Purple.svg
+https://commons.wikimedia.org/wiki/File:F1_tire_Pirelli_Cinturato_Green.svg
+https://commons.wikimedia.org/wiki/File:F1_tire_Pirelli_Cinturato_Blue.svg

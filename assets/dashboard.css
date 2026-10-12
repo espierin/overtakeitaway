@@ -106,3 +106,17 @@ dialog #close-dialog{float:none;display:block;width:max-content;margin:0 0 12px 
 .rex-main .rex-plot svg,.rex-heat svg{min-width:0}
 
 .rex-tower-row>span,.rex-tower-row>small{line-height:1}
+
+#event-dialog[open]:has(.historical-changes){display:flex;flex-direction:column;overflow:hidden;max-height:90vh;max-height:90dvh}#event-dialog:has(.historical-changes)>#close-dialog{flex:0 0 auto;align-self:flex-end;float:none;margin-bottom:12px}#event-dialog:has(.historical-changes) #event-detail{min-height:0;overflow:auto;scrollbar-width:thin;scrollbar-color:#526179 #10141d}.historical-change-header{position:sticky;top:0;z-index:2;background:#181f2cf5;padding:8px 0 12px}.historical-change-header h2{margin:0 0 10px}.historical-change-header p{margin:0;font-size:13px;color:#b3bece;line-height:1.6}.historical-change-cards{margin:8px 0 0;align-items:stretch}.historical-change-cards .historical-change-card{min-height:0;padding:18px;gap:8px;background-size:cover;border-radius:8px}.historical-change-cards .action-card-pair{margin:4px 0}.historical-change-description,.historical-change-note{margin:0!important;font-size:12px!important;color:#b3bece;line-height:1.5}.historical-stop-list{width:100%;margin-top:6px;border-top:1px solid #52617980;padding-top:10px;display:grid;gap:10px}.historical-stop{display:grid;grid-template-columns:100px minmax(0,1fr);gap:10px;align-items:center}.historical-stop-driver .highlight-driver{display:inline-grid!important;grid-template-columns:28px 3px max-content;gap:5px;margin:0;font-size:16px;line-height:1}.historical-stop-driver .highlight-number{width:28px!important;min-width:28px!important;height:24px!important;font-size:16px!important;border-radius:4px}.historical-stop-driver .highlight-stripe{height:20px!important;width:3px}.historical-stop-driver .highlight-code{font-size:18px!important;line-height:24px}.historical-stop b,.historical-stop small{display:block;font-size:12px;line-height:1.6}.historical-stop small{color:#b3bece}@media(max-width:620px){.historical-change-cards{grid-template-columns:1fr}.historical-change-header h2{font-size:20px}.historical-change-cards .historical-change-card{padding:14px}}
+
+/* Replay equipment stays aligned with the measured position rows. */
+.rex-layout{grid-template-columns:220px minmax(0,1fr)}
+.rex-tower-row{grid-template-columns:18px minmax(67px,1fr) 57px 28px;gap:3px}
+.rex-equipment{display:flex;align-items:center;gap:3px;white-space:nowrap;line-height:1}
+.rex-compound{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;width:18px;height:18px;border:2px solid var(--tyre-color);border-radius:50%;font-size:8px;font-weight:800;color:#fff;background:#080c14;flex:none}
+.rex-pit{font-size:8px;font-weight:850;color:#fff;background:#af65e8;border-radius:3px;padding:3px 2px}
+.rex-stop-lap{font-size:8px;color:#afbbc9}
+@media(max-width:800px){.rex-layout{grid-template-columns:minmax(0,1fr)}.rex-tower-row{min-height:28px}}
+
+.is-selection-muted{opacity:.22!important;transition:opacity .15s ease}.is-selection-muted:hover{opacity:.55!important}
+body.has-highlight #driverchart .is-selection-muted,body.has-highlight #lapchart .is-selection-muted{opacity:.22!important}

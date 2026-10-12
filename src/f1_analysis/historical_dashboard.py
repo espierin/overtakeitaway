@@ -18,7 +18,8 @@ def measured(value):
     return isinstance(value,(float,int)) and math.isfinite(value) and value>0
 
 
-def historical_payload(data):
+def historical_payload(data, tyre_record=None):
+    retained_stints=(tyre_record or {}).get('stints',[])
     entries=data['drivers'];numbers=Counter(d.get('number') for d in entries)
     keys={d['id']:d['number'] if d.get('number') and numbers[d['number']]==1 else -(i+1) for i,d in enumerate(entries)}
     rounds=max([1,data.get('scheduled_laps') or 0]+[l['lap'] for d in entries for l in d['laps']])
@@ -36,8 +37,9 @@ def historical_payload(data):
         for l in sorted(laps.values(),key=lambda l:l['lap']):
             if measured(l.get('position')):positions.append({'driver':n,'lap':l['lap'],'position':l['position']})
             t=timing.get((d.get('number'),l['lap']),{})
-            compound=str(t.get('compound') or 'UNKNOWN').upper()
-            if compound not in ('SOFT','MEDIUM','HARD','WET','INTERMEDIATE'):compound='UNKNOWN'
+            retained=next((s for s in retained_stints if s['entry_id']==d['id'] and s['lap_start']<=l['lap']<=s['lap_end']),{})
+            compound=str(t.get('compound') or retained.get('compound') or 'UNKNOWN').upper()
+            if compound not in ('SOFT','MEDIUM','HARD','WET','INTERMEDIATE','SUPERSOFT','ULTRASOFT','HYPERSOFT','SUPERHARD'):compound='UNKNOWN'
             if measured(l.get('seconds')):
                 all_laps.append({'driver':n,'lap':l['lap'],'duration':l['seconds'],'tyre':{'compound':compound,'age':None},'reasons':[]})
             for sector,duration in enumerate(t.get('sectors',[]),1):
@@ -90,9 +92,9 @@ def historical_payload(data):
         for item in value if isinstance(value,list) else [value]:
             if isinstance(item,dict) and str(item.get('id')) in keys:item['id']=keys[str(item['id'])]
     payload={'historical':True,'drivers':drivers,'styles':styles,'positions':positions,'all_laps':all_laps,'events':events,
-             'cycles':[],'tyres':{'stints':[],'excluded_laps':[]},'track':[],'labels':[],'reference':{},'highlights':highlights,
+             'cycles':[],'tyres':{'stints':[dict(s,driver_number=keys[s['entry_id']]) for s in retained_stints if s['entry_id'] in keys],'excluded_laps':[]},'track':[],'labels':[],'reference':{},'highlights':highlights,
              'laps':rounds,'late_start':False,'race':data['circuit'],'year':data['year'],'f1gures_available':False,
-             'stats':{'timing_original':0,'lap_count':rounds},'warnings':data.get('warnings',[]),'sources':[],
+             'stats':{'timing_original':0,'lap_count':rounds},'warnings':data.get('warnings',[]),'sources':(tyre_record or {}).get('sources',[]),
              'timing_source':'Bewaarde historische rondekaarten',
              'historical_coverage':{'positions':position_coverage,'lap_times':lap_coverage},
              'explorer':{'resolution':'lap','heat_resolution':heat_resolution,'sector_count':sector_count,'heat_available':bool(sectors) and (lap_coverage>=.7 or len(sectors)>=expected*2),
@@ -101,6 +103,8 @@ def historical_payload(data):
                          'yellow':[{'driver':n,'lap':l,'track_sectors':[]} for n,l in sorted(flags)],
                          'neutral':[{'lap':l,'kind':k} for l,k in sorted(neutral)],'red':sorted(red)}}
     payload['cycles']=pit_cycles(payload)
+    payload['strategy_detection']={'inferred':True,'complete':position_coverage>=1 and lap_coverage>=1
+                                  and bool(pits) and data.get('pit_records')==len(pits)}
     payload['historical_reference']=None
     return payload
 
@@ -144,7 +148,9 @@ def modernize(text,source,root):
     if source.name!='overzicht.html':return text
     match=re.search(r'<script\b[^>]*id=["\']archive-data["\'][^>]*>(.*?)</script>',text,re.S)
     if not match:return text
-    data=json.loads(match[1]);payload=historical_payload(data)
+    data=json.loads(match[1]);tyre_registry=Path(root)/'assets/historical-tyre-stints.json'
+    tyre_record=json.loads(tyre_registry.read_text()).get('races',{}).get(f"{data['year']}-{data['round']:02}") if tyre_registry.exists() else None
+    payload=historical_payload(data,tyre_record)
     from .historical_presentation import circuit_reference
     payload['historical_reference']=circuit_reference(root,data)
     run=source.parent

@@ -86,4 +86,38 @@ def explorer_data(data):
                         if a and b:sector=1 if elapsed<=a else 2 if elapsed<=a+b else 3
                     first_positions.append({'driver':d,'fraction':max(0,min(1,(t-race_start)/max(1,race_finish-race_start))),'position':position,'sector':sector,'time':t})
                 previous=position
-    return {'start_positions':first_positions,'red':sorted(red_laps),'sector_standings':frames,'standings':snapshots,'sectors':sectors,'yellow':lap_flags,'neutral':[{'lap':n,'kind':'/'.join(sorted(k))} for n,k in sorted(neutral_laps.items())], 'pit':[{'driver':r['driver_number'],'lap':r['lap_number']} for r in data.get('pit',[])], 'resolution':'sector','yellow_resolution':'lap-time-window'}
+    return {'playback':playback_data(data),'start_positions':first_positions,'red':sorted(red_laps),'sector_standings':frames,'standings':snapshots,'sectors':sectors,'yellow':lap_flags,'neutral':[{'lap':n,'kind':'/'.join(sorted(k))} for n,k in sorted(neutral_laps.items())], 'pit':[{'driver':r['driver_number'],'lap':r['lap_number']} for r in data.get('pit',[])], 'resolution':'sector','yellow_resolution':'lap-time-window'}
+
+
+def playback_data(data):
+    """Measured common race clock, tyre sets and pit-lane intervals for replay."""
+    laps=[r for r in data.get('laps',[]) if r.get('date_start') and r.get('lap_duration')]
+    if not laps:return None
+    origin=min(stamp(r['date_start']) for r in laps)
+    clocks={0:0};index={(r['driver_number'],r['lap_number']):r for r in laps}
+    for r in laps:
+        t=stamp(r['date_start'])-origin
+        for sector in (1,2,3):
+            duration=r.get('duration_sector_'+str(sector))
+            if not isinstance(duration,(int,float)) or duration<=0:break
+            t+=duration;step=(r['lap_number']-1)*3+sector
+            clocks[step]=min(clocks.get(step,t),t)
+        step=r['lap_number']*3;t=stamp(r['date_start'])-origin+r['lap_duration']
+        clocks[step]=min(clocks.get(step,t),t)
+    pits=[]
+    for p in data.get('pit',[]):
+        if not p.get('entry_date'):continue
+        a=stamp(p['entry_date'])-origin
+        b=stamp(p['date'])-origin if p.get('date') else a+(p.get('lane_duration') or 0)
+        if b>a:pits.append({'driver':p['driver_number'],'lap':p['lap_number'],'start':a,'end':b})
+    tyres=[]
+    for s in data.get('stints',[]):
+        row=index.get((s['driver_number'],s.get('lap_start')))
+        if not row or not s.get('compound'):continue
+        start=stamp(row['date_start'])-origin
+        exit_=next((p['end'] for p in pits if p['driver']==s['driver_number'] and p['lap']==s['lap_start']-1),None)
+        if exit_ is not None:start=exit_
+        tyres.append({'driver':s['driver_number'],'start':start,'compound':s['compound'],
+                      'lap_start':s['lap_start'],'age':s.get('tyre_age_at_start')})
+    return {'clock':[[step,round(t,3)] for step,t in sorted(clocks.items())],
+            'pit':pits,'tyres':sorted(tyres,key=lambda r:r['start'])}

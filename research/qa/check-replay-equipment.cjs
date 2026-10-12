@@ -1,0 +1,18 @@
+const {chromium}=require('/home/ericsp/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright'),assert=require('node:assert/strict');
+(async()=>{const browser=await chromium.launch(),p=await browser.newPage({viewport:{width:1440,height:1000}}),base=process.argv[2]||'http://127.0.0.1:8798/',errors=[];p.on('pageerror',e=>errors.push(e.message));
+ await p.goto(base+'analyses/2021/sakhir/runs/20261010T223028.884835Z-55dd48/overzicht.html?f1-frame=1');await p.waitForSelector('[data-rex-equipment]');
+ const target=await p.evaluate(()=>{const replay=D.explorer.playback;for(const pit of replay.pit){const clock=replay.clock.find(c=>c[1]>=pit.start&&c[1]<pit.end);if(clock)return {driver:pit.driver,step:clock[0],end:pit.end};}return null;});assert.ok(target);
+ await p.evaluate(t=>{const input=document.querySelector('[data-rex-lap]');input.value=(t.step/3-(S.min-1))/(S.max-(S.min-1));input.dispatchEvent(new Event('input',{bubbles:true}));},target);
+ assert.equal(await p.locator(`[data-rex-equipment="${target.driver}"] .rex-pit`).innerText(),'PIT');
+ const after=await p.evaluate(t=>D.explorer.playback.clock.find(c=>c[1]>t.end),target);await p.evaluate(step=>{const input=document.querySelector('[data-rex-lap]');input.value=(step/3-(S.min-1))/(S.max-(S.min-1));input.dispatchEvent(new Event('input',{bubbles:true}));},after[0]);
+ assert.equal(await p.locator(`[data-rex-equipment="${target.driver}"] .rex-pit`).count(),0);
+ const overlaps=await p.locator('.rex-tower-row').evaluateAll(rows=>rows.some(row=>{const rects=[...row.children].map(x=>x.getBoundingClientRect());return rects.some((r,i)=>i&&r.left<rects[i-1].right-1)}));assert.equal(overlaps,false);
+ await p.locator('#section-positions').scrollIntoViewIfNeeded();await p.screenshot({path:'/tmp/replay-equipment.png'});
+ await p.setViewportSize({width:390,height:844});assert.ok(await p.locator('.rex-tower').evaluate(e=>e.scrollWidth<=e.clientWidth+2));
+ await p.goto(base+'analyses/2015/18-brazilian-grand-prix/runs/20261011T034246.302172Z-bdf1a9/overzicht.html?f1-frame=1');await p.waitForSelector('[data-rex-equipment]');
+ assert.equal(await p.locator('[data-rex-equipment="6"] [data-rex-compound]').getAttribute('data-rex-compound'),'SOFT');
+ await p.evaluate(()=>{const input=document.querySelector('[data-rex-lap]');input.value=13/71;input.dispatchEvent(new Event('input',{bubbles:true}));});assert.equal(await p.locator('[data-rex-equipment="6"] .rex-pit').count(),0);assert.equal(await p.locator('[data-rex-equipment="6"] .rex-stop-lap').innerText(),'stop');
+ const cycle=await p.evaluate(()=>D.cycles.find(c=>c.lap_details.some(l=>l.tyre.compound!=='UNKNOWN'))?.cycle_id);assert.ok(cycle);await p.evaluate(id=>showStrategyDetail(id),cycle);assert.ok(await p.locator('[data-strategy-tyre-icon]').count()>0);
+ assert.ok(await p.locator('#event-detail image').evaluateAll(images=>images.every(e=>e.getAttribute('href').includes('tire-'))));await p.screenshot({path:'/tmp/brazil2015-tyres.png'});
+ assert.deepEqual(errors,[]);console.log('PASS measured pit entry/exit, tyre compounds, aligned desktop/mobile rows, verified historic tyres, stop-lap distinction and tyre icons');await browser.close();
+})().catch(e=>{console.error(e);process.exit(1)});

@@ -73,3 +73,26 @@ def test_retired_driver_ends_at_last_observation():
     payload=historical_payload(source)
     assert max(p['lap'] for p in payload['positions'] if p['driver']==2)==3
     assert next(f for f in payload['explorer']['sector_standings'] if f['driver']==2 and f['step']==12)['inactive']
+
+
+def test_strategy_zero_requires_complete_timing_and_registered_stop_coverage():
+    source=race();source['pit_records']=2
+    for driver in source['drivers']:
+        for lap in driver['laps']:lap['position']=driver['grid']
+    payload=historical_payload(source)
+    assert payload['cycles']==[] and payload['strategy_detection']['complete']
+    source['drivers'][0]['laps'][0]['seconds']=None
+    assert not historical_payload(source)['strategy_detection']['complete']
+    source=race();source['pit_records']=None
+    assert not historical_payload(source)['strategy_detection']['complete']
+
+
+def test_verified_brazil_2015_tyres_match_all_recorded_stops():
+    import json
+    from pathlib import Path
+    registry=json.loads((Path(__file__).parents[1]/'assets/historical-tyre-stints.json').read_text())['races']['2015-18']
+    stints=registry['stints']
+    assert len(stints)==68
+    assert len(set(s['driver_number'] for s in stints))==19
+    assert [(s['lap_start'],s['lap_end'],s['compound']) for s in stints if s['driver_number']==6]==[(1,13,'SOFT'),(14,33,'MEDIUM'),(34,48,'MEDIUM'),(49,71,'MEDIUM')]
+    assert [(s['lap_start'],s['compound']) for s in stints if s['driver_number']==5]==[(1,'SOFT'),(14,'MEDIUM'),(33,'SOFT'),(48,'MEDIUM')]

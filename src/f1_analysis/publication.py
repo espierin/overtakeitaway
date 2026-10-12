@@ -679,6 +679,17 @@ def with_dashboard_components(text, source, root):
     # Stored dashboards keep their original race inputs. Shared presentation
     # components also apply fixes when an older season archive is restored.
     if 'dashboard-data' in text:
+        normalized=Path(source).parent/'data/normalized/input.json'
+        if normalized.exists():
+            from .race_explorer import playback_data
+            replay=playback_data(read_json(normalized))
+            if replay:
+                def add_replay(match):
+                    payload=json.loads(match[2])
+                    if payload.get('historical'):return match[0]
+                    payload.setdefault('explorer',{})['playback']=replay
+                    return match[1]+json.dumps(payload,ensure_ascii=False).replace('<','\\u003c')+match[3]
+                text=re.sub(r'(<script\b[^>]*\bid=[\"\']dashboard-data[\"\'][^>]*>)(.*?)(</script>)',add_replay,text,flags=re.S)
         css_asset=Path(root)/'assets/dashboard.css'
         if css_asset.exists():
             css_src=relative(css_asset,Path(source).parent)
@@ -772,6 +783,12 @@ def with_race_notifications(text, source, root):
         positions_version=hashlib.sha256(positions_asset.read_bytes()).hexdigest()[:12]
         text=re.sub(r'(?<=src=")([^"?]*assets/positions-gained\.js)(?:\?[^" ]*)?(?=")',
                     lambda m:m[1]+'?v='+positions_version,text)
+    for name in ('dashboard.css','dashboard-core.js','historical-dashboard.js','strategy-popup.js'):
+        asset=Path(root)/'assets'/name
+        if not asset.exists():continue
+        version=hashlib.sha256(asset.read_bytes()).hexdigest()[:12]
+        text=re.sub(r'((?:href|src)=["\'])([^"\'?]*assets/'+re.escape(name)+r')(?:\?[^"\']*)?(["\'])',
+                    lambda m:m[1]+m[2]+'?v='+version+m[3],text)
     return text
 
 

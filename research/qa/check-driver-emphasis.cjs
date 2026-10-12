@@ -1,0 +1,14 @@
+const {chromium}=require('/home/ericsp/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright'),assert=require('node:assert/strict');
+(async()=>{const b=await chromium.launch(),p=await b.newPage({viewport:{width:1440,height:1000}}),base=process.argv[2]||'http://127.0.0.1:8798/';const errors=[];p.on('pageerror',e=>errors.push(e.message));
+for(const path of ['analyses/2018/01-australian-grand-prix/runs/20261011T034231.206255Z-050009/overzicht.html','analyses/2021/sakhir/runs/20261010T223028.884835Z-55dd48/overzicht.html']){
+ await p.goto(base+path+'?f1-frame=1');await p.waitForSelector('.rex-tower-row');
+ const baseline=await p.evaluate(()=>({events:currentEvents.length,drivers:visibleDrivers().length,lines:document.querySelectorAll('[data-rex-position-line]').length,tower:document.querySelectorAll('.rex-tower-row').length,heat:document.querySelectorAll('[data-rex-sector-driver]').length,first:document.querySelectorAll('#firstlap [data-action="position-info"]').length,cycles:cycleRows().length,n:D.drivers[0].driver_number,other:D.drivers[1].driver_number}));
+ await p.evaluate(n=>update({drivers:[n],noDrivers:false}),baseline.n);await p.waitForTimeout(180);
+ const selected=await p.evaluate(()=>({events:currentEvents.length,drivers:visibleDrivers().length,lines:document.querySelectorAll('[data-rex-position-line]').length,tower:document.querySelectorAll('.rex-tower-row').length,heat:document.querySelectorAll('[data-rex-sector-driver]').length,first:document.querySelectorAll('#firstlap [data-action="position-info"]').length,cycles:cycleRows().length}));for(const k of Object.keys(selected))assert.equal(selected[k],baseline[k],k+' must retain all data');
+ assert.equal(await p.locator(`[data-rex-select="${baseline.n}"]`).evaluate(e=>getComputedStyle(e).opacity),'1');assert.equal(await p.locator(`[data-rex-select="${baseline.other}"]`).evaluate(e=>getComputedStyle(e).opacity),'0.22');
+ assert.ok(await p.locator(`#driverchart g[data-driver="${baseline.other}"]`).evaluate(e=>e.classList.contains('is-selection-muted')));
+ assert.ok(await p.locator(`#firstlap g[data-driver="${baseline.other}"]`).evaluateAll(es=>es.every(e=>e.classList.contains('is-selection-muted'))));
+ await p.evaluate(n=>toggleDriver(n),baseline.other);assert.equal(await p.locator(`[data-rex-select="${baseline.other}"]`).evaluate(e=>e.classList.contains('is-selection-muted')),false);
+ await p.evaluate(()=>update({drivers:[],noDrivers:true}));assert.equal(await p.locator('.rex-tower-row').count(),baseline.tower);await p.evaluate(()=>update({drivers:[],noDrivers:false}));assert.equal(await p.locator('.rex-tower-row.is-selection-muted').count(),0);
+}
+assert.deepEqual(errors,[]);console.log('PASS all race data and chart sizes retained for one/multiple/no selected drivers; selected rows bright, others muted, reset restores all; historical and modern');await b.close();})().catch(e=>{console.error(e);process.exit(1)});
