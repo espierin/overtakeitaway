@@ -21,3 +21,7 @@ _documents/
 .site/
 
 /race-updates.json
+
+# Generated entry pages travel in verified release snapshots, like index.html.
+/analysis-lab.html
+/races.html

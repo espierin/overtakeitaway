@@ -266,3 +266,17 @@ def test_restored_catalogue_uses_current_shared_season_selector(tmp_path):
     assert not soup.select('script[src="_shared/old-catalogue.js"]')
     assert soup.find(id='catalogue-data').string=='{}'
     assert with_race_notifications(updated,tmp_path/'index.html',tmp_path)==updated
+
+
+def test_homepage_and_moved_catalogue_survive_compact_publication(tmp_path):
+    from f1_analysis.branding import ensure_banner
+    from f1_analysis.homepage import build as build_homepage
+    root=tmp_path/'project';root.mkdir();project(root)
+    (root/'races.html').write_text((root/'index.html').read_text())
+    ensure_banner(root);build_homepage(root)
+    out=tmp_path/'site';build_site(root,out)
+    home=BeautifulSoup(site_html(out/'index.html',out),'html.parser')
+    assert home.select_one('.races-tile')['href']=='races.html'
+    assert (out/'races.html').is_file()
+    assert 'Race' in site_html(out/'races.html',out)
+    assert verify_site(out)['races']==1

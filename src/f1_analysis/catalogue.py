@@ -16,10 +16,11 @@ def catalogue_body(root,rows,prefix):
  asset_prefix='assets/' if prefix else '../assets/'
  previous={}
  previous_drivers={}
- if (root/'index.html').exists():
+ catalogue_page = next((root/name for name in ('races.html','index.html') if (root/name).exists()), None)
+ if catalogue_page:
   from bs4 import BeautifulSoup
   from .publication import site_html
-  node=BeautifulSoup(site_html(root/'index.html',root),'html.parser').find(id='catalogue-data')
+  node=BeautifulSoup(site_html(catalogue_page,root),'html.parser').find(id='catalogue-data')
   if node:
    previous_data=json.loads(node.string)
    previous={r['path']:r for r in previous_data['races'] if r.get('path')}
@@ -120,10 +121,15 @@ def catalogue_body(root,rows,prefix):
            'track_image':r.get('track_image','').removeprefix('../')} for r in enriched if not r.get('scheduled')]
  write_json(root/'race-updates.json',{'races':updates})
  year_label=str(min(r['year'] for r in rows))+'–'+str(max(r['year'] for r in rows)) if rows else '1950–heden'
- return '<style>'+sidebar_css+source.joinpath('catalogue.css').read_text()+'</style><aside class="driver-sidebar year-sidebar" aria-label="Seizoenen"><h2>SEIZOENEN</h2><div id="year-strip" class="driver-picker-list"></div><footer><button id="expand-years" title="Groepen uitklappen">UITKLAPPEN</button><button id="collapse-years" title="Groepen inklappen">INKLAPPEN</button></footer></aside><div class="race-hero catalogue-hero">'+branding('assets/f1-banner-v3.png' if prefix else '../assets/f1-banner-v3.png')+'''<div class="catalogue-intro"><span class="eyebrow">RACE EXPLORER</span><h1>Ontdek de race achter de uitslag</h1><p>Kies een seizoen, zoek een race of verken de circuits op de wereldkaart.</p><div id="catalogue-stats"></div></div></div><main>
+ body='<style>'+sidebar_css+source.joinpath('catalogue.css').read_text()+'</style><aside class="driver-sidebar year-sidebar" aria-label="Seizoenen"><h2>SEIZOENEN</h2><div id="year-strip" class="driver-picker-list"></div><footer><button id="expand-years" title="Groepen uitklappen">UITKLAPPEN</button><button id="collapse-years" title="Groepen inklappen">INKLAPPEN</button></footer></aside><div class="race-hero catalogue-hero">'+branding('assets/f1-banner-v3.png' if prefix else '../assets/f1-banner-v3.png')+'''<div class="catalogue-intro"><span class="eyebrow">RACE EXPLORER</span><h1>Ontdek de race achter de uitslag</h1><p>Kies een seizoen, zoek een race of verken de circuits op de wereldkaart.</p><div id="catalogue-stats"></div></div></div><main>
 <div class="catalogue-tools"><label class="search-label"><span class="search-heading"><span>Zoek een race, circuit of coureur</span><button id="search-help-toggle" type="button" aria-label="Zoekhulp" aria-expanded="false" aria-controls="search-help">?</button></span><input id="catalog-search" type="search" placeholder="Bijvoorbeeld Monaco 95 of Verstappen+"></label><button id="open-world" class="accent-button">◎ Wereldkaart</button></div>
 <div id="search-help" hidden role="region" aria-label="Zoekhulp"></div><select id="year-select" aria-label="Seizoen" hidden></select><button id="clear-circuit" class="accent-button" hidden>Alle circuits</button>
 <nav id="season-race-nav" class="season-race-nav" hidden></nav><div class="calendar-heading"><h2 id="calendar-title"></h2><span id="catalog-count" aria-live="polite"></span></div><div id="race-cards"></div><p id="empty-results" hidden>Geen races gevonden. Probeer een andere zoekterm.</p>
 </main><footer class="catalogue-footer"><span>'''+year_label+''' · Formula 1 World Championship</span><span>Circuits: <a href="https://api.jolpi.ca/ergast/f1/circuits/">Jolpica</a> · <span>Zoekfilters</span>: <a href="https://github.com/f1db/f1db">F1DB</a> · Kaart: <a href="https://www.naturalearthdata.com/">Natural Earth</a> · <span>Circuitlay-outs</span>: <a href="https://github.com/MisterSix2295/f1-circuits-svg">ROY Jules</a></span></footer>
 <dialog id="world-dialog"><div class="world-heading"><div><span class="eyebrow">WERELDWIJD CIRCUITNETWERK</span><h2>Kies een circuit</h2><p>Alle WK-circuits in het archief · sleep om te verplaatsen, scroll om te zoomen.</p></div><button id="close-world" aria-label="Sluiten">✕</button></div><div class="world-layout"><div class="world-canvas">'''+svg+'''<div class="world-controls"><button id="world-in" aria-label="Inzoomen">+</button><button id="world-out" aria-label="Uitzoomen">−</button><button id="world-fit" aria-label="Wereld passend in beeld">⛶</button></div><div id="map-tip" hidden></div><div class="map-key"><i></i><span>Geselecteerd circuit</span></div></div><aside class="circuit-sidebar"><label><span>Zoek een circuit</span><input id="circuit-search" type="search" placeholder="Naam, plaats of land"></label><div id="circuit-list"></div><div id="circuit-detail" hidden></div></aside></div></dialog>
 <script id="catalogue-data" type="application/json">'''+data+'</script>'+language+'<script>'+source.joinpath('catalogue.js').read_text()+'</script>'
+
+ if (root/'analysis-lab.html').exists():
+  from .phase2 import entry_link
+  body=body.replace('<div class="catalogue-tools">',entry_link('analysis-lab.html' if prefix else '../analysis-lab.html',asset_prefix)+'<div class="catalogue-tools">',1)
+ return body

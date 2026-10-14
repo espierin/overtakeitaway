@@ -56,7 +56,9 @@ def test_index_catalogue_has_seasons_and_keeps_latest_pointer_only(tmp_path):
         write_json(base/'latest.json',{'run':'runs/new'})
     update_index(tmp_path)
     rows=read_json(tmp_path/'analyses/index.json');assert len(rows)==3
-    root=(tmp_path/'index.html').read_text();inner=(tmp_path/'analyses/index.html').read_text()
+    landing=(tmp_path/'index.html').read_text()
+    assert 'class="home-tile races-tile" href="races.html"' in landing
+    root=(tmp_path/'races.html').read_text();inner=(tmp_path/'analyses/index.html').read_text()
     import re,json
     payload=json.loads(re.search(r'<script id="catalogue-data" type="application/json">(.*?)</script>',root,re.S)[1])
     assert sorted({r['year'] for r in payload['races']})==[1950,1951,2025]

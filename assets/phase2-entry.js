@@ -1,0 +1,1 @@
+(()=>{const render=()=>document.querySelectorAll('[data-phase2-entry]').forEach(el=>{el.textContent=document.documentElement.lang==='en'?'Drivers & strategy · Analysis workspace':'Rijders & strategie · Analyseomgeving';});render();new MutationObserver(render).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});})();

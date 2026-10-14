@@ -468,4 +468,6 @@ def update_index(root):
     def body(prefix):
         return catalogue_body(root,rows,prefix)
     (base/'index.html').write_text(with_hero_flag(page('Overtake It Away · raceanalyses',body('')),base/'index.html',root))
-    (root/'index.html').write_text(with_hero_flag(page('Overtake It Away · raceanalyses',body('analyses/')),root/'index.html',root))
+    (root/'races.html').write_text(with_hero_flag(page('Overtake It Away · raceanalyses',body('analyses/')),root/'races.html',root))
+    from .homepage import build as build_homepage
+    build_homepage(root)

@@ -334,3 +334,18 @@ De draaiende paarse band tijdens racewissels gebruikt de ongewijzigde SVG
 [F1 tire Pirelli PZero Purple](https://commons.wikimedia.org/wiki/File:F1_tire_Pirelli_PZero_Purple.svg)
 van MiniPictures, onder [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
 De animatie staat uit bij de browservoorkeur voor minder beweging.
+
+
+### Races en rijdersprofielen (oktober 2026)
+
+De nieuwe startpagina `index.html` biedt twee ingangen: `races.html` voor het volledige racearchief en `analysis-lab.html` voor rijdersprofielen en geobserveerde pitcycli. Alle banners bevatten Races, Drivers en Over mij / About me naast de taalkeuze. Het originele logo opent de startpagina.
+
+De rijdersomgeving beperkt zich voorlopig tot de laatste vijf kalenderseizoenen en heeft een eigen bouwlimiet van 20 MB. Zes beschrijvende onderdelen onderzoeken vrije-luchttempo, eigen regelmaat, relatief tempobehoud op oudere banden, vroeg tempo op nieuwe sets, uitvoering rond pitvensters en starts. De starter groepeert de eigen positie na ronde één per gridpositie, met verticale violins (bij voldoende gegevens), mediaan, kwartielen en individuele races. Ontbrekende data zijn geen nulscore; er is geen algemeen rijderrapportcijfer of geïsoleerde causale vaardigheidsschatting.
+
+Een gecomprimeerde snapshot bewaart de gecontroleerde compacte rijderswaarnemingen. Bij een latere bouw zonder genormaliseerde broninvoer worden die alleen hergebruikt als de definitieversie en de hash van de relevante brongegevens overeenkomen. Gewijzigde of beschikbare brongegevens worden opnieuw verwerkt. Zo vereist een automatische update van het actuele seizoen geen herdownload van alle telemetrie uit eerdere jaren.
+
+```bash
+.venv/bin/python -m f1_analysis.phase2 --root .
+```
+
+De pagina's zijn gegenereerde uitvoer en staan in Releases, niet in de coderepository. De gedeelde broncode en compacte fotografische WebP-bestanden worden wel meegeleverd.

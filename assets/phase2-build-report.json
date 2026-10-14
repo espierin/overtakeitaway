@@ -1,0 +1,22 @@
+{
+  "schema": 2,
+  "period": [
+    2022,
+    2026
+  ],
+  "races": 109,
+  "drivers": 33,
+  "candidate_cycles": 3265,
+  "matched_driver_races": 754,
+  "extra_bytes_upper_bound": 3777781,
+  "max_extra_bytes": 20000000,
+  "qualities": {
+    "free": 306,
+    "metronome": 1309,
+    "tyres": 186,
+    "warmup": 403,
+    "pitwindow": 196,
+    "start": 2119
+  },
+  "page": "analysis-lab.html"
+}

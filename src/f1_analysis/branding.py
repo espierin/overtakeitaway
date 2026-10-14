@@ -5,7 +5,9 @@ from functools import lru_cache
 def branding(asset_url="../../../../../assets/f1-banner-v3.png",seasons_url=None):
     from html import escape
     wordmark_url=escape(asset_url.rsplit('/',1)[0]+'/overtake-wordmark-v2.png',quote=True)
-    return hero_style(asset_url)+original_wordmark_style()+rounded_number_style()+header_actions_style()+'''<style>.site-brand{position:relative;padding:12px 120px 24px 0}.site-brand h2{border:0;margin:0;padding:0;font-size:clamp(24px,3vw,40px);font-weight:900;letter-spacing:-.03em}.site-tagline{margin:3px 0 0;color:#b3bece;font-size:15px;font-style:italic}.language-toggle{position:absolute;right:0;top:14px;background:#080a10;color:#fff;border:1px solid #596273;border-top:3px solid #ff4b56;border-radius:2px;padding:8px 12px;font-weight:900;cursor:pointer}.language-toggle span{opacity:.4}.language-toggle span.active{opacity:1;color:#51d6dd}</style><header class="site-brand"><img class="site-wordmark" src="WORDMARK_URL" alt="" aria-hidden="true"><h2>Overtake It Away</h2><p class="site-tagline">A reality check on heroic stories.</p><div class="header-actions">SEASONS_BUTTON<button type="button" class="language-toggle" id="language-toggle" data-language-toggle aria-label="Switch to English"><span data-lang="en">EN</span> / <span data-lang="nl" class="active">NL</span></button></div></header>'''.replace('WORDMARK_URL',wordmark_url).replace('SEASONS_BUTTON','<a class="all-seasons-button" href="'+escape(seasons_url,quote=True)+'">Alle seizoenen</a>' if seasons_url else '')
+    text=hero_style(asset_url)+original_wordmark_style()+rounded_number_style()+header_actions_style()+'''<style>.site-brand{position:relative;padding:12px 120px 24px 0}.site-brand h2{border:0;margin:0;padding:0;font-size:clamp(24px,3vw,40px);font-weight:900;letter-spacing:-.03em}.site-tagline{margin:3px 0 0;color:#b3bece;font-size:15px;font-style:italic}.language-toggle{position:absolute;right:0;top:14px;background:#080a10;color:#fff;border:1px solid #596273;border-top:3px solid #ff4b56;border-radius:2px;padding:8px 12px;font-weight:900;cursor:pointer}.language-toggle span{opacity:.4}.language-toggle span.active{opacity:1;color:#51d6dd}</style><header class="site-brand"><a class="site-home-link" href="HOME_URL" aria-label="Overtake It Away · Home"><img class="site-wordmark" src="WORDMARK_URL" alt="" aria-hidden="true"></a><h2>Overtake It Away</h2><p class="site-tagline">A reality check on heroic stories.</p><div class="header-actions">SEASONS_BUTTON<button type="button" class="language-toggle" id="language-toggle" data-language-toggle aria-label="Switch to English"><span data-lang="en">EN</span> / <span data-lang="nl" class="active">NL</span></button></div></header>'''.replace('WORDMARK_URL',wordmark_url).replace('HOME_URL',escape(asset_url.rsplit('/',1)[0].removesuffix('assets')+'index.html',quote=True)).replace('SEASONS_BUTTON','<a class="all-seasons-button" href="'+escape(seasons_url,quote=True)+'">Alle seizoenen</a>' if seasons_url else '')
+    from .site_navigation import with_navigation
+    return with_navigation(text,asset_url.rsplit('/',1)[0]+'/')
 
 
 def language_controls():
@@ -19,6 +21,8 @@ def language_script():
 def ensure_banner(root):
     """Install the bundled decorative asset once for offline dashboards."""
     import shutil
+    from .site_navigation import ensure_assets
+    ensure_assets(root)
     for name in ['f1-banner-v3.png','overtake-wordmark-v2.png']:
         target=Path(root)/'assets'/name
         target.parent.mkdir(parents=True,exist_ok=True)
@@ -113,7 +117,7 @@ def with_hero_flag(text, source, root):
     root, source = Path(root).resolve(), Path(source).resolve()
     if 'race-hero' not in text or 'data-hero-flag' in text:
         return text
-    country = 'finish' if source in (root/'index.html', root/'analyses/index.html') else None
+    country = 'finish' if source in (root/'index.html', root/'races.html', root/'analyses/index.html') else None
     if not country:
         index = root/'race-updates.json'
         if index.exists():

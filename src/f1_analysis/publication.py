@@ -284,7 +284,7 @@ def freeze_website(root,output,archives):
         for p in run.rglob('*'):
             if p.is_file() and 'data' not in p.relative_to(run).parts:files.add(p)
         files.update(p for p in (pointer.parent/'corrections').rglob('*') if p.is_file())
-    for name in ['index.html','analyses/index.html','analyses/index.json']:
+    for name in ['index.html','races.html','analysis-lab.html','analyses/index.html','analyses/index.json']:
         if (root/name).exists():files.add(root/name)
     for directory in ['assets','config','src']:
         files.update(p for p in (root/directory).rglob('*') if p.is_file() and '__pycache__' not in p.parts and not any(part.endswith('.egg-info') for part in p.parts))
@@ -436,6 +436,14 @@ def build_site(root, output, max_bytes=None, from_year=1950):
     if output.exists() and any(output.iterdir()):
         raise ValueError(f'Publicatiemap moet leeg zijn: {output}')
     materialize_data(root)
+    # Opt-in analysis workspace. Keep its summaries current on future builds;
+    # never publish telemetry caches or exceed the workspace's independent budget.
+    if (root/'analysis-lab.html').exists() and (root/'assets/phase2.js').exists():
+        from .phase2 import build as build_phase2
+        build_phase2(root)
+    if (root/'races.html').exists():
+        from .homepage import build as build_homepage
+        build_homepage(root)
     output.parent.mkdir(parents=True, exist_ok=True)
     staging = Path(tempfile.mkdtemp(prefix='f1-pages-', dir=output.parent))
     media = read_json(root / '_media/index.json') if (root / '_media/index.json').exists() else {}
@@ -450,8 +458,11 @@ def build_site(root, output, max_bytes=None, from_year=1950):
                 dest=selected/run.relative_to(root);dest.mkdir(parents=True)
                 write_json(dest/'manifest.json',manifest);(dest/'overzicht.html').touch()
                 write_json(selected/pointer.relative_to(root),read_json(pointer))
+            # The temporary catalogue must retain the real workspace's driver entry.
+            if (root/'analysis-lab.html').exists():
+                (selected/'analysis-lab.html').touch()
             update_index(selected)
-            for name in ['index.html','analyses/index.html','analyses/index.json']:
+            for name in ['index.html','races.html','analyses/index.html','analyses/index.json']:
                 index_overrides[root/name]=(selected/name).read_text()
     def source_text(source):
         text=index_overrides[source] if source in index_overrides else (site_html(source,root) if source.suffix=='.html' else source.read_text())
@@ -461,7 +472,7 @@ def build_site(root, output, max_bytes=None, from_year=1950):
         files.add(pointer)
         files.update(p for p in run.rglob('*') if p.is_file() and 'data' not in p.relative_to(run).parts)
         files.update(p for p in (pointer.parent / 'corrections').rglob('*') if p.is_file())
-    for name in ['index.html', 'analyses/index.html', 'analyses/index.json', '_storage/index.json', '_storage/update-state.json', '_storage/season-calendar.json', 'race-updates.json']:
+    for name in ['index.html', 'races.html', 'analysis-lab.html', 'analyses/index.html', 'analyses/index.json', '_storage/index.json', '_storage/update-state.json', '_storage/season-calendar.json', 'race-updates.json']:
         if (root / name).exists(): files.add(root / name)
     for directory in ['assets', '_shared', '_media', '_documents']:
         files.update(p for p in (root / directory).rglob('*') if p.is_file() and p.name != 'index.json')
@@ -783,7 +794,10 @@ def with_race_notifications(text, source, root):
         positions_version=hashlib.sha256(positions_asset.read_bytes()).hexdigest()[:12]
         text=re.sub(r'(?<=src=")([^"?]*assets/positions-gained\.js)(?:\?[^" ]*)?(?=")',
                     lambda m:m[1]+'?v='+positions_version,text)
-    for name in ('dashboard.css','dashboard-core.js','historical-dashboard.js','strategy-popup.js'):
+    if (Path(root)/'assets/site-navigation.js').exists():
+        from .site_navigation import with_navigation
+        text=with_navigation(text,relative(Path(root)/'assets',Path(source).parent)+'/',(Path(root)/'analysis-lab.html').exists())
+    for name in ('dashboard.css','dashboard-core.js','historical-dashboard.js','strategy-popup.js','site-navigation.js','site-navigation.css'):
         asset=Path(root)/'assets'/name
         if not asset.exists():continue
         version=hashlib.sha256(asset.read_bytes()).hexdigest()[:12]
