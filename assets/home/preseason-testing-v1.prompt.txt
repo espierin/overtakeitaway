@@ -1,0 +1,9 @@
+Generation mode: built-in image_gen.imagegen
+
+Use case: photorealistic-natural.
+Asset type: cinematic photographic background for the "PRE-SEASON TESTING" welcome popup of Overtake It Away, a dark Formula 1 data-analysis website.
+Primary request: a premium, very dark pre-season testing scene. A close-up unbranded black carbon-fibre racing helmet with reflective visor in the right foreground, on a pit garage workbench. Behind it, subtly visible in the right middle distance, an unbranded modern single-seat open-wheel racing car being prepared for a test run in an almost black garage. Suggest technical development and shakedown testing, with no people, visible faces or readable screens.
+Style: realistic motorsport editorial photography, tactile carbon weave, glass and satin metal; match a sleek black/navy data dashboard with understated cyan and fastest-lap purple highlights.
+Composition: wide landscape image, approximately 3:2; the helmet and car must remain concentrated in the rightmost 40%. The left 60% is nearly black quiet negative space for a long block of white website text, gently blending into the right scene. No artificial panel borders or built-in interface.
+Lighting/mood: very low key, elegant rim lighting in restrained purple and cyan, occasional tiny white workshop highlights. No bright floodlights, no blown-out reflections. Soft broad fade to true black along ALL edges so it blends naturally into a black popup.
+Text: none. No lettering, logos, watermarks, captions, flags, identifiable drivers or team liveries. Image only; the popup text will be rendered separately in HTML.

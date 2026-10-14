@@ -1,7 +1,7 @@
 """Compact, reproducible driver profiles and observed pit-cycle comparisons.
 
 No causal tyre effects, attempted-undercut claims, or fabricated missing data.
-Only retained main-race dashboards from the latest five calendar seasons.
+Only retained main-race dashboards from the configured recent calendar seasons.
 """
 from __future__ import annotations
 import argparse
@@ -19,8 +19,12 @@ from statistics import median
 import unicodedata
 
 SCHEMA=2
-DEFINITION_VERSION='matched-teammates-v1/paired-pit-cycles-v1/driver-qualities-v1/start-distribution-v1'
+LEGACY_DEFINITION_VERSION='matched-teammates-v1/paired-pit-cycles-v1/driver-qualities-v1/start-distribution-v1'
+LAP_DEFINITION_VERSION=LEGACY_DEFINITION_VERSION+'/lap-metronome-v1'
+DEFINITION_VERSION=LAP_DEFINITION_VERSION+'/pace-overlap-v2'
 MAX_EXTRA_BYTES=20_000_000
+DEFAULT_YEARS=10
+MAX_YEARS=10
 MIN_MATCHED_LAPS=6
 AGE_TOLERANCE=2
 
@@ -43,38 +47,8 @@ def quantile(values, fraction):
 
 
 def compare_teammates(payload):
-    """Equal race lap, measured equal compound, similar known age, clean laps."""
-    teams=defaultdict(list)
-    for d in payload.get('drivers',[]):teams[d.get('team')].append(d)
-    lap_index={(r['driver'],r['lap']):r for r in payload.get('all_laps',[]) if finite(r.get('duration')) and r['duration']>0}
-    pits={(p['driver'],p['lap']) for p in payload.get('explorer',{}).get('pit',[])}
-    neutral={r['lap'] for r in payload.get('explorer',{}).get('neutral',[])}|set(payload.get('explorer',{}).get('red',[]))
-    neutral.update(r['lap'] for r in payload.get('all_laps',[]) if any('neutral' in str(reason).lower() or 'vlag' in str(reason).lower() for reason in (r.get('reasons') or [])))
-    result={};exclusions=defaultdict(int)
-    for team,drivers in teams.items():
-        if not team or len(drivers)!=2:
-            exclusions['team_identity_or_pair']+=len(drivers);continue
-        a,b=drivers;na,nb=a['driver_number'],b['driver_number'];delta=[];lap_numbers=[]
-        common=sorted({l for n,l in lap_index if n==na}&{l for n,l in lap_index if n==nb})
-        for lap in common:
-            ra,rb=lap_index[na,lap],lap_index[nb,lap]
-            if lap==1 or lap in neutral or any((n,k) in pits for n in (na,nb) for k in (lap,lap-1)):
-                exclusions['start_pit_or_neutral']+=1;continue
-            if ra.get('reasons') or rb.get('reasons'):
-                exclusions['source_quality_or_traffic']+=1;continue
-            ta,tb=ra.get('tyre') or {},rb.get('tyre') or {}
-            if not ta.get('compound') or ta['compound']=='UNKNOWN' or ta['compound']!=tb.get('compound'):
-                exclusions['compound']+=1;continue
-            if not finite(ta.get('age')) or not finite(tb.get('age')) or ta['age']<0 or tb['age']<0 or abs(ta['age']-tb['age'])>AGE_TOLERANCE:
-                exclusions['age']+=1;continue
-            # Symmetric percent difference; signs invert exactly for the teammate.
-            delta.append(200*(ra['duration']-rb['duration'])/(ra['duration']+rb['duration']));lap_numbers.append(lap)
-        if len(delta)<MIN_MATCHED_LAPS:
-            exclusions['insufficient_pair']+=1;continue
-        center=median(delta)
-        for d,other,sign in ((a,b,1),(b,a,-1)):
-            result[d['driver_number']]={'teammate':other['name'],'teammate_code':other['code'],'pace_delta_pct':round(center*sign,5),'matched_laps':len(delta),'matched_lap_numbers':lap_numbers,'delta_q25':quantile([x*sign for x in delta],.25),'delta_q75':quantile([x*sign for x in delta],.75)}
-    return result,dict(exclusions)
+    from .pace_comparison import analyse
+    return analyse(payload,min_laps=MIN_MATCHED_LAPS,age_tolerance=AGE_TOLERANCE)
 
 
 def candidate_cycles(payload):
@@ -136,19 +110,22 @@ def extract(root,year):
         if match:yield page,json.loads(match[1]),hashlib.sha256(match[1].encode()).hexdigest()
 
 
-def build(root, *, end_year=None, years=5, max_bytes=MAX_EXTRA_BYTES):
+def build(root, *, end_year=None, years=DEFAULT_YEARS, max_bytes=MAX_EXTRA_BYTES):
     root=Path(root).resolve();end_year=end_year or datetime.now(timezone.utc).year
-    if not 1<=years<=5:raise ValueError('First release is restricted to at most five seasons')
+    if isinstance(years,bool) or not isinstance(years,int) or not 1<=years<=MAX_YEARS:
+        raise ValueError(f'Driver profiles support one to {MAX_YEARS} seasons')
     from .publication import site_html
-    catalog={};refs={};previous_races={};previous_traits={}
+    catalog={};refs={};previous_races={};previous_traits={};previous_cycles=defaultdict(list)
+    from . import lap_rankings, pit_programmes, pace_comparison
     previous_page=root/'analysis-lab.html'
     if previous_page.exists():
         previous_match=re.search(r'<script[^>]*id=["\']phase2-data["\'][^>]*>(.*?)</script>',site_html(previous_page,root),re.S)
         if previous_match:
             previous=json.loads(previous_match[1])
-            if previous.get('definition_version')==DEFINITION_VERSION:
+            if previous.get('definition_version') in (DEFINITION_VERSION,LAP_DEFINITION_VERSION,LEGACY_DEFINITION_VERSION):
                 previous_races={r['id']:r for r in previous.get('races',[])}
-                previous_traits={(r['race'],r['number']):(r.get('qualities',{}),r.get('quality_coverage',{})) for driver in previous.get('drivers',[]) for r in driver['races']}
+                previous_traits={(r['race'],r['number']):r for driver in previous.get('drivers',[]) for r in driver['races']}
+                for cycle in previous.get('cycles',[]):previous_cycles[cycle['race']].append(cycle)
 
     catalogue_page = next((root/name for name in ('races.html','index.html') if (root/name).exists()), None)
     if catalogue_page:
@@ -161,44 +138,95 @@ def build(root, *, end_year=None, years=5, max_bytes=MAX_EXTRA_BYTES):
             meta=catalog.get(str(page.resolve()),{});key=meta.get('circuitId') or identity(payload.get('race','unknown'));race_id=str(year)+'-'+str(meta.get('round') or page.parents[2].name)
             if not payload.get('drivers') or not payload.get('all_laps'):
                 skipped.append({'race':race_id,'reason':'no measured laps'});continue
-            pair,excluded=compare_teammates(payload)
             from .driver_qualities import analyse as analyse_qualities
             from .io import read_json
             normalized=page.parent/'data/normalized/input.json'
+            historical=page.parent/'data/normalized/driver-history.json'
             has_normalized=normalized.exists() or normalized.with_name('input.json.gz').exists()
-            raw=read_json(normalized) if has_normalized else {}
+            has_historical=historical.exists() or historical.with_name('driver-history.json.gz').exists()
+            # Hash the dashboard before enrichment so a compact rebuild can verify
+            # retained observations without downloading the historical feeds again.
             quality_input_sha=hashlib.sha256(json.dumps({k:payload.get(k) for k in ('drivers','all_laps','tyres','explorer')},sort_keys=True,separators=(',',':')).encode()).hexdigest()
             cached=previous_races.get(race_id,{})
-            reuse=not has_normalized and cached.get('quality_input_sha256')==quality_input_sha and all((race_id,d['driver_number']) in previous_traits for d in payload['drivers'])
+            raw=read_json(normalized) if has_normalized else read_json(historical) if has_historical else {}
+            enrichment=None
+            if has_historical and not has_normalized:
+                from .driver_history import enrich
+                payload=enrich(payload,raw);enrichment=raw['format']
+            reuse=not(has_normalized or has_historical) and cached.get('quality_input_sha256')==quality_input_sha and all((race_id,d['driver_number']) in previous_traits for d in payload['drivers'])
+            pair,excluded=compare_teammates(payload)
             if reuse:
-                traits={d['driver_number']:previous_traits[race_id,d['driver_number']][0] for d in payload['drivers']}
-                trait_coverage={d['driver_number']:previous_traits[race_id,d['driver_number']][1] for d in payload['drivers']}
+                traits={d['driver_number']:previous_traits[race_id,d['driver_number']].get('qualities',{}) for d in payload['drivers']}
+                trait_coverage={d['driver_number']:previous_traits[race_id,d['driver_number']].get('quality_coverage',{}) for d in payload['drivers']}
+                enrichment=cached.get('profile_enrichment_source')
+                if cached.get('pace_comparison_version')==pace_comparison.VERSION:
+                    pair={d['driver_number']:previous_traits[race_id,d['driver_number']]['comparison'] for d in payload['drivers'] if previous_traits[race_id,d['driver_number']].get('comparison')}
+                    excluded=cached.get('excluded_pairs',{})
             else:
                 traits,trait_coverage=analyse_qualities(payload,raw)
-            raw_source=normalized if normalized.exists() else normalized.with_name('input.json.gz')
+            reuse_laps=(reuse and cached.get('lap_rankings_version')==lap_rankings.VERSION
+                        and all('lap_rankings' in previous_traits[race_id,d['driver_number']] for d in payload['drivers']))
+            # During the one-time migration, use verified old per-lap context only;
+            # sector ranks themselves never become lap ranks.
+            retained_context={}
+            if reuse and not reuse_laps:
+                for d in payload['drivers']:
+                    previous_row=previous_traits[race_id,d['driver_number']]
+                    for points in previous_row.get('sector_rankings',{}).values():
+                        for lap,_,_,compound,flags in points:
+                            retained_context[d['driver_number'],lap]=(compound,flags)
+            lap_data=({d['driver_number']:previous_traits[race_id,d['driver_number']]['lap_rankings'] for d in payload['drivers']}
+                      if reuse_laps else lap_rankings.analyse(payload,raw,retained_context))
+            source=normalized if has_normalized else historical
+            raw_source=source if source.exists() else source.with_name(source.name+'.gz')
             raw_sha=hashlib.sha256(raw_source.read_bytes()).hexdigest() if raw_source.exists() else cached.get('quality_source_sha256') if reuse else None
+            retained_pits=cached.get('pit_programmes',{})
+            reuse_pits=(retained_pits.get('version')==pit_programmes.VERSION and cached.get('source_sha256')==sha
+                        and (not raw_source.exists() or raw_sha==cached.get('quality_source_sha256')))
+            pit_data=retained_pits if reuse_pits else pit_programmes.analyse(payload,raw)
             del raw
-            href=page.relative_to(root).as_posix();races.append({'id':race_id,'year':year,'round':meta.get('round'),'name':meta.get('name') or payload.get('race'),'circuit':meta.get('circuit') or payload.get('race'),'circuit_id':key,'date':meta.get('date'),'href':href,'source_sha256':sha,'timing_source':payload.get('timing_source'),'matched_drivers':len(pair),'drivers':len(payload['drivers']),'excluded_pairs':excluded,'quality_source_sha256':raw_sha,'quality_input_sha256':quality_input_sha,'quality_source_mode':'retained-summary' if reuse else 'normalized-input' if has_normalized else 'unavailable'})
+            href=page.relative_to(root).as_posix();races.append({'id':race_id,'year':year,'round':meta.get('round'),'name':meta.get('name') or payload.get('race'),'circuit':meta.get('circuit') or payload.get('race'),'circuit_id':key,'date':meta.get('date'),'href':href,'source_sha256':sha,'timing_source':payload.get('timing_source'),'matched_drivers':len(pair),'drivers':len(payload['drivers']),'excluded_pairs':excluded,'quality_source_sha256':raw_sha,'quality_input_sha256':quality_input_sha,'quality_source_mode':'retained-summary' if reuse else 'normalized-input' if has_normalized else 'historical-timing' if has_historical else 'unavailable','profile_enrichment_source':enrichment})
+            races[-1]['lap_rankings_version']=lap_rankings.VERSION
+            races[-1]['pace_comparison_version']=pace_comparison.VERSION
+            races[-1]['pit_programmes']=pit_data
             identities={};styles=payload.get('styles',{})
             for d in payload['drivers']:
                 name=d['name'];matched=[i for i,v in refs.items() if identity(v.get('name',''))==identity(name)];driver_id=matched[0] if len(matched)==1 else identity(name);identities[d['driver_number']]=driver_id
                 colour=(styles.get(str(d['driver_number'])) or styles.get(d['driver_number']) or {}).get('color','#51d6dd')
                 p=profiles.setdefault(driver_id,{'id':driver_id,'name':name,'code':d['code'],'number':d.get('display_number',d['driver_number']),'color':colour,'races':[]})
+                # Iteration is chronological; the profile badge follows the latest
+                # appearance, while every race retains its own number/team colour.
+                p.update(code=d['code'],number=d.get('display_number',d['driver_number']),color=colour)
                 result=d.get('result') or {};retired=result.get('dnf');retired=retired if isinstance(retired,bool) else None
-                p['races'].append({'race':race_id,'year':year,'team':d.get('team'),'number':d['driver_number'],'color':colour,'grid':d.get('grid'),'finish':d.get('finish'),'lap1_position':d.get('lap1_position'),'start_gain':d.get('lap1_net_gain') if d.get('lap1_net_gain') is not None else (d['grid']-d['lap1_position'] if finite(d.get('grid')) and d['grid']>0 and finite(d.get('lap1_position')) else None),'dnf':retired,'comparison':({k:v for k,v in pair[d['driver_number']].items() if k not in ('matched_lap_numbers','teammate_code')} if d['driver_number'] in pair else None),'qualities':traits.get(d['driver_number'],{}),'quality_coverage':trait_coverage.get(d['driver_number'],{})})
+                p['races'].append({'race':race_id,'year':year,'team':d.get('team'),'number':d['driver_number'],'color':colour,'grid':d.get('grid'),'finish':d.get('finish'),'lap1_position':d.get('lap1_position'),'start_gain':d.get('lap1_net_gain') if d.get('lap1_net_gain') is not None else (d['grid']-d['lap1_position'] if finite(d.get('grid')) and d['grid']>0 and finite(d.get('lap1_position')) else None),'dnf':retired,'comparison':({k:v for k,v in pair[d['driver_number']].items() if k not in ('matched_lap_numbers','teammate_code')} if d['driver_number'] in pair else None),'qualities':{k:v for k,v in traits.get(d['driver_number'],{}).items() if k!='metronome'},'quality_coverage':trait_coverage.get(d['driver_number'],{})})
+                p['races'][-1]['lap_rankings']=lap_data.get(d['driver_number'],[])
+            if reuse and enrichment:
+                retained=previous_cycles.get(race_id,[]);cycles.extend(retained)
+                races[-1]['cycle_exclusions']=cached.get('cycle_exclusions',{});races[-1]['candidate_cycles']=len(retained)
+                continue
             found,cycle_excluded=candidate_cycles(payload);races[-1]['cycle_exclusions']=cycle_excluded;races[-1]['candidate_cycles']=len(found)
             for i,c in enumerate(found):cycles.append(dict(c,id=f'{race_id}-{i}',race=race_id,year=year,circuit_id=key,driver=identities[c['driver']],opponent=identities[c['opponent']]))
     race_metadata={r['id']:r for r in races}
     for p in profiles.values():p['races'].sort(key=lambda r:(r['year'],race_metadata[r['race']].get('date') or '',race_metadata[r['race']].get('round') or 0))
     data={'schema':SCHEMA,'definition_version':DEFINITION_VERSION,'period':[end_year-years+1,end_year],'races':races,'drivers':sorted(profiles.values(),key=lambda p:p['name']),'cycles':cycles,'skipped':skipped,'settings':{'min_matched_laps':MIN_MATCHED_LAPS,'max_tyre_age_difference':AGE_TOLERANCE,'max_stop_gap':8,'max_initial_position_gap':3},'generated_at':datetime.now(timezone.utc).isoformat()}
+    data['settings']['pace_comparison']={'version':pace_comparison.VERSION,'mean_fallback':True,'retirement_overlap':True}
+    data['settings']['lap_rankings']={'version':lap_rankings.VERSION,'columns':lap_rankings.POINT_COLUMNS,'compounds':lap_rankings.COMPOUNDS,'flags':{'first':1,'pit':2,'flag':4,'quality':8,'wet':16,'unknown_tyre':32,'not_free':64,'traffic':128}}
     encoded=json.dumps(data,ensure_ascii=False,separators=(',',':'),allow_nan=False).replace('</','<\\/')
     src=Path(__file__).parent;assets=root/'assets';assets.mkdir(exist_ok=True)
-    extra=len(encoded.encode())+sum((src/name).stat().st_size for name in ['phase2.js','phase2.css','phase2-entry.js','driver-qualities.js','site-navigation.js','site-navigation.css'])+50_000
+    asset_names=['preseason-testing.js','preseason-testing.css','pit-programmes.js','pace-timeline.js','phase2.js','phase2.css','phase2-entry.js','driver-qualities.js','lap-rankings.js','site-navigation.js','site-navigation.css']
+    intro_assets=['preseason-testing-v1.webp','preseason-testing-v1.prompt.txt']
+    intro_bytes=sum((src/'assets/home'/name).stat().st_size for name in intro_assets)
+    extra=len(encoded.encode())+sum((src/name).stat().st_size for name in asset_names)+intro_bytes+50_000
     if extra>max_bytes:raise ValueError(f'Phase two exceeds its {max_bytes:,}-byte budget: {extra:,}')
-    for name in ['phase2.js','phase2.css','phase2-entry.js','driver-qualities.js','site-navigation.js','site-navigation.css']:shutil.copyfile(src/name,assets/name)
+    for name in asset_names:shutil.copyfile(src/name,assets/name)
+    (assets/'home').mkdir(exist_ok=True)
+    for name in intro_assets:shutil.copyfile(src/'assets/home'/name,assets/'home'/name)
     from .branding import branding,hero_style
     page='<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Analyseomgeving · Overtake It Away</title><link rel="stylesheet" href="assets/phase2.css">'+hero_style('assets/f1-banner-v3.png')+'</head><body><div class="race-hero">'+branding('assets/f1-banner-v3.png',seasons_url='races.html' if (root/'races.html').exists() else 'index.html').replace('<a class="all-seasons-button"','<a id="home-link" class="all-seasons-button"')+'<h1 id="lab-title">Rijders &amp; strategie</h1><p id="lab-subtitle"></p></div><div class="lab-layout"><aside id="lab-controls"></aside><main id="lab-main"><nav id="lab-tabs" role="tablist" aria-label="Analyseonderwerpen"></nav><div id="lab-content" role="tabpanel"></div></main></div><script id="phase2-data" type="application/json">'+encoded+'</script><script src="assets/driver-qualities.js"></script><script src="assets/phase2.js"></script></body></html>'
+    page=page.replace('</head>','<link rel="stylesheet" href="assets/preseason-testing.css"><link rel="preload" as="image" href="assets/home/preseason-testing-v1.webp"></head>')
+    page=page.replace('</body>','<script src="assets/preseason-testing.js"></script></body>')
     from .branding import back_to_top
+    page=page.replace('<script src="assets/driver-qualities.js">','<script src="assets/pit-programmes.js"></script><script src="assets/pace-timeline.js"></script><script src="assets/lap-rankings.js"></script><script src="assets/driver-qualities.js">')
     page=page.replace('</body>',back_to_top()+'</body>')
     (root/'analysis-lab.html').write_text(page)
     for catalog_page,href,prefix in [(catalogue_page,'analysis-lab.html','assets/'),(root/'analyses/index.html','../analysis-lab.html','../assets/')]:
@@ -208,6 +236,9 @@ def build(root, *, end_year=None, years=5, max_bytes=MAX_EXTRA_BYTES):
                 text=text.replace('<div class="catalogue-tools">',entry_link(href,prefix)+'<div class="catalogue-tools">',1)
                 catalog_page.write_text(text)
     report={'schema':SCHEMA,'period':data['period'],'races':len(races),'drivers':len(profiles),'candidate_cycles':len(cycles),'matched_driver_races':sum(bool(r['comparison']) for p in profiles.values() for r in p['races']),'extra_bytes_upper_bound':extra,'max_extra_bytes':max_bytes,'qualities':{k:sum(bool(r.get('qualities',{}).get(k)) for p in profiles.values() for r in p['races']) for k in ('free','metronome','tyres','warmup','pitwindow','start')},'page':'analysis-lab.html'}
+    report['lap_rankings']=sum(len(r['lap_rankings']) for p in profiles.values() for r in p['races'])
+    report['qualities']['metronome']=sum(bool(r['lap_rankings']) for p in profiles.values() for r in p['races'])
+    report['pit_programmes']={'races':sum(len(r['pit_programmes']['entries'])>=2 for r in races),'drivers':sum(len(r['pit_programmes']['entries']) for r in races),'lap_observations':sum(len(e[2]) for r in races for e in r['pit_programmes']['entries'])}
     (assets/'phase2-build-report.json').write_text(json.dumps(report,indent=2)+'\n')
     return report
 
@@ -217,6 +248,6 @@ def entry_link(href, asset_prefix):
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--root',type=Path,default=Path.cwd());parser.add_argument('--end-year',type=int);parser.add_argument('--years',type=int,default=5);args=parser.parse_args();print(json.dumps(build(args.root,end_year=args.end_year,years=args.years),indent=2))
+    parser=argparse.ArgumentParser();parser.add_argument('--root',type=Path,default=Path.cwd());parser.add_argument('--end-year',type=int);parser.add_argument('--years',type=int,default=DEFAULT_YEARS);args=parser.parse_args();print(json.dumps(build(args.root,end_year=args.end_year,years=args.years),indent=2))
 
 if __name__=='__main__':main()

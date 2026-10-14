@@ -128,7 +128,7 @@ def test_compact_rebuild_keeps_verified_traits_without_normalized_inputs(tmp_pat
     def write_payload():page.write_text('<script id="dashboard-data" type="application/json">'+json.dumps(p)+'</script>')
     def data():return json.loads(BeautifulSoup((tmp_path/'analysis-lab.html').read_text(),'html.parser').find(id='phase2-data').string)
     write_payload();(run/'data/normalized/input.json').write_text(json.dumps(raw));build(tmp_path,end_year=2026)
-    before=data();assert next(d for d in before['drivers'] if d['number']==1)['races'][0]['qualities']['metronome']
+    before=data();assert next(d for d in before['drivers'] if d['number']==1)['races'][0]['lap_rankings']
     (run/'data/normalized/input.json').unlink();p['highlights']={'updated':'presentation only'};write_payload();build(tmp_path,end_year=2026)
     after=data();assert after['races'][0]['quality_source_mode']=='retained-summary'
     assert [d['races'][0]['qualities'] for d in before['drivers']]==[d['races'][0]['qualities'] for d in after['drivers']]

@@ -10,7 +10,7 @@ from statistics import median
 import math
 
 KINDS=('free','metronome','tyres','warmup','pitwindow','start')
-DRY={'SOFT','MEDIUM','HARD'}
+DRY={'HYPERSOFT','ULTRASOFT','SUPERSOFT','SOFT','MEDIUM','HARD','SUPERHARD'}
 
 
 def valid(x):
@@ -37,10 +37,14 @@ def traffic_evidence(payload, raw):
     Require measurements at 25/50/75% of the lap, each <=10s old. A leader
     requires a contemporaneous position=1; a zero interval alone is not enough.
     """
+    relative = raw.get('clock') == 'session-seconds'
+    def time_value(row, absolute_key, relative_key):
+        value = row.get(relative_key) if relative else stamp(row.get(absolute_key))
+        return value if valid(value) else None
     def timelines(rows):
         groups=defaultdict(list)
         for r in rows:
-            t=stamp(r.get('date'))
+            t=time_value(r,'date','time')
             if t is not None:groups[r.get('driver_number')].append((t,r))
         return {n:(tuple(x[0] for x in sorted(rs,key=lambda x:x[0])),tuple(x[1] for x in sorted(rs,key=lambda x:x[0]))) for n,rs in groups.items()}
     intervals=timelines(raw.get('intervals',[]))
@@ -50,7 +54,7 @@ def traffic_evidence(payload, raw):
         return rows[i] if i>=0 and t-times[i]<=max_age else None
     evidence={}
     for r in raw.get('laps',[]):
-        n,l=r.get('driver_number'),r.get('lap_number');start=stamp(r.get('date_start'));duration=r.get('lap_duration')
+        n,l=r.get('driver_number'),r.get('lap_number');start=time_value(r,'date_start','time_start');duration=r.get('lap_duration')
         if start is None or not valid(duration) or duration<=0:continue
         samples=[]
         for fraction in (.25,.5,.75):
