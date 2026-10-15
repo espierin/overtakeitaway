@@ -141,3 +141,29 @@ def with_hero_flag(text, source, root):
 def _hero_race_countries(index, version):
     import json
     return {r['path']: r.get('country') for r in json.loads(Path(index).read_text())['races'] if r.get('path')}
+
+
+NL_TAGLINE = 'Geen fabels maar feiten'
+EN_TAGLINE = 'A reality check on heroic stories.'
+
+
+def with_wordmark_text(text):
+    """Keep original logo pixels; render the bilingual subtitle as real, offline-font text."""
+    import re
+    from html import escape
+    def logo(match):
+        opening, image, closing = match.groups()
+        image=re.sub(r'\balt=["\'][^"\']*["\']', 'alt=""', image)
+        opening=re.sub(r'\baria-label=["\'][^"\']*["\']', 'aria-label="Overtake It Away: '+NL_TAGLINE+' · Home"', opening)
+        return opening+'<span class="site-wordmark-window">'+image+'</span><span class="site-tagline" data-brand-tagline>'+NL_TAGLINE+'</span>'+closing
+    # Only replace an unwrapped image, so repeated publication stays idempotent.
+    pattern=r'(<a\b[^>]*class=["\'][^"\']*(?:site-home-link|logo-link)[^"\']*["\'][^>]*>)\s*(<img\b[^>]*class=["\'][^"\']*(?:site-wordmark|guide-wordmark)[^"\']*["\'][^>]*>)\s*(</a>)'
+    text=re.sub(pattern,logo,text,count=1,flags=re.S)
+    if 'site-wordmark-window' not in text:return text
+    text=re.sub(r'<p\b[^>]*class=["\']site-tagline["\'][^>]*>.*?</p>', '',text,flags=re.S)
+    text=re.sub(r'<span>'+re.escape(EN_TAGLINE)+r'</span>', '<span data-brand-tagline>'+NL_TAGLINE+'</span>', text)
+    text=re.sub(r'<span>Overtake It Away · '+re.escape(EN_TAGLINE)+r'</span>', '<span>Overtake It Away: <span data-brand-tagline>'+NL_TAGLINE+'</span></span>', text)
+    def title(match):
+        value=re.sub(r'Overtake It Away(?:: (?:Geen fabels maar feiten|A reality check on heroic stories\.))?', 'Overtake It Away: '+NL_TAGLINE, match[2])
+        return match[1]+value+match[3]
+    return re.sub(r'(<title[^>]*>)(.*?)(</title>)',title,text,count=1,flags=re.S)

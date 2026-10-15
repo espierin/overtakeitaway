@@ -1,0 +1,73 @@
+{
+  "generator": "built-in image_gen",
+  "created": "2026-10-15",
+  "style": "Dark cinematic photorealistic F1 card backgrounds, quiet text area, matching existing site cards.",
+  "images": [
+    {
+      "key": "starter",
+      "prompt": "Use case: photorealistic-natural. Asset type: landscape background photograph for an F1 data website card, 1536x1024 landscape composition. Create one polished cinematic photorealistic motorsport photograph, matching a cohesive six-image series: near-black and charcoal colour grading, realistic carbon fibre and rubber, restrained purple/cyan/red/gold rim lighting, deep shadows, dusk or night, photographic realism, premium editorial sports photography. Composition for white overlaid UI text: keep left half and upper-left very dark and visually quiet; recognisable subject occupies centre-right and lower-right. Broad natural shadow falloff at every edge, no frame. Scene must still be readable in a small card. No text, numbers, labels, charts, watermarks, visible sponsor branding, legible logos or generated UI. No collages. Subject: the race starter. Low trackside camera looking diagonally along a Formula One starting grid at lights-out, a compact group of modern open-wheel race cars accelerating away towards the first corner. Leading dark graphite car on the lower right, other cars receding into background on the right, subtle red starting gantry lights now unlit, tyre motion and a hint of atmospheric haze. Convey reaction, launch and the intense first moments of a Grand Prix. Dry asphalt with restrained reflections, not a rain scene. Cars physically plausible.",
+      "file": "driver-starter-v1.webp",
+      "generated_file": "exec-b180c0be-24d5-4336-8cba-0c393d0dd4c2.png",
+      "size": [
+        1200,
+        800
+      ],
+      "bytes": 59820
+    },
+    {
+      "key": "clear-air",
+      "prompt": "Use case: photorealistic-natural. Asset type: landscape background photograph for an F1 data website card, 1536x1024 landscape composition. Create one polished cinematic photorealistic motorsport photograph, matching a cohesive six-image series: near-black and charcoal colour grading, realistic carbon fibre and rubber, restrained purple/cyan/red/gold rim lighting, deep shadows, dusk or night, photographic realism, premium editorial sports photography. Composition for white overlaid UI text: keep left half and upper-left very dark and visually quiet; recognisable subject occupies centre-right and lower-right. Broad natural shadow falloff at every edge, no frame. Scene must still be readable in a small card. No text, numbers, labels, charts, watermarks, visible sponsor branding, legible logos or generated UI. No collages. Subject: the clear-air specialist, pure baseline speed. A single modern dark graphite Formula One car speeding along an expansive empty circuit straight at blue hour, seen from a low front three-quarter angle, car distinctly on the right. Long clean racing line and empty open space ahead, subtle cyan highlights on carbon fibre, restrained motion blur in background and road, car in sharp focus. Absolutely no following or leading cars, no pit crew. Convey freedom, aerodynamic efficiency and outright pace.",
+      "file": "driver-clear-air-v1.webp",
+      "generated_file": "exec-9137abb2-83f7-4db9-9273-2f5dbbfd1b14.png",
+      "size": [
+        1200,
+        800
+      ],
+      "bytes": 51188
+    },
+    {
+      "key": "metronome",
+      "prompt": "Use case: photorealistic-natural. Asset type: landscape background photograph for an F1 data website card, 1536x1024 landscape composition. Create one polished cinematic photorealistic motorsport photograph, matching a cohesive six-image series: near-black and charcoal colour grading, realistic carbon fibre and rubber, restrained purple/cyan/red/gold rim lighting, deep shadows, dusk or night, photographic realism, premium editorial sports photography. Composition for white overlaid UI text: keep left half and upper-left very dark and visually quiet; recognisable subject occupies centre-right and lower-right. Broad natural shadow falloff at every edge, no frame. Scene must still be readable in a small card. No text, numbers, labels, charts, watermarks, visible sponsor branding, legible logos or generated UI. No collages. Subject: the metronome, repeatable lap speed and consistency. A modern dark graphite Formula One car executing a precise clean corner apex, high three-quarter trackside camera. Right-hand portion shows an elegant repeating rhythm of red-and-white kerb segments, parallel tyre lines and subtle distant circuit lights; the same disciplined racing line is the visual idea. One car only, on the lower-right, in sharp focus, background softly blurred. A subtle violet highlight on the car. The image is a real photograph, no clock, no metronome instrument, no data graphics, no repeated ghost cars.",
+      "file": "driver-metronome-v1.webp",
+      "generated_file": "exec-70a503e2-6979-4f23-8bb2-95e377a7e2a3.png",
+      "size": [
+        1200,
+        800
+      ],
+      "bytes": 51118
+    },
+    {
+      "key": "tyre-whisperer",
+      "prompt": "Use case: photorealistic-natural. Asset type: landscape background photograph for an F1 data website card, 1536x1024 landscape composition. Create one polished cinematic photorealistic motorsport photograph, matching a cohesive six-image series: near-black and charcoal colour grading, realistic carbon fibre and rubber, restrained purple/cyan/red/gold rim lighting, deep shadows, dusk or night, photographic realism, premium editorial sports photography. Composition for white overlaid UI text: keep left half and upper-left very dark and visually quiet; recognisable subject occupies centre-right and lower-right. Broad natural shadow falloff at every edge, no frame. Scene must still be readable in a small card. No text, numbers, labels, charts, watermarks, visible sponsor branding, legible logos or generated UI. No collages. Subject: the tyre whisperer, retaining speed as tyres age. Intimate dramatic macro photograph of the front slick tyre and carbon fibre suspension of a modern Formula One car, mounted wheel dominating the right side. Fine realistic worn rubber grain, light graining and a few small rubber marbles show use without severe damage; dark wheel rim and tiny cyan/violet edge highlights. Car bodywork falls softly into the darkness behind it. The left half is a deep nearly black garage shadow. Premium tactile realistic rubber texture, care and longevity, no smoke, no glowing tyre, no mechanic needed.",
+      "file": "driver-tyre-whisperer-v1.webp",
+      "generated_file": "exec-4ed37ac4-e1a5-47f1-a567-b840de48ac3d.png",
+      "size": [
+        1200,
+        800
+      ],
+      "bytes": 76194
+    },
+    {
+      "key": "warm-up",
+      "prompt": "Use case: photorealistic-natural. Asset type: landscape background photograph for an F1 data website card, 1536x1024 landscape composition. Create one polished cinematic photorealistic motorsport photograph, matching a cohesive six-image series: near-black and charcoal colour grading, realistic carbon fibre and rubber, restrained purple/cyan/red/gold rim lighting, deep shadows, dusk or night, photographic realism, premium editorial sports photography. Composition for white overlaid UI text: keep left half and upper-left very dark and visually quiet; recognisable subject occupies centre-right and lower-right. Broad natural shadow falloff at every edge, no frame. Scene must still be readable in a small card. No text, numbers, labels, charts, watermarks, visible sponsor branding, legible logos or generated UI. No collages. Subject: the warm-up specialist, getting tyres into their working window. Close low-angle photograph inside a Formula One pit garage at twilight, a mechanic in dark suit and gloves carefully pulling a black insulated tyre blanket away from a mounted slick wheel on the right of a modern dark graphite car. Front wheel and partly removed blanket are clearly recognisable, restrained warm gold practical garage light against a cool charcoal background, subtle purple reflections on carbon fibre. The mechanic face is out of frame. Real equipment and realistic tyre temperatures: no glowing rubber, no fire, no smoke. Keep upper-left completely quiet and dark.",
+      "file": "driver-warm-up-v1.webp",
+      "generated_file": "exec-03217886-ed91-4230-ac45-21a0e978da39.png",
+      "size": [
+        1200,
+        800
+      ],
+      "bytes": 79686
+    },
+    {
+      "key": "pitwindow",
+      "prompt": "Use case: photorealistic-natural. Asset type: landscape background photograph for an F1 data website card, 1536x1024 landscape composition. Create one polished cinematic photorealistic motorsport photograph, matching a cohesive six-image series: near-black and charcoal colour grading, realistic carbon fibre and rubber, restrained purple/cyan/red/gold rim lighting, deep shadows, dusk or night, photographic realism, premium editorial sports photography. Composition for white overlaid UI text: keep left half and upper-left very dark and visually quiet; recognisable subject occupies centre-right and lower-right. Broad natural shadow falloff at every edge, no frame. Scene must still be readable in a small card. No text, numbers, labels, charts, watermarks, visible sponsor branding, legible logos or generated UI. No collages. Subject: the pit-window specialist, precision around a decisive pit stop. Dramatic low-angle close editorial photograph of a Formula One pit crew carrying out a wheel change in a night pit lane. Two or three mechanics in dark helmets and suits concentrated on the front-right wheel of a dark graphite car in the right half, one operating a wheel gun, another holding the replacement wheel. Realistic physical positions, visible carbon fibre, tiny restrained red and cyan highlights and warm pit-lane lamps. A suggestion of controlled motion in gloves and wheel, car sharp. Left half fades into almost black pitlane shadow, no busy crowds or extra cars.",
+      "file": "driver-pitwindow-v1.webp",
+      "generated_file": "exec-08d2c203-c6ed-4407-b0d7-c3617c3dbde5.png",
+      "size": [
+        1200,
+        800
+      ],
+      "bytes": 96500
+    }
+  ]
+}

@@ -33,7 +33,8 @@ def reference_from_zip(body):
             result['positionText'] == 'DNF' or bool(result['reasonRetired']) and result['positionText'] != 'DSQ',
             result['polePosition'] == 'true', result['fastestLap'] == 'true'])
     keyed = {f"{r['year']}-{r['round']}": races[r['id']] for r in table('races')}
-    return {'schema': 3, 'source': 'https://github.com/f1db/f1db', 'direction_sources': {layout: url for layout, (_, url) in DIRECTION_CORRECTIONS.items()}, 'drivers': drivers, 'circuits': circuits, 'races': keyed}
+    from .championship import before_reference
+    return {'schema': 4, 'championship_before': before_reference(table), 'source': 'https://github.com/f1db/f1db', 'direction_sources': {layout: url for layout, (_, url) in DIRECTION_CORRECTIONS.items()}, 'drivers': drivers, 'circuits': circuits, 'races': keyed}
 
 
 def race_direction(row, normalized, reference, circuit=None):
@@ -106,14 +107,14 @@ def refresh_reference(root):
     state_path = root/'_storage/catalogue-search-reference-state.json'
     state = json.loads(state_path.read_text()) if state_path.exists() else {}
     today = datetime.now(timezone.utc).date().isoformat()
-    if state.get('checked') == today and load_reference(root).get('schema') == 3:
+    if state.get('checked') == today and load_reference(root).get('schema') == 4:
         return
     def fetch(url):
         with urlopen(Request(url, headers={'User-Agent': 'OvertakeItAway/1.0'}), timeout=30) as response:
             return response.read()
     release = json.loads(fetch('https://api.github.com/repos/f1db/f1db/releases/latest'))
     reference = load_reference(root)
-    if reference.get('release') != release['tag_name'] or reference.get('schema') != 3:
+    if reference.get('release') != release['tag_name'] or reference.get('schema') != 4:
         asset = next(a for a in release['assets'] if a['name'] == 'f1db-csv.zip')
         body = fetch(asset['browser_download_url'])
         reference = reference_from_zip(body)

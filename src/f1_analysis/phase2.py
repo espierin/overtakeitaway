@@ -238,23 +238,33 @@ def build(root, *, end_year=None, years=DEFAULT_YEARS, max_bytes=MAX_EXTRA_BYTES
     data['settings']['lap_rankings']={'version':lap_rankings.VERSION,'columns':lap_rankings.POINT_COLUMNS,'compounds':lap_rankings.COMPOUNDS,'flags':{'first':1,'pit':2,'flag':4,'quality':8,'wet':16,'unknown_tyre':32,'not_free':64,'traffic':128}}
     encoded=json.dumps(data,ensure_ascii=False,separators=(',',':'),allow_nan=False).replace('</','<\\/')
     src=Path(__file__).parent;assets=root/'assets';assets.mkdir(exist_ok=True)
-    asset_names=['preseason-testing.js','preseason-testing.css','pit-programmes.js','pace-timeline.js','phase2.js','phase2.css','phase2-entry.js','driver-qualities.js','driver-names.js','lap-rankings.js','site-navigation.js','site-navigation.css','site-theme.css']
-    intro_assets=['preseason-testing-v1.webp','preseason-testing-v1.prompt.txt']
+    asset_names=['driver-card-art.css','highlights.css','site-header.css','driver-profile-sidebar.css','site-branding.js','site-branding.css','driver-period.js','driver-period.css','preseason-testing.js','preseason-testing.css','pit-programmes.js','pace-timeline.js','phase2.js','phase2.css','phase2-entry.js','driver-qualities.js','driver-field.js','driver-names.js','lap-rankings.js','site-navigation.js','site-navigation.css','site-theme.css']
+    intro_assets=['preseason-testing-v1.webp','preseason-testing-v1.prompt.txt','drivers.webp','goat-winter-break-v1.webp','races.webp']
+    card_assets=['driver-starter-v1.webp','driver-clear-air-v1.webp','driver-metronome-v1.webp','driver-tyre-whisperer-v1.webp','driver-warm-up-v1.webp','driver-pitwindow-v1.webp','driver-quality-prompts-v1.json']
+    card_bytes=sum((src/'assets/cards'/name).stat().st_size for name in card_assets)
     intro_bytes=sum((src/'assets/home'/name).stat().st_size for name in intro_assets)
     saved_metrics_bytes=sum((assets/name).stat().st_size for name in ('starter-metrics.json','starter-metrics.csv') if (assets/name).exists())
-    extra=len(encoded.encode())+sum((src/name).stat().st_size for name in asset_names)+intro_bytes+saved_metrics_bytes+50_000
+    from .driver_sidebar import CSS as driver_sidebar_css
+    extra=len(driver_sidebar_css.encode())+len(encoded.encode())+sum((src/name).stat().st_size for name in asset_names)+intro_bytes+card_bytes+saved_metrics_bytes+50_000
     if extra>max_bytes:raise ValueError(f'Phase two exceeds its {max_bytes:,}-byte budget: {extra:,}')
-    for name in asset_names:shutil.copyfile(src/name,assets/name)
+    for name in asset_names:
+        if name=='driver-profile-sidebar.css':
+            (assets/name).write_text(driver_sidebar_css+(src/name).read_text())
+        elif name=='highlights.css':
+            (assets/name).write_text('\n'.join(line for line in (src/name).read_text().split('\n') if '--highlight-image:url(' not in line))
+        else:shutil.copyfile(src/name,assets/name)
+    (assets/'cards').mkdir(exist_ok=True)
+    for name in card_assets:shutil.copyfile(src/'assets/cards'/name,assets/'cards'/name)
     (assets/'home').mkdir(exist_ok=True)
     for name in intro_assets:shutil.copyfile(src/'assets/home'/name,assets/'home'/name)
     from .branding import branding,hero_style
-    page='<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Analyseomgeving · Overtake It Away</title><link rel="stylesheet" href="assets/phase2.css">'+hero_style('assets/f1-banner-v3.png')+'</head><body><div class="race-hero">'+branding('assets/f1-banner-v3.png',seasons_url='races.html' if (root/'races.html').exists() else 'index.html').replace('data-site-link="races"','id="home-link" data-site-link="races"',1)+'<h1 id="lab-title">Rijders &amp; strategie</h1><p id="lab-subtitle"></p></div><div class="lab-layout"><aside id="lab-controls"></aside><main id="lab-main"><nav id="lab-tabs" role="tablist" aria-label="Analyseonderwerpen"></nav><div id="lab-content" role="tabpanel"></div></main></div><script id="phase2-data" type="application/json">'+encoded+'</script><script src="assets/driver-qualities.js"></script><script src="assets/phase2.js"></script></body></html>'
+    page='<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Coureurs · Overtake It Away</title><link rel="stylesheet" href="assets/phase2.css"><link rel="stylesheet" href="assets/highlights.css"><link rel="stylesheet" href="assets/driver-card-art.css"><link rel="stylesheet" href="assets/driver-period.css"><link rel="stylesheet" href="assets/driver-profile-sidebar.css">'+hero_style('assets/f1-banner-v3.png')+'</head><body><div class="race-hero" data-header-section="drivers">'+branding('assets/f1-banner-v3.png',seasons_url='races.html' if (root/'races.html').exists() else 'index.html').replace('data-site-link="races"','id="home-link" data-site-link="races"',1)+'<h1 id="lab-title">Coureurs</h1><p id="lab-subtitle"></p></div><div class="lab-layout"><aside id="lab-controls"></aside><main id="lab-main"><nav id="lab-tabs" role="tablist" aria-label="Analyseonderwerpen"></nav><section id="lab-filters" class="lab-filters"></section><div id="lab-content" role="tabpanel"></div></main></div><script id="phase2-data" type="application/json">'+encoded+'</script><script src="assets/driver-qualities.js"></script><script src="assets/phase2.js"></script></body></html>'
     page=page.replace('</head>','<link rel="stylesheet" href="assets/preseason-testing.css"><link rel="preload" as="image" href="assets/home/preseason-testing-v1.webp"></head>')
     page=page.replace('</body>','<script src="assets/preseason-testing.js"></script></body>')
     from .branding import back_to_top
-    page=page.replace('<script src="assets/driver-qualities.js">','<script src="assets/pit-programmes.js"></script><script src="assets/pace-timeline.js"></script><script src="assets/lap-rankings.js"></script><script src="assets/driver-qualities.js">')
+    page=page.replace('<script src="assets/driver-qualities.js">','<script src="assets/pit-programmes.js"></script><script src="assets/pace-timeline.js"></script><script src="assets/lap-rankings.js"></script><script src="assets/driver-field.js"></script><script src="assets/driver-qualities.js">')
     page=page.replace('</body>',back_to_top()+'</body>')
-    page=page.replace('<script src="assets/phase2.js">','<script src="assets/driver-names.js"></script><script src="assets/phase2.js">')
+    page=page.replace('<script src="assets/phase2.js">','<script src="assets/driver-names.js"></script><script src="assets/driver-period.js"></script><script src="assets/phase2.js">')
     (root/'analysis-lab.html').write_text(page)
     from .site_navigation import without_legacy_entry
     for catalog_page in (catalogue_page,root/'analyses/index.html'):

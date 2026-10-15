@@ -7,8 +7,16 @@ import shutil
 
 def ensure_assets(root):
     directory=Path(root)/'assets';directory.mkdir(parents=True,exist_ok=True)
-    for name in ('site-navigation.js','site-navigation.css','site-theme.css'):
+    for name in ('site-navigation.js','site-navigation.css','site-theme.css','site-branding.js','site-branding.css','site-header.css'):
         shutil.copyfile(Path(__file__).with_name(name),directory/name)
+    bundled=Path(__file__).parent/'assets'
+    (directory/'fonts').mkdir(exist_ok=True)
+    shutil.copyfile(bundled/'Montserrat-OFL.txt',directory/'fonts/Montserrat-OFL.txt')
+    (directory/'home').mkdir(exist_ok=True)
+    for name in ('drivers.webp','goat-winter-break-v1.webp','races.webp'):
+        if not (directory/'home'/name).exists():shutil.copyfile(bundled/'home'/name,directory/'home'/name)
+    for name in ('overtake-wordmark-v2.png','f1-banner-v3.png'):
+        if not (directory/name).exists():shutil.copyfile(bundled/name,directory/name)
     # The per-race template sits six directories deeper than the shared CSS.
     # Keep image references relative to assets/ when updating the shared copy.
     dashboard=directory/'dashboard.css'
@@ -23,8 +31,12 @@ def with_home_link(text,href):
         inner=match[2]
         def linked(logo):
             return '<a class="site-home-link" data-site-home href="'+escape(href,quote=True)+'" aria-label="Overtake It Away · Home">'+logo+'</a>'
-        existing=re.compile(r'<a\b[^>]*>\s*('+image+r')\s*</a>',re.S)
-        if existing.search(inner):inner=existing.sub(lambda m:linked(m[1]),inner,count=1)
+        existing=re.compile(r'<a\b[^>]*>(.*?)</a>',re.S)
+        if any(re.search(image,m[1]) for m in existing.finditer(inner)):
+            def preserve(logo):
+                if not re.search(image,logo[1]):return logo[0]
+                return '<a class="site-home-link" data-site-home href="'+escape(href,quote=True)+'" aria-label="Overtake It Away: Geen fabels maar feiten · Home">'+logo[1]+'</a>'
+            inner=existing.sub(preserve,inner)
         else:inner=re.sub(image,lambda m:linked(m[0]),inner,count=1)
         return match[1]+inner+match[3]
     return re.sub(r'(<header\b[^>]*class=["\'][^"\']*\bsite-brand\b[^"\']*["\'][^>]*>)(.*?)(</header>)',header,text,count=1,flags=re.S)
@@ -37,7 +49,7 @@ def navigation_buttons(site_prefix='', drivers_available=True, language_button=N
     """
     links='<a class="site-nav-button" data-site-link="home" href="'+escape(site_prefix+'index.html',quote=True)+'">Home</a>'
     links+='<a class="site-nav-button all-seasons-button"'+(' id="home-link"' if races_id else '')+' data-site-link="races" href="'+escape(site_prefix+'races.html',quote=True)+'">Races</a>'
-    links+=('<a class="site-nav-button" data-site-link="drivers" href="'+escape(site_prefix+'analysis-lab.html#tab=profiles',quote=True)+'">Drivers</a>' if drivers_available else '<button type="button" class="site-nav-button" data-site-link="drivers" disabled>Drivers</button>')
+    links+=('<a class="site-nav-button" data-site-link="drivers" href="'+escape(site_prefix+'analysis-lab.html#tab=profiles',quote=True)+'">Coureurs</a>' if drivers_available else '<button type="button" class="site-nav-button" data-site-link="drivers" disabled>Coureurs</button>')
     links+='<a class="site-nav-button" data-site-link="greatest" href="'+escape(site_prefix+'goat.html',quote=True)+'">Greatest</a>'
     links+='<button type="button" class="site-nav-button" data-site-about aria-haspopup="dialog" aria-controls="about-dialog" data-about-nl="About me" data-about-en="About me">About me</button>'
     return links+(language_button or '<button type="button" class="language-toggle" id="language-toggle" data-language-toggle aria-label="Switch to English"><span data-lang="en">EN</span> / <span data-lang="nl" class="active">NL</span></button>')
@@ -54,6 +66,15 @@ def with_navigation(text,asset_prefix,drivers_available=True):
     text=without_legacy_entry(text)
     site_prefix=asset_prefix.removesuffix('assets/')
     text=with_home_link(text,site_prefix+'index.html')
+    from .branding import with_wordmark_text
+    text=with_wordmark_text(text)
+    section=('drivers' if 'id="phase2-data"' in text else 'greatest' if 'id="goat-plan"' in text else 'home' if 'class="home-page"' in text else 'races')
+    def mark_header(match):
+        tag=match[0]
+        if 'data-header-section=' in tag:return re.sub(r'data-header-section=["\'][^"\']*["\']','data-header-section="'+section+'"',tag)
+        return tag[:-1]+' data-header-section="'+section+'">'
+    text=re.sub(r'<div\b[^>]*class=["\'][^"\']*\brace-hero\b[^"\']*["\'][^>]*>',mark_header,text,count=1)
+
     if 'header-actions' not in text:return text
     if 'catalogue-data' in text:
         from .driver_sidebar import CSS as sidebar_css
@@ -73,4 +94,14 @@ def with_navigation(text,asset_prefix,drivers_available=True):
     if 'data-site-theme-style' not in text:
         theme='<link rel="stylesheet" data-site-theme-style href="'+escape(asset_prefix+'site-theme.css',quote=True)+'">'
         text=text.replace('</head>',theme+'</head>',1) if '</head>' in text else theme+text
+    if 'site-wordmark-window' in text:
+        if 'data-site-branding-style' not in text:
+            style='<link rel="stylesheet" data-site-branding-style href="'+escape(asset_prefix+'site-branding.css',quote=True)+'">'
+            text=text.replace('</head>',style+'</head>',1) if '</head>' in text else style+text
+        if 'data-site-branding-script' not in text:
+            script='<script defer data-site-branding-script src="'+escape(asset_prefix+'site-branding.js',quote=True)+'"></script>'
+            text=text.replace('</body>',script+'</body>',1) if '</body>' in text else text+script
+    if 'site-wordmark-window' in text and 'data-site-header-style' not in text:
+        style='<link rel="stylesheet" data-site-header-style href="'+escape(asset_prefix+'site-header.css',quote=True)+'">'
+        text=text.replace('</head>',style+'</head>',1) if '</head>' in text else style+text
     return text

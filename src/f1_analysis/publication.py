@@ -687,6 +687,8 @@ def with_primary_race_facts(text):
 
 
 def with_dashboard_components(text, source, root):
+    from .championship import decorate
+    text=decorate(text,root)
     # Stored dashboards keep their original race inputs. Shared presentation
     # components also apply fixes when an older season archive is restored.
     if 'dashboard-data' in text:
@@ -797,7 +799,7 @@ def with_race_notifications(text, source, root):
     if (Path(root)/'assets/site-navigation.js').exists():
         from .site_navigation import with_navigation
         text=with_navigation(text,relative(Path(root)/'assets',Path(source).parent)+'/',(Path(root)/'analysis-lab.html').exists())
-    for name in ('dashboard.css','dashboard-core.js','historical-dashboard.js','strategy-popup.js','site-navigation.js','site-navigation.css','site-theme.css','homepage.js','homepage.css','phase2.js','phase2.css','driver-qualities.js','driver-names.js','goat.js','goat.css','preseason-testing.js','preseason-testing.css','pit-programmes.js','pace-timeline.js','lap-rankings.js'):
+    for name in ('dashboard.css','dashboard-core.js','historical-dashboard.js','strategy-popup.js','site-navigation.js','site-branding.js','site-branding.css','site-header.css','site-navigation.css','site-theme.css','homepage.js','homepage.css','phase2.js','phase2.css','highlights.css','driver-card-art.css','driver-qualities.js','driver-field.js','driver-period.js','driver-period.css','driver-profile-sidebar.css','driver-names.js','goat.js','goat.css','preseason-testing.js','preseason-testing.css','pit-programmes.js','pace-timeline.js','lap-rankings.js'):
         asset=Path(root)/'assets'/name
         if not asset.exists():continue
         version=hashlib.sha256(asset.read_bytes()).hexdigest()[:12]

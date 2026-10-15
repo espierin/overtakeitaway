@@ -120,3 +120,10 @@ dialog #close-dialog{float:none;display:block;width:max-content;margin:0 0 12px 
 
 .is-selection-muted{opacity:.22!important;transition:opacity .15s ease}.is-selection-muted:hover{opacity:.55!important}
 body.has-highlight #driverchart .is-selection-muted,body.has-highlight #lapchart .is-selection-muted{opacity:.22!important}
+
+/* Hover is informational in these two panels; explicit selections keep their opacity. */
+body.has-highlight #firstlap [data-driver]{opacity:1}
+body.has-highlight #firstlap .is-selection-muted,#firstlap .is-selection-muted:hover,#positions .is-selection-muted:hover{opacity:.22!important}
+.rex-position-tooltip{position:fixed;z-index:1500;max-width:min(330px,calc(100vw - 24px));box-sizing:border-box;padding:12px 15px;background:#0a1018f5;color:#f5f7fa;border:1px solid #51d6dd;border-radius:8px;box-shadow:0 10px 30px #0008;pointer-events:none;font-size:13px;line-height:1.6}
+.rex-position-tooltip[hidden]{display:none}.rex-position-tooltip p{margin:5px 0}.rex-position-tooltip .rex-badge{font-size:12px}
+.rex-tower-row[aria-pressed=false]{opacity:.35}.rex-tower-row[aria-pressed=true]{opacity:1}.rex-tower-row.is-ended[aria-pressed=true]{opacity:.6}

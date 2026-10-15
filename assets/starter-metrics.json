@@ -1,7 +1,7 @@
 {
   "schema": "starter-driver-metrics-v1",
   "method": "starter-curve-comparison-v3",
-  "generated_at": "2026-10-15T04:15:45.972Z",
+  "generated_at": "2026-10-15T20:36:11.158Z",
   "period": [
     2007,
     2026
@@ -13,7 +13,7 @@
   },
   "source": "analysis-lab.html#phase2-data",
   "source_sha256": "aefc125ff64d398e5633943bb9bdd5d332c7964dc1532d13ae4efce86bceef8c",
-  "analysis_sha256": "d48cacce25e1e990bbc8c994cc9006b0c4b8947abd6eede5424c53bb413edfff",
+  "analysis_sha256": "3e11e1bf8c8ec566e15d5f9a5fee479a78fe8f3db1217a88a2f9660f59a12467",
   "driver_count": 98,
   "definitions": {
     "corrected_curve_balance_pp": {

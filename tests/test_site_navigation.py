@@ -11,7 +11,7 @@ def test_banner_navigation_preserves_language_and_existing_seasons():
     assert buttons.select_one('[data-site-link=drivers]')['href']=='../../../../../analysis-lab.html#tab=profiles'
     assert buttons.select_one('[data-site-link=home]')['href']=='../../../../../index.html'
     assert buttons.select_one('[data-site-link=greatest]')['href']=='../../../../../goat.html'
-    assert [node.get_text(' ',strip=True) for node in buttons.find_all(['a','button'],recursive=False)]==['Home','Races','Drivers','Greatest','About me','EN / NL']
+    assert [node.get_text(' ',strip=True) for node in buttons.find_all(['a','button'],recursive=False)]==['Home','Races','Coureurs','Greatest','About me','EN / NL']
     assert buttons.select_one('[data-site-about]')['aria-haspopup']=='dialog'
     assert buttons.select_one('[data-language-toggle]')['id']=='language-toggle'
     assert s.select_one('[data-site-navigation-script]')['src']=='../../../../../assets/site-navigation.js'

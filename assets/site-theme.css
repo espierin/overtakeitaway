@@ -52,3 +52,6 @@ html .dash-controls .toolbar-actions button:hover:not(:disabled),html .dash-cont
 html .range-rail{background:linear-gradient(to right,#344053 0%,#344053 var(--low),var(--brand-red) var(--low),var(--brand-red) var(--high),#344053 var(--high),#344053 100%)}
 html .range-slider input[type=range]::-webkit-slider-thumb{border-color:var(--brand-red)}
 html .range-slider input[type=range]::-moz-range-thumb{border-color:var(--brand-red)}
+
+/* Deselection dims the number tile, preserving the driver/team identity. */
+html .driver-sidebar .driver-row[aria-pressed=false]{opacity:1!important;filter:none;background:#080a10!important}html .driver-sidebar .driver-row[aria-pressed=false] .driver-number{background:#8b939f;color:#080a10}

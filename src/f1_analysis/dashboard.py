@@ -46,6 +46,9 @@ def write_dashboard(run,payload,race,menu,sections=None,extra_body='',write=True
     from .round_menu import toolbar
     from .branding import branding,language_script,race_metadata,race_title
     from .race_navigation import navigation
+    from .championship import with_defaults
+    race_date=race.get('date') or race.get('session',{}).get('jolpica_race',{}).get('date') or race.get('session',{}).get('date_start','')[:10]
+    payload=with_defaults(payload,race_date,run.parents[4])
     if sections is None:
         sections=[('lapchart','Wanneer de actie plaatsvond','Klik op een ronde; sleep over de grafiek om een rondereeks te kiezen.'),
                   ('driverchart','Wie zorgde voor de actie',''),

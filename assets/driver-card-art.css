@@ -1,0 +1,7 @@
+/* Generated driver-specialism artwork; the shared race card skin supplies layout and overlays. */
+.quality-grid .quality-tile[data-quality="start"]{--highlight-image:url('cards/driver-starter-v1.webp')}
+.quality-grid .quality-tile[data-quality="free"]{--highlight-image:url('cards/driver-clear-air-v1.webp')}
+.quality-grid .quality-tile[data-quality="metronome"]{--highlight-image:url('cards/driver-metronome-v1.webp')}
+.quality-grid .quality-tile[data-quality="tyres"]{--highlight-image:url('cards/driver-tyre-whisperer-v1.webp')}
+.quality-grid .quality-tile[data-quality="warmup"]{--highlight-image:url('cards/driver-warm-up-v1.webp')}
+.quality-grid .quality-tile[data-quality="pitwindow"]{--highlight-image:url('cards/driver-pitwindow-v1.webp')}

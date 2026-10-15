@@ -23,4 +23,4 @@ pythonpath = ["src"]
 testpaths = ["tests"]
 
 [tool.setuptools.package-data]
-f1_analysis = ["*.js", "*.css", "assets/*.png", "assets/*.svg", "assets/*.json", "assets/cards/*.png", "assets/charts/*.png", "assets/home/*.webp", "assets/home/*.txt"]
+f1_analysis = ["*.js", "*.css", "assets/*.png", "assets/*.svg", "assets/*.json", "assets/*.txt", "assets/cards/*.png", "assets/cards/*.webp", "assets/cards/*.json", "assets/charts/*.png", "assets/home/*.webp", "assets/home/*.txt"]

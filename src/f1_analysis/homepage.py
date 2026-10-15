@@ -11,7 +11,7 @@ def render_home(drivers_available=True):
     page = '''<!doctype html><html lang="nl"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Ontdek Formula 1 via raceanalyses, rijdersprofielen en strategie. Overtake It Away.">
-<title>Overtake It Away · Races, Drivers &amp; GOAT</title>
+<title>Overtake It Away: Geen fabels maar feiten</title>
 <link rel="stylesheet" href="assets/homepage.css"></head><body class="home-page">
 <a class="skip-link" href="#explore" data-nl="Naar de onderwerpen" data-en="Skip to topics">Naar de onderwerpen</a>
 <div class="home-shell"><div class="race-hero home-hero">'''+header+'''
@@ -28,7 +28,7 @@ def render_home(drivers_available=True):
 <'''+drivers_tag+''' class="home-tile drivers-tile" aria-labelledby="drivers-title">
 <img src="assets/home/drivers.webp" width="1536" height="1024" alt="" decoding="async">
 <div class="tile-copy"><span class="tile-kicker" data-nl="ACHTER HET VIZIER" data-en="BEHIND THE VISOR">ACHTER HET VIZIER</span>
-<h2 id="drivers-title">Drivers</h2>
+<h2 id="drivers-title" data-nl="Coureurs" data-en="Drivers">Coureurs</h2>
 <p data-nl="Kijk voorbij de uitslag. Vergelijk teamgenoten, onderzoek het racetempo en ontdek de strategie." data-en="Look beyond the result. Compare teammates, investigate race pace and explore strategy.">Kijk voorbij de uitslag. Vergelijk teamgenoten, onderzoek het racetempo en ontdek de strategie.</p>
 <span class="tile-status" data-nl="PRE-SEASON TESTING · IN OPBOUW" data-en="PRE-SEASON TESTING · IN DEVELOPMENT">PRE-SEASON TESTING · IN OPBOUW</span>
 <span class="tile-cta"><span data-nl="'''+('Ontdek de rijders' if drivers_available else 'Binnenkort beschikbaar')+'" data-en="'+('Explore the drivers' if drivers_available else 'Coming soon')+'">'+('Ontdek de rijders' if drivers_available else 'Binnenkort beschikbaar')+'''</span><span aria-hidden="true">↗</span></span></div></'''+drivers_close+'''>
