@@ -9,6 +9,11 @@ def ensure_assets(root):
     directory=Path(root)/'assets';directory.mkdir(parents=True,exist_ok=True)
     for name in ('site-navigation.js','site-navigation.css','site-theme.css'):
         shutil.copyfile(Path(__file__).with_name(name),directory/name)
+    # The per-race template sits six directories deeper than the shared CSS.
+    # Keep image references relative to assets/ when updating the shared copy.
+    dashboard=directory/'dashboard.css'
+    if dashboard.exists():
+        dashboard.write_text(Path(__file__).with_name('dashboard.css').read_text().replace('../../../../../../assets/',''))
 
 
 def with_home_link(text,href):

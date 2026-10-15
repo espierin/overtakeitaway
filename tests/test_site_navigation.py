@@ -49,3 +49,12 @@ def test_legacy_analysis_button_is_removed_also_without_a_banner():
     assert not soup.select('[data-phase2-entry]')
     assert not soup.select('script[src="assets/phase2-entry.js"]')
     assert soup.select_one('#catalogue-data').string=='{"races":[]}'
+
+
+def test_shared_dashboard_refresh_rebases_background_images(tmp_path):
+    assets=tmp_path/'assets';assets.mkdir()
+    css=assets/'dashboard.css';css.write_text('Old shared stylesheet')
+    ensure_assets(tmp_path)
+    refreshed=css.read_text()
+    assert "url('charts/action-timeline-v3.png')" in refreshed
+    assert '../../../../../../assets/' not in refreshed
