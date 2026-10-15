@@ -49,5 +49,7 @@
 #lab-controls label[hidden]{display:none}.field-row.is-highlighted{opacity:1}.field-row.is-missing{opacity:.28!important}
 .field-axis>span:first-child{position:sticky;left:8px;z-index:4;background:#121b28}
 
-/* Keep six specialisms in two aligned rows, using the shared race fact-card skin. */
-.quality-grid.kpi-grid{grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:1fr}.quality-grid.kpi-grid .kpi.highlight{height:100%}@media(max-width:1150px){.quality-grid.kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.quality-grid.kpi-grid{grid-template-columns:1fr}}
+/* Match the narrow race fact cards: six across when the viewport allows it. */
+.quality-grid.kpi-grid{grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-rows:1fr}.quality-grid.kpi-grid .kpi.highlight{height:100%}.quality-tile.starter-tile{container-name:starter-card;container-type:inline-size}
+@container starter-card (max-width:200px){.starter-pie-summary{flex-direction:column;align-items:stretch;gap:8px}.starter-pie{width:64px;height:64px;flex-basis:64px}.starter-pie-key{flex:auto}}
+@media(max-width:1250px){.quality-grid.kpi-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:850px){.quality-grid.kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.quality-grid.kpi-grid{grid-template-columns:1fr}}
