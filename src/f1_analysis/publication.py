@@ -797,7 +797,7 @@ def with_race_notifications(text, source, root):
     if (Path(root)/'assets/site-navigation.js').exists():
         from .site_navigation import with_navigation
         text=with_navigation(text,relative(Path(root)/'assets',Path(source).parent)+'/',(Path(root)/'analysis-lab.html').exists())
-    for name in ('dashboard.css','dashboard-core.js','historical-dashboard.js','strategy-popup.js','site-navigation.js','site-navigation.css'):
+    for name in ('dashboard.css','dashboard-core.js','historical-dashboard.js','strategy-popup.js','site-navigation.js','site-navigation.css','site-theme.css','homepage.js','homepage.css','phase2.js','phase2.css','driver-qualities.js','driver-names.js','goat.js','goat.css','preseason-testing.js','preseason-testing.css','pit-programmes.js','pace-timeline.js','lap-rankings.js'):
         asset=Path(root)/'assets'/name
         if not asset.exists():continue
         version=hashlib.sha256(asset.read_bytes()).hexdigest()[:12]
