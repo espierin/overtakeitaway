@@ -4,7 +4,7 @@ const {document}=parseHTML(fs.readFileSync('analysis-lab.html','utf8'));
 Object.defineProperty(HTMLSelectElement.prototype,'value',{get(){return [...this.querySelectorAll('option')].find(o=>o.hasAttribute('selected'))?.getAttribute('value')||this.querySelector('option')?.getAttribute('value')||'';},set(v){for(const o of this.querySelectorAll('option'))o.toggleAttribute('selected',o.getAttribute('value')===String(v));}});
 HTMLElement.prototype.showModal=function(){this.setAttribute('open','');};HTMLElement.prototype.close=function(){this.removeAttribute('open');};
 const location={hash:'#tab=strategy&driver=max-verstappen&year=2024',href:'file:///analysis-lab.html'},window={},context={document,window,location,URLSearchParams,console,localStorage:{getItem:()=>null,setItem:()=>{}},history:{replaceState:(_a,_b,h)=>{location.hash=h;}},navigator:{clipboard:{writeText:async()=>{}}}};
-for(const file of ['pit-programmes.js','pace-timeline.js','lap-rankings.js','driver-qualities.js','phase2.js'])vm.runInNewContext(fs.readFileSync('assets/'+file,'utf8'),context,{timeout:30000});
+for(const file of ['pit-programmes.js','pace-timeline.js','lap-rankings.js','driver-names.js','driver-qualities.js','phase2.js'])vm.runInNewContext(fs.readFileSync('assets/'+file,'utf8'),context,{timeout:30000});
 const P=window.pitProgrammes,D=window.phase2Lab.data,state=window.phase2Lab.state;
 // Construct genuinely consistent lap clocks and positions for analytic checks.
 const drivers=Array.from({length:9},(_,i)=>({id:'d'+(i+1),name:'Driver '+(i+1),code:'D'+(i+1),number:i+1,color:'#51d6dd',races:[{race:'r',year:2024,number:i+1,color:'#51d6dd',finish:i+1}]}));

@@ -129,7 +129,4 @@ def catalogue_body(root,rows,prefix):
 <dialog id="world-dialog"><div class="world-heading"><div><span class="eyebrow">WERELDWIJD CIRCUITNETWERK</span><h2>Kies een circuit</h2><p>Alle WK-circuits in het archief · sleep om te verplaatsen, scroll om te zoomen.</p></div><button id="close-world" aria-label="Sluiten">✕</button></div><div class="world-layout"><div class="world-canvas">'''+svg+'''<div class="world-controls"><button id="world-in" aria-label="Inzoomen">+</button><button id="world-out" aria-label="Uitzoomen">−</button><button id="world-fit" aria-label="Wereld passend in beeld">⛶</button></div><div id="map-tip" hidden></div><div class="map-key"><i></i><span>Geselecteerd circuit</span></div></div><aside class="circuit-sidebar"><label><span>Zoek een circuit</span><input id="circuit-search" type="search" placeholder="Naam, plaats of land"></label><div id="circuit-list"></div><div id="circuit-detail" hidden></div></aside></div></dialog>
 <script id="catalogue-data" type="application/json">'''+data+'</script>'+language+'<script>'+source.joinpath('catalogue.js').read_text()+'</script>'
 
- if (root/'analysis-lab.html').exists():
-  from .phase2 import entry_link
-  body=body.replace('<div class="catalogue-tools">',entry_link('analysis-lab.html' if prefix else '../analysis-lab.html',asset_prefix)+'<div class="catalogue-tools">',1)
  return body

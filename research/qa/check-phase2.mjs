@@ -8,6 +8,7 @@ vm.runInNewContext(fs.readFileSync('assets/pit-programmes.js','utf8'),context,{t
 vm.runInNewContext(fs.readFileSync('assets/pace-timeline.js','utf8'),context,{timeout:15000});
 vm.runInNewContext(fs.readFileSync('assets/lap-rankings.js','utf8'),context,{timeout:15000});
 vm.runInNewContext(fs.readFileSync('assets/driver-qualities.js','utf8'),context,{timeout:15000});
+vm.runInNewContext(fs.readFileSync('assets/driver-names.js','utf8'),context,{timeout:15000});
 vm.runInNewContext(fs.readFileSync('assets/phase2.js','utf8'),context,{timeout:15000});
 assert.match(document.getElementById('lab-content').textContent,/Max Verstappen/);assert.ok(![...document.querySelectorAll('#lab-content h2')].some(h=>['Onderliggende races','Underlying races'].includes(h.textContent.trim())));assert.equal(document.querySelectorAll('#driver option').length,window.phase2Lab.data.drivers.length);assert.equal(document.querySelectorAll('[data-profile]').length,0);
 document.querySelector('[data-tab="strategy"]').onclick();assert.equal(document.querySelectorAll('[data-cycle]').length,60);assert.match(document.getElementById('lab-content').textContent,/Volgorde behouden/);

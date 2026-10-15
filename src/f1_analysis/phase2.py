@@ -22,9 +22,9 @@ SCHEMA=2
 LEGACY_DEFINITION_VERSION='matched-teammates-v1/paired-pit-cycles-v1/driver-qualities-v1/start-distribution-v1'
 LAP_DEFINITION_VERSION=LEGACY_DEFINITION_VERSION+'/lap-metronome-v1'
 DEFINITION_VERSION=LAP_DEFINITION_VERSION+'/pace-overlap-v2'
-MAX_EXTRA_BYTES=20_000_000
-DEFAULT_YEARS=10
-MAX_YEARS=10
+MAX_EXTRA_BYTES=32_000_000
+DEFAULT_YEARS=20
+MAX_YEARS=20
 MIN_MATCHED_LAPS=6
 AGE_TOLERANCE=2
 
@@ -110,6 +110,25 @@ def extract(root,year):
         if match:yield page,json.loads(match[1]),hashlib.sha256(match[1].encode()).hexdigest()
 
 
+def pitlane_start_numbers(payload, run):
+    """Recognise explicit pit-lane starts, including retained F1DB PL labels.
+
+    Historical dashboards sometimes assigned PL entries the last numeric slot.
+    That display slot must never become a normal grid start in driver research.
+    """
+    from .io import read_json
+    numbers={d['driver_number'] for d in payload.get('drivers',[]) if d.get('pitlane_start')}
+    source=Path(run)/'data/raw/historical/f1db.json'
+    if source.exists() or source.with_name(source.name+'.gz').exists():
+        sessions=read_json(source).get('sessions',{})
+        for session, field in [('race-results','gridPositionText'),('starting-grid-positions','positionText')]:
+            for item in sessions.get(session,[]):
+                if str(item.get(field,'')).strip().upper() in ('PL','PIT','PIT LANE','PITLANE'):
+                    try:numbers.add(int(item['driverNumber']))
+                    except (KeyError,TypeError,ValueError):continue
+    return numbers
+
+
 def build(root, *, end_year=None, years=DEFAULT_YEARS, max_bytes=MAX_EXTRA_BYTES):
     root=Path(root).resolve();end_year=end_year or datetime.now(timezone.utc).year
     if isinstance(years,bool) or not isinstance(years,int) or not 1<=years<=MAX_YEARS:
@@ -153,6 +172,9 @@ def build(root, *, end_year=None, years=DEFAULT_YEARS, max_bytes=MAX_EXTRA_BYTES
             if has_historical and not has_normalized:
                 from .driver_history import enrich
                 payload=enrich(payload,raw);enrichment=raw['format']
+            pit_starters=pitlane_start_numbers(payload,page.parent) | {d['driver_number'] for d in payload['drivers'] if previous_traits.get((race_id,d['driver_number']),{}).get('pitlane_start')}
+            for d in payload['drivers']:
+                if d['driver_number'] in pit_starters:d['pitlane_start']=True
             reuse=not(has_normalized or has_historical) and cached.get('quality_input_sha256')==quality_input_sha and all((race_id,d['driver_number']) in previous_traits for d in payload['drivers'])
             pair,excluded=compare_teammates(payload)
             if reuse:
@@ -199,6 +221,9 @@ def build(root, *, end_year=None, years=DEFAULT_YEARS, max_bytes=MAX_EXTRA_BYTES
                 p.update(code=d['code'],number=d.get('display_number',d['driver_number']),color=colour)
                 result=d.get('result') or {};retired=result.get('dnf');retired=retired if isinstance(retired,bool) else None
                 p['races'].append({'race':race_id,'year':year,'team':d.get('team'),'number':d['driver_number'],'color':colour,'grid':d.get('grid'),'finish':d.get('finish'),'lap1_position':d.get('lap1_position'),'start_gain':d.get('lap1_net_gain') if d.get('lap1_net_gain') is not None else (d['grid']-d['lap1_position'] if finite(d.get('grid')) and d['grid']>0 and finite(d.get('lap1_position')) else None),'dnf':retired,'comparison':({k:v for k,v in pair[d['driver_number']].items() if k not in ('matched_lap_numbers','teammate_code')} if d['driver_number'] in pair else None),'qualities':{k:v for k,v in traits.get(d['driver_number'],{}).items() if k!='metronome'},'quality_coverage':trait_coverage.get(d['driver_number'],{})})
+                if d['driver_number'] in pit_starters:
+                    p['races'][-1].update(pitlane_start=True,start_gain=None)
+                    p['races'][-1]['qualities']['start']=[]
                 p['races'][-1]['lap_rankings']=lap_data.get(d['driver_number'],[])
             if reuse and enrichment:
                 retained=previous_cycles.get(race_id,[]);cycles.extend(retained)
@@ -213,27 +238,31 @@ def build(root, *, end_year=None, years=DEFAULT_YEARS, max_bytes=MAX_EXTRA_BYTES
     data['settings']['lap_rankings']={'version':lap_rankings.VERSION,'columns':lap_rankings.POINT_COLUMNS,'compounds':lap_rankings.COMPOUNDS,'flags':{'first':1,'pit':2,'flag':4,'quality':8,'wet':16,'unknown_tyre':32,'not_free':64,'traffic':128}}
     encoded=json.dumps(data,ensure_ascii=False,separators=(',',':'),allow_nan=False).replace('</','<\\/')
     src=Path(__file__).parent;assets=root/'assets';assets.mkdir(exist_ok=True)
-    asset_names=['preseason-testing.js','preseason-testing.css','pit-programmes.js','pace-timeline.js','phase2.js','phase2.css','phase2-entry.js','driver-qualities.js','lap-rankings.js','site-navigation.js','site-navigation.css']
+    asset_names=['preseason-testing.js','preseason-testing.css','pit-programmes.js','pace-timeline.js','phase2.js','phase2.css','phase2-entry.js','driver-qualities.js','driver-names.js','lap-rankings.js','site-navigation.js','site-navigation.css','site-theme.css']
     intro_assets=['preseason-testing-v1.webp','preseason-testing-v1.prompt.txt']
     intro_bytes=sum((src/'assets/home'/name).stat().st_size for name in intro_assets)
-    extra=len(encoded.encode())+sum((src/name).stat().st_size for name in asset_names)+intro_bytes+50_000
+    saved_metrics_bytes=sum((assets/name).stat().st_size for name in ('starter-metrics.json','starter-metrics.csv') if (assets/name).exists())
+    extra=len(encoded.encode())+sum((src/name).stat().st_size for name in asset_names)+intro_bytes+saved_metrics_bytes+50_000
     if extra>max_bytes:raise ValueError(f'Phase two exceeds its {max_bytes:,}-byte budget: {extra:,}')
     for name in asset_names:shutil.copyfile(src/name,assets/name)
     (assets/'home').mkdir(exist_ok=True)
     for name in intro_assets:shutil.copyfile(src/'assets/home'/name,assets/'home'/name)
     from .branding import branding,hero_style
-    page='<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Analyseomgeving · Overtake It Away</title><link rel="stylesheet" href="assets/phase2.css">'+hero_style('assets/f1-banner-v3.png')+'</head><body><div class="race-hero">'+branding('assets/f1-banner-v3.png',seasons_url='races.html' if (root/'races.html').exists() else 'index.html').replace('<a class="all-seasons-button"','<a id="home-link" class="all-seasons-button"')+'<h1 id="lab-title">Rijders &amp; strategie</h1><p id="lab-subtitle"></p></div><div class="lab-layout"><aside id="lab-controls"></aside><main id="lab-main"><nav id="lab-tabs" role="tablist" aria-label="Analyseonderwerpen"></nav><div id="lab-content" role="tabpanel"></div></main></div><script id="phase2-data" type="application/json">'+encoded+'</script><script src="assets/driver-qualities.js"></script><script src="assets/phase2.js"></script></body></html>'
+    page='<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Analyseomgeving · Overtake It Away</title><link rel="stylesheet" href="assets/phase2.css">'+hero_style('assets/f1-banner-v3.png')+'</head><body><div class="race-hero">'+branding('assets/f1-banner-v3.png',seasons_url='races.html' if (root/'races.html').exists() else 'index.html').replace('data-site-link="races"','id="home-link" data-site-link="races"',1)+'<h1 id="lab-title">Rijders &amp; strategie</h1><p id="lab-subtitle"></p></div><div class="lab-layout"><aside id="lab-controls"></aside><main id="lab-main"><nav id="lab-tabs" role="tablist" aria-label="Analyseonderwerpen"></nav><div id="lab-content" role="tabpanel"></div></main></div><script id="phase2-data" type="application/json">'+encoded+'</script><script src="assets/driver-qualities.js"></script><script src="assets/phase2.js"></script></body></html>'
     page=page.replace('</head>','<link rel="stylesheet" href="assets/preseason-testing.css"><link rel="preload" as="image" href="assets/home/preseason-testing-v1.webp"></head>')
     page=page.replace('</body>','<script src="assets/preseason-testing.js"></script></body>')
     from .branding import back_to_top
     page=page.replace('<script src="assets/driver-qualities.js">','<script src="assets/pit-programmes.js"></script><script src="assets/pace-timeline.js"></script><script src="assets/lap-rankings.js"></script><script src="assets/driver-qualities.js">')
     page=page.replace('</body>',back_to_top()+'</body>')
+    page=page.replace('<script src="assets/phase2.js">','<script src="assets/driver-names.js"></script><script src="assets/phase2.js">')
     (root/'analysis-lab.html').write_text(page)
-    for catalog_page,href,prefix in [(catalogue_page,'analysis-lab.html','assets/'),(root/'analyses/index.html','../analysis-lab.html','../assets/')]:
+    from .site_navigation import without_legacy_entry
+    for catalog_page in (catalogue_page,root/'analyses/index.html'):
         if catalog_page is not None and catalog_page.exists():
             text=catalog_page.read_text()
-            if 'data-phase2-entry' not in text:
-                text=text.replace('<div class="catalogue-tools">',entry_link(href,prefix)+'<div class="catalogue-tools">',1)
+            cleaned=without_legacy_entry(text)
+            if cleaned!=text:
+                text=cleaned
                 catalog_page.write_text(text)
     report={'schema':SCHEMA,'period':data['period'],'races':len(races),'drivers':len(profiles),'candidate_cycles':len(cycles),'matched_driver_races':sum(bool(r['comparison']) for p in profiles.values() for r in p['races']),'extra_bytes_upper_bound':extra,'max_extra_bytes':max_bytes,'qualities':{k:sum(bool(r.get('qualities',{}).get(k)) for p in profiles.values() for r in p['races']) for k in ('free','metronome','tyres','warmup','pitwindow','start')},'page':'analysis-lab.html'}
     report['lap_rankings']=sum(len(r['lap_rankings']) for p in profiles.values() for r in p['races'])
@@ -241,10 +270,6 @@ def build(root, *, end_year=None, years=DEFAULT_YEARS, max_bytes=MAX_EXTRA_BYTES
     report['pit_programmes']={'races':sum(len(r['pit_programmes']['entries'])>=2 for r in races),'drivers':sum(len(r['pit_programmes']['entries']) for r in races),'lap_observations':sum(len(e[2]) for r in races for e in r['pit_programmes']['entries'])}
     (assets/'phase2-build-report.json').write_text(json.dumps(report,indent=2)+'\n')
     return report
-
-
-def entry_link(href, asset_prefix):
-    return '<nav style="margin:0 0 18px"><a class="accent-button" data-phase2-entry href="'+html.escape(href,quote=True)+'">Rijders &amp; strategie · Analyseomgeving</a></nav><script defer src="'+html.escape(asset_prefix,quote=True)+'phase2-entry.js"></script>'
 
 
 def main():

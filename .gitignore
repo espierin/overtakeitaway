@@ -11,6 +11,8 @@ cache/
 build/
 dist/
 index.html
+goat.html
+/stijlgids.html
 # Onderzoeksdownloads en tijdelijke bewijzen blijven lokaal.
 research/**/*.pdf
 research/**/*.png

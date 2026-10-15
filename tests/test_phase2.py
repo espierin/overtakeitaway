@@ -39,9 +39,9 @@ def test_unclean_traffic_laps_are_not_pace_comparisons():
     d=payload();d['all_laps'][-1]['reasons']=['traffic'];result,_=compare_teammates(d);assert 12 not in result[1]['matched_lap_numbers']
 
 
-@pytest.mark.parametrize('years',[0,11,True,2.5])
+@pytest.mark.parametrize('years',[0,21,True,2.5])
 def test_invalid_history_scope_is_rejected(tmp_path,years):
-    with pytest.raises(ValueError,match='10 seasons'):build(tmp_path,years=years)
+    with pytest.raises(ValueError,match='20 seasons'):build(tmp_path,years=years)
 
 
 def test_output_budget_rejects_before_writing(tmp_path):
@@ -63,30 +63,30 @@ def test_builder_scope_data_relations_and_local_catalogue_link(tmp_path):
     assert report['period']==[2022,2026] and report['races']==2 and report['drivers']==2
     assert report['extra_bytes_upper_bound']<report['max_extra_bytes']
     page=(root/'analysis-lab.html').read_text()
-    assert 'data-phase2-entry' in (root/'index.html').read_text()
+    assert 'data-phase2-entry' not in (root/'index.html').read_text()
     assert '"year":2021' not in page
     assert 'variation_pct' not in page and 'matched_lap_numbers' not in page
     assert 'driver-qualities.js' in page
     assert '2022-circuit' in page and '2026-circuit' in page
     build(root,end_year=2026,years=5)
-    assert (root/'index.html').read_text().count('data-phase2-entry')==1
+    assert 'data-phase2-entry' not in (root/'index.html').read_text()
 
 
-def test_default_history_adds_five_seasons_and_preserves_latest_driver_badge(tmp_path):
+def test_default_history_adds_ten_seasons_and_preserves_latest_driver_badge(tmp_path):
     import json
     from bs4 import BeautifulSoup
-    for year in (2016,2017,2021,2026):
+    for year in (2006,2007,2012,2016,2017,2021,2026):
         event=tmp_path/'analyses'/str(year)/'circuit';run=event/'runs/one';run.mkdir(parents=True)
         (event/'latest.json').write_text(json.dumps({'run':'runs/one'}))
         data=payload();data['race']='Circuit';data['drivers'][0]['display_number']=33 if year<2026 else 1
         data['styles']={'1':{'color':'#111111' if year<2026 else '#222222'}}
         (run/'overzicht.html').write_text('<script id="dashboard-data" type="application/json">'+json.dumps(data)+'</script>')
     report=build(tmp_path,end_year=2026)
-    assert report['period']==[2017,2026] and report['races']==3
+    assert report['period']==[2007,2026] and report['races']==6
     data=json.loads(BeautifulSoup((tmp_path/'analysis-lab.html').read_text(),'html.parser').find(id='phase2-data').string)
     driver=next(d for d in data['drivers'] if d['id']=='a')
     assert driver['number']==1 and driver['color']=='#222222'
-    assert [r['year'] for r in driver['races']]==[2017,2021,2026]
+    assert [r['year'] for r in driver['races']]==[2007,2012,2016,2017,2021,2026]
 
 
 def test_unmapped_stop_is_not_a_measured_cycle():
@@ -95,3 +95,18 @@ def test_unmapped_stop_is_not_a_measured_cycle():
     d=payload()
     for row in d['all_laps']:row['tyre']['age']=-1
     assert compare_teammates(d)[0][1]['method']=='overlap-mean'
+
+
+def test_explicit_historical_pitlane_start_is_not_a_numeric_grid_slot(tmp_path):
+    import json
+    from f1_analysis.phase2 import pitlane_start_numbers
+    source=tmp_path/'data/raw/historical/f1db.json';source.parent.mkdir(parents=True)
+    source.write_text(json.dumps({'sessions':{'race-results':[
+        {'driverNumber':'44','gridPositionText':'PL'},
+        {'driverNumber':'33','gridPositionText':'20'}],
+        'starting-grid-positions':[{'driverNumber':'3','positionText':'PL'}]}}))
+    assert pitlane_start_numbers({'drivers':[{'driver_number':27,'pitlane_start':True}]},tmp_path)=={44,3,27}
+    # Both retained gzip sources and current explicit flags carry the same meaning.
+    import gzip
+    source.with_name('f1db.json.gz').write_bytes(gzip.compress(source.read_bytes()));source.unlink()
+    assert pitlane_start_numbers({'drivers':[]},tmp_path)=={44,3}

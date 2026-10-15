@@ -3,13 +3,13 @@ import {parseHTML,HTMLSelectElement,HTMLElement} from '../../storage/phase2-qa/l
 const {document}=parseHTML(fs.readFileSync('analysis-lab.html','utf8'));
 Object.defineProperty(HTMLSelectElement.prototype,'value',{get(){return [...this.querySelectorAll('option')].find(o=>o.hasAttribute('selected'))?.getAttribute('value')||this.querySelector('option')?.getAttribute('value')||'';},set(v){for(const o of this.querySelectorAll('option'))o.toggleAttribute('selected',o.getAttribute('value')===String(v));}});
 const storage=new Map(),location={hash:'',href:'file:///analysis-lab.html'},window={},context={document,window,location,URLSearchParams,localStorage:{getItem:k=>storage.get(k),setItem:(k,v)=>storage.set(k,v)},history:{replaceState:(_a,_b,h)=>{location.hash=h;}},navigator:{clipboard:{writeText:async()=>{}}},console};
-for(const file of ['pit-programmes.js','pace-timeline.js','lap-rankings.js','driver-qualities.js','phase2.js'])vm.runInNewContext(fs.readFileSync('assets/'+file,'utf8'),context,{timeout:20000});
+for(const file of ['pit-programmes.js','pace-timeline.js','lap-rankings.js','driver-names.js','driver-qualities.js','phase2.js'])vm.runInNewContext(fs.readFileSync('assets/'+file,'utf8'),context,{timeout:20000});
 assert.equal(document.querySelectorAll('[data-quality]').length,6);
 for(const kind of ['free','metronome','tyres','warmup','pitwindow','start']){
  document.querySelector('[data-quality="'+kind+'"]').onclick();
  assert.equal(window.phase2Lab.state.quality,kind);assert.ok(document.querySelector('#quality-detail .quality-method'));assert.ok(document.querySelector('#quality-detail .quality-evidence'));assert.ok(!document.getElementById('quality-detail').innerHTML.includes('NaN'));
 }
-const total=document.querySelectorAll('#driver option').length;assert.equal(document.querySelectorAll('[data-profile]').length,0);assert.ok(!document.getElementById('lab-content').textContent.includes('Alle rijders als referentie'));
+const total=document.querySelectorAll('#driver option').length;const orderedDriverIds=[...document.querySelectorAll('#driver option')].map(o=>o.value);assert.ok(orderedDriverIds.indexOf('lewis-hamilton')<orderedDriverIds.indexOf('kimi-raikkonen'),'Hamilton precedes Räikkönen by surname');assert.ok(orderedDriverIds.indexOf('giedo-van-der-garde')<orderedDriverIds.indexOf('lewis-hamilton'),'Surname particles do not sort van der Garde under V');assert.equal(document.querySelectorAll('[data-profile]').length,0);assert.ok(!document.getElementById('lab-content').textContent.includes('Alle rijders als referentie'));
 document.getElementById('quality-compound').value='HARD';document.getElementById('quality-compound').onchange();assert.equal(document.querySelectorAll('#driver option').length,total);
 assert.ok(document.getElementById('quality-detail').textContent.includes('compoundfilter geldt niet'));
 document.getElementById('language-toggle').onclick();

@@ -277,6 +277,12 @@ def test_homepage_and_moved_catalogue_survive_compact_publication(tmp_path):
     out=tmp_path/'site';build_site(root,out)
     home=BeautifulSoup(site_html(out/'index.html',out),'html.parser')
     assert home.select_one('.races-tile')['href']=='races.html'
+    assert home.select_one('.goat-tile')['href']=='goat.html'
+    assert (out/'goat.html').is_file()
+    assert 'assets/goat.js' in site_html(out/'goat.html',out)
+    assert home.select_one('a[href="stijlgids.html"]')
+    assert (out/'stijlgids.html').is_file()
+    assert 'data-style-guide' in site_html(out/'stijlgids.html',out)
     assert (out/'races.html').is_file()
     assert 'Race' in site_html(out/'races.html',out)
     assert verify_site(out)['races']==1

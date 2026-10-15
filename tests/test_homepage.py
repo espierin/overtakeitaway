@@ -8,6 +8,7 @@ def test_entry_page_separates_races_and_driver_profiles():
     soup=BeautifulSoup(render_home(), 'html.parser')
     assert soup.select_one('.races-tile')['href']=='races.html'
     assert soup.select_one('.drivers-tile')['href']=='analysis-lab.html#tab=profiles'
+    assert soup.select_one('.goat-tile')['href']=='goat.html'
     assert soup.select_one('.all-seasons-button')['href']=='races.html'
     assert soup.select_one('.site-home-link')['href']=='index.html'
     assert soup.select_one('.site-wordmark')['src']=='assets/overtake-wordmark-v2.png'
@@ -28,7 +29,8 @@ def test_build_preserves_catalogue_and_delivers_small_local_assets(tmp_path):
         assert (tmp_path/(node.get('src') or node['href'])).is_file()
     assert sum(p.stat().st_size for p in (tmp_path/'assets/home').glob('*'))<500_000
     build(tmp_path)
-    assert len(BeautifulSoup((tmp_path/'index.html').read_text(),'html.parser').select('.home-tile'))==2
+    assert len(BeautifulSoup((tmp_path/'index.html').read_text(),'html.parser').select('.home-tile'))==3
+    assert (tmp_path/'goat.html').is_file()
 
 
 def test_disabled_drivers_do_not_link_to_nonexistent_page(tmp_path):

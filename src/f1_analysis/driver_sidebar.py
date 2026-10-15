@@ -4,7 +4,7 @@ from .io import slug
 
 CSS='''
 body{max-width:none!important;margin:0!important;padding:30px 30px 30px 224px!important}
-.driver-sidebar{position:fixed;left:18px;top:18px;bottom:18px;width:176px;z-index:50;display:flex;flex-direction:column;background:#07090ded;border:1px solid #343f50;border-top:3px solid #ff4b56;box-shadow:0 8px 24px #0005;border-radius:3px;overflow:hidden}
+.driver-sidebar{position:fixed;left:18px;top:18px;bottom:18px;width:176px;z-index:50;display:flex;flex-direction:column;background:#07090ded;border:1px solid #343f50;border-top:3px solid #ff4758;box-shadow:0 8px 24px #0005;border-radius:3px;overflow:hidden}
 .driver-sidebar h2{border:0;padding:12px 10px 8px;margin:0;text-align:center;font-size:18px;font-weight:900;font-style:italic;letter-spacing:.06em}
 .driver-sidebar .driver-picker-list{min-height:0;overflow-y:auto;flex:1;scrollbar-width:thin}
 .driver-sidebar .driver-row{display:grid;grid-template-columns:38px 5px 1fr;align-items:center;gap:10px;width:100%;height:clamp(24px,calc((100dvh - 156px)/var(--driver-count)),34px);margin:0;padding:0 10px 0 0;border:0;border-bottom:1px solid #ffffff16;border-radius:0;background:#080a10;text-align:left;cursor:pointer;outline:0;font-style:normal;color:#fff;opacity:.38;transition:opacity .12s,background .12s}

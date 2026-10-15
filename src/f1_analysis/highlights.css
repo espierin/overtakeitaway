@@ -10,7 +10,7 @@
 
 .kpi.highlight .highlight-margin{display:flex;flex-direction:column;gap:3px}.highlight-time{font-size:13px!important;font-variant-numeric:tabular-nums}.kpi.highlight .highlight-driver{border:0;padding:0;background:transparent;text-align:left;color:#fff;cursor:pointer;border-radius:2px}.kpi.highlight .highlight-driver:hover,.kpi.highlight .highlight-driver:focus-visible{outline:2px solid #51d6dd;outline-offset:3px}
 
-.kpi.highlight.highlight-fastest{border-color:#b445ff;border-top-color:#b445ff;box-shadow:0 0 0 1px #b445ff33}
+.kpi.highlight.highlight-fastest{border-color:#b45cff;border-top-color:#b45cff;box-shadow:0 0 0 1px #b45cff33}
 
 .kpi.highlight.highlight-climb{border-color:#39c879;border-top-color:#39c879;box-shadow:0 0 0 1px #39c87933}
 
