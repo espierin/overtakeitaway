@@ -40,7 +40,39 @@ def settings(root):
 
 
 def storage_entries(registry):
-    return [*registry['seasons'].values(),*[registry[key] for key in ['sources','presentation'] if registry.get(key)]]
+    return [*registry['seasons'].values(),*[registry[key] for key in ['sources'] if registry.get(key)],
+            *registry.get('source_supplements',[]),*[registry[key] for key in ['presentation'] if registry.get(key)]]
+
+
+def archive_sources(root, files, directory, registry, max_chunk_bytes=1_400_000_000):
+    """Append changed source files in bounded, immutable Release assets.
+
+    The base archive and earlier supplements remain restorable in order. Original
+    PDFs stay outside Pages; even incompressible chunks fit the 2 GB asset limit.
+    """
+    root,directory=Path(root).resolve(),Path(directory).resolve()
+    entries=([registry['sources']] if registry.get('sources') else [])+registry.get('source_supplements',[])
+    known={}
+    for entry in entries:
+        path=directory/entry['asset']
+        if not path.exists():raise ValueError('Herstel eerst het bronarchief: '+entry['asset'])
+        known.update(verify_bundle(path,entry['sha256'])['files'])
+    changed=[p for p in sorted(set(Path(p).resolve() for p in files))
+             if known.get(inside(root,p).relative_to(root).as_posix())!=digest(p)]
+    chunks=[];chunk=[];size=0
+    for path in changed:
+        if path.stat().st_size>max_chunk_bytes:raise ValueError('Bronbestand overschrijdt archiefdeelgrens: '+str(path))
+        if chunk and size+path.stat().st_size>max_chunk_bytes:chunks.append(chunk);chunk=[];size=0
+        chunk.append(path);size+=path.stat().st_size
+    if chunk:chunks.append(chunk)
+    for paths in chunks:
+        entry=bundle(root,paths,directory,'sources')
+        if entry['bytes']>=2_000_000_000:raise ValueError('Bronarchief overschrijdt GitHub-bestandsgrens')
+        entry['tag']=settings(root)['archive_tag_prefix']+'sources'
+        entry['cache_files']=[p.relative_to(root).as_posix() for p in paths if p.relative_to(root).parts[0]=='cache']
+        if not registry.get('sources'):registry['sources']=entry
+        else:registry.setdefault('source_supplements',[]).append(entry)
+    return registry
 
 
 def inside(root, path):
@@ -164,15 +196,12 @@ def archive_seasons(root, directory, from_year=1950, years=None):
         entry['tag'] = settings(root)['archive_tag_prefix'] + year
         registry['seasons'][year] = entry
     source_files = [p for p in (root / 'analyses/sources').rglob('*') if p.is_file()]+shared_sources
-    for name in registry.get('sources',{}).get('cache_files',[]):
+    for name in [name for entry in ([registry['sources']] if registry.get('sources') else [])+registry.get('source_supplements',[]) for name in entry.get('cache_files',[])]:
         p=inside(root,root/name)
         if not p.is_file():raise ValueError('Herstel eerst het gedeelde bronarchief vóór opnieuw archiveren')
         source_files.append(p)
     if source_files:
-        entry = bundle(root, source_files, directory, 'sources')
-        entry['tag'] = settings(root)['archive_tag_prefix'] + 'sources'
-        entry['cache_files']=sorted({p.relative_to(root).as_posix() for p in source_files if p.relative_to(root).parts[0]=='cache'})
-        registry['sources'] = entry
+        archive_sources(root,source_files,directory,registry)
     if registry.get('presentation') and groups:
         # New base archives already include the currently selected presentation.
         covered=set(registry['presentation'].get('covered_years',[]))|set(groups)
@@ -229,14 +258,14 @@ def materialize_run(root, run):
             if name.startswith('cache/') and not target.exists():
                 target.parent.mkdir(parents=True,exist_ok=True)
                 with archive.extractfile(name) as src,target.open('wb') as dst:shutil.copyfileobj(src,dst)
-    shared=registry.get('sources')
-    if shared and (root/'storage/archives'/shared['asset']).exists():
+    for shared in ([registry['sources']] if registry.get('sources') else [])+registry.get('source_supplements',[]):
+        if not (root/'storage/archives'/shared['asset']).exists():continue
         shared_path=root/'storage/archives'/shared['asset']
         shared_meta=verify_bundle(shared_path,shared['sha256'])
         with tarfile.open(shared_path,'r:gz') as archive:
             for name in shared_meta['files']:
                 target=inside(root,root/name)
-                if not target.exists():
+                if not target.exists() or digest(target)!=shared_meta['files'][name]:
                     target.parent.mkdir(parents=True,exist_ok=True)
                     with archive.extractfile(name) as src,target.open('wb') as dst:shutil.copyfileobj(src,dst)
 
@@ -284,7 +313,7 @@ def freeze_website(root,output,archives):
         for p in run.rglob('*'):
             if p.is_file() and 'data' not in p.relative_to(run).parts:files.add(p)
         files.update(p for p in (pointer.parent/'corrections').rglob('*') if p.is_file())
-    for name in ['index.html','races.html','analysis-lab.html','goat.html','stijlgids.html','analyses/index.html','analyses/index.json']:
+    for name in ['index.html','races.html','analysis-lab.html','goat.html','stijlgids.html','data-collection.html','analyses/index.html','analyses/index.json']:
         if (root/name).exists():files.add(root/name)
     for directory in ['assets','config','src']:
         files.update(p for p in (root/directory).rglob('*') if p.is_file() and '__pycache__' not in p.parts and not any(part.endswith('.egg-info') for part in p.parts))
@@ -472,7 +501,7 @@ def build_site(root, output, max_bytes=None, from_year=1950):
         files.add(pointer)
         files.update(p for p in run.rglob('*') if p.is_file() and 'data' not in p.relative_to(run).parts)
         files.update(p for p in (pointer.parent / 'corrections').rglob('*') if p.is_file())
-    for name in ['index.html', 'races.html', 'analysis-lab.html', 'goat.html', 'stijlgids.html', 'analyses/index.html', 'analyses/index.json', '_storage/index.json', '_storage/update-state.json', '_storage/season-calendar.json', 'race-updates.json']:
+    for name in ['index.html', 'races.html', 'analysis-lab.html', 'goat.html', 'stijlgids.html', 'data-collection.html', 'analyses/index.html', 'analyses/index.json', '_storage/index.json', '_storage/update-state.json', '_storage/season-calendar.json', 'race-updates.json']:
         if (root / name).exists(): files.add(root / name)
     for directory in ['assets', '_shared', '_media', '_documents']:
         files.update(p for p in (root / directory).rglob('*') if p.is_file() and p.name != 'index.json')
@@ -799,7 +828,7 @@ def with_race_notifications(text, source, root):
     if (Path(root)/'assets/site-navigation.js').exists():
         from .site_navigation import with_navigation
         text=with_navigation(text,relative(Path(root)/'assets',Path(source).parent)+'/',(Path(root)/'analysis-lab.html').exists())
-    for name in ('dashboard.css','dashboard-core.js','historical-dashboard.js','strategy-popup.js','site-navigation.js','site-branding.js','site-branding.css','site-header.css','site-navigation.css','site-theme.css','homepage.js','homepage.css','phase2.js','phase2.css','highlights.css','driver-card-art.css','driver-qualities.js','driver-field.js','driver-period.js','driver-period.css','driver-profile-sidebar.css','driver-names.js','goat.js','goat.css','preseason-testing.js','preseason-testing.css','pit-programmes.js','pace-timeline.js','lap-rankings.js'):
+    for name in ('dashboard.css','dashboard-core.js','historical-dashboard.js','strategy-popup.js','site-navigation.js','site-branding.js','site-branding.css','site-header.css','site-navigation.css','site-theme.css','homepage.js','homepage.css','phase2.js','phase2.css','highlights.css','driver-card-art.css','driver-qualities.js','driver-field.js','driver-period.js','driver-period.css','driver-profile-sidebar.css','driver-names.js','data-collection.js','data-collection.css','goat.js','goat.css','preseason-testing.js','preseason-testing.css','pit-programmes.js','pace-timeline.js','lap-rankings.js'):
         asset=Path(root)/'assets'/name
         if not asset.exists():continue
         version=hashlib.sha256(asset.read_bytes()).hexdigest()[:12]
@@ -853,7 +882,7 @@ def cleanup(root, directory, apply=False, cache_days=21):
     root, directory = Path(root).resolve(), Path(directory).resolve()
     registry = read_json(root / '_storage/index.json'); candidates = []; inventory = {}
     published_data=verify_data(root)
-    for entry in [*registry['seasons'].values(),*([registry['sources']] if registry.get('sources') else [])]:
+    for entry in [*registry['seasons'].values(),*([registry['sources']] if registry.get('sources') else []),*registry.get('source_supplements',[])]:
         if not (directory/entry['asset']).is_file():continue
         meta = verify_bundle(directory / entry['asset'], entry['sha256'])
         inventory.update(meta['files'])

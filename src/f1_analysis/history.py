@@ -129,7 +129,8 @@ def acquire(client,year,gp,raw,source_config):
         data['drivers'].append({'driver_number':d,'full_name':r['FullName'],'name_acronym':r['Abbreviation'],
                                 'team_name':r['TeamName'],'team_colour':r['TeamColor']})
         data['session_result'].append({'driver_number':d,'position':number(r['Position']),
-                                      'number_of_laps':number(r['Laps']),'dnf':r['Status'] not in ('Finished',) and not str(r['Status']).startswith('+')})
+                                      'number_of_laps':number(r['Laps']),'status':str(r['Status']),
+                                      'dnf':r['Status'] not in ('Finished','Lapped') and not str(r['Status']).startswith('+')})
         data['starting_grid'].append({'driver_number':d,'position':number(r['GridPosition']) or None})
     valid={d['driver_number'] for d in data['drivers']}
     data['laps']=[];data['pit']=[];data['stints']=[]

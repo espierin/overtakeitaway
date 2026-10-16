@@ -39,7 +39,7 @@ def render_home(drivers_available=True):
 <p data-nl="Wie is de beste, voorbij de auto en het tijdperk? Een nieuwe blik op alle rijders, ook als ze nooit tegen elkaar raceten." data-en="Who is the best, beyond the car and the era? A new look at all drivers, even those who never raced each other.">Wie is de beste, voorbij de auto en het tijdperk? Een nieuwe blik op alle rijders, ook als ze nooit tegen elkaar raceten.</p>
 <span class="tile-status" data-nl="WINTER BREAK · IN ONTWERP" data-en="WINTER BREAK · IN DESIGN">WINTER BREAK · IN ONTWERP</span>
 <span class="tile-cta"><span data-nl="Ontdek het idee" data-en="Explore the idea">Ontdek het idee</span><span aria-hidden="true">↗</span></span></div></a>
-</main><footer class="home-footer"><span>Overtake It Away</span><a href="stijlgids.html" data-nl="Stijlgids" data-en="Style guide">Stijlgids</a><span>A reality check on heroic stories.</span></footer></div>
+</main><footer class="home-footer"><span>Overtake It Away</span><a href="stijlgids.html" data-nl="Stijlgids" data-en="Style guide">Stijlgids</a><a class="collection-footer-link" href="data-collection.html" data-nl="Datacollectie" data-en="Data collection">Datacollectie</a><span>A reality check on heroic stories.</span></footer></div>
 <script defer src="assets/homepage.js"></script></body></html>'''
     from .site_navigation import with_navigation
     return with_navigation(page,'assets/',drivers_available)
@@ -63,4 +63,6 @@ def build(root):
     build_goat(root)
     from .style_guide import build as build_style_guide
     build_style_guide(root)
+    from .data_collection import build as build_collection
+    build_collection(root)
     return root/'index.html'

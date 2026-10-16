@@ -1,99 +1,818 @@
 ﻿rijder_id;rijder;code;gecorrigeerde_curvebalans_pp;startscore_0_100;winstgrens_gridpositie;curvebalans_95_laag_pp;curvebalans_95_hoog_pp;startscore_95_laag;startscore_95_hoog;gemeten_starts;vergelijkbare_starts;uitgesloten_pitlanestarts;curve_gridbereik;score_gridposities;curvebalans_status;startscore_status;winstgrens_status;winstgrens_methode
-adrian-sutil;Adrian Sutil;SUT;;42,47829485329485;14;;;29,918733551013375;57,02595812192585;119;30;3;;P2, P8, P11, P12, P13, P15, P16, P17, P18, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-alexander-albon;Alexander Albon;ALB;-4,582846836465432;41,629164486307346;13;-11,785917165640189;2,88114374357324;34,94125460634113;48,40854519119677;135;91;3;P5–P6, P9–P10, P12–P15, P17–P18;P4, P5, P6, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20;available;available;found;full_grid_median_model
+adolf-brudes;Adolf Brudes;BRU;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+adolfo-cruz;Adolfo Cruz;CRU;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+adrian-sutil;Adrian Sutil;SUT;-6,9257071802329255;41,59274247302415;14;-16,956335358131344;3,1251475726444724;34,394360728988296;48,74014433726284;119;71;3;P13–P16, P18–P21;P2, P6, P7, P8, P9, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22;available;available;found;full_grid_median_model
+adrian-campos;Adrián Campos;CAM;;;14;;;;;16;8;0;;P18, P19, P20, P21, P24, P26;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+aguri-suzuki;Aguri Suzuki;SUZ;;39,79060563619388;4;;;28,87964285714286;50,39693572741597;62;34;0;;P6, P8, P9, P10, P11, P14, P15, P16, P17, P18, P19, P20, P22, P24, P25;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+al-herman;Al Herman;HER;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+al-keller;Al Keller;KEL;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+al-pease;Al Pease;PEA;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+alain-prost;Alain Prost;PRO;-7,0938371967990275;43,090986487913575;18;-14,507058447474408;0,8988682640140875;36,56509599750088;49,94325785697658;194;94;0;P1–P5;P1, P2, P3, P4, P5, P6, P7, P8, P9, P12, P14;available;available;found;full_grid_median_model
+alan-brown;Alan Brown;BRO;;;;;;;;7;1;0;;P9;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+alan-jones;Alan Jones;JON;;72,99519051403556;3;;;62,25798631496362;82,0717878740244;114;38;0;;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P14, P15, P16, P18, P19, P20, P21, P22, P25;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+alan-rees;Alan Rees;REE;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+alan-stacey;Alan Stacey;STA;;;;;;;;7;3;0;;P13, P17, P20;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+albert-scherrer;Albert Scherrer;SCH;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+alberto-ascari;Alberto Ascari;ASC;;;4;;;;;27;7;0;;P1, P4, P7;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+alberto-rodriguez-larreta;Alberto Rodriguez Larreta;LAR;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+alberto-uria;Alberto Uria;URI;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+aldo-gordini;Aldo Gordini;GOR;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+alessandro-nannini;Alessandro Nannini;NAN;;47,99871537676415;9;;;38,659560128310126;59,25356064142828;73;41;0;;P4, P5, P6, P7, P8, P9, P12, P13, P14, P15, P16, P17, P18, P19, P20, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+alessandro-pesenti-rossi;Alessandro Pesenti-Rossi;PES;;;;;;;;3;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+alessandro-zanardi;Alessandro Zanardi;ZAN;;48,24323019975195;3;;;35,07848949296318;60,60460474570321;37;23;1;;P4, P8, P10, P11, P12, P13, P14, P15, P16, P17, P18, P21, P22, P23;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+alessandro-de-tomaso;Alessandro de Tomaso;DET;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+alex-blignaut;Alex Blignaut;BLI;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+alex-caffi;Alex Caffi;CAF;;57,56010737628384;4;;;45,162324963510315;68,50570228866741;54;34;0;;P3, P7, P8, P9, P10, P11, P12, P15, P16, P17, P18, P19, P20, P21, P22, P23, P25, P26;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+alex-ribeiro;Alex Ribeiro;RIB;;;18;;;;;10;2;0;;P20, P21;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+alex-soler-roig;Alex Soler-Roig;SOL;;;;;;;;6;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+alex-yoong;Alex Yoong;YOO;;42,451007326007314;15;;;22,07947781385281;62,68646804584302;13;10;1;;P20, P21, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+alexander-albon;Alexander Albon;ALB;-4,993031962890344;43,88425791086537;13;-10,537483640488635;0,5830565722699208;38,30441478209384;49,18470589755442;135;111;3;P5–P6, P9–P19;P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20;available;available;found;full_grid_median_model
 alexander-rossi;Alexander Rossi;RSS;;;;;;;;5;4;0;;P16, P17, P19;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
-alexander-wurz;Alexander Wurz;WUR;;;11;;;;;16;2;0;;P15, P19;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
-andre-lotterer;André Lotterer;LOT;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
-anthony-davidson;Anthony Davidson;DAV;;;18;;;;;20;3;0;;P11, P15, P21;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
-antonio-giovinazzi;Antonio Giovinazzi;GIO;-1,3620284477427411;54,34224550701822;14;-15,792988559059992;13,822997835497821;44,34011094007212;64,30548900660743;61;44;1;P14–P16;P7, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20;available;available;found;full_grid_median_model
-arvid-lindblad;Arvid Lindblad;LIN;;;10;;;;;16;2;0;;P11, P22;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
-brendon-hartley;Brendon Hartley;HAR;;36,68214095845675;18;;;23,3294661298863;53,5845018508062;22;19;1;;P6, P8, P11, P14, P15, P16, P17, P18, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-bruno-senna;Bruno Senna;SEN;;;11;;;;;43;1;1;;P14;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
-carlos-sainz;Carlos Sainz;SAI;1,544437132377047;51,9354040836077;7;-4,1218951962639965;6,709738911831341;47,038917911280784;57,0409932174372;236;167;2;P1–P16;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21;available;available;found;full_grid_median_model
-charles-leclerc;Charles Leclerc;LEC;4,938885725608731;55,15705524634097;10;-1,8029837613241286;12,114273696946926;49,240285100812116;61,14889599286377;182;126;0;P1–P10;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P18, P19;available;available;found;full_grid_median_model
-charles-pic;Charles Pic;PIC;;;21;;;;;39;4;0;;P20, P21, P22;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
-christian-klien;Christian Klien;KLI;;;;;;;;3;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
-christijan-albers;Christijan Albers;ALB;;;;;;;;8;3;1;;P20, P21;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
-daniel-ricciardo;Daniel Ricciardo;RIC;-3,338638804886831;47,64704498400152;15;-9,376077747919863;2,2462113641941324;41,976755413760614;53,10546090814485;252;138;2;P4–P14, P18–P19;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20;available;available;found;full_grid_median_model
-daniil-kvyat;Daniil Kvyat;KVY;-16,362246210972323;40,637489614762345;16;-29,321473952445288;-2,054857032564045;33,717846451339796;48,00274945663888;108;66;2;P11–P13;P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19;available;available;found;full_grid_median_model
-david-coulthard;David Coulthard;COU;;54,09756909756909;2;;;31,689480027548214;73,81960227272727;31;13;0;;P8, P9, P12, P13, P14, P15, P17, P18;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-esteban-gutierrez;Esteban Gutiérrez;GUT;;46,81359044995409;14;;;23,636363636363637;66,79926497113996;58;11;1;;P11, P12, P13, P14, P15, P16, P18, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-esteban-ocon;Esteban Ocon;OCO;5,625466139729313;54,89638139638139;10;0,21862242755987582;12,27092696902919;49,775773895416776;60,64173375410599;187;130;2;P5–P15, P17–P19;P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20;available;available;found;full_grid_median_model
-felipe-massa;Felipe Massa;MAS;5,550681131038273;52,37426962836798;8;-9,00319119124923;20,338140653988845;44,05493605435824;61,16656273650372;192;61;2;P3–P4, P8–P9;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P22;available;available;found;full_grid_median_model
-felipe-nasr;Felipe Nasr;NAS;;52,71613190730838;9;;;36,316012630947704;67,94690128763281;38;17;1;;P8, P9, P10, P12, P13, P14, P15, P16, P17, P18;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-fernando-alonso;Fernando Alonso;ALO;3,001327835339741;54,423870742052564;8;-3,2575317541161364;8,864310567394307;48,53164722647935;59,770896174164946;347;165;2;P4–P15, P19–P20;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P22;available;available;found;full_grid_median_model
-franco-colapinto;Franco COLAPINTO;COL;;44,51569264069265;5;;;30,389732142857145;59,207782883887205;42;22;0;;P8, P10, P12, P13, P14, P15, P16, P17, P18, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-gabriel-bortoleto;Gabriel BORTOLETO;BOR;;34,16143578643579;4;;;22,265325126262628;46,36783008658007;38;20;0;;P7, P8, P10, P12, P13, P14, P15, P16, P17, P18, P19;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-george-russell;George Russell;RUS;-9,105289238540598;42,294921262312556;8;-16,39055092382346;-2,7475721207543273;35,82052075448773;49,079906166422056;163;115;3;P1–P6, P14–P15, P17–P19;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20;available;available;found;full_grid_median_model
-giancarlo-fisichella;Giancarlo Fisichella;FIS;;55,10316072816074;7;;;40,46042882238535;69,77990301724137;49;26;1;;P1, P6, P10, P12, P13, P14, P15, P16, P17, P18, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-giedo-van-der-garde;Giedo van der Garde;VDG;;;10;;;;;18;2;0;;P21, P22;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
-guanyu-zhou;Guanyu Zhou;ZHO;;33,04867875180375;7;;;19,828712545624313;45,648502886002895;20;16;1;;P9, P10, P12, P13, P14, P15, P18, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-heikki-kovalainen;Heikki Kovalainen;KOV;;47,213763248246;9;;;34,148289545703335;60,09410529546618;109;29;0;;P1, P2, P3, P4, P5, P6, P7, P8, P11, P12, P13, P15, P16, P18, P19;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-isack-hadjar;Isack HADJAR;HAD;;46,55384199134199;15;;;31,312151084209905;61,276945145903454;36;20;0;;P3, P5, P6, P7, P8, P9, P10, P12, P13, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+alexander-wurz;Alexander Wurz;WUR;;47,05421674761296;12;;;36,9873694014319;57,1691276405399;66;53;0;;P5, P7, P8, P10, P11, P12, P13, P14, P15, P17, P18, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+alfonso-thiele;Alfonso Thiele;THI;;;;;;;;1;1;0;;P9;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+alfonso-de-portago;Alfonso de Portago;DEP;;;;;;;;3;1;0;;P10;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+alfredo-pian;Alfredo Pián;PIA;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+allan-mcnish;Allan McNish;MCN;;51,57521367521368;10;;;31,344362273528944;70,95186237373737;13;10;0;;P10, P13, P14, P16, P18, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+allen-berg;Allen Berg;BER;;;;;;;;8;5;0;;P26;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+andrea-chiesa;Andrea Chiesa;CHI;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+andrea-montermini;Andrea Montermini;MON;;;16;;;;;19;7;0;;P20, P21, P22, P23, P24;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+andrea-de-adamich;Andrea de Adamich;DEA;;;21;;;;;29;6;0;;P12, P20, P24;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+andrea-de-cesaris;Andrea de Cesaris;DEC;8,879169938925168;56,933131593325776;8;0,9586493482988303;17,015128689306298;49,99678856664151;63,913137829804484;196;103;0;P7–P14, P16–P18;P3, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23, P25, P26;available;available;found;full_grid_median_model
+andre-guelfi;André Guelfi;GUE;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+andre-lotterer;André Lotterer;LOT;;;;;;;;1;1;0;;P21;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+andre-milhoux;André Milhoux;MIL;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+andre-pilette;André Pilette;PIL;;;;;;;;7;4;0;;P8, P12, P16, P20;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+andre-simon;André Simon;SIM;;;;;;;;9;1;0;;P12;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+andy-linden;Andy Linden;LIN;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+anthony-davidson;Anthony Davidson;DAV;;35,74066905316905;18;;;22,79610004758173;49,196860315610316;23;20;0;;P11, P13, P14, P15, P17, P18, P19, P20, P21;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+anthony-foyt;Anthony Foyt;FOY;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+antonio-creus;Antonio Creus;CRE;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+antonio-giovinazzi;Antonio Giovinazzi;GIO;0,00601767513531451;53,87958931586908;14;-13,918630117159532;14,829968933010004;45,236179554977;62,368195634561054;61;49;1;P14–P16;P7, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20;available;available;found;full_grid_median_model
+antonio-pizzonia;Antônio Pizzonia;PIZ;;38,41184921244906;11;;;20,55831720846233;55,01349904395569;17;16;1;;P6, P8, P10, P12, P13, P14, P15, P16, P18;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+archie-scott-brown;Archie Scott Brown;SCO;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+art-bisch;Art Bisch;BIS;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+art-cross;Art Cross;CRO;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+arthur-legat;Arthur Legat;LEG;;;;;;;;1;1;0;;P21;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+arthur-owen;Arthur Owen;OWE;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+arturo-merzario;Arturo Merzario;MER;;55,85064935064935;14;;;29,65592145949289;81,01998962575884;55;10;0;;P9, P15, P17, P21, P22, P23, P26;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+arvid-lindblad;Arvid Lindblad;LIN;;55,4243736061918;10;;;34,059822248458616;80,00081168831169;16;11;0;;P7, P9, P10, P11, P15, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+ayrton-senna;Ayrton Senna;SEN;10,682129739568486;61,997858497219106;4;0,6162518283187365;20,095946702969567;53,679529035614564;69,34596186650982;154;69;0;P1–P4;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P13, P14;available;available;found;full_grid_median_model
+azdrubal-fontes;Azdrubal Fontes;FON;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+basil-van-rooyen;Basil van Rooyen;VAN;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bayliss-levrett;Bayliss Levrett;LEV;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+ben-pon;Ben Pon;PON;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+beppe-gabbiani;Beppe Gabbiani;GAB;;;;;;;;3;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bernard-collomb;Bernard Collomb;COL;;;;;;;;4;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bernd-schneider;Bernd Schneider;SCH;;;;;;;;9;5;0;;P15, P21, P22, P25;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bertil-roos;Bertil Roos;ROO;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bertrand-gachot;Bertrand Gachot;GAC;;52,71825396825397;12;;;38,17259778911565;67,01821937656642;44;22;0;;P10, P11, P13, P14, P15, P16, P17, P18, P19, P21, P22, P23, P26;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+bill-aston;Bill Aston;AST;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bill-brack;Bill Brack;BRA;;;;;;;;3;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bill-cantrell;Bill Cantrell;CAN;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bill-cheesbourg;Bill Cheesbourg;CHE;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bill-holland;Bill Holland;HOL;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bill-homeier;Bill Homeier;HOM;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bill-mackey;Bill Mackey;MAC;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bill-schindler;Bill Schindler;SCH;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bill-vukovich;Bill Vukovich;VUK;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bill-whitehouse;Bill Whitehouse;WHI;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+billy-garrett;Billy Garrett;GAR;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bob-anderson;Bob Anderson;AND;;49,546660190526296;17;;;30,3563197050188;69,68049322001526;25;12;0;;P8, P9, P11, P12, P14, P15, P16, P17, P19;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+bob-bondurant;Bob Bondurant;BON;;;;;;;;7;4;0;;P14, P16, P18;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bob-christie;Bob Christie;CHR;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bob-drake;Bob Drake;DRA;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bob-evans;Bob Evans;EVA;;;;;;;;9;3;0;;P22, P24, P25;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bob-gerard;Bob Gerard;GER;;;;;;;;7;1;0;;P10;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bob-said;Bob Said;SAI;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bob-scott;Bob Scott;SCO;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bob-sweikert;Bob Sweikert;SWE;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bob-veith;Bob Veith;VEI;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bobby-ball;Bobby Ball;BAL;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bobby-grim;Bobby Grim;GRI;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bobby-rahal;Bobby Rahal;RAH;;;;;;;;2;1;0;;P20;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bobby-unser;Bobby Unser;UNS;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+boy-lunger;Boy Lunger;LUN;;;;;;;;3;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+brausch-niemann;Brausch Niemann;NIE;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+brendon-hartley;Brendon Hartley;HAR;;35,56761052386052;18;;;21,653306547172647;50,651594955268784;22;20;1;;P6, P8, P11, P14, P15, P16, P17, P18, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+brett-lunger;Brett Lunger;LUN;;18,625;22;;;1,8518518518518519;41,48487103174603;32;10;0;;P17, P18, P19, P20, P21, P24;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+brian-hart;Brian Hart;HAR;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+brian-henton;Brian Henton;HEN;;;17;;;;;17;7;0;;P17, P19, P23, P26;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+brian-naylor;Brian Naylor;NAY;;;;;;;;7;1;0;;P7;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+brian-redman;Brian Redman;RED;;;8;;;;;11;1;0;;P11;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+brian-shawe-taylor;Brian Shawe Taylor;SHA;;;;;;;;1;1;0;;P12;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bruce-halford;Bruce Halford;HAL;;;;;;;;8;3;0;;P11, P14, P16;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bruce-johnstone;Bruce Johnstone;JOH;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+bruce-mclaren;Bruce McLaren;MCL;;51,152242640342486;8;;;40,86710352615997;62,757510036930334;99;40;0;;P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P13, P14, P15, P16;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+bruno-giacomelli;Bruno Giacomelli;GIA;;41,94515565348899;9;;;29,68783970658971;55,0637532455755;65;30;0;;P3, P4, P5, P6, P7, P8, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+bruno-senna;Bruno Senna;SEN;;51,61255411255411;11;;;27,770833333333336;76,11111111111111;43;11;1;;P10, P13, P14, P16, P17, P18, P20, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+bud-tingelstad;Bud Tingelstad;TIN;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+cal-niday;Cal Niday;NID;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+carel-godin-de-beaufort;Carel Godin de Beaufort;DEB;;38,547348484848484;;;;16,726785714285718;64,56191378066377;27;10;0;;P13, P14, P17, P18, P20, P21;insufficient_adjacent_matched_positions;available;not_found;full_grid_median_model
+carl-forberg;Carl Forberg;FOR;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+carl-scarborough;Carl Scarborough;SCA;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+carlo-abate;Carlo Abate;ABA;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+carlos-menditeguy;Carlos Menditeguy;MEN;;;;;;;;9;1;0;;P7;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+carlos-pace;Carlos Pace;PAC;;59,04483384262795;11;;;37,662994991119994;80,38682786476903;70;12;0;;P1, P5, P6, P8, P10, P11, P12, P13, P16, P24;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+carlos-reutemann;Carlos Reutemann;REU;;46,7408618469635;6;;;36,15344552800975;58,55646442903445;142;36;0;;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+carlos-sainz;Carlos Sainz;SAI;2,3867998656670215;52,4099572361013;7;-2,2315099750758467;6,791637463740453;47,80354766253663;56,62845068838142;236;201;2;P1–P17;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21;available;available;found;full_grid_median_model
+carroll-shelby;Carroll Shelby;SHE;;;;;;;;7;2;0;;P10, P15;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+cecil-green;Cecil Green;GRE;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+cesare-perdisa;Cesare Perdisa;PER;;;;;;;;3;2;0;;P7, P11;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+charles-leclerc;Charles Leclerc;LEC;7,448570141612809;57,09441420623539;10;1,8321653465362862;12,96570678885496;52,00843689469549;61,55225758641997;182;148;0;P1–P10;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P18, P19;available;available;found;full_grid_median_model
+charles-pic;Charles Pic;PIC;;26,517201933868602;21;;;16,30243612596554;39,774086918973275;39;18;0;;P18, P19, P20, P21, P22, P23, P24;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+charles-pozzi;Charles Pozzi;POZ;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+charles-de-tornaco;Charles de Tornaco;DET;;;;;;;;2;2;0;;P13, P17;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+chet-miller;Chet Miller;MIL;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+chico-landi;Chico Landi;LAN;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+chico-serra;Chico Serra;SER;;;12;;;;;17;8;0;;P15, P20, P21, P25, P26;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+chris-amon;Chris Amon;AMO;;42,805211632514265;7;;;31,71222672008183;53,73678350913389;95;36;0;;P1, P2, P3, P4, P5, P6, P9, P11, P12, P13, P14, P15, P16, P17, P18, P19;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+chris-bristow;Chris Bristow;BRI;;;;;;;;4;2;0;;P4, P9;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+chris-craft;Chris Craft;CRA;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+chris-irwin;Chris Irwin;IRW;;;16;;;;;10;5;0;;P13, P14, P15, P16;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+chris-lawrence;Chris Lawrence;LAW;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+christian-danner;Christian Danner;DAN;;39,98478084415584;13;;;21,6625531462585;58,08939324564322;34;16;0;;P16, P17, P18, P19, P20, P21, P22, P23, P24, P25;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+christian-fittipaldi;Christian Fittipaldi;FIT;;51,89488048183699;4;;;36,16591310437218;66,4118716931217;40;23;0;;P6, P11, P12, P13, P14, P16, P17, P18, P19, P20, P22, P24, P25, P26;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+christian-goethals;Christian Goethals;GOE;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+christian-klien;Christian Klien;KLI;-11,311726851181659;40,72949603831956;20;-26,405001024800175;5,404105399307576;30,322273137200124;51,751677874066836;45;37;0;P12–P14;P4, P6, P7, P8, P10, P11, P12, P13, P14, P15, P16, P19;available;available;found;full_grid_median_model
+christijan-albers;Christijan Albers;ALB;;28,271200389321834;19;;;17,922416227563286;38,64763480567052;40;31;3;;P13, P14, P15, P16, P17, P18, P19, P20, P21, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+chuck-arnold;Chuck Arnold;ARN;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+chuck-daigh;Chuck Daigh;DAI;;;;;;;;2;1;0;;P18;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+chuck-stevenson;Chuck Stevenson;STE;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+chuck-weyant;Chuck Weyant;WEY;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+clay-regazzoni;Clay Regazzoni;REG;;57,48579990759984;6;;;44,89738646089749;70,21870790887017;127;29;0;;P1, P2, P3, P4, P6, P7, P8, P9, P10, P11, P15, P16, P17, P20, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+clemar-bucci;Clemar Bucci;BUC;;;;;;;;3;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+clemente-biondetti;Clemente Biondetti;BIO;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+cliff-allison;Cliff Allison;ALL;;;9;;;;;16;7;0;;P5, P11, P12, P13, P15, P16;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+cliff-griffith;Cliff Griffith;GRI;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+colin-chapman;Colin Chapman;CHA;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+colin-davis;Colin Davis;DAV;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+conny-andersson;Conny Andersson;AND;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+consalvo-sanesi;Consalvo Sanesi;SAN;;;;;;;;5;2;0;;P6;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+corrado-fabi;Corrado Fabi;FAB;;;13;;;;;12;9;0;;P15, P16, P23, P24, P25, P26;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+cristiano-da-matta;Cristiano da Matta;DAM;;42,89809145371346;14;;;29,752201168692764;59,31157992273097;26;22;1;;P3, P6, P9, P10, P11, P12, P13, P15, P16, P18;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+cuth-harrison;Cuth Harrison;HAR;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+damien-magee;Damien Magee;MAG;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+damon-hill;Damon Hill;HIL;-5,009510638255347;49,18830574187718;12;-16,92480031948542;6,046870378144799;41,562392468642464;57,61553653373794;111;70;0;P1–P4;P1, P2, P3, P4, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P17, P18, P25;available;available;found;full_grid_median_model
+dan-gurney;Dan Gurney;GUR;;46,76346396934632;6;;;36,74051140789027;56,41223679013734;84;37;0;;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P12, P14, P15, P16, P19;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+daniel-ricciardo;Daniel Ricciardo;RIC;-6,778555357053115;45,075247871857194;15;-11,717424987368103;-1,489065898662887;40,31116241238355;50,25031378301222;252;187;2;P3–P14, P18–P19;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P23, P24;available;available;found;full_grid_median_model
+daniil-kvyat;Daniil Kvyat;KVY;-13,470760129099512;39,324223248371865;16;-20,173633752574368;-6,5250387720378455;33,746135977726524;45,287830284940874;108;91;2;P7–P9, P11–P17;P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P21;available;available;found;full_grid_median_model
+danny-kladis;Danny Kladis;KLA;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+danny-ongais;Danny Ongais;ONG;;;;;;;;4;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+danny-sullivan;Danny Sullivan;SUL;;44,90361599185128;6;;;24,16220238095238;64,99171982842724;14;10;0;;P19, P20, P21, P22, P23, P24;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+dave-charlton;Dave Charlton;CHA;;;10;;;;;11;4;0;;P13, P17, P20, P24;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+dave-morgan;Dave Morgan;MOR;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+david-brabham;David Brabham;BRA;;62,340029761904766;22;;;43,282572751322746;79,29157366071429;24;16;0;;P21, P22, P23, P24, P25, P26;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+david-clapham;David Clapham;CLA;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+david-coulthard;David Coulthard;COU;2,8776419382925367;54,61983660860754;3;-2,0748085095581987;8,385745645166946;49,72206237654861;59,63725408131583;236;190;1;P1–P14;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22;available;available;found;full_grid_median_model
+david-hampshire;David Hampshire;HAM;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+david-hobbs;David Hobbs;HOB;;;;;;;;6;1;0;;P14;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+david-murray;David Murray;MUR;;;;;;;;4;1;0;;P15;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+david-piper;David Piper;PIP;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+david-prophet;David Prophet;PRO;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+david-purley;David Purley;PUR;;;;;;;;7;1;0;;P22;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+david-walker;David Walker;WAL;;;22;;;;;11;2;0;;P15, P19;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+dempsey-wilson;Dempsey Wilson;WIL;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+dennis-poore;Dennis Poore;POO;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+denny-hulme;Denny Hulme;HUL;-7,5229742992900865;45,5517779002041;13;-25,046162171162166;12,662738712738717;35,26237118263813;56,954711081541134;109;36;0;P6–P7;P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14;available;available;found;full_grid_median_model
+derek-bell;Derek Bell;BEL;;;;;;;;9;5;0;;P8, P15, P23;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+derek-daly;Derek Daly;DAL;;66,6117216117216;9;;;45,82928240740741;84,34215367965365;44;13;0;;P8, P10, P11, P15, P16, P17, P18, P19, P22, P24;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+derek-warwick;Derek Warwick;WAR;-1,1120957765948802;50,914849039849045;11;-10,663367350160849;7,688763112950377;43,21568207948993;58,35951650652355;143;78;0;P9–P14;P3, P4, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P18, P19, P20, P21, P22, P25;available;available;found;full_grid_median_model
+desmond-titterington;Desmond Titterington;TIT;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+dick-gibson;Dick Gibson;GIB;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+dick-rathmann;Dick Rathmann;RAT;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+didier-pironi;Didier Pironi;PIR;;63,99216535098889;3;;;50,89925603257329;77,62583790660265;67;25;0;;P1, P3, P4, P5, P6, P7, P8, P9, P12, P13, P14, P15, P16, P17, P18, P19;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+dieter-quester;Dieter Quester;QUE;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+domenico-schiattarella;Domenico Schiattarella;SCH;;;;;;;;6;2;0;;P23, P26;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+don-beauman;Don Beauman;BEA;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+don-branson;Don Branson;BRA;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+don-edmunds;Don Edmunds;EDM;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+don-freeland;Don Freeland;FRE;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+dorino-serafini;Dorino Serafini;SER;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+doug-serrurier;Doug Serrurier;SER;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+dries-van-der-lof;Dries van der Lof;VAN;;;;;;;;1;1;0;;P14;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+duane-carter;Duane Carter;CAR;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+duke-dinsmore;Duke Dinsmore;DIN;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+duke-nalon;Duke Nalon;NAL;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+duncan-hamilton;Duncan Hamilton;HAM;;;;;;;;5;3;0;;P10, P11, P20;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+ed-elisian;Ed Elisian;ELI;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+eddie-cheever;Eddie Cheever;CHE;;60,14246135339884;10;;;51,5203461217869;68,37720760480885;129;64;0;;P2, P3, P4, P5, P6, P7, P8, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23, P24, P25, P26;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+eddie-irvine;Eddie Irvine;IRV;1,5674957893761163;53,12755606376022;10;-7,748002566957578;10,933186096163979;45,833187699747434;60,631984725149074;139;99;0;P4–P10, P12–P13;P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P22;available;available;found;full_grid_median_model
+eddie-johnson;Eddie Johnson;JOH;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+eddie-keizan;Eddie Keizan;KEI;;;;;;;;3;1;0;;P22;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+eddie-russo;Eddie Russo;RUS;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+eddie-sachs;Eddie Sachs;SAC;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+edgar-barth;Edgar Barth;BAR;;;;;;;;5;2;0;;P12, P20;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+eitel-cantoni;Eitel Cantoni;CAN;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+elio-de-angelis;Elio de Angelis;DEA;;48,229115056941744;7;;;38,76017535303478;57,54563552019798;107;43;0;;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P17, P19, P20, P21, P24;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+eliseo-salazar;Eliseo Salazar;SAL;;;12;;;;;23;8;0;;P12, P14, P20, P22, P24, P25;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+elmer-george;Elmer George;GEO;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+emanuele-naspetti;Emanuele Naspetti;NAS;;;;;;;;6;5;0;;P23, P24, P26;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+emanuele-pirro;Emanuele Pirro;PIR;;59,71590909090909;14;;;46,29626848845598;72,32925878684806;33;22;0;;P7, P10, P12, P13, P16, P17, P18, P19, P21, P24, P25, P26;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+emerson-fittipaldi;Emerson Fittipaldi;FIT;;45,26040925305631;8;;;33,35230545343137;57,57077324382012;142;36;0;;P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P20, P21, P22, P23;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+emilio-de-villota;Emilio de Villota;DEV;;;;;;;;2;1;0;;P26;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+enrique-bernoldi;Enrique Bernoldi;BER;;56,65633608815427;11;;;41,3111261765381;69,9594494047619;27;22;1;;P12, P14, P15, P16, P17, P18, P19, P20, P21, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+eppie-wietzes;Eppie Wietzes;WIE;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+eric-brandon;Eric Brandon;BRA;;;;;;;;4;1;0;;P12;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+eric-thompson;Eric Thompson;THO;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+eric-van-de-poele;Eric van de Poele;VAN;;;;;;;;4;3;0;;P18, P21, P26;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+ernesto-prinoth;Ernesto Prinoth;PRI;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+ernie-mccoy;Ernie McCoy;MCC;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+ernie-pieterse;Ernie Pieterse;PIE;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+ernie-de-vos;Ernie de Vos;DEV;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+ernst-klodwig;Ernst Klodwig;KLO;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+ernst-loof;Ernst Loof;LOO;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+erwin-bauer;Erwin Bauer;BAU;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+esteban-gutierrez;Esteban Gutiérrez;GUT;3,30666952095523;53,769666180380476;14;-13,65309511916655;21,463358070500927;43,175198896912;64,39150861740926;58;42;1;P13–P15;P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21;available;available;found;full_grid_median_model
+esteban-ocon;Esteban Ocon;OCO;4,025150212074875;53,52251022146636;10;-1,454866287470046;9,231188666639481;48,587410687245146;58,4002055095114;187;156;2;P5–P20;P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P22;available;available;found;full_grid_median_model
+esteban-tuero;Esteban Tuero;TUE;;38,77362914862915;20;;;15,251916486291487;64,35929608585857;15;10;0;;P17, P18, P19, P21, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+ettore-chimeri;Ettore Chimeri;CHI;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+eugenio-castellotti;Eugenio Castellotti;CAS;;;;;;;;9;4;0;;P1, P3, P5, P9;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+eugene-chaboud;Eugène Chaboud;CHA;;;;;;;;2;1;0;;P13;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+eugene-martin;Eugène Martin;MAR;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+fabrizio-barbazza;Fabrizio Barbazza;BAR;;;;;;;;7;1;0;;P24;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+felice-bonetto;Felice Bonetto;BON;;;5;;;;;10;2;0;;P7, P10;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+felipe-massa;Felipe Massa;MAS;4,699967515078621;54,8306103752635;9;-0,4223448061641995;9,564753528325117;49,59093253289948;59,803927601535534;259;172;2;P1–P14, P16–P17;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22;available;available;found;full_grid_median_model
+felipe-nasr;Felipe Nasr;NAS;;49,63654640378779;9;;;38,041225662508;61,655039034856216;38;29;1;;P8, P9, P10, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+fernando-alonso;Fernando Alonso;ALO;5,425034230367659;55,91028179036785;8;1,1105409483568287;9,478782490771767;52,16772840923372;59,45532361799632;431;316;4;P1–P22;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22;available;available;found;full_grid_median_model
+franck-lagorce;Franck Lagorce;LAG;;;;;;;;2;2;0;;P20;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+franck-montagny;Franck Montagny;FMO;;;;;;;;6;6;0;;P20, P21;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+franco-colapinto;Franco COLAPINTO;COL;;47,88338567750334;5;;;35,81825721700722;60,495101781808366;42;34;0;;P7, P8, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+franco-comotti;Franco Comotti;COM;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+franco-forini;Franco Forini;FOR;;;;;;;;2;2;0;;P26;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+franco-rol;Franco Rol;ROL;;;;;;;;3;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+frank-armi;Frank Armi;ARM;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+frank-dochnal;Frank Dochnal;DOC;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+frank-gardner;Frank Gardner;GAR;;;;;;;;6;3;0;;P11, P19;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+francois-cevert;François Cevert;CEV;;43,403810278810276;8;;;23,635478237040736;61,614168470418456;45;12;0;;P3, P5, P8, P9, P10, P11, P12, P15;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+francois-hesnault;François Hesnault;HES;;;18;;;;;17;6;0;;P13, P17, P18, P20, P21;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+francois-mazet;François Mazet;MAZ;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+francois-migault;François Migault;MIG;;;19;;;;;12;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+francois-picard;François Picard;PIC;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+fred-agabashian;Fred Agabashian;AGA;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+fred-gamble;Fred Gamble;GAM;;;;;;;;1;1;0;;P14;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+fred-wacker;Fred Wacker;WAC;;;;;;;;3;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+fritz-riess;Fritz Riess;RIE;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+fritz-dorey;Fritz d'Orey;D'O;;;;;;;;3;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+gabriel-bortoleto;Gabriel BORTOLETO;BOR;;31,771627555451087;4;;;22,17648565270754;42,30297946411228;38;30;0;;P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+gabriele-tarquini;Gabriele Tarquini;TAR;;58,35317460317461;11;;;40,72622429653679;75,8978942271353;35;15;0;;P13, P15, P20, P21, P22, P24, P25, P26;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+gaetano-starrabba;Gaetano Starrabba;STA;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+gary-hocking;Gary Hocking;HOC;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+gaston-mazzacane;Gastón Mazzacane;MAZ;;44,99074074074075;21;;;27,685355392156865;64,29297785547786;20;15;0;;P19, P20, P21, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+gene-force;Gene Force;FOR;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+gene-hartley;Gene Hartley;HAR;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+geoff-crossley;Geoff Crossley;CRO;;;;;;;;2;1;0;;P12;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+geoff-duke;Geoff Duke;DUK;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+geoff-lees;Geoff Lees;LEE;;;;;;;;4;3;0;;P16, P24;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+george-abecassis;George Abecassis;ABE;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+george-amick;George Amick;AMI;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+george-connor;George Connor;CON;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+george-constantine;George Constantine;CON;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+george-eaton;George Eaton;EAT;;;20;;;;;11;4;0;;P9, P17, P18, P20;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+george-follmer;George Follmer;FOL;;;14;;;;;11;1;0;;P21;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+george-fonder;George Fonder;FON;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+george-russell;George Russell;RUS;-10,759242989967806;42,252595878455;8;-16,399846388767507;-5,11325502060933;36,885699485003244;47,15326087098754;163;136;3;P1–P6, P14–P15, P17–P19;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20;available;available;found;full_grid_median_model
+georges-berger;Georges Berger;BER;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+georges-grignard;Georges Grignard;GRI;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+gerhard-berger;Gerhard Berger;BER;1,9389329986371353;52,61332116426583;8;-5,077206346987504;8,82729603743298;46,76914559605637;58,54177842471395;205;117;0;P1–P8;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P14, P15, P16, P17, P18, P19, P20;available;available;found;full_grid_median_model
+gerhard-mitter;Gerhard Mitter;MIT;;;;;;;;4;2;0;;P12, P19;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+gerino-gerini;Gerino Gerini;GER;;;;;;;;5;2;0;;P18, P19;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+gerry-ashmore;Gerry Ashmore;ASH;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+giacomo-russo;Giacomo Russo;RUS;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+giancarlo-baghetti;Giancarlo Baghetti;BAG;;;16;;;;;20;9;0;;P14, P16, P17, P18, P20, P21, P25;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+giancarlo-fisichella;Giancarlo Fisichella;FIS;-0,15767598657598725;49,22118342266692;13;-5,307747049915993;5,342623059975272;44,98184424383717;54,13744323391169;216;180;4;P4–P20;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P22;available;available;found;full_grid_median_model
+gianmaria-bruni;Gianmaria Bruni;BRU;;39,79565199234317;19;;;19,9452734032444;59,71620750572954;13;12;3;;P16, P17, P18, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+gianni-morbidelli;Gianni Morbidelli;MOR;;45,53552441710336;9;;;33,66024115875306;57,49282407407407;64;38;0;;P8, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P23;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+giedo-van-der-garde;Giedo van der Garde;VDG;;34,57268159191236;10;;;18,97408963585434;50,58465492840492;18;13;0;;P14, P15, P18, P19, P20, P21, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+gijs-van-lennep;Gijs van Lennep;VAN;;;;;;;;8;1;0;;P22;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+gilles-villeneuve;Gilles Villeneuve;VIL;;59,04449839232448;2;;;45,06908194753727;72,26310439560439;66;23;0;;P2, P3, P5, P6, P8, P9, P10, P11, P13, P15, P16, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+gino-bianco;Gino Bianco;BIA;;;;;;;;3;1;0;;P12;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+gino-munaron;Gino Munaron;MUN;;;;;;;;4;1;0;;P8;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+giorgio-bassi;Giorgio Bassi;BAS;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+giorgio-pantano;Giorgio Pantano;PAN;;58,49709208919735;13;;;38,25043398539639;73,90964141530124;11;10;1;;P14, P15, P16, P17, P18, P19;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+giorgio-scarlatti;Giorgio Scarlatti;SCA;;;;;;;;9;3;0;;P5, P14, P16;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+giovanni-lavaggi;Giovanni Lavaggi;LAV;;;;;;;;7;4;0;;P20, P24;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+giulio-cabianca;Giulio Cabianca;CAB;;;;;;;;3;2;0;;P4, P20;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+graham-hill;Graham Hill;HIL;16,31435293200001;56,81270531181324;8;0,30130832741355423;30,74529077371571;47,26673970645717;65,6393331469654;171;59;0;P3–P5;P1, P2, P3, P4, P5, P6, P7, P8, P9, P12, P13, P14, P15, P16, P20, P21;available;available;found;full_grid_median_model
+graham-mcrae;Graham McRae;MCR;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+graham-whitehead;Graham Whitehead;WHI;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+gregor-foitek;Gregor Foitek;FOI;;;;;;;;7;3;0;;P20, P21, P26;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+gunnar-nilsson;Gunnar Nilsson;NIL;;;13;;;;;29;8;1;;P5, P9, P10, P13, P14, P16, P22;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+gus-hutchison;Gus Hutchison;HUT;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+guy-edwards;Guy Edwards;EDW;;;19;;;;;10;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+guy-ligier;Guy Ligier;LIG;;;11;;;;;12;7;0;;P12, P15, P16, P17, P18, P19;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+guy-mairesse;Guy Mairesse;MAI;;;;;;;;3;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+guy-tunmer;Guy Tunmer;TUN;;;;;;;;1;1;0;;P25;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+gerard-larrousse;Gérard Larrousse;LAR;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+gunther-bechem;Günther Bechem;BEC;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+gunther-seiffert;Günther Seiffert;SEI;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+hans-binder;Hans Binder;BIN;;;18;;;;;13;3;0;;P19, P20;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+hans-herrmann;Hans Herrmann;HER;;;9;;;;;16;3;0;;P10, P13, P18;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+hans-klenk;Hans Klenk;KLE;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+hans-von-stuck;Hans von Stuck;VON;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+hans-joachim-stuck;Hans-Joachim Stuck;STU;;39,52466264966265;16;;;24,826657960481484;57,6260537707906;69;16;0;;P4, P5, P6, P7, P8, P11, P12, P14, P15, P16, P17, P18, P20, P23, P24;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+hap-sharp;Hap Sharp;SHA;;;;;;;;6;3;0;;P15, P18, P19;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+harald-ertl;Harald Ertl;ERT;;;15;;;;;18;4;0;;P17, P23, P24;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+harry-blanchard;Harry Blanchard;BLA;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+harry-schell;Harry Schell;SCH;;57,66165238204712;6;;;35,889921491465614;80,48194455915043;45;10;0;;P2, P5, P6, P7, P9, P10, P12;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+hector-rebaque;Hector Rebaque;REB;;47,38095238095238;8;;;22,84821428571429;72,51661706349205;39;10;0;;P10, P13, P15, P18, P21, P24, P26;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+heikki-kovalainen;Heikki Kovalainen;KOV;;44,913768844324416;9;;;35,60780497941867;54,345333673691414;109;54;0;;P1, P2, P3, P4, P5, P6, P7, P8, P9, P11, P12, P13, P15, P16, P17, P18, P19, P20, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+heini-walter;Heini Walter;WAL;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+heinz-schiller;Heinz Schiller;SCH;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+heinz-harald-frentzen;Heinz-Harald Frentzen;FRE;-4,748154751179903;45,20073694541919;17;-11,94499414800712;3,6029108980114164;39,02331486155349;51,083756747869565;149;112;1;P4–P15;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19;available;available;found;full_grid_median_model
+helmut-marko;Helmut Marko;MAR;;;;;;;;9;3;0;;P12, P17, P23;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+helmut-niedermayr;Helmut Niedermayr;NIE;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+helmuth-koinigg;Helmuth Koinigg;KOI;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+henri-louveau;Henri Louveau;LOU;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+henri-pescarolo;Henri Pescarolo;PES;;48,87493671404275;8;;;27,08665683275058;72,21830923358176;55;12;0;;P5, P7, P10, P11, P12, P13, P17, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+henry-banks;Henry Banks;BAN;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+henry-taylor;Henry Taylor;TAY;;;;;;;;8;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+herbert-mackay-fraser;Herbert MacKay-Fraser;MAC;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+hermann-lang;Hermann Lang;LAN;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+hernando-da-silva-ramos;Hernando da Silva Ramos;DAS;;;;;;;;6;2;0;;P14;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+hideki-noda;Hideki Noda;NOD;;;;;;;;2;1;1;;P23;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+hiroshi-fushida;Hiroshi Fushida;FUS;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+horace-gould;Horace Gould;GOU;;;10;;;;;13;6;0;;P12, P13, P15, P16, P18;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+howden-ganley;Howden Ganley;GAN;;;17;;;;;35;6;0;;P4, P11, P14, P16;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+hubert-hahne;Hubert Hahne;HAH;;;;;;;;2;1;0;;P18;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+huub-rothengatter;Huub Rothengatter;ROT;;38,675491175491175;17;;;21,93427861201299;58,94606730863833;25;13;0;;P22, P23, P24, P25, P26;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+ian-ashley;Ian Ashley;ASH;;;;;;;;4;1;0;;P21;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+ian-burgess;Ian Burgess;BUR;;;15;;;;;16;2;0;;P16, P20;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+ian-raby;Ian Raby;RAB;;;;;;;;3;1;0;;P19;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+ian-scheckter;Ian Scheckter;SCH;;;15;;;;;17;6;0;;P17, P19, P24;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+ian-stewart;Ian Stewart;STE;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+ignazio-giunti;Ignazio Giunti;GIU;;;;;;;;4;2;0;;P8, P15;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+ingo-hoffmann;Ingo Hoffmann;HOF;;;;;;;;3;2;0;;P19, P20;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+innes-ireland;Innes Ireland;IRE;;43,82728358723168;10;;;28,389443295608377;62,02674692718507;50;17;0;;P5, P7, P8, P9, P10, P11, P13, P16, P17, P18;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+isack-hadjar;Isack HADJAR;HAD;;46,5281928039281;15;;;36,43907262059835;58,16466343287509;36;30;0;;P3, P4, P5, P6, P7, P8, P9, P10, P12, P13, P19, P20, P21;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+ivan-capelli;Ivan Capelli;CAP;;59,04491341991343;7;;;49,671841029341024;68,67396812544908;91;58;0;;P3, P4, P6, P7, P8, P9, P10, P11, P12, P13, P14, P16, P17, P18, P19, P21, P22, P23, P24, P25;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+ivor-bueb;Ivor Bueb;BUE;;;;;;;;5;2;0;;P16, P17;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
 jack-aitken;Jack Aitken;AIT;;;;;;;;1;1;0;;P17;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jack-brabham;Jack Brabham;BRA;-1,2342942927147043;49,12883276469734;9;-12,502426738590735;12,269509814373583;40,95372969823272;57,33395048661434;121;54;0;P4–P5, P7–P8;P1, P2, P3, P4, P5, P6, P7, P8, P10, P11, P12, P14, P15, P16, P18;available;available;found;full_grid_median_model
 jack-doohan;Jack DOOHAN;DOO;;;;;;;;5;4;0;;P11, P17, P18, P19;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
-jaime-alguersuari;Jaime Alguersuari;ALG;;;15;;;;;41;6;3;;P12, P14, P16, P19;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
-jarno-trulli;Jarno Trulli;TRU;;35,485972360972355;19;;;24,57777777777778;48,078565559220316;85;26;1;;P1, P2, P3, P4, P6, P7, P8, P9, P11, P14, P18, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-jean-eric-vergne;Jean-Éric Vergne;VER;;26,92063492063492;18;;;8,145337301587302;52,316468253968246;57;10;1;;P6, P9, P10, P11, P12, P13, P14, P15, P17, P21;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-jenson-button;Jenson Button;BUT;;54,47410228660229;12;;;44,730622176156;64,51573343984057;179;52;3;;P1, P2, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-jolyon-palmer;Jolyon Palmer;PAL;;66,73949314574314;11;;;52,45843776106935;80,45683621933622;34;16;0;;P10, P11, P13, P14, P15, P16, P17, P18, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-jules-bianchi;Jules Bianchi;BIA;;;10;;;;;31;1;1;;P19;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
-jerome-dambrosio;Jérôme d'Ambrosio;DAM;;;;;;;;20;1;0;;P22;insufficient_adjacent_matched_positions;insufficient_matched_starts;not_found;full_grid_median_model
-kamui-kobayashi;Kamui Kobayashi;KOB;;;13;;;;;70;5;1;;P11, P12, P13, P16, P20;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
-karun-chandhok;Karun Chandhok;CHA;;;;;;;;9;0;2;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
-kazuki-nakajima;Kazuki Nakajima;NAK;;51,2231691919192;5;;;37,221181682900436;63,2599826183917;35;24;1;;P5, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-kevin-magnussen;Kevin Magnussen;MAG;3,1248055039248372;51,78927631658724;7;-3,842405906859604;9,732526717815396;45,368149982733314;58,45162301555675;175;119;6;P7–P9, P11–P19;P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20;available;available;found;full_grid_median_model
-kimi-antonelli;Kimi ANTONELLI;ANT;;42,65061327561328;8;;;27,479399255715045;57,1263455192683;39;20;0;;P2, P3, P4, P5, P6, P7, P8, P10, P14, P15, P16, P19;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-kimi-raikkonen;Kimi Räikkönen;RAI;-0,6760525569092755;49,59515484515482;6;-7,739245422060723;6,5326028353203265;43,724634135860384;55,972163280726285;237;130;4;P2–P7, P13–P14, P16–P17;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20;available;available;found;full_grid_median_model
-lance-stroll;Lance Stroll;STR;10,503955519058755;59,33634910253615;4;4,862191259289288;16,04682079777841;54,256741182243005;64,83704063576327;196;139;4;P8–P20;P2, P3, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22;available;available;found;full_grid_median_model
-lando-norris;Lando Norris;NOR;-6,756764826127133;45,41934064960379;11;-13,5103590981567;0,09819284314278802;39,55982893501562;51,47800057796867;167;114;0;P1–P10;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19;available;available;found;full_grid_median_model
-lewis-hamilton;Lewis Hamilton;HAM;10,137094654123521;59,565796332812035;5;4,027140557907561;16,64324785297788;54,9477367345848;64,22767948731212;388;191;2;P1–P9;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19;available;available;found;full_grid_median_model
-liam-lawson;Liam LAWSON;LAW;;48,96738549516327;9;;;35,54130498533724;62,024143188847276;50;27;0;;P3, P5, P6, P7, P8, P9, P10, P11, P12, P13, P15, P17, P18, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-logan-sargeant;Logan SARGEANT;SAR;-5,5020923520923635;43,69248035914703;15;-23,73579545454546;11,952132936507919;31,139255993375315;55,48845759894866;36;27;0;P18–P20;P12, P13, P14, P15, P16, P18, P19, P20;available;available;found;full_grid_median_model
-luca-badoer;Luca Badoer;BAD;;;;;;;;2;1;0;;P20;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
-lucas-di-grassi;Lucas di Grassi;DIG;;;21;;;;;16;0;2;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
-marcus-ericsson;Marcus Ericsson;ERI;3,485045300588786;50,34837289147633;13;-10,675993261926958;15,528028111874413;41,02998737373737;59,149019553892444;91;58;5;P14–P17;P6, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P22;available;available;found;full_grid_median_model
-mark-webber;Mark Webber;WEB;;44,61914114691893;11;;;32,3892138863121;56,32067274123724;125;27;2;;P2, P3, P4, P5, P6, P7, P8, P9, P10, P12, P13, P16, P18, P19;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-markus-winkelhock;Markus Winkelhock;WIN;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
-max-chilton;Max Chilton;CHI;;;21;;;;;33;3;1;;P17, P20, P21;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
-max-verstappen;Max Verstappen;VER;8,052779154344794;58,842453016560135;11;1,557889704652404;14,07908279751056;54,11427338309953;63,19673935448369;239;168;1;P1–P8;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P13, P14, P15, P16, P17, P18, P19, P20;available;available;found;full_grid_median_model
-michael-schumacher;Michael Schumacher;MSC;;;8;;;;;57;2;0;;P4, P11;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
-mick-schumacher;Mick Schumacher;MSC;0,5454545454545437;46,17459153749476;15;-13,116477272727277;14,174107142857144;34,281606044921254;57,677326839826826;42;31;1;P18–P19;P6, P9, P10, P12, P14, P15, P16, P17, P18, P19, P20;available;available;found;full_grid_median_model
-narain-karthikeyan;Narain Karthikeyan;KAR;;;23;;;;;27;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
-nelson-piquet;Nelson Piquet Jr.;PIQ;;60,40153519320185;5;;;42,4587933126467;80,16671865715982;27;18;0;;P7, P10, P12, P13, P14, P15, P16, P17, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-nicholas-latifi;Nicholas Latifi;LAT;-18,71283460609304;33,147463002114165;9;-33,92057694816249;-3,3395336997584195;23,591122464137168;42,875793132635124;58;43;2;P18–P20;P10, P11, P13, P14, P15, P16, P17, P18, P19, P20;available;available;found;full_grid_median_model
-nick-heidfeld;Nick Heidfeld;HEI;;53,76082251082251;13;;;41,47910414531791;66,84475186649101;67;26;1;;P3, P4, P5, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P18;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-nico-hulkenberg;Nico Hülkenberg;HUL;2,5488159050378987;51,88733930211202;13;-4,082117415783654;10,0629946699158;45,982617740123985;58,082669364009284;252;132;1;P7–P13, P15–P18;P3, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20;available;available;found;full_grid_median_model
-nico-rosberg;Nico Rosberg;ROS;-2,2489177489177483;57,273595745817964;7;-17,104978354978357;11,564225965007203;48,27158564908878;65,18462122913775;183;54;2;P1–P2;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P14, P15, P16, P18;available;available;found;full_grid_median_model
-nikita-mazepin;Nikita Mazepin;MAZ;;39,70012626262626;11;;;19,526407028892823;61,27644136166862;20;12;0;;P15, P16, P17, P18, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+jack-fairman;Jack Fairman;FAI;;;16;;;;;10;1;0;;P19;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+jack-mcgrath;Jack McGrath;MCG;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jack-turner;Jack Turner;TUR;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jackie-holmes;Jackie Holmes;HOL;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jackie-lewis;Jackie Lewis;LEW;;;;;;;;8;1;0;;P13;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jackie-oliver;Jackie Oliver;OLI;;53,896513118326844;2;;;39,70644171724147;68,38936193164135;42;18;0;;P5, P6, P10, P11, P12, P13, P14, P15, P17, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+jackie-pretorius;Jackie Pretorius;PRE;;;;;;;;3;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jackie-stewart;Jackie Stewart;STE;6,613996369414331;64,89636439268794;3;-4,264117086760816;17,58373254823914;55,02796387075181;74,24660345764522;97;40;0;P1–P3;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12;available;available;found;full_grid_median_model
+jacky-ickx;Jacky Ickx;ICK;;46,25288695130254;5;;;35,42723818958436;57,37102417568875;113;34;0;;P1, P2, P3, P4, P5, P6, P7, P8, P11, P14, P15, P16, P17, P19, P21;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+jacques-laffite;Jacques Laffite;LAF;2,015916435559288;45,31616409067389;8;-14,773067957312746;16,90891681969018;37,06704222954804;54,74910891809758;174;66;0;P10–P11, P15–P16;P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P23, P24;available;available;found;full_grid_median_model
+jacques-pollet;Jacques Pollet;POL;;;;;;;;5;1;0;;P12;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jacques-swaters;Jacques Swaters;SWA;;;;;;;;6;2;0;;P14, P22;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jacques-villeneuve;Jacques Villeneuve;VIL;0,30856590187402566;48,72194558661101;10;-6,211271418748706;6,3203719147648405;43,035752326381974;53,94708537924927;159;132;1;P1–P2, P6–P16;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P19, P22;available;available;found;full_grid_median_model
+jaime-alguersuari;Jaime Alguersuari;ALG;;47,64771108521109;15;;;26,801874244582578;70,43289002664001;41;12;3;;P11, P12, P14, P15, P16, P17, P18, P19;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+james-hunt;James Hunt;HUN;;46,67341633250724;11;;;32,8925388558201;63,281486147294956;89;22;0;;P1, P2, P3, P4, P6, P7, P8, P10, P11, P12, P14, P19;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+jan-flinterman;Jan Flinterman;FLI;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jan-lammers;Jan Lammers;LAM;;;16;;;;;22;6;0;;P13, P19, P20, P21, P24, P25;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+jan-magnussen;Jan Magnussen;MAG;;62,82647907647908;4;;;45,546569074200654;79,46704738713667;23;16;0;;P6, P12, P13, P14, P15, P16, P17, P18, P19, P20, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+jarno-trulli;Jarno Trulli;TRU;-1,3176051595458578;50,39069199043139;10;-7,09340288988442;4,075245236755807;45,30384530285495;55,6072823256116;234;172;4;P2–P12, P16–P18;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P22;available;available;found;full_grid_median_model
+jay-chamberlain;Jay Chamberlain;CHA;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jean-alesi;Jean Alesi;ALE;13,74519877510613;64,45137761544011;5;7,847972820638485;19,769914874095626;59,3598489962542;69,79350155457473;193;128;1;P2–P8, P10–P11, P13–P17;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P22;available;available;found;full_grid_median_model
+jean-behra;Jean Behra;BEH;;59,35668912700646;7;;;38,72142685982201;79,95687691624855;46;14;0;;P2, P4, P5, P6, P7, P8, P10;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+jean-lucas;Jean Lucas;LUC;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jean-christophe-boullion;Jean-Christophe Boullion;BOU;;;;;;;;11;5;0;;P14, P18, P19;insufficient_adjacent_matched_positions;insufficient_matched_starts;not_found;full_grid_median_model
+jean-denis-deletraz;Jean-Denis Délétraz;DEL;;;;;;;;3;1;0;;P25;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jean-louis-schlesser;Jean-Louis Schlesser;SCH;;;;;;;;1;1;0;;P22;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jean-marc-gounon;Jean-Marc Gounon;GOU;;;;;;;;9;6;0;;P25, P26;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jean-pierre-beltoise;Jean-Pierre Beltoise;BEL;;53,26340521414825;8;;;39,39448387721349;66,78423421082002;81;25;0;;P3, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+jean-pierre-jabouille;Jean-Pierre Jabouille;JAB;;36,70702657544763;15;;;20,94993894993895;52,45571795567466;48;19;0;;P1, P2, P3, P6, P9, P11, P12, P13, P16, P20, P21, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+jean-pierre-jarier;Jean-Pierre Jarier;JAR;;47,05100303073276;17;;;36,782991833702056;59,174682624353686;125;37;0;;P1, P3, P4, P6, P9, P10, P12, P13, P15, P16, P17, P18, P19, P20, P21, P23, P24, P25;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+jean-eric-vergne;Jean-Éric Vergne;VER;;32,766481203981215;18;;;23,023123427357298;44,456781084412654;57;36;1;;P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P23;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+jenson-button;Jenson Button;BUT;3,6251804572135455;54,70791386381591;13;-1,506413723615043;7,994530186772542;50,04283489927258;59,412791651195214;296;208;3;P1–P14, P16–P18;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22;available;available;found;full_grid_median_model
+jerry-hoyt;Jerry Hoyt;HOY;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jerry-unser-jr;Jerry Unser;UNS;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jesus-iglesias;Jesús Iglesias;IGL;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jim-clark;Jim Clark;CLA;-0,3322841374312021;49,61550155545254;6;-20,377365434575225;17,173452833175027;35,5844596359429;64,15521486032809;70;30;0;P1–P2;P1, P2, P3, P5, P6, P8, P9, P10, P11, P13, P16;available;available;found;full_grid_median_model
+jim-crawford;Jim Crawford;CRA;;;;;;;;2;1;0;;P25;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jim-hall;Jim Hall;HAL;;;15;;;;;11;3;0;;P12, P13, P17;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+jim-hurtubise;Jim Hurtubise;HUR;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jim-mcwithey;Jim McWithey;MCW;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jim-rathmann;Jim Rathmann;RAT;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jim-rigsby;Jim Rigsby;RIG;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jimmy-bryan;Jimmy Bryan;BRY;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jimmy-davies;Jimmy Davies;DAV;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jimmy-daywalt;Jimmy Daywalt;DAY;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jimmy-jackson;Jimmy Jackson;JAC;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jimmy-reece;Jimmy Reece;REE;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jimmy-stewart;Jimmy Stewart;STE;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jo-bonnier;Jo Bonnier;BON;12,312006212741494;60,10610054051428;8;-9,580695437925838;31,362847222222207;50,15384528180622;69,72616003670556;98;39;0;P12–P13;P1, P5, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P21;available;available;found;full_grid_median_model
+jo-gartner;Jo Gartner;GAR;;;;;;;;7;4;0;;P22, P23, P24, P26;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jo-schlesser;Jo Schlesser;SCH;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jo-siffert;Jo Siffert;SIF;-1,7115818164205234;52,42373565199652;11;-16,819744573732525;14,690031155775785;43,79921710383957;61,95250741297304;95;46;0;P9–P11;P1, P3, P5, P7, P8, P9, P10, P11, P13, P14, P15, P16, P17, P18;available;available;found;full_grid_median_model
+jo-vonlanthen;Jo Vonlanthen;VON;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jochen-mass;Jochen Mass;MAS;;56,498123805426026;11;;;42,96698324058597;69,6311522046916;101;29;0;;P4, P5, P6, P7, P8, P9, P11, P12, P15, P16, P17, P18, P19, P20, P21, P22, P25, P26;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+jochen-rindt;Jochen Rindt;RIN;;51,63875790650638;5;;;39,36167286824827;61,88425661070423;60;29;0;;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P13, P14, P15, P16, P17;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+jody-scheckter;Jody Scheckter;SCH;;71,97682721413925;2;;;59,96553836481575;82,51919061730021;110;28;0;;P1, P2, P3, P4, P5, P7, P8, P9, P11, P13, P15, P17, P21;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+joe-fry;Joe Fry;FRY;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+joe-james;Joe James;JAM;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+joe-kelly;Joe Kelly;KEL;;;;;;;;2;1;0;;P18;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+john-barber;John Barber;BAR;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+john-campbell-jones;John Campbell-Jones;CAM;;;;;;;;1;1;0;;P23;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+john-cannon;John Cannon;CAN;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+john-cordts;John Cordts;COR;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+john-fitch;John Fitch;FIT;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+john-james;John James;JAM;;;;;;;;1;1;0;;P17;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+john-love;John Love;LOV;;;;;;;;9;1;0;;P26;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+john-miles;John Miles;MIL;;;8;;;;;12;5;0;;P8, P11, P13, P14;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+john-nicholson;John Nicholson;NIC;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+john-rhodes;John Rhodes;RHO;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+john-riseley-prichard;John Riseley-Prichard;RIS;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+john-surtees;John Surtees;SUR;;47,26415127025635;11;;;37,51214499065336;56,63749162298923;109;49;0;;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P18;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+john-taylor;John Taylor;TAY;;;;;;;;4;1;0;;P17;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+john-watson;John Watson;WAT;;39,53658390838525;17;;;29,147791148182222;49,726120409540435;150;49;0;;P1, P2, P4, P5, P6, P7, P8, P9, P10, P11, P12, P14, P15, P17, P18, P19, P20, P21, P23, P24;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+johnnie-parsons;Johnnie Parsons;PAR;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+johnnie-tolan;Johnnie Tolan;TOL;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+johnny-boyd;Johnny Boyd;BOY;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+johnny-cecotto;Johnny Cecotto;CEC;;;18;;;;;18;9;0;;P17, P18, P19, P20, P22, P23, P25, P26;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+johnny-claes;Johnny Claes;CLA;;;7;;;;;19;7;0;;P11, P14, P16, P17, P18, P19;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+johnny-dumfries;Johnny Dumfries;DUM;;;11;;;;;15;7;0;;P8, P10, P12, P14, P15, P17;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+johnny-herbert;Johnny Herbert;HER;9,306405877638248;56,671461198115594;8;0,8526496721435537;17,16635325121537;49,82413895548773;63,81743893211191;153;96;1;P7–P14, P16–P17;P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P20, P21, P23, P24, P26;available;available;found;full_grid_median_model
+johnny-mantz;Johnny Mantz;MAN;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+johnny-mcdowell;Johnny McDowell;MCD;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+johnny-servoz-gavin;Johnny Servoz-Gavin;SER;;;2;;;;;11;5;0;;P2, P11, P13, P14, P15;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+johnny-thomson;Johnny Thomson;THO;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+joie-chitwood;Joie Chitwood;CHI;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jolyon-palmer;Jolyon Palmer;PAL;;56,84877270769084;11;;;43,79885032078845;68,46198036562149;34;27;0;;P10, P11, P13, P14, P15, P16, P17, P18, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+jonathan-palmer;Jonathan Palmer;PAL;-10,691609977324266;43,996778415383055;8;-25,95570718344156;6,579753637566134;33,62069573657307;55,523299548587374;81;43;0;P21–P22, P24–P25;P9, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23, P24, P25, P26;available;available;found;full_grid_median_model
+jonathan-williams;Jonathan Williams;WIL;;;;;;;;1;1;0;;P16;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jorge-daponte;Jorge Daponte;DAP;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jos-verstappen;Jos Verstappen;VER;17,440953939387516;66,24336387104739;9;7,934780984923676;27,112429050709988;59,25615609138336;73,44875861985237;99;76;3;P17–P21;P6, P8, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22;available;available;found;full_grid_median_model
+josef-peters;Josef Peters;PET;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jose-dolhem;José Dolhem;DOL;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jose-froilan-gonzalez;José Froilán González;GON;;;4;;;;;16;2;0;;P1, P2;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+juan-fangio;Juan Fangio;FAN;;40,5983830554264;8;;;19,506629737673205;65,51029362794068;41;12;0;;P1, P2, P3, P4;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+juan-jover;Juan Jover;JOV;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+juan-manuel-bordeu;Juan Manuel Bordeu;BOR;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+juan-pablo-montoya;Juan Pablo Montoya;MON;-5,143429206873327;48,943801199368;5;-13,798074359739884;2,613319683901392;40,9909414212927;56,19803160274817;90;78;2;P1–P5, P7–P8;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P16, P20;available;available;found;full_grid_median_model
+jud-larson;Jud Larson;LAR;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+jules-bianchi;Jules Bianchi;BIA;;30,91936445197314;10;;;18,319748827561327;42,54800132001837;31;23;1;;P12, P15, P16, P17, P18, P19, P20, P21;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+julian-bailey;Julian Bailey;BAI;;;;;;;;6;4;0;;P24, P26;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+justin-wilson;Justin Wilson;WIL;;62,36924841230861;17;;;40,00264566086935;80,84095967438358;15;13;1;;P10, P12, P15, P16, P18, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+jyrki-jarvilehto;Jyrki Järvilehto;JAR;;63,68791602662569;14;;;52,708249587713865;73,6633946682121;59;31;0;;P6, P9, P11, P12, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23, P24, P25;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+jerome-dambrosio;Jérôme d'Ambrosio;DAM;;;;;;;;20;5;0;;P15, P20, P22, P23;insufficient_adjacent_matched_positions;insufficient_matched_starts;not_found;full_grid_median_model
+kamui-kobayashi;Kamui Kobayashi;KOB;;53,64241122861813;13;;;39,94238945578232;68,28303474723931;70;29;1;;P2, P8, P9, P11, P12, P13, P16, P17, P18, P19, P20, P21, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+karl-kling;Karl Kling;KLI;;;5;;;;;10;2;0;;P3, P6;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+karl-wendlinger;Karl Wendlinger;WEN;;69,3097643097643;9;;;53,60173160173161;85,8215558950853;38;15;0;;P7, P10, P12, P13, P14, P15, P16, P17, P21, P22, P23, P26;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+karun-chandhok;Karun Chandhok;CHA;;;;;;;;9;1;2;;P23;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+kazuki-nakajima;Kazuki Nakajima;NAK;;48,88354745058392;5;;;37,14256826377956;60,15336808014827;35;27;1;;P5, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+kazuyoshi-hoshino;Kazuyoshi Hoshino;HOS;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+keith-andrews;Keith Andrews;AND;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+keith-greene;Keith Greene;GRE;;;;;;;;3;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+keke-rosberg;Keke Rosberg;ROS;-2,0210307710307767;55,46545166828185;12;-22,091371850746853;20,726588606933984;44,85587618175853;65,22296247268099;113;53;0;P6–P7;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P19, P21, P22, P23, P24, P25, P26;available;available;found;full_grid_median_model
+ken-downing;Ken Downing;DOW;;;;;;;;2;1;0;;P13;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+ken-miles;Ken Miles;MIL;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+ken-richardson;Ken Richardson;RIC;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+ken-wharton;Ken Wharton;WHA;;;18;;;;;12;3;0;;P7, P18;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+kenneth-mcalpine;Kenneth McAlpine;MCA;;;;;;;;5;1;0;;P14;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+kenny-acheson;Kenny Acheson;ACH;;;;;;;;3;3;0;;P23, P24;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+kevin-magnussen;Kevin Magnussen;MAG;3,3494003723202725;52,262478776383446;7;-2,854563888844314;9,340684165291714;46,424101235920496;57,39202435814726;175;149;6;P7–P9, P11–P19;P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22;available;available;found;full_grid_median_model
+kimi-antonelli;Kimi ANTONELLI;ANT;;43,98697824444353;8;;;32,28173079683247;55,40633549317003;39;31;0;;P1, P2, P3, P4, P5, P6, P7, P8, P10, P11, P13, P14, P15, P16, P19;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+kimi-raikkonen;Kimi Räikkönen;RAI;5,717273168161744;54,939129845525514;7;0,9140055082988162;10,099926658135788;51,02193492163983;59,14923857350422;332;261;7;P1–P14, P16–P18;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20;available;available;found;full_grid_median_model
+kunimitsu-takahashi;Kunimitsu Takahashi;TAK;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+kurt-adolff;Kurt Adolff;ADO;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+kurt-ahrens-jr;Kurt Ahrens;AHR;;;;;;;;1;1;0;;P17;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+kurt-kuhnke;Kurt Kuhnke;KUH;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+lamberto-leoni;Lamberto Leoni;LEO;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+lance-macklin;Lance Macklin;MAC;;;8;;;;;12;3;0;;P9, P14, P15;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+lance-reventlow;Lance Reventlow;REV;;;;;;;;1;1;0;;P16;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+lance-stroll;Lance Stroll;STR;8,453839972129941;56,93595073785554;4;2,8351679803016285;13,230850493482219;51,654521464746566;61,97962763501132;196;166;4;P8–P20;P2, P3, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22;available;available;found;full_grid_median_model
+lando-norris;Lando Norris;NOR;-3,780236378902549;47,60818629607761;11;-9,830393153637791;2,163996697845478;42,056073103827465;52,98522296595164;167;135;0;P1–P10;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19;available;available;found;full_grid_median_model
+larry-crockett;Larry Crockett;CRO;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+larry-perkins;Larry Perkins;PER;;;19;;;;;11;1;0;;P22;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+lee-wallard;Lee Wallard;WAL;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+lella-lombardi;Lella Lombardi;LOM;;;24;;;;;12;4;0;;P22, P24, P26;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+len-duncan;Len Duncan;DUN;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+len-sutton;Len Sutton;SUT;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+leo-kinnunen;Leo Kinnunen;KIN;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+les-leston;Les Leston;LES;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+leslie-johnson;Leslie Johnson;JOH;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+leslie-marr;Leslie Marr;MAR;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+leslie-thorne;Leslie Thorne;THO;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+lewis-hamilton;Lewis Hamilton;HAM;6,177551603086649;55,820869512432836;5;1,833491652359602;11,40314542770401;52,176096465504386;59,536622884806114;388;279;2;P1–P9;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21;available;available;found;full_grid_median_model
+liam-lawson;Liam LAWSON;LAW;;52,54928118440263;9;;;42,60728220404279;61,8429283492085;50;39;0;;P3, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P17, P18, P19, P20, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+lloyd-ruby;Lloyd Ruby;RUB;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+logan-sargeant;Logan SARGEANT;SAR;-9,77345922600495;38,14747664012369;15;-25,168454094924677;4,9962038075101445;28,362017862284706;48,93649379656554;36;30;0;P18–P20;P10, P12, P13, P14, P15, P16, P18, P19, P20;available;available;found;full_grid_median_model
+lorenzo-bandini;Lorenzo Bandini;BAN;;56,10336211103474;2;;;42,027029086321846;71,68931124421586;41;23;0;;P2, P3, P4, P5, P6, P7, P8, P9, P10, P12, P15, P17;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+loris-kessel;Loris Kessel;KES;;;;;;;;3;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+louis-chiron;Louis Chiron;CHI;;;16;;;;;13;3;0;;P9, P13;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+louis-rosier;Louis Rosier;ROS;;34,818063931700294;15;;;19,253975004508494;49,743990587378256;33;11;0;;P7, P8, P9, P10, P12, P13, P14, P15, P17;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+luca-badoer;Luca Badoer;BAD;10,484391106901075;60,66404949217448;15;-2,2982465280772084;24,575383586090737;49,325241343623695;71,29374618437117;50;32;0;P19–P21;P16, P18, P19, P20, P21, P22, P24, P25, P26;available;available;found;full_grid_median_model
+lucas-di-grassi;Lucas di Grassi;DIG;;;21;;;;;16;3;2;;P21, P23, P24;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+luciano-burti;Luciano Burti;BUR;;39,46835571835571;20;;;22,333792062638217;56,06926406926406;13;12;1;;P14, P15, P16, P17, P19, P21;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+lucien-bianchi;Lucien Bianchi;BIA;;;21;;;;;17;9;0;;P12, P14, P15, P16, P17, P18, P19, P23;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+ludovico-scarfiotti;Ludovico Scarfiotti;SCA;;;11;;;;;10;5;0;;P2, P9, P10, P15;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+luigi-fagioli;Luigi Fagioli;FAG;;;;;;;;4;1;0;;P3;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+luigi-musso;Luigi Musso;MUS;;;8;;;;;21;8;0;;P2, P4, P5, P7, P8, P9, P10, P12;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+luigi-piotti;Luigi Piotti;PIO;;;;;;;;4;1;0;;P17;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+luigi-villoresi;Luigi Villoresi;VIL;;;17;;;;;25;7;0;;P3, P4, P5, P11;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+luis-perez-sala;Luis Pérez-Sala;PER;;37,51475796930342;6;;;18,280122655122653;58,133161976911964;23;11;0;;P9, P11, P15, P19, P21, P23, P24, P25;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+luiz-bueno;Luiz Bueno;BUE;;;;;;;;1;1;0;;P20;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+luki-botha;Luki Botha;BOT;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+mack-hellings;Mack Hellings;HEL;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+manfred-winkelhock;Manfred Winkelhock;WIN;;51,959972394755006;12;;;38,405319886793094;64,78218763621008;45;23;0;;P7, P8, P9, P10, P12, P13, P14, P16, P18, P20, P23, P25;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+manny-ayulo;Manny Ayulo;AYU;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+marc-gene;Marc Gené;GEN;-6,875316464357562;38,836280216999164;19;-21,302069790939658;10,349776507738827;25,37285044031276;52,95913554815865;34;27;0;P20–P22;P5, P11, P15, P18, P19, P20, P21, P22;available;available;found;full_grid_median_model
+marc-surer;Marc Surer;SUR;;47,07151754026755;15;;;35,192660935040436;60,09950055991697;76;32;0;;P7, P9, P10, P11, P12, P14, P15, P16, P17, P19, P20, P21, P22, P23, P24, P26;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+marcel-balsa;Marcel Balsa;BAL;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+marco-apicella;Marco Apicella;API;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+marcus-ericsson;Marcus Ericsson;ERI;-1,6341641676384153;45,63324953597241;13;-11,11588872647546;6,631531006816488;38,37887256339812;52,88881028674517;91;80;5;P12–P20;P6, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22;available;available;found;full_grid_median_model
+maria-de-filippis;Maria de Filippis;DEF;;;;;;;;3;2;0;;P19, P21;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+mario-andretti;Mario Andretti;AND;;59,79281649585528;7;;;46,04923052255824;71,08153168242394;121;34;0;;P1, P2, P3, P4, P5, P6, P7, P9, P10, P11, P13, P15, P16, P18, P19;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+mark-blundell;Mark Blundell;BLU;;40,408580882718816;14;;;26,26583166833167;54,60864695340499;58;29;0;;P5, P8, P9, P10, P11, P12, P13, P14, P15, P17, P19, P20, P21, P23;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+mark-donohue;Mark Donohue;DON;;;5;;;;;14;3;0;;P16, P18;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+mark-webber;Mark Webber;WEB;-9,689639822449706;42,67231073926122;10;-15,738804858128942;-3,094803905579014;36,98718885879101;48,57487044644846;206;131;3;P2–P12;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P16, P18, P19, P20, P21;available;available;found;full_grid_median_model
+markus-winkelhock;Markus Winkelhock;WIN;;;;;;;;1;1;0;;P22;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+marshall-teague;Marshall Teague;TEA;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+martin-brundle;Martin Brundle;BRU;10,926349397053608;57,533190619587664;7;-0,38125250987062675;21,474751761205496;49,766209673602255;66,23289967093658;156;80;0;P8–P13, P15–P17;P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P25;available;available;found;full_grid_median_model
+martin-donnelly;Martin Donnelly;DON;;41,54671717171717;12;;;20,1501924001924;60,97401094276095;13;10;0;;P11, P12, P14, P15, P17, P18, P20, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+masahiro-hasemi;Masahiro Hasemi;HAS;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+massimiliano-papis;Massimiliano Papis;PAP;;;;;;;;5;3;0;;P15, P17, P20;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+massimo-natili;Massimo Natili;NAT;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+masten-gregory;Masten Gregory;GRE;;51,43378242642948;13;;;31,0654849183075;69,19066306354718;34;12;0;;P6, P7, P8, P10, P11, P12, P19, P20, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+mauri-rose;Mauri Rose;ROS;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+maurice-trintignant;Maurice Trintignant;TRI;;48,79888617522307;12;;;36,09590877078766;60,110644917366834;71;22;0;;P5, P6, P7, P8, P11, P12, P13, P14, P16, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+mauro-baldi;Mauro Baldi;BAL;;52,47376462546742;3;;;37,824590773809526;66,90466344997596;35;19;0;;P7, P8, P9, P10, P11, P12, P13, P15, P17, P23, P24, P25, P26;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+mauricio-gugelmin;Maurício Gugelmin;GUG;-25,64814814814815;38,592574683000215;20;-42,30729166666668;-7,117104828042375;29,40376315585255;48,71697244554389;71;47;0;P13–P14;P5, P6, P7, P8, P9, P10, P13, P14, P15, P16, P17, P18, P19, P20, P21, P23, P24, P25, P26;available;available;found;full_grid_median_model
+max-chilton;Max Chilton;CHI;;27,81636238157977;21;;;16,31829956309123;40,07698378010877;33;23;1;;P16, P17, P18, P19, P20, P21, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+max-jean;Max Jean;JEA;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+max-verstappen;Max Verstappen;VER;4,669497542109597;59,27329365767928;11;-0,8441820849536318;10,708645386244028;55,238164942371235;63,25787456619752;239;202;1;P1–P9;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P13, P14, P15, P16, P17, P18, P19, P20;available;available;found;full_grid_median_model
+max-de-terra;Max de Terra;DET;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+menato-boffa;Menato Boffa;BOF;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+michael-andretti;Michael Andretti;AND;;;;;;;;10;5;0;;P9, P11, P12, P14;insufficient_adjacent_matched_positions;insufficient_matched_starts;not_found;full_grid_median_model
+michael-bleekemolen;Michael Bleekemolen;BLE;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+michael-may;Michael May;MAY;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+michael-schumacher;Michael Schumacher;MSC;1,5046836773169092;54,21382695559427;7;-4,2605807092386865;6,959246204448959;50,01250259404818;58,48792488219963;297;183;3;P1–P6, P9–P10;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P16, P18, P19;available;available;found;full_grid_median_model
+michel-leclere;Michel Leclère;LEC;;;;;;;;7;1;0;;P18;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+michele-alboreto;Michele Alboreto;ALB;-1,986961355252258;48,56095032342806;6;-11,230915714678774;8,127077342055102;42,35223797037603;54,92923715293828;187;99;0;P4–P7, P15–P16, P21–P22;P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P24, P25, P26;available;available;found;full_grid_median_model
+mick-schumacher;Mick Schumacher;MSC;2,656069259687676;42,878962203044466;15;-11,130247728462018;16,6397422022422;31,530996664084896;53,281075276989995;42;35;1;P18–P19;P6, P8, P9, P10, P12, P14, P15, P16, P17, P18, P19, P20;available;available;found;full_grid_median_model
+miguel-angel-guerra;Miguel Ángel Guerra;GUE;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+mika-hakkinen;Mika Häkkinen;HAK;0,7350008240774022;52,30846852861959;10;-6,467422263745832;8,00841236998558;46,03276540970313;58,67489371322604;153;108;0;P1–P8;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P14, P16, P21, P23, P24, P25, P26;available;available;found;full_grid_median_model
+mika-salo;Mika Salo;SAL;5,669193764838143;56,77191841418816;9;-2,489519020183065;12,866285060308789;49,9691340416157;63,009295232866876;107;80;0;P9–P10, P12–P19;P4, P6, P7, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23, P25;available;available;found;full_grid_median_model
+mike-beuttler;Mike Beuttler;BEU;;;9;;;;;27;7;0;;P16, P19, P20, P22, P23;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+mike-fisher;Mike Fisher;FIS;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+mike-hailwood;Mike Hailwood;HAI;;61,727881259131266;3;;;42,938205875993894;80,09486407973249;47;12;1;;P4, P7, P12, P14, P15, P17, P18;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+mike-harris;Mike Harris;HAR;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+mike-hawthorn;Mike Hawthorn;HAW;;43,654175772209825;8;;;26,927238025777104;60,5142782884289;38;11;0;;P1, P3, P4, P5, P6, P9, P10;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+mike-macdowel;Mike MacDowel;MAC;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+mike-magill;Mike Magill;MAG;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+mike-nazaruk;Mike Nazaruk;NAZ;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+mike-parkes;Mike Parkes;PAR;;;;;;;;5;3;0;;P1, P5, P10;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+mike-sparken;Mike Sparken;SPA;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+mike-spence;Mike Spence;SPE;;49,6579955538289;11;;;35,31212654013712;63,05239545325858;34;18;0;;P4, P5, P6, P8, P9, P11, P12, P13, P14, P17;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+mike-taylor;Mike Taylor;TAY;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+mike-thackwell;Mike Thackwell;THA;;;;;;;;1;1;0;;P25;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+mike-wilds;Mike Wilds;WIL;;;;;;;;3;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+moises-solana;Moisés Solana;SOL;;;;;;;;8;6;0;;P7, P9, P14, P15, P17;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+myron-fohr;Myron Fohr;FOH;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+mario-de-araujo-cabral;Mário de Araújo Cabral;CAB;;;;;;;;4;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+nanni-galli;Nanni Galli;GAL;;;20;;;;;15;6;0;;P15, P18, P19, P21;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+narain-karthikeyan;Narain Karthikeyan;KAR;;35,549727763350056;17;;;19,83264560194708;50,13116292554316;45;18;1;;P11, P12, P13, P15, P16, P17, P18, P19, P20, P21, P22, P24;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+nasif-estefano;Nasif Estéfano;EST;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+nello-pagani;Nello Pagani;PAG;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+nelson-piquet;Nelson Piquet;PIQ;-3,3296661128023013;49,76211110319469;11;-9,915905321465068;3,6068666002006657;43,35929649332015;55,43496931963812;227;125;0;P1–P11;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P24;available;available;found;full_grid_median_model
+neville-lederle;Neville Lederle;LED;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+nicholas-latifi;Nicholas Latifi;LAT;-16,257942358169853;34,56518717922434;9;-28,784916493338557;-0,1745056214375215;26,358902244003964;44,172873007013884;58;46;2;P18–P20;P10, P11, P13, P14, P15, P16, P17, P18, P19, P20;available;available;found;full_grid_median_model
+nick-heidfeld;Nick Heidfeld;HEI;-0,5343757606446935;50,51035634808147;10;-6,350227524891077;4,9620180794604405;44,5259053713935;55,898138921969256;173;132;4;P4–P16;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22;available;available;found;full_grid_median_model
+nico-hulkenberg;Nico Hülkenberg;HUL;5,651735710682791;53,04272544139439;13;0,44728778365581257;11,513816803643905;48,25167849345937;58,27657019426404;252;193;1;P7–P18;P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P24;available;available;found;full_grid_median_model
+nico-rosberg;Nico Rosberg;ROS;2,4247304963958847;53,36428121020651;7;-6,593998716848743;9,61895827271136;47,55592119385607;58,94028559907976;198;124;2;P1–P7, P9–P10;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P21, P22;available;available;found;full_grid_median_model
+nicola-larini;Nicola Larini;LAR;;31,956751581751586;14;;;20,638193507430515;44,50232892107892;46;30;0;;P10, P11, P12, P13, P14, P15, P17, P18, P19, P20, P21, P22, P23, P24, P25, P26;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+nicolas-kiesa;Nicolas Kiesa;KIE;;;;;;;;5;4;0;;P18, P19, P20;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+nigel-mansell;Nigel Mansell;MAN;-5,872273183391122;50,61128004405315;5;-15,265011988287805;3,7266405988816818;42,836349626567035;57,434269968950275;182;91;0;P1–P3;P1, P2, P3, P4, P5, P6, P7, P8, P9, P11, P12, P14, P15, P16, P17, P18, P19, P23;available;available;found;full_grid_median_model
+niki-lauda;Niki Lauda;LAU;-4,515799029426847;42,91418334408353;7;-21,2711374954022;12,485705949046288;34,29212683283653;51,420457688359804;166;58;0;P3–P4;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P18, P19, P21;available;available;found;full_grid_median_model
+nikita-mazepin;Nikita Mazepin;MAZ;;35,66786077512622;11;;;19,83631615524998;53,162801920517374;20;14;0;;P15, P16, P17, P18, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+nino-farina;Nino Farina;FAR;;;;;;;;27;9;0;;P1, P2, P3, P4;insufficient_adjacent_matched_positions;insufficient_matched_starts;not_found;full_grid_median_model
+nino-vaccarella;Nino Vaccarella;VAC;;;;;;;;4;1;0;;P14;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+norberto-fontana;Norberto Fontana;FON;;;;;;;;4;3;0;;P14, P18, P20;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+noritake-takahara;Noritake Takahara;TAK;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
 nyck-de-vries;Nyck De Vries;DEV;;;;;;;;11;9;0;;P8, P12, P14, P15, P17, P18, P19, P20;insufficient_adjacent_matched_positions;insufficient_matched_starts;not_found;full_grid_median_model
-oliver-bearman;Oliver BEARMAN;BEA;;47,04929732103645;15;;;34,04571947150072;61,83481724129046;43;23;0;;P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-oscar-piastri;Oscar PIASTRI;PIA;-1,5155222863556173;53,84144681314492;6;-17,380636724386722;16,831415112665123;45,170722927982645;61,69730415094883;82;53;0;P2–P3;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P13, P16, P17, P18;available;available;found;full_grid_median_model
-pascal-wehrlein;Pascal Wehrlein;WEH;;41,81361938714879;19;;;22,42171717171717;59,82927489177488;35;17;2;;P12, P13, P14, P15, P17, P18, P19, P21;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-pastor-maldonado;Pastor Maldonado;MAL;;47,64888468013468;11;;;33,772518508061985;61,660320550077486;91;24;0;;P6, P7, P8, P10, P11, P12, P13, P14, P15, P16, P17, P18, P21, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-paul-di-resta;Paul di Resta;DIR;;;14;;;;;58;5;0;;P10, P14, P15, P19;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
-pedro-de-la-rosa;Pedro de la Rosa;DLR;;;15;;;;;31;0;1;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
-pierre-gasly;Pierre Gasly;GAS;-0,12552279700691943;48,9413726820443;13;-6,780145836556684;6,4720048140506865;43,08261605001712;55,136585458046845;184;134;5;P5–P15;P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20;available;available;found;full_grid_median_model
+oliver-bearman;Oliver BEARMAN;BEA;;46,41030241297621;15;;;35,22565766245481;56,56615791684793;43;33;0;;P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+olivier-beretta;Olivier Beretta;BER;;;;;;;;9;5;0;;P18, P22, P24, P25;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+olivier-gendebien;Olivier Gendebien;GEN;;;;;;;;13;4;0;;P3, P5, P6;insufficient_adjacent_matched_positions;insufficient_matched_starts;not_found;full_grid_median_model
+olivier-grouillard;Olivier Grouillard;GRO;;57,61877705627707;15;;;41,33007560330751;73,53257275132275;39;20;0;;P10, P12, P15, P16, P17, P18, P20, P21, P22, P23, P24, P26;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+olivier-panis;Olivier Panis;PAN;-11,123967348782042;37,48236374439582;19;-18,834931404810458;-3,3136479978970397;31,02667070099472;43,73857596616047;149;110;2;P9–P13, P17–P18;P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22;available;available;found;full_grid_median_model
+onofre-marimon;Onofre Marimón;MAR;;;;;;;;9;1;0;;P4;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+oscar-galvez;Oscar Gálvez;GAL;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+oscar-larrauri;Oscar Larrauri;LAR;;;;;;;;7;3;0;;P24, P25, P26;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+oscar-piastri;Oscar PIASTRI;PIA;4,504537186813055;53,4521649625963;6;-3,2002873967728425;12,577043828901077;46,81579650240285;60,459066868461306;82;66;0;P1–P3, P5–P8;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P13, P16, P17, P18;available;available;found;full_grid_median_model
+oswald-karch;Oswald Karch;KAR;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+otto-stuppacher;Otto Stuppacher;STU;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+ottorino-volonterio;Ottorino Volonterio;VOL;;;;;;;;1;1;0;;P19;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+pablo-birger;Pablo Birger;BIR;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+paco-godia;Paco Godia;GOD;;;5;;;;;12;3;0;;P15, P16, P18;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+paddy-driver;Paddy Driver;DRI;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+paolo-barilla;Paolo Barilla;BAR;;;;;;;;7;3;0;;P19, P23, P24;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+pascal-fabre;Pascal Fabre;FAB;;;23;;;;;11;7;0;;P24, P25, P26;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+pascal-wehrlein;Pascal Wehrlein;WEH;;40,82166415108145;19;;;29,324946065447712;54,16252920641732;35;28;2;;P12, P13, P14, P15, P17, P18, P19, P20, P21;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+pastor-maldonado;Pastor Maldonado;MAL;-7,2703756703186935;45,24164894062854;11;-18,477593316851596;4,532327538603533;36,585513741491994;53,78962449775969;91;49;0;P14–P17;P5, P6, P7, P8, P10, P11, P12, P13, P14, P15, P16, P17, P18, P20, P21, P22;available;available;found;full_grid_median_model
+pat-flaherty;Pat Flaherty;FLA;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+pat-oconnor;Pat O'Connor;O'C;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+patrick-depailler;Patrick Depailler;DEP;;48,477186145950455;12;;;33,7957620211793;63,447101483446936;93;23;0;;P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P18;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+patrick-friesacher;Patrick Friesacher;FRI;;;19;;;;;11;8;0;;P13, P15, P16, P18, P19;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+patrick-gaillard;Patrick Gaillard;GAI;;;;;;;;2;1;0;;P23;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+patrick-neve;Patrick Nève;NEV;;;22;;;;;10;3;0;;P22, P24, P26;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+patrick-tambay;Patrick Tambay;TAM;;56,31839941104644;5;;;46,294829868199436;65,82618001893873;104;50;0;;P1, P2, P3, P4, P5, P6, P7, P8, P10, P11, P13, P14, P15, P16, P17, P18, P19, P20, P21;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+paul-belmondo;Paul Belmondo;BEL;;;;;;;;7;4;0;;P17, P20, P24;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+paul-emery;Paul Emery;EME;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+paul-england;Paul England;ENG;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+paul-frere;Paul Frère;FRE;;;8;;;;;10;5;0;;P8, P10, P11;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+paul-goldsmith;Paul Goldsmith;GOL;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+paul-hawkins;Paul Hawkins;HAW;;;;;;;;3;2;0;;P14, P20;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+paul-pietsch;Paul Pietsch;PIE;;;;;;;;2;1;0;;P7;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+paul-russo;Paul Russo;RUS;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+paul-di-resta;Paul di Resta;DIR;;44,43487973379278;14;;;30,528297496408104;59,574948199948196;58;23;0;;P5, P6, P9, P10, P11, P12, P14, P15, P17, P18, P19, P21;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+pedro-diniz;Pedro Diniz;DIN;4,370958654464549;54,8039479349288;14;-7,904057227409461;16,505242489021313;45,76686455146751;63,40162833810466;92;66;0;P15–P17, P19–P20;P8, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23, P26;available;available;found;full_grid_median_model
+pedro-lamy;Pedro Lamy;LAM;-3,6587087985114266;49,98212387028176;16;-26,60908856768232;19,460808982683982;30,838131313131317;69,13805996517789;27;15;0;P18–P19;P17, P18, P19, P26;available;available;found;full_grid_median_model
+pedro-rodriguez;Pedro Rodríguez;ROD;;66,02956074392725;4;;;54,66998590502813;76,8757464948448;54;26;0;;P2, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+pedro-de-la-rosa;Pedro de la Rosa;DLR;9,914784289784285;51,22039254006468;3;-14,227926587301585;30,03311093668236;43,04151267964382;59,252223825147205;95;61;2;P20–P21;P4, P5, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23;available;available;found;full_grid_median_model
+perry-mccarthy;Perry McCarthy;MCC;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+pete-lovely;Pete Lovely;LOV;;;;;;;;7;1;0;;P16;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+peter-arundell;Peter Arundell;ARU;;;7;;;;;11;6;0;;P4, P6, P13, P15, P17;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+peter-ashdown;Peter Ashdown;ASH;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+peter-broeker;Peter Broeker;BRO;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+peter-collins;Peter Collins;COL;;58,492799232930814;3;;;38,91892669594737;79,68782293322734;26;10;0;;P2, P3, P4, P6, P7, P9, P10, P11, P16;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+peter-gethin;Peter Gethin;GET;;;11;;;;;29;9;0;;P10, P11, P14, P16, P18, P19;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+peter-hirt;Peter Hirt;HIR;;;;;;;;3;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+peter-monteverdi;Peter Monteverdi;MON;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+peter-revson;Peter Revson;REV;;;23;;;;;29;6;0;;P3, P7, P10, P12, P18;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+peter-ryan;Peter Ryan;RYA;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+peter-walker;Peter Walker;WAL;;;;;;;;2;2;0;;P10, P19;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+peter-whitehead;Peter Whitehead;WHI;;;;;;;;8;1;0;;P8;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+peter-de-klerk;Peter de Klerk;DEK;;;;;;;;4;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+phil-cade;Phil Cade;CAD;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+phil-hill;Phil Hill;HIL;;67,70184878028016;4;;;51,61538644682569;81,5195613247318;48;18;0;;P1, P4, P5, P7, P8, P9, P10, P12, P14, P15, P17;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+philip-fotheringham-parker;Philip Fotheringham-Parker;FOT;;;;;;;;1;1;0;;P16;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+philippe-adams;Philippe Adams;ADA;;;;;;;;2;2;0;;P25, P26;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+philippe-alliot;Philippe Alliot;ALL;-11,770194377501099;41,175691867656155;11;-26,970023188988442;3,4149370072836924;31,874881380389855;50,75372990105133;103;56;0;P19–P23;P7, P8, P10, P11, P12, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23, P24, P25, P26;available;available;found;full_grid_median_model
+philippe-streiff;Philippe Streiff;STR;;46,28226996127606;9;;;35,33345349303996;59,12828580506276;52;29;0;;P5, P10, P13, P14, P16, P17, P18, P19, P20, P21, P22, P23, P24, P25;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+philippe-etancelin;Philippe Étancelin;ETA;;;13;;;;;10;2;0;;P6, P21;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+piercarlo-ghinzani;Piercarlo Ghinzani;GHI;-7,047333453583455;44,17683423118205;16;-23,79611985787581;10,042542130488567;33,15001712723957;56,44137324788785;70;37;0;P22–P23, P25–P26;P14, P16, P17, P18, P19, P20, P21, P22, P23, P24, P25, P26;available;available;found;full_grid_median_model
+pierluigi-martini;Pierluigi Martini;MAR;1,7104720676149279;48,34384090336471;12;-16,206910450660448;18,673893573633162;39,56930484543305;57,13548391523935;110;63;0;P14–P15;P3, P5, P7, P8, P9, P10, P11, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23, P25, P26;available;available;found;full_grid_median_model
+piero-carini;Piero Carini;CAR;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+piero-drogo;Piero Drogo;DRO;;;;;;;;1;1;0;;P15;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+piero-scotti;Piero Scotti;SCO;;;;;;;;1;1;0;;P12;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+piero-taruffi;Piero Taruffi;TAR;;;8;;;;;15;3;0;;P3, P5, P6;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+pierre-gasly;Pierre Gasly;GAS;-2,239379328789431;48,79675518274393;13;-7,852406711466884;2,7456588581502186;43,52265157007419;53,51830225802003;184;157;5;P4–P15;P1, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20;available;available;found;full_grid_median_model
+pierre-levegh;Pierre Levegh;LEV;;;;;;;;5;3;0;;P10, P13, P19;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+pierre-henri-raphanel;Pierre-Henri Raphanel;RAP;;;;;;;;1;1;0;;P18;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+piers-courage;Piers Courage;COU;;59,589078926104854;8;;;45,58568742489021;72,05204929148864;27;16;0;;P4, P7, P8, P9, P10, P11, P12, P13, P14, P17;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
 pietro-fittipaldi;Pietro Fittipaldi;FIT;;;;;;;;2;2;0;;P17, P20;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
-ralf-schumacher;Ralf Schumacher;SCH;;;;;;;;16;2;0;;P9, P17;insufficient_adjacent_matched_positions;insufficient_matched_starts;not_found;full_grid_median_model
-rio-haryanto;Rio Haryanto;HAR;;;20;;;;;11;2;0;;P22;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
-robert-kubica;Robert Kubica;KUB;-9,14285714285714;52,756788665879554;4;-31,273561507936513;11,411435786435781;43,172375404953804;62,728018060173866;89;44;4;P19–P20;P2, P4, P5, P7, P8, P9, P10, P11, P12, P13, P15, P17, P18, P19, P20;available;available;found;full_grid_median_model
-roberto-merhi;Roberto Merhi;MER;;43,825593598320864;17;;;25,783256673881674;61,72321428571426;12;11;1;;P14, P16, P17, P18, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-romain-grosjean;Romain Grosjean;GRO;-10,744083635423461;41,27791894096242;19;-18,06307315724838;-2,7486080135311615;34,63334248915555;48,340679959118326;165;92;5;P5–P6, P8–P11, P13–P18;P3, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20;available;available;found;full_grid_median_model
-rubens-barrichello;Rubens Barrichello;BAR;;58,380102040816325;8;;;46,040456649831654;71,00123524788702;87;28;1;;P1, P2, P3, P4, P5, P6, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-sakon-yamamoto;Sakon Yamamoto;YAM;;;15;;;;;14;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
-scott-speed;Scott Speed;SPE;;;;;;;;9;3;0;;P17, P22;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
-sebastian-vettel;Sebastian Vettel;VET;6,289562746301577;55,32165680124865;7;-1,9227857413131884;13,751207412395313;49,485823692274856;60,99943780601193;286;147;6;P1–P4, P8–P11;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20;available;available;found;full_grid_median_model
-sergey-sirotkin;Sergey Sirotkin;SIR;;55,83025634496224;15;;;37,231927636757185;72,44443908364363;19;17;1;;P12, P13, P14, P16, P17, P18, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-sergio-perez;Sergio Pérez;PER;4,8905862007201275;54,66747036367288;12;-0,8179039453612618;10,695626465665537;48,93389421369252;59,59711859321235;287;158;5;P2–P13, P15–P16;P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P22;available;available;found;full_grid_median_model
-stoffel-vandoorne;Stoffel Vandoorne;VAN;;43,59705245734659;3;;;31,928630409715936;56,137562272383704;40;34;0;;P8, P9, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-sebastien-bourdais;Sébastien Bourdais;BOU;;47,97895622895622;10;;;32,159699675324674;66,10634920634918;24;15;1;;P8, P9, P13, P14, P15, P16, P17, P18, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-sebastien-buemi;Sébastien Buemi;BUE;;36,44119769119769;11;;;19,494844276094277;56,99447923108638;52;13;0;;P6, P10, P11, P13, P16, P19;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-takuma-sato;Takuma Sato;SAT;;;15;;;;;20;5;1;;P10, P13, P19, P22;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
-timo-glock;Timo Glock;GLO;;56,909107306834585;11;;;41,42885326479077;72,850278135939;84;22;3;;P2, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P16, P18, P19, P20, P21;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
-valtteri-bottas;Valtteri Bottas;BOT;-6,947263184452389;44,025667728497936;18;-13,071502109419114;-0,3635327677833948;39,03484993711282;49,10602229198728;261;159;1;P1–P7, P12–P16;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20;available;available;found;full_grid_median_model
-vitaly-petrov;Vitaly Petrov;PET;;;4;;;;;55;2;0;;P6, P19;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
-vitantonio-liuzzi;Vitantonio Liuzzi;LIU;;;8;;;;;52;8;1;;P7, P16, P18, P19, P20;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
-will-stevens;Will Stevens;STE;;26,683000641333972;;;;14,412823445493899;41,4108974530801;18;18;0;;P13, P15, P17, P18, P19, P20;insufficient_adjacent_matched_positions;available;not_found;full_grid_median_model
-yuki-tsunoda;Yuki Tsunoda;TSU;6,370563271604938;49,57728959352335;11;-8,403404080487414;21,128326919993565;43,2750055830413;56,55100816841889;107;77;4;P10–P11;P3, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20;available;available;found;full_grid_median_model
-zhou-guanyu;ZHOU Guanyu;ZHO;;41,91101866883116;18;;;30,74464761704345;53,311560166358156;46;32;0;;P5, P10, P12, P13, P14, P15, P16, P17, P18, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+prince-bira;Prince Bira;BIR;;;11;;;;;16;2;0;;P13, P18;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+ralf-schumacher;Ralf Schumacher;SCH;-2,2288970561199104;47,21441853324676;16;-8,720295933291172;3,9051570140297303;41,57279300802205;52,95511782215766;172;142;1;P1–P11;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22;available;available;found;full_grid_median_model
+ralph-firman;Ralph Firman;FIR;;;14;;;;;10;7;3;;P14, P15, P16, P17;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+raul-boesel;Raul Boesel;BOE;;35,175815696649025;18;;;17,643560606060607;53,015619796869785;22;12;0;;P18, P21, P22, P23, P24, P25, P26;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+ray-crawford;Ray Crawford;CRA;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+ray-reed;Ray Reed;REE;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+raymond-sommer;Raymond Sommer;SOM;;;;;;;;4;1;0;;P5;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+red-amick;Red Amick;AMI;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+reg-parnell;Reg Parnell;PAR;;;;;;;;5;1;0;;P20;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+reine-wisell;Reine Wisell;WIS;;;10;;;;;22;4;0;;P10, P12, P17;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+renato-pirocchi;Renato Pirocchi;PIR;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+renzo-zorzi;Renzo Zorzi;ZOR;;;;;;;;7;3;0;;P17, P18, P22;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+rene-arnoux;René Arnoux;ARN;1,830821266128294;50,21555524515469;15;-13,453443877551019;17,42242209383754;43,396639692202925;57,50025642711539;145;71;0;P1–P2;P1, P2, P3, P4, P5, P6, P8, P9, P10, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23, P24, P25, P26;available;available;found;full_grid_median_model
+ricardo-londono;Ricardo Londoño;LON;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+ricardo-rodriguez;Ricardo Rodríguez;ROD;;;;;;;;5;2;0;;P7, P11;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+ricardo-rosset;Ricardo Rosset;ROS;-8,615185468126649;52,67917501110779;16;-27,22201797385621;10,188015547127936;37,55859381028583;66,98611506253494;25;21;0;P18–P19;P17, P18, P19, P20, P21, P22;available;available;found;full_grid_median_model
+ricardo-zonta;Ricardo Zonta;ZON;;57,1804053789348;12;;;44,78037084443335;68,91683842735083;36;34;0;;P6, P8, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+ricardo-zunino;Ricardo Zunino;ZUN;;;;;;;;7;1;0;;P17;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+riccardo-paletti;Riccardo Paletti;PAL;;;;;;;;1;1;0;;P13;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+riccardo-patrese;Riccardo Patrese;PAT;0,8964621281396944;51,78250807476814;7;-5,71294854588505;8,36904822834464;45,86261824638308;58,2582514793428;250;125;0;P1–P8, P10–P12, P14–P15;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P25;available;available;found;full_grid_median_model
+richard-attwood;Richard Attwood;ATT;;44,11590931590932;12;;;25,201259129859675;64,56739665562034;16;10;0;;P6, P10, P13, P15, P17, P18, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+richard-robarts;Richard Robarts;ROB;;;;;;;;3;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+richie-ginther;Richie Ginther;GIN;;57,0728532655616;3;;;42,21409655710251;70,9095573797938;50;24;0;;P2, P3, P4, P5, P7, P8, P9, P11, P13;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+rikky-von-opel;Rikky von Opel;VON;;;;;;;;9;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+rio-haryanto;Rio Haryanto;HAR;;33,30844155844156;20;;;17,124383718133718;54,10223214285713;11;10;0;;P19, P20, P21, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+rob-schroeder;Rob Schroeder;SCH;;;;;;;;1;1;0;;P17;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+rob-slotemaker;Rob Slotemaker;SLO;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+robert-doornbos;Robert Doornbos;DOO;;;17;;;;;10;9;1;;P10, P15, P17, P18, P19, P20, P22;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+robert-kubica;Robert Kubica;KUB;-2,216388305632493;52,17812210402358;4;-14,81445829633415;9,98979505043738;44,3056104410103;60,424355501739406;95;68;4;P4–P7, P19–P20;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20;available;available;found;full_grid_median_model
+robert-la-caze;Robert La Caze;LAC;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+robert-manzon;Robert Manzon;MAN;;;12;;;;;25;5;0;;P4, P6, P9, P11, P12;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+robert-obrien;Robert O'Brien;O'B;;;;;;;;1;1;0;;P22;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+roberto-bonomi;Roberto Bonomi;BON;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+roberto-bussinello;Roberto Bussinello;BUS;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+roberto-guerrero;Roberto Guerrero;GUE;;52,26800976800976;13;;;33,963951268638766;69,9813988095238;20;13;0;;P14, P16, P18, P19, P20, P21, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+roberto-lippi;Roberto Lippi;LIP;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+roberto-merhi;Roberto Merhi;MER;;40,92926541474882;17;;;24,99892552980788;57,50420107519291;12;12;1;;P14, P16, P17, P18, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+roberto-mieres;Roberto Mieres;MIE;;;3;;;;;13;2;0;;P7, P19;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+roberto-moreno;Roberto Moreno;MOR;;48,28273809523809;6;;;32,99654913799651;63,31438111271444;40;20;0;;P5, P7, P8, P9, P13, P15, P18, P21, P22, P23, P24, P25, P26;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+robin-montgomerie-charrington;Robin Montgomerie-Charrington;MON;;;;;;;;1;1;0;;P15;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+robin-widdows;Robin Widdows;WID;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+rodger-ward;Rodger Ward;WAR;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+rodney-nuckey;Rodney Nuckey;NUC;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+roelof-wunderink;Roelof Wunderink;WUN;;;;;;;;3;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+roger-laurent;Roger Laurent;LAU;;;;;;;;2;1;0;;P20;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+roger-loyer;Roger Loyer;LOY;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+roger-penske;Roger Penske;PEN;;;;;;;;2;1;0;;P13;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+roger-williamson;Roger Williamson;WIL;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+roland-ratzenberger;Roland Ratzenberger;RAT;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+rolf-stommelen;Rolf Stommelen;STO;;40,57109104663452;16;;;23,085416666666664;57,33824829174093;53;16;0;;P7, P12, P14, P16, P17, P19, P21, P22, P23, P25;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+romain-grosjean;Romain Grosjean;GRO;-13,136410738263406;38,50998077361497;19;-18,7973411555092;-6,760561795720529;32,85059634932669;44,28803653837457;165;130;5;P5–P11, P13–P18;P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P22;available;available;found;full_grid_median_model
+ron-flockhart;Ron Flockhart;FLO;;;14;;;;;12;2;0;;P10, P11;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+ronnie-bucknum;Ronnie Bucknum;BUC;;;13;;;;;11;8;0;;P10, P11, P12, P13, P14, P15, P18, P22;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+ronnie-peterson;Ronnie Peterson;PET;;58,310161201926896;5;;;46,20898801256198;69,2297679523977;119;31;0;;P1, P2, P3, P4, P5, P6, P7, P8, P9, P11, P12, P13, P14, P15, P16, P17, P18;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+roy-salvadori;Roy Salvadori;SAL;;41,066115554408896;11;;;18,799253418472652;63,21790652158298;46;12;0;;P3, P4, P8, P9, P11, P12, P13, P14;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+rubens-barrichello;Rubens Barrichello;BAR;-0,6422330082256674;49,95382908722961;8;-5,794971652302565;4,22908235112199;45,34172494265365;54,087560686381124;308;215;2;P1–P17;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P20, P22;available;available;found;full_grid_median_model
+rudi-fischer;Rudi Fischer;FIS;;;;;;;;6;1;0;;P8;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+rudolf-krause;Rudolf Krause;KRA;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+rudolf-schoeller;Rudolf Schoeller;SCH;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+rupert-keegan;Rupert Keegan;KEE;;;11;;;;;24;8;0;;P18, P20, P23, P24;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+sakon-yamamoto;Sakon Yamamoto;YAM;;51,62698412698413;15;;;33,41840599876314;70,4452380952381;19;12;1;;P19, P20, P21, P22, P23, P24;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+sam-hanks;Sam Hanks;HAN;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+sam-posey;Sam Posey;POS;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+sam-tingle;Sam Tingle;TIN;;;;;;;;5;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+satoru-nakajima;Satoru Nakajima;NAK;-24,84243267641752;27,655552119837836;19;-38,53955338422781;-9,725434550910665;18,97383629377677;38,28508016278722;71;42;0;P12–P15;P8, P10, P11, P12, P13, P14, P15, P16, P17, P19, P20, P21, P22, P23, P24, P25;available;available;found;full_grid_median_model
+scott-speed;Scott Speed;SPE;;66,08159955986044;8;;;51,48012769394348;77,98933326774234;26;23;0;;P11, P12, P14, P15, P16, P17, P18, P19, P20, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+sebastian-vettel;Sebastian Vettel;VET;4,526928681155069;54,33479615258539;7;-1,5267526162361436;9,445633523761789;49,36249825623163;58,68168487920363;286;206;6;P1–P6, P8–P11, P15–P16;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20;available;available;found;full_grid_median_model
+sergey-sirotkin;Sergey Sirotkin;SIR;;51,7684784351451;15;;;33,80799653777595;69,20591109419478;19;18;1;;P12, P13, P14, P16, P17, P18, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+sergio-mantovani;Sergio Mantovani;MAN;;;;;;;;5;1;0;;P11;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+sergio-perez;Sergio Pérez;PER;1,8467283235192304;53,20590676539679;12;-3,0085589438580977;6,5992374744444025;48,675556664092674;57,68328006742628;287;216;5;P2–P13, P15–P16, P18–P20;P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22;available;available;found;full_grid_median_model
+shinji-nakano;Shinji Nakano;NAK;;43,76854256854257;9;;;31,09364062776892;57,49320586820586;33;25;0;;P12, P15, P16, P17, P18, P19, P20, P21, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+shorty-templeman;Shorty Templeman;TEM;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+siegfried-stohr;Siegfried Stohr;STO;;;;;;;;7;1;0;;P14;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+silvio-moser;Silvio Moser;MOS;;;12;;;;;11;7;0;;P7, P13, P14, P15, P17, P22;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+skip-barber;Skip Barber;BAR;;;;;;;;5;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+slim-borgudd;Slim Borgudd;BOR;;;22;;;;;10;4;0;;P21, P23;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+stefan-bellof;Stefan Bellof;BEL;;;14;;;;;20;7;0;;P20, P21, P22, P24, P26;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+stefan-johansson;Stefan Johansson;JOH;;51,03654137190722;11;;;39,112638663419915;61,890831013184844;78;41;0;;P7, P8, P9, P10, P11, P12, P13, P15, P16, P17, P18, P19, P20, P22, P24, P25, P26;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+stefano-modena;Stefano Modena;MOD;;51,158052651955074;4;;;39,6641251566416;61,38196511243387;67;41;0;;P2, P6, P8, P9, P10, P11, P12, P13, P14, P15, P17, P20, P21, P22, P23, P24, P25, P26;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+stirling-moss;Stirling Moss;MOS;;56,60562626358549;4;;;38,04365501102402;71,58433133950741;57;18;0;;P1, P2, P3, P4, P8, P9, P18;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+stoffel-vandoorne;Stoffel Vandoorne;VAN;;42,266997388901416;3;;;31,418775767178445;52,113029806651866;40;37;0;;P7, P8, P9, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+stuart-lewis-evans;Stuart Lewis-Evans;LEW;;;8;;;;;13;7;0;;P1, P4, P7, P11, P13;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+stephane-sarrazin;Stéphane Sarrazin;SAR;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+syd-van-der-vyver;Syd van der Vyver;VAN;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+sebastien-bourdais;Sébastien Bourdais;BOU;;47,43998564757894;10;;;35,0695058539945;61,40460593214416;24;19;1;;P8, P9, P13, P14, P15, P16, P17, P18, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+sebastien-buemi;Sébastien Buemi;BUE;;38,741769281629956;11;;;21,68507423169721;55,468006245560424;52;19;0;;P6, P10, P11, P13, P14, P16, P17, P19;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+taki-inoue;Taki Inoue;INO;;;20;;;;;16;6;0;;P18, P19, P20, P22, P26;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+takuma-sato;Takuma Sato;SAT;14,698017919374857;56,15028716287272;9;1,7554101608569745;25,958699610058932;48,13846809395734;64,59726826482373;85;71;3;P17–P21;P2, P3, P4, P5, P6, P7, P8, P10, P11, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22;available;available;found;full_grid_median_model
+tarso-marques;Tarso Marques;MAR;;55,40964152806259;16;;;40,81294566724761;70,66680194805194;21;19;1;;P18, P20, P21, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+teddy-pilette;Teddy Pilette;PIL;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+teo-fabi;Teo Fabi;FAB;;38,164516539753734;20;;;25,38272297555386;51,313392379051855;61;31;0;;P1, P5, P6, P7, P8, P9, P10, P11, P12, P13, P15, P16, P17, P19, P20, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+theo-fitzau;Theo Fitzau;FIT;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+theo-helfrich;Theo Helfrich;HEL;;;;;;;;3;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+thierry-boutsen;Thierry Boutsen;BOU;5,662793091790803;55,3959588721252;5;-5,291423606928013;16,120738486927547;48,16744136190113;62,552642913558294;160;87;0;P4–P7, P18–P19;P1, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P24;available;available;found;full_grid_median_model
+thomas-monarch;Thomas Monarch;MON;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+tiago-monteiro;Tiago Monteiro;TMO;-17,49772157666895;33,29178727318474;18;-37,79071969696969;4,067174930332819;22,777585403991655;43,8296948277417;34;29;2;P17–P18;P14, P15, P16, P17, P18, P19, P20, P21;available;available;found;full_grid_median_model
+tiff-needell;Tiff Needell;NEE;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+tim-parnell;Tim Parnell;PAR;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+tim-schenken;Tim Schenken;SCH;;;6;;;;;33;8;0;;P5, P7, P9, P10, P18, P19;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+timmy-mayer;Timmy Mayer;MAY;;;;;;;;1;1;0;;P12;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+timo-glock;Timo Glock;GLO;;49,880563159942675;11;;;37,993427786494955;61,89570626015206;88;36;3;;P2, P3, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P16, P17, P18, P19, P20, P21, P22, P23, P24;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+tom-belso;Tom Belsø;BEL;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+tom-bridger;Tom Bridger;BRI;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+tom-pryce;Tom Pryce;PRY;;;16;;;;;41;8;0;;P2, P5, P6, P12, P14, P15, P19, P20;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+tommy-byrne;Tommy Byrne;BYR;;;;;;;;2;1;0;;P26;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+tomas-enge;Tomáš Enge;ENG;;;;;;;;3;2;0;;P19, P20;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+toni-branca;Toni Branca;BRA;;;;;;;;3;2;0;;P11, P17;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+toni-ulmen;Toni Ulmen;ULM;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+tony-bettenhausen;Tony Bettenhausen;BET;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+tony-brise;Tony Brise;BRI;;;10;;;;;10;2;0;;P6, P12;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+tony-brooks;Tony Brooks;BRO;;32,2090647825942;12;;;11,50964787171756;51,82636158245073;35;13;0;;P1, P2, P3, P4, P5, P7, P8, P9;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+tony-crook;Tony Crook;CRO;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+tony-gaze;Tony Gaze;GAZ;;;;;;;;3;1;0;;P16;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+tony-maggs;Tony Maggs;MAG;;;10;;;;;25;7;0;;P7, P10, P12, P13, P16, P19;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+tony-marsh;Tony Marsh;MAR;;;;;;;;4;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+tony-rolt;Tony Rolt;ROL;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+tony-settember;Tony Settember;SET;;;;;;;;6;3;0;;P18, P19, P21;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+tony-shelly;Tony Shelly;SHE;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+toranosuke-takagi;Toranosuke Takagi;TAK;;45,69855838605839;20;;;31,71335276826348;59,50259260040104;29;20;0;;P13, P15, P17, P19, P20, P21, P22;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+torsten-palm;Torsten Palm;PAL;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+toshio-suzuki;Toshio Suzuki;SUZ;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+toulo-de-graffenried;Toulo de Graffenried;DEG;;;9;;;;;17;2;0;;P7, P16;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+travis-webb;Travis Webb;WEB;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+trevor-blokdyk;Trevor Blokdyk;BLO;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+trevor-taylor;Trevor Taylor;TAY;;55,84574516392697;2;;;35,02908602835073;74,40936414971881;25;11;0;;P3, P8, P10, P11, P12, P14, P15, P16, P17, P18;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+troy-ruttman;Troy Ruttman;RUT;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+ukyo-katayama;Ukyo Katayama;KAT;-9,520557905105408;45,319911975613714;14;-22,69816083306937;0,9564131993712434;34,76253468389189;53,86158525114347;91;54;0;P15–P17, P20–P21;P5, P6, P8, P9, P11, P12, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23, P25, P26;available;available;found;full_grid_median_model
+umberto-maglioli;Umberto Maglioli;MAG;;;;;;;;3;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+valtteri-bottas;Valtteri Bottas;BOT;-3,9175995830966652;45,20081423285122;18;-8,688097198812741;1,2494115630984581;40,75988534301185;49,80135162188288;261;215;1;P1–P7, P11–P16, P18–P20;P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21;available;available;found;full_grid_median_model
+vern-schuppan;Vern Schuppan;SCH;;;;;;;;9;3;0;;P19, P23, P25;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+vic-elford;Vic Elford;ELF;;;13;;;;;11;6;0;;P11, P15, P16, P17, P18, P20;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+vic-wilson;Vic Wilson;WIL;;;;;;;;1;1;0;;P16;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+vitaly-petrov;Vitaly Petrov;PET;;49,32900432900433;4;;;27,586832611832616;71,43380102040815;55;11;0;;P6, P10, P14, P15, P18, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+vitantonio-liuzzi;Vitantonio Liuzzi;LIU;7,926136363636361;50,51532980104408;8;-9,79497354497355;26,019570707070713;39,95698871835235;61,997157039344536;73;42;1;P15–P16;P5, P7, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23;available;available;found;full_grid_median_model
+vittorio-brambilla;Vittorio Brambilla;BRA;;50,34484607240025;10;;;34,36682210181388;66,2993217502312;69;19;0;;P5, P7, P8, P9, P10, P11, P13, P14, P19, P20, P21, P22, P25;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+volker-weidler;Volker Weidler;WEI;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+walt-ader;Walt Ader;ADE;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+walt-brown;Walt Brown;BRO;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+walt-faulkner;Walt Faulkner;FAU;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+walt-hansgen;Walt Hansgen;HAN;;;;;;;;2;1;0;;P17;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+warwick-brown;Warwick Brown;BRO;;;;;;;;1;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+wayne-weiler;Wayne Weiler;WEI;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+will-stevens;Will Stevens;STE;;25,62389770723104;;;;13,92830051003128;39,9888282357918;18;18;0;;P13, P15, P17, P18, P19, P20;insufficient_adjacent_matched_positions;available;not_found;full_grid_median_model
+willi-heeks;Willi Heeks;HEE;;;;;;;;2;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+willy-mairesse;Willy Mairesse;MAI;;;5;;;;;11;6;0;;P3, P6, P10, P13, P19;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+wilson-fittipaldi;Wilson Fittipaldi;FIT;;;6;;;;;34;4;0;;P11, P13, P22, P23;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+wolfgang-seidel;Wolfgang Seidel;SEI;;;;;;;;9;2;0;;P13, P17;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+wolfgang-von-trips;Wolfgang von Trips;VON;;;20;;;;;24;9;0;;P2, P6, P8, P11, P12;insufficient_adjacent_matched_positions;insufficient_matched_starts;found;full_grid_median_model
+yannick-dalmas;Yannick Dalmas;DAL;;35,815446127946124;20;;;19,24414600550964;54,31330417267917;23;12;0;;P15, P17, P21, P23, P24, P25, P26;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+yuji-ide;Yuji Ide;IDE;;;;;;;;4;4;0;;P18, P21, P22;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+yuki-tsunoda;Yuki Tsunoda;TSU;-5,585250901148799;47,63824075068384;11;-15,209553609857151;3,586828528301316;40,65452450282951;54,37618831177716;107;85;4;P8–P11;P3, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20;available;available;found;full_grid_median_model
+yves-cabantous;Yves Cabantous;CAB;;;;;;;;10;3;0;;P8, P9, P11;insufficient_adjacent_matched_positions;insufficient_matched_starts;not_found;full_grid_median_model
+guanyu-zhou;Zhou Guanyu;ZHO;-12,877829174699581;36,74257189153172;18;-22,478289493361768;-1,9651952844707745;28,933941868438577;44,360537679016744;66;52;1;P14–P15, P17–P20;P5, P9, P10, P12, P13, P14, P15, P16, P17, P18, P19, P20;available;available;found;full_grid_median_model
+zsolt-baumgartner;Zsolt Baumgartner;BAU;;37,67297006933797;18;;;20,072592682971532;54,23338650123482;18;16;2;;P17, P18, P19, P20;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+elie-bayol;Élie Bayol;BAY;;;;;;;;3;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;
+eric-bernard;Éric Bernard;BER;;33,533363188535596;13;;;21,92428408698789;46,78677943225357;44;29;0;;P8, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P23, P24, P25;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+erik-comas;Érik Comas;COM;;57,694865319865336;13;;;44,34021218680309;70,28133905589262;56;30;0;;P8, P9, P13, P14, P15, P18, P19, P20, P21, P22, P23, P24, P25, P26;insufficient_adjacent_matched_positions;available;found;full_grid_median_model
+oscar-gonzalez;Óscar González;GON;;;;;;;;0;0;0;;;insufficient_adjacent_matched_positions;insufficient_matched_starts;insufficient_data;

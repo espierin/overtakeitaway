@@ -39,9 +39,9 @@ def test_unclean_traffic_laps_are_not_pace_comparisons():
     d=payload();d['all_laps'][-1]['reasons']=['traffic'];result,_=compare_teammates(d);assert 12 not in result[1]['matched_lap_numbers']
 
 
-@pytest.mark.parametrize('years',[0,21,True,2.5])
+@pytest.mark.parametrize('years',[0,78,True,2.5])
 def test_invalid_history_scope_is_rejected(tmp_path,years):
-    with pytest.raises(ValueError,match='20 seasons'):build(tmp_path,years=years)
+    with pytest.raises(ValueError,match='77 seasons'):build(tmp_path,end_year=2026,years=years)
 
 
 def test_output_budget_rejects_before_writing(tmp_path):
@@ -72,7 +72,7 @@ def test_builder_scope_data_relations_and_local_catalogue_link(tmp_path):
     assert 'data-phase2-entry' not in (root/'index.html').read_text()
 
 
-def test_default_history_adds_ten_seasons_and_preserves_latest_driver_badge(tmp_path):
+def test_default_history_includes_pre_2007_and_preserves_latest_driver_badge(tmp_path):
     import json
     from bs4 import BeautifulSoup
     for year in (2006,2007,2012,2016,2017,2021,2026):
@@ -82,11 +82,11 @@ def test_default_history_adds_ten_seasons_and_preserves_latest_driver_badge(tmp_
         data['styles']={'1':{'color':'#111111' if year<2026 else '#222222'}}
         (run/'overzicht.html').write_text('<script id="dashboard-data" type="application/json">'+json.dumps(data)+'</script>')
     report=build(tmp_path,end_year=2026)
-    assert report['period']==[2007,2026] and report['races']==6
+    assert report['period']==[1950,2026] and report['races']==7
     data=json.loads(BeautifulSoup((tmp_path/'analysis-lab.html').read_text(),'html.parser').find(id='phase2-data').string)
     driver=next(d for d in data['drivers'] if d['id']=='a')
     assert driver['number']==1 and driver['color']=='#222222'
-    assert [r['year'] for r in driver['races']]==[2007,2012,2016,2017,2021,2026]
+    assert [r['year'] for r in driver['races']]==[2006,2007,2012,2016,2017,2021,2026]
 
 
 def test_unmapped_stop_is_not_a_measured_cycle():

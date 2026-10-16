@@ -44,6 +44,17 @@ def ranked(index):
     return out
 
 
+def preserve_retained_context(current, previous):
+    """A metadata-only rebuild must not erase verified archived tyre context.
+
+    Require identical measured lap, rank and timed-field size. Retained context
+    only fills a missing compound; a contradictory known compound is not changed.
+    """
+    old={p[0]:p for p in previous}
+    return [list(old[p[0]]) if p[3]==0 and p[0] in old and old[p[0]][3]!=0
+            and p[:3]==old[p[0]][:3] else p for p in current]
+
+
 def analyse(payload, raw=None, retained_context=None):
     raw=raw or {};explorer=payload.get('explorer',{});drivers={d['driver_number'] for d in payload.get('drivers',[])}
     lap_rows={(r['driver'],r['lap']):r for r in payload.get('all_laps',[])}

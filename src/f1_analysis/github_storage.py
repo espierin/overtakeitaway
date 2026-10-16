@@ -119,6 +119,7 @@ def restore_years(root, github, years):
     corrections={p:p.read_bytes() for year in years for p in (root/'analyses'/str(year)).glob('*/corrections/**/*') if p.is_file()}
     entries = [registry['seasons'][str(year)] for year in years if str(year) in registry['seasons']]
     if registry.get('sources'): entries.append(registry['sources'])
+    entries.extend(registry.get('source_supplements',[]))
     if registry.get('presentation'): entries.append(registry['presentation'])
     for entry in entries:
         release = github.release(entry['tag'])

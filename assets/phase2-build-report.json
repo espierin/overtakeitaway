@@ -1,28 +1,30 @@
 {
   "schema": 2,
   "period": [
-    2007,
+    1950,
     2026
   ],
-  "races": 398,
-  "drivers": 98,
-  "candidate_cycles": 20159,
-  "matched_driver_races": 7378,
-  "extra_bytes_upper_bound": 29084763,
-  "max_extra_bytes": 32000000,
+  "races": 1166,
+  "drivers": 817,
+  "candidate_cycles": 31258,
+  "matched_driver_races": 10986,
+  "extra_bytes_upper_bound": 53033315,
+  "max_extra_bytes": 64000000,
   "qualities": {
     "free": 572,
-    "metronome": 8118,
+    "metronome": 12012,
     "tyres": 346,
     "warmup": 768,
     "pitwindow": 373,
-    "start": 7980
+    "start": 24157
   },
   "page": "analysis-lab.html",
-  "lap_rankings": 443147,
+  "lap_rankings": 639012,
   "pit_programmes": {
-    "races": 365,
-    "drivers": 6005,
-    "lap_observations": 360575
-  }
+    "races": 552,
+    "drivers": 8346,
+    "lap_observations": 505446
+  },
+  "driver_races": 26157,
+  "shared_car_ambiguous": 83
 }

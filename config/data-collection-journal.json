@@ -1,0 +1,296 @@
+{
+  "schema": 1,
+  "methods": [
+    {
+      "title": {
+        "nl": "Jolpica / Ergast: kalender, uitslagen, rondegegevens",
+        "en": "Jolpica / Ergast: calendar, results, lap data"
+      },
+      "description": [
+        {
+          "nl": "Per seizoen en race zijn kalender, deelnemers, uitslagen, startopstelling, rondeposities, rondetijden en beschikbare pitstops opgevraagd. Gepagineerde API-antwoorden worden samengevoegd; een lege respons blijft ontbrekende dekking. De agenda en de datum dienen als controle op de racekoppeling.",
+          "en": "Calendar, entries, results, grids, lap positions, lap times and available stops are requested by season and round. Paginated API responses are combined; an empty response remains missing coverage. Calendar and date validate event joins."
+        },
+        {
+          "nl": "Reproduceerbare verzoekpatronen: /ergast/f1/{jaar}/{ronde}/results.json, /laps.json?limit=100&offset={offset} en /pitstops.json. Rondetijden zijn breed beschikbaar vanaf 1996; dat betekent niet dat ieder record compleet is. Bewaarde antwoorden worden hergebruikt.",
+          "en": "Reproducible request patterns: /ergast/f1/{year}/{round}/results.json, /laps.json?limit=100&offset={offset} and /pitstops.json. Broad lap-time availability starts in 1996; this does not mean every record is complete. Retained responses are reused."
+        }
+      ],
+      "links": [
+        {
+          "title": "Jolpica API",
+          "url": "https://github.com/jolpica/jolpica-f1"
+        },
+        {
+          "title": "Lap endpoint",
+          "url": "https://github.com/jolpica/jolpica-f1/blob/main/docs/endpoints/laps.md"
+        }
+      ]
+    },
+    {
+      "title": {
+        "nl": "F1DB: historische uitslagen en classificatiestatus",
+        "en": "F1DB: historical results and classification status"
+      },
+      "description": [
+        {
+          "nl": "De bewaarde CSV-release v2026.17.0 is gecontroleerd met SHA-256 en ingelezen in een lokale SQLite-database. Deze referentie bevat onder meer uitslagen, gridposities, snelste ronden, pitstops, team- en circuitidentiteiten. Race en coureur worden gecontroleerd met datum, naam, geboortedatum en startnummer waar beschikbaar.",
+          "en": "The retained v2026.17.0 CSV release was SHA-256 checked and imported into a local SQLite database. It contains results, grid positions, fastest laps, stops, team and circuit identities. Event and driver joins use date, name, date of birth and car number where available."
+        },
+        {
+          "nl": "Tegenstrijdige bronnen worden niet stilzwijgend overschreven. Het veld met een classificatiepositie bewijst niet dat iemand rijdend finishte. Finished, Lapped en +N Laps worden gescheiden van uitval, DNS en diskwalificatie. Licentie van deze bewaarde release: CC BY 4.0.",
+          "en": "Conflicting sources are not silently overwritten. A classification position alone does not prove an on-track finish. Finished, Lapped and +N Laps are distinguished from retirements, DNS and disqualification. Retained release licence: CC BY 4.0."
+        }
+      ],
+      "links": [
+        {
+          "title": "F1DB retained release",
+          "url": "https://github.com/f1db/f1db/releases/tag/v2026.17.0"
+        }
+      ]
+    },
+    {
+      "title": {
+        "nl": "StatsF1-compilatie: rondeposities tot 1950",
+        "en": "StatsF1 compilation: lap positions back to 1950"
+      },
+      "description": [
+        {
+          "nl": "De bewaarde release v2.10.1+20260921 bevat een SQLite-database met onder meer LapByLap, GrandPrixResults en PitStopSummary. De oorspronkelijke websites worden genoemd in de bronprojecten. Rondeposities vóór 1996 zijn bruikbaar voor start- en raceonderzoek, ook wanneer rondetijden ontbreken.",
+          "en": "Retained release v2.10.1+20260921 contains a SQLite database including LapByLap, GrandPrixResults and PitStopSummary. The upstream projects name the original websites. Pre-1996 lap positions support start and race-progression research even without lap times."
+        },
+        {
+          "nl": "Gedeelde auto’s worden niet aan een individuele coureur toegeschreven wanneer het wisselmoment niet bekend is. Namen met alleen een drielettercode worden niet automatisch samengevoegd. Databaselicentie: ODbL 1.0; broncode heeft een afzonderlijke licentie. Bronnen kunnen gemeenschappelijke oorsprongen hebben en zijn daarom niet vanzelf onafhankelijke bevestigingen.",
+          "en": "Shared cars are not attributed to an individual driver without a known handover. Three-letter codes alone do not merge driver identities. Database licence: ODbL 1.0; code has a separate licence. Sources may share upstream origins and are not automatically independent confirmations."
+        }
+      ],
+      "links": [
+        {
+          "title": "Retained compilation release",
+          "url": "https://github.com/mclarenmp4-22/f1resultsdatabase/releases/tag/v2.10.1%2B20260921"
+        },
+        {
+          "title": "StatsF1",
+          "url": "https://www.statsf1.com/"
+        }
+      ]
+    },
+    {
+      "title": {
+        "nl": "Atlas F1 Classics: nieuwe vroege rondetijden",
+        "en": "Atlas F1 Classics: newly retained early lap times"
+      },
+      "description": [
+        {
+          "nl": "Via gerichte zoekopdrachten is de Classics-index gevonden. De links daarvan leveren zes historische races: Italië 1971, USA-West 1983, Monaco 1984, Europa 1993, Brazilië 1994 en België 1995. Het nummer raceid is uitsluitend een intern paginanummer. Het jaartal en de GP-naam in de paginatitel bevestigen de race.",
+          "en": "Targeted searches found the Classics index. Its links yield six historical races: Italy 1971, USA-West 1983, Monaco 1984, Europe 1993, Brazil 1994 and Belgium 1995. raceid is only an internal page identifier. The page title confirms the year and Grand Prix."
+        },
+        {
+          "nl": "De tabelkop koppelt elke cel aan het expliciete rondenummer. 999:999 en lege cellen zijn ontbrekende waarden. Coureurs worden uniek binnen de bevestigde race gekoppeld; enkele historische schrijfwijzen hebben een expliciete alias. Ronden voorbij de geregistreerde afstand worden geweigerd. Overlappende bestaande rondetijden worden gecontroleerd met een tolerantie van 0,11 seconde voor historische afronding. Afwijkingen blijven in een apart controlelog. Banden, setleeftijd en vrije lucht worden niet uit rondetijden verzonnen.",
+          "en": "Each header maps cells to explicit lap numbers. 999:999 and empty cells are missing. Drivers are uniquely joined within the confirmed race; a few historical spellings have explicit aliases. Laps beyond recorded distance are rejected. Overlapping times are checked with a 0.11-second tolerance for historical rounding. Disagreements remain in a separate audit. Tyres, set age and clear air are not invented from lap times."
+        }
+      ],
+      "links": [
+        {
+          "title": "Atlas Classics index",
+          "url": "https://www.atlasf1.com/0000/season.html"
+        },
+        {
+          "title": "Atlas 1971 Italy",
+          "url": "https://www.atlasf1.com/0000/laptimes.html?raceid=4"
+        }
+      ]
+    },
+    {
+      "title": {
+        "nl": "F1 timing, FastF1 en OpenF1",
+        "en": "F1 timing, FastF1 and OpenF1"
+      },
+      "description": [
+        {
+          "nl": "Voor moderne races worden beschikbare timingfeeds bewaard, inclusief rondetijden, posities, bandenstints, leeftijd, pitmomenten, vlaggen, race-control en weer. FastF1 3.8.3 verwerkt de timingfeeds; beschikbaarheid verschilt per seizoen. De historische bandenparserfout bij Monza 2018 wordt per rijder afgeschermd: afgewezen bandengegevens blijven onbekend.",
+          "en": "For modern races, available feeds retain lap times, positions, tyre stints, age, pit events, flags, race control and weather. FastF1 3.8.3 processes timing feeds; availability varies by season. The historical tyre-parser failure at Monza 2018 is isolated per driver: rejected tyre data stays unknown."
+        },
+        {
+          "nl": "Een algemene API-URL in de parameterlijst beschrijft een bronfamilie. De concrete sessiereferenties en inhoudshashes staan in de bewaarde bronbestanden. Een sessierelatieve klok wordt niet als verzonnen UTC-tijd opgeslagen. Sectorgegevens worden niet opnieuw toegevoegd aan de coureursanalyse.",
+          "en": "A general API URL in the parameter list identifies a source family. Retained files hold exact session references and content hashes. Session-relative clocks are not turned into invented UTC times. Sector data is not reintroduced into driver analysis."
+        }
+      ],
+      "links": [
+        {
+          "title": "FastF1 documentation",
+          "url": "https://docs.fastf1.dev/"
+        },
+        {
+          "title": "OpenF1 documentation",
+          "url": "https://openf1.org/"
+        }
+      ]
+    },
+    {
+      "title": {
+        "nl": "FIA, Pirelli en webarchieven",
+        "en": "FIA, Pirelli and web archives"
+      },
+      "description": [
+        {
+          "nl": "FIA-eventpagina’s en documentportalen worden gevolgd naar rondeanalyses, rondetabellen, pitstopoverzichten, grid- en uitslagdocumenten en beslissingen. De tekst in het document bevestigt evenement en sessie; een nummer in de bestandsnaam is geen race-identiteit. PDF-tekst wordt uitgelezen; waar nodig wordt OCR gebruikt en als automatisch verwerkt gemarkeerd.",
+          "en": "FIA event pages and document portals lead to lap analyses, lap charts, pit summaries, grids, results and decisions. Document text confirms event and session; a filename number is not an event identity. PDF text is extracted; OCR is used where needed and marked as automatic processing."
+        },
+        {
+          "nl": "Pirelli-verslagen, bijlagen en expliciete strategieoverzichten worden gezocht op seizoen, GP, race en banden/pitstops. Alleen onderbouwde compoundwissels en stintgrenzen worden opgeslagen. Bij verdwenen bronnen wordt de Wayback CDX-index doorzocht. Originele URL, archief-URL, opnamedatum en SHA-256 worden bewaard. Een lege index, anti-botpagina of mislukte download geldt niet als gevonden racedata.",
+          "en": "Pirelli reports, attachments and explicit strategy summaries are searched by season, GP, race and tyres/stops. Only supported compound changes and stint boundaries are retained. Missing sources are searched in the Wayback CDX index. Original URL, archive URL, capture time and SHA-256 are retained. Empty indexes, anti-bot pages and failed downloads are not race data."
+        },
+        {
+          "nl": "Het strafregister bevat besluiten, oproepen, geen verdere actie en latere herzieningen als verschillende statussen. Een botsingsbesluit is niet automatisch bewijs voor schuld aan een uitvalbeurt. Slechts expliciet gecontroleerde verbanden hebben die status. De bestaande diepgaande beslissingsverzameling beslaat 2007–2026; de uitbreiding naar 1950 maakt die oudere strafgeschiedenis niet volledig.",
+          "en": "The penalty register distinguishes decisions, summons, no further action and later revisions. A collision decision does not automatically establish responsibility for a retirement. Only explicitly reviewed links carry that status. Existing detailed decision collection covers 2007–2026; expanding driver history to 1950 does not make earlier penalty histories complete."
+        }
+      ],
+      "links": [
+        {
+          "title": "FIA documents",
+          "url": "https://www.fia.com/documents"
+        },
+        {
+          "title": "Pirelli press archive",
+          "url": "https://press.pirelli.com/"
+        },
+        {
+          "title": "Wayback Machine",
+          "url": "https://web.archive.org/"
+        }
+      ]
+    },
+    {
+      "title": {
+        "nl": "Teamkleuren, circuits en afbeeldingen",
+        "en": "Team colours, circuits and images"
+      },
+      "description": [
+        {
+          "nl": "Historische teamkleuren worden vastgelegd met jaar, team en gedateerde liveryreferentie. De primaire teamkleur blijft gescheiden van accentkleuren om teamgenoten te onderscheiden. Onzekere of ambigue kleuren blijven als zodanig geregistreerd. Circuitkaarten komen uit bewaarde geometrie of een gedocumenteerde reconstructie.",
+          "en": "Historical team colours retain season, team and dated livery references. Primary team colours remain distinct from display accents used for teammates. Uncertain or ambiguous colours are recorded explicitly. Circuit maps use retained geometry or documented reconstruction."
+        },
+        {
+          "nl": "Illustratieve websitefoto’s en vlaggen zijn vormgevingsmateriaal, geen racewaarnemingen. Ze worden niet opgeteld bij de statistische datapunten.",
+          "en": "Illustrative site photos and flags are design assets, not race observations. They are not included in statistical data-point counts."
+        }
+      ],
+      "links": [
+        {
+          "title": "Historical livery references",
+          "url": "https://en.wikipedia.org/wiki/Formula_One_sponsorship_liveries"
+        }
+      ]
+    }
+  ],
+  "searches": [
+    {
+      "date": "2026-10-16",
+      "title": {
+        "nl": "Uitbreiding vóór 2007",
+        "en": "Expansion before 2007"
+      },
+      "queries": [
+        "jolpica f1 historical lap times 1996 pit stops 2011 documentation",
+        "F1 historical lap chart 1950 1995 StatsF1 lap by lap database",
+        "F1DB data race laps lap times 1996 historical data",
+        "site.atlasf1.autosport.com 1995 lap chart times gaps",
+        "site:statsf1.com/en/1950 grande-bretagne tour-par-tour",
+        "site:fia.com 2006 race lap analysis pdf",
+        "site:github.com/jolpica/jolpica-f1 lap times 1996",
+        "site:atlasf1.com/0000/laptimes.html raceid",
+        "site:atlasf1.autosport.com/0000/laptimes.html raceid",
+        "site:atlasf1.com \"1971 Italian\" \"Lap\"",
+        "site:atlasf1.com \"Lap Times Analysis\" \"1994\"",
+        "https://web.archive.org/cdx/search/cdx?url=atlasf1.com/95/*/laptimes*&output=json&filter=statuscode:200&collapse=urlkey&filter=mimetype:text/html&limit=100"
+      ],
+      "result": {
+        "nl": "Bestaand racearchief onderzocht tot 1950; zes Atlas Classics-tabellen gevonden. De eerste Wayback-query voor 1995 leverde een lege index op. Een StatsF1-link gaf HTTP 200 met een foutpagina en is niet als nieuwe waarneming geïmporteerd.",
+        "en": "Existing race archive inspected back to 1950; six Atlas Classics tables found. The first 1995 Wayback query returned an empty index. One StatsF1 URL returned HTTP 200 with an error page and was not imported as a new observation."
+      }
+    }
+  ],
+  "checks": [
+    {
+      "title": {
+        "nl": "Behoud en herkomst",
+        "en": "Preservation and provenance"
+      },
+      "description": {
+        "nl": "Bronbestanden blijven bewaard. De nieuwe Atlas-downloads krijgen een inhoudshash, URL, HTTP-status en ophaalmoment. De inventaris controleert de huidige gegevens; historische controlelogs behouden hun eigen peildatum.",
+        "en": "Original files are retained. New Atlas downloads record content hash, URL, HTTP status and retrieval time. The census checks current data; historical audits retain their own timestamps."
+      }
+    },
+    {
+      "title": {
+        "nl": "Identiteit en referenties",
+        "en": "Identity and references"
+      },
+      "description": {
+        "nl": "De inventaris controleert unieke profiel-ID’s, dubbele coureur-racecombinaties, ontbrekende racereferenties en geldige rangnummers. Zhou Guanyu en Guanyu Zhou zijn één profiel. Gelijke lettercodes betekenen niet dezelfde persoon.",
+        "en": "The census checks unique profile IDs, duplicate driver-race combinations, missing race references and valid rank bounds. Zhou Guanyu and Guanyu Zhou are one profile. Matching letter codes do not identify a person."
+      }
+    },
+    {
+      "title": {
+        "nl": "Waarneming versus reconstructie",
+        "en": "Observation versus reconstruction"
+      },
+      "description": {
+        "nl": "Een rang is afgeleid uit gemeten rondetijden op hetzelfde rondenummer. Een modelcurve, bootstrapinterval of afgeleide pitstopcyclus is geen extra gemeten ronde. Voor 1996 worden losse snelste-rondemetingen niet gebruikt als volledige reeks: een gebruikte reeks heeft minstens vijf tijden en minstens de helft van de bekende rondeposities voor die coureur.",
+        "en": "Ranks are derived from measured lap times on the same numbered lap. Model curves, bootstrap intervals and inferred pit cycles are not extra measured laps. Before 1996, isolated fastest-lap measurements are not complete series: a used run requires at least five times and half the known lap positions for that driver."
+      }
+    },
+    {
+      "title": {
+        "nl": "Selectie en ontbrekende gegevens",
+        "en": "Selection and missing data"
+      },
+      "description": {
+        "nl": "Pitlanestarts tellen niet mee in het startonderzoek. Raceonderzoek na ronde één vereist een bevestigde rijdende finish. Niet gemeten vrije lucht, onbekende banden of ontbrekende leeftijd worden niet als schoon of nul aangemerkt. Daardoor ondersteunen oude races niet automatisch alle zes specialismen.",
+        "en": "Pit-lane starts are excluded from start research. Post-lap-one research requires a confirmed on-track finish. Unmeasured clear air, unknown tyres and missing age are not treated as clean or zero. Older races therefore do not automatically support all six specialisms."
+      }
+    },
+    {
+      "title": {
+        "nl": "Bronconflicten en beperkingen",
+        "en": "Source conflicts and limitations"
+      },
+      "description": {
+        "nl": "Historische bronnen kunnen elkaar tegenspreken of dezelfde oorspronkelijke tabel kopiëren. Conflicten en onbekende oorzaken blijven zichtbaar. Niet ieder FIA-document is handmatig gelezen, en niet iedere straf of uitvaloorzaak is bekend. Geen totaaltelling impliceert volledige dekking.",
+        "en": "Historical sources may disagree or copy the same upstream table. Conflicts and unknown causes remain explicit. Not every FIA document was manually read, and not every penalty or retirement cause is known. No total implies complete coverage."
+      }
+    },
+    {
+      "title": {
+        "nl": "Software en verliesloze opslag",
+        "en": "Software and lossless storage"
+      },
+      "description": {
+        "nl": "Tests controleren grensgevallen zoals uitval, gedeelde auto’s, pitlanestarts, dubbele namen en ontbrekende tijden. Lokale browsertests controleren taal, filters, periode en mobiele weergave. Gzip wordt verliesloos teruggelezen; grote originele archieven worden niet in de interactieve pagina opgenomen.",
+        "en": "Tests cover retirements, shared cars, pit-lane starts, duplicate names and missing times. Local browser checks cover language, filters, period and mobile layout. Gzip is read losslessly; large original archives are not embedded in the interactive page."
+      }
+    },
+    {
+      "title": {
+        "nl": "Historische afwijkingen uit de uitbreiding",
+        "en": "Historical discrepancies found during expansion"
+      },
+      "description": {
+        "nl": "In zes Atlas-tabellen zijn 5.617 rondetijden bewaard en 115 overlappende bestaande tijden gecontroleerd. Eén afwijkende ronde van Raul Boesel (USA-West 1983, ronde 41) is apart gehouden. In Brazilië 1994 is de som van de winnende rondetijden 0,441 seconde korter dan de gerapporteerde racetijd; dit bronverschil blijft gemarkeerd. Bij 83 coureur-racegevallen met meerdere inschrijvingen zijn alle bronregels bewaard, maar geen individuele kwaliteitsmetingen verondersteld.",
+        "en": "Six Atlas tables retain 5,617 lap times, with 115 overlapping existing times checked. One differing Raul Boesel lap (USA-West 1983, lap 41) is kept separate. In Brazil 1994, summed winning lap times are 0.441 seconds shorter than the reported race time; that discrepancy stays flagged. All source entries are retained for 83 driver-race cases with multiple entries, without assuming individual quality measurements."
+      }
+    },
+    {
+      "title": {
+        "nl": "Behoud bij de publicatie van 16 oktober",
+        "en": "Preservation during the 16 October publication"
+      },
+      "description": {
+        "nl": "De lokale uitbreiding is vergeleken met de nieuwste online website. De reeds geverifieerde bandencontext in 2.459 coureur-racerecords en 20.159 bestaande pitstopcycli zijn behouden. De 99 gecontroleerde Lapped-correcties blijven als rijdende finish geregistreerd. De nieuwste Singapore-versie blijft het actuele racedoel. Grote originele bronnen zijn verliesloos in afzonderlijke GitHub Release-archieven ondergebracht; ze worden niet als PDF-verzameling op Pages geladen.",
+        "en": "The local expansion was compared with the latest online site. Verified tyre context in 2,459 driver-race records and 20,159 existing pit cycles was retained. The 99 reviewed Lapped corrections remain confirmed on-track finishes. The newest Singapore version remains the current race destination. Large originals are losslessly stored in separate GitHub Release archives; the PDF collection is not loaded into Pages."
+      }
+    }
+  ]
+}
