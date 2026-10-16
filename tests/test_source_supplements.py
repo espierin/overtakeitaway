@@ -35,3 +35,20 @@ def test_metadata_rebuild_preserves_only_matching_measured_lap_context():
     prior=[[1,2,20,4,65],[2,3,20,4,64],[3,1,19,6,64]]
     new=[[1,2,20,0,97],[2,4,20,0,96],[3,1,19,5,64]]
     assert preserve_retained_context(new,prior)==[prior[0],new[1],new[2]]
+
+
+def test_on_demand_restore_applies_deltas_but_keeps_existing_local_source_edits(tmp_path):
+    from test_publication import project
+    from f1_analysis.publication import archive_seasons,materialize_run
+    root=tmp_path/'root';root.mkdir();run=project(root)
+    source=root/'analyses/sources/review.json';source.parent.mkdir(parents=True)
+    source.write_text('old');store=root/'storage/archives'
+    registry=archive_seasons(root,store)
+    source.write_text('reviewed')
+    archive_sources(root,[source],store,registry)
+    write_json(root/'_storage/index.json',registry)
+    source.unlink();materialize_run(root,run)
+    assert source.read_text()=='reviewed'
+    source.write_text('new local evidence')
+    materialize_run(root,run)
+    assert source.read_text()=='new local evidence'

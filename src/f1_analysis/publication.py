@@ -258,6 +258,7 @@ def materialize_run(root, run):
             if name.startswith('cache/') and not target.exists():
                 target.parent.mkdir(parents=True,exist_ok=True)
                 with archive.extractfile(name) as src,target.open('wb') as dst:shutil.copyfileobj(src,dst)
+    restored_sources=set()
     for shared in ([registry['sources']] if registry.get('sources') else [])+registry.get('source_supplements',[]):
         if not (root/'storage/archives'/shared['asset']).exists():continue
         shared_path=root/'storage/archives'/shared['asset']
@@ -265,9 +266,12 @@ def materialize_run(root, run):
         with tarfile.open(shared_path,'r:gz') as archive:
             for name in shared_meta['files']:
                 target=inside(root,root/name)
-                if not target.exists() or digest(target)!=shared_meta['files'][name]:
+                # Apply later supplements to files restored in this call, while
+                # preserving any source edits already present in the workspace.
+                if not target.exists() or name in restored_sources:
                     target.parent.mkdir(parents=True,exist_ok=True)
                     with archive.extractfile(name) as src,target.open('wb') as dst:shutil.copyfileobj(src,dst)
+                    restored_sources.add(name)
 
 
 def restore_presentation(path,root,expected=None,exclude_years=(),selected_years=None):
