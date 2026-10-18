@@ -768,7 +768,8 @@ def with_race_notifications(text, source, root):
         # rewrites would reconnect the separate development modules to old pages.
         if 'data-f1-reader' not in text:
             src = relative(Path(root)/'_data/reader.js', Path(source).parent)
-            text = text.replace('</head>', f'<script data-f1-reader src="{src}"></script></head>', 1)
+            script = f'<script data-f1-reader src="{src}"></script>'
+            text = text.replace('</head>', script+'</head>', 1) if '</head>' in text else script+text
         return text
     from .branding import with_original_wordmark, with_hero_flag
     from .historical_dashboard import modernize

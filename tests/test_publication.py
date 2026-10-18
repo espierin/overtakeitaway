@@ -90,7 +90,8 @@ def test_phase2_pages_and_dynamic_chunks_survive_automatic_republication(tmp_pat
     (data/'max.json.gz').write_bytes(compressed)
     page='<html><head></head><body><a data-site-link="drivers" href="coureurs_2.html">Coureurs</a><script src="_development/assets/profile.js"></script></body></html>'
     for name in ('coureurs_2.html','goat_2.html','races_2.html'):
-        (root/name).write_text(page)
+        # The generated race catalogue has no explicit head element.
+        (root/name).write_text(page.replace('<head></head>','') if name=='races_2.html' else page)
     # No static link points at max.*: the runtime requests these chunks lazily.
     first=tmp_path/'first';second=tmp_path/'second'
     build_site(root,first)
