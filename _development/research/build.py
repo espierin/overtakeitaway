@@ -141,7 +141,8 @@ def collection_ledger(tables, data, registry, weather):
 
 def main():
     DATA.mkdir(exist_ok=True)
-    original = (ROOT/'analysis-lab.html').read_text()
+    from f1_analysis.driver_release import source_html
+    original = source_html(ROOT)
     payload = re.search(r'<script[^>]*id=["\']phase2-data["\'][^>]*>(.*?)</script>', original, re.S)[1]
     data = json.loads(payload)
     package = next((ROOT/'analyses/sources/historical/f1db').glob('*.zip'))

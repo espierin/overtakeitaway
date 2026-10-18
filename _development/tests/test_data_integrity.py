@@ -13,7 +13,8 @@ def read_script(path):
 
 
 def test_all_original_driver_observations_survive_partitioning():
-    source=(ROOT/'analysis-lab.html').read_text()
+    from f1_analysis.driver_release import source_html
+    source=source_html(ROOT)
     old=json.loads(re.search(r'<script[^>]*id=["\']phase2-data["\'][^>]*>(.*?)</script>',source,re.S)[1])
     new=read_script(ROOT/'_development/data/profiles.js')
     assert {d['id'] for d in old['drivers']}=={d['id'] for d in new['drivers']}
@@ -49,7 +50,8 @@ def test_all_original_driver_observations_survive_partitioning():
 
 
 def test_strategy_clocks_and_every_original_cycle_survive():
-    source=(ROOT/'analysis-lab.html').read_text()
+    from f1_analysis.driver_release import source_html
+    source=source_html(ROOT)
     old=json.loads(re.search(r'<script[^>]*id=["\']phase2-data["\'][^>]*>(.*?)</script>',source,re.S)[1])
     strategy=read_script(ROOT/'_development/data/strategy.js')
     cols=strategy['cycles']['columns'];new=[dict(zip(cols,row)) for row in strategy['cycles']['rows']]
@@ -63,7 +65,12 @@ def test_strategy_clocks_and_every_original_cycle_survive():
 def test_original_pages_and_assets_are_unchanged():
     manifest=json.loads((ROOT/'_development/clone-manifest.json').read_text())
     for source in list(manifest['pages'].values())+list(manifest['assets'].values()):
-        assert hashlib.sha256((ROOT/source['source']).read_bytes()).hexdigest()==source['source_sha256']
+        from f1_analysis.driver_release import is_promoted, render, source_html
+        if source['source']=='analysis-lab.html' and is_promoted(ROOT):
+            assert (ROOT/'analysis-lab.html').read_text()==render(ROOT)
+            body=source_html(ROOT).encode()
+        else:body=(ROOT/source['source']).read_bytes()
+        assert hashlib.sha256(body).hexdigest()==source['source_sha256']
 
 
 def test_delivery_stays_within_budget_and_does_not_enable_unvalidated_forecasts():

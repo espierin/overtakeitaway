@@ -1,6 +1,6 @@
 # Fase 2 · uitvoering en controle
 
-**Lokale ontwikkeloplevering, 17 oktober 2026.** Dit verslag hoort bij de drie `_2`-pagina’s en vervangt het onderzoeksplan niet. Er is geen upload uitgevoerd. De oorspronkelijke pagina’s en scripts zijn op hun kloonhash gecontroleerd.
+**Oorspronkelijke ontwikkeloplevering: 17 oktober 2026.** De drie ontwikkelpagina’s zijn op 18 oktober gepubliceerd. Daarna is op verzoek de coureursmodule gepromoveerd tot de reguliere `analysis-lab.html`, inclusief de herstelde veldvergelijking bij De metronoom. Races en GOAT houden hun afzonderlijke ontwikkelroutes. De vroegere coureursgegevens blijven verliesloos bewaard en op de oorspronkelijke kloonhash gecontroleerd. Dit verslag vervangt het onderzoeksplan niet.
 
 ## Wat er per planstap staat
 
@@ -8,7 +8,7 @@
 |---|---|---|
 | A · definities en dekking | Gedeeld versie- en parameterregister, echte startersaantallen, circuitvarianten, duidelijke uitsluitingen, expliciete referentievensters | Bekende bronhiaten blijven zichtbaar; een kalenderregel bewijst geen resultaat |
 | B · eigen feiten | Gekoppelde seizoensstanden, punten, starts, zeges, podia, poles, snelste ronden, sprinttotalen, eigen WK- en kwalificatieverloop, historische teams | Afzonderlijke officiële WK-notering kan ontbreken bij nul punten; lopend seizoen is voorlopig |
-| C · eigen profiel | Zes kaarten en eigen detailfiguren; starter en ronde-één-tot-finish; teamgenootduel behouden; veldtabellen verwijderd; afzonderlijke robuuste regelmaat | Tempo en regelmaat zijn verschillende maten; bevestigde finishers vormen een geselecteerde groep |
+| C · eigen profiel | Zes kaarten en eigen detailfiguren; starter en ronde-één-tot-finish; teamgenootduel behouden; metronoom-veldvergelijking op verzoek hersteld; afzonderlijke robuuste regelmaat | Tempo en regelmaat zijn verschillende maten; bevestigde finishers vormen een geselecteerde groep |
 | D · incidenten | Uitvaloorzaken, bronstatus, sancties, classificatietijdstraffen en gelezen verantwoordelijkheid afzonderlijk | Besluitenarchief is onvolledig; zeven besluiten inhoudelijk beoordeeld; waaronder één gezamenlijke uitspraak zonder volledig of overwegend verantwoordelijke; overige tekstherkenning bewijst geen schuld |
 | E · beschrijvende GOAT | Vraag, periode, maximaal vier detailrijders, veldoverzicht en carrièrefeiten; standaard dezelfde races, eigen carrièrekansen apart selecteerbaar | Beschrijvende verschillen zijn geen geïsoleerde rijvaardigheid; per maat kan meetdekking verschillen |
 | F · gedeelde context | Gelijke contextgewichten, echte overlap, referentie zonder eigen bijdrage, gezamenlijk gewogen racebootstrap inclusief referenties | Alleen ondersteunde context; ongekende weers- en autocondities niet stilzwijgend gecorrigeerd |

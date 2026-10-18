@@ -86,7 +86,8 @@ def snapshot(root):
             failures.append({'path': path.relative_to(root).as_posix(), 'error': str(exc)})
     lab = root/'analysis-lab.html'; profile = {}
     if lab.exists():
-        match = re.search(r'<script[^>]*id=["\']phase2-data["\'][^>]*>(.*?)</script>', site_html(lab, root), re.S)
+        from .driver_release import source_html
+        match = re.search(r'<script[^>]*id=["\']phase2-data["\'][^>]*>(.*?)</script>', source_html(root), re.S)
         if match:
             profile = json.loads(match[1]); add('drivers', count_parameters(profile)); datasets['drivers'] = 1
             checks['unique_driver_ids'] = int(len({d['id'] for d in profile['drivers']}) == len(profile['drivers']))

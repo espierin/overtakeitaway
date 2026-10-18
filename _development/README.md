@@ -1,6 +1,6 @@
 # Fase 2 · lokale ontwikkelomgeving
 
-Deze omgeving voert het [totaalplan](../documents/fase-2-onderzoeks-en-ontwikkelplan.md) uit op afzonderlijke ontwikkelpagina’s. De bestaande site en oorspronkelijke scripts blijven intact. Publicatie van deze afzonderlijke pagina’s is op 18 oktober 2026 expliciet toegestaan.
+Deze omgeving voert het [totaalplan](../documents/fase-2-onderzoeks-en-ontwikkelplan.md) uit op afzonderlijke ontwikkelpagina’s. De oorspronkelijke brongegevens en scripts blijven behouden. Publicatie van deze afzonderlijke pagina’s is op 18 oktober 2026 expliciet toegestaan.
 
 | Pagina | Inhoud |
 |---|---|
@@ -14,9 +14,11 @@ Deze omgeving voert het [totaalplan](../documents/fase-2-onderzoeks-en-ontwikkel
 
 De pagina’s hebben eigen scripts en stijlen in `assets/`. Afbeeldingen, lettertypen en oorspronkelijke raceverslagen worden alleen gelezen. Home en individuele raceverslagen verwijzen naar de bestaande site; de drie ontwikkelmodules verwijzen onderling naar elkaar.
 
-`clone-manifest.json` bevat de oorspronkelijke hashes van bronpagina’s en bronassets. De regressietest controleert dat deze bestanden onveranderd zijn. De publicatiebouwer bewaart de drie ontwikkelpagina’s, hun eigen assets, rekenuitleg en alle dynamisch geladen gegevens bij volgende automatische race-updates. De gegenereerde gegevens staan in de gecontroleerde GitHub Release-momentopname; code, methoden en tests staan in de repository. De ontwikkelpagina’s vervangen de oorspronkelijke routes niet.
+`clone-manifest.json` bevat de oorspronkelijke hashes van bronpagina’s en bronassets. De regressietest controleert dat deze bestanden onveranderd zijn. De publicatiebouwer bewaart de drie ontwikkelpagina’s, hun eigen assets, rekenuitleg en alle dynamisch geladen gegevens bij volgende automatische race-updates. De gegenereerde gegevens staan in de gecontroleerde GitHub Release-momentopname; code, methoden en tests staan in de repository. Op verzoek is de coureursmodule vervolgens de reguliere `analysis-lab.html` geworden. De Races- en GOAT-ontwikkelroutes blijven afzonderlijk.
 
 ## Gegevens en opbouw
+
+Aanvulling bij de promotie op 18 oktober: bij De metronoom staat opnieuw de veldvergelijking met horizontale violins voor alle deelnemers aan de geselecteerde races. Iedere geschikte schone ronde in vrije lucht telt mee. De bijbehorende detailgroepen worden geladen voordat het overzicht verschijnt; bij een andere coureur of periode worden ontbrekende groepen aangevuld. Het eigen circuitoverzicht blijft daaronder uitklapbaar. Deze aanvulling hoort bij de reguliere coureursmodule.
 
 De bouw leest de bestaande coureurswaarnemingen en het al bewaarde volledige F1DB-archief, controleert de archiefhash en voegt gecontroleerde basisfeiten en afgeleide lagen toe. Er is geen tweede onafhankelijk onderhouden coureursdatabase.
 
@@ -65,3 +67,11 @@ Zie [uitvoering en resterende onderzoekspoorten](IMPLEMENTATION.md) voor het ove
 Zie [de volledige verantwoording](INCIDENT-CHECK.md) en het [wijzigingsregister](incident-audit.json). De normalisatie onderscheidt uitval, finish, niet gestart, diskwalificatie, onzekerheid en gedeelde auto’s. Gezamenlijke besluiten, andere betrokkenen en echte strafontvangers zijn afzonderlijk vastgelegd. Besluiten gebruiken een gedeeld kolomschema; de compressie en reconstructie blijven verliesloos.
 
 Voer na het afronden van de bouw ook `node _development/tests/incidents-browser.cjs` uit. Deze controle behandelt Rosberg en Hamilton in 2016, verschillende strafrollen, collectieve tijdstraffen, oudere profielen, periodefilters, NL/EN, mobiel en lokaal openen. Wacht met gegevenscontroles tot de bouw gereed is, zodat gegevens en hashregister bij dezelfde bouw horen.
+
+## Reguliere coureursmodule
+
+`f1_analysis.driver_release.promote` maakt de gecontroleerde coureursmodule beschikbaar via `analysis-lab.html`; bestaande links en bladwijzers blijven werken. De productienavigatie verwijst naar Home, Races en GOAT op hun reguliere routes. De coureursmodule behoudt de eigen gedeelde scripts en analytische bestanden onder `_development/`, zodat de andere modules hun eigen presentatie houden. De pagina heeft een expliciete releasemarker en geen `noindex`-instructie.
+
+De oorspronkelijke coureurspagina is verliesloos bewaard als `_development/source/legacy-drivers.html.gz` en wordt tegen de oorspronkelijke SHA-256 in `clone-manifest.json` gecontroleerd. Deze archiefkopie wordt gebruikt door de integriteitscontroles, de datacollectie en de onderzoeksbouwer; de lege bootstrap van de nieuwe pagina is geen gegevensbron. Het archief reist met de gecontroleerde Release-momentopname en wordt niet als tweede werkdatabase geladen in de browser.
+
+Automatische publicaties behouden de nieuwe presentatie en alle dynamische detailgroepen. Ze bouwen de oude coureursinterface niet opnieuw over de nieuwe heen. De analytische fase 2-momentopname wordt afzonderlijk vernieuwd met de onderzoeksbouwer; reguliere race-updates zijn geen herberekening van alle onderzoeksmodellen.

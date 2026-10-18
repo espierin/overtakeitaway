@@ -31,3 +31,4 @@ _documents/
 
 # Generated analytical chunks are preserved in verified release snapshots.
 /_development/data/
+/_development/source/

@@ -177,6 +177,9 @@ def collapse_shared_entries(profiles):
 
 def build(root, *, end_year=None, years=DEFAULT_YEARS, max_bytes=MAX_EXTRA_BYTES):
     root=Path(root).resolve();end_year=end_year or datetime.now(timezone.utc).year
+    from .driver_release import is_promoted, promote
+    if is_promoted(root):
+        return promote(root)
     if years is None:years=end_year-FIRST_YEAR+1
     if isinstance(years,bool) or not isinstance(years,int) or not 1<=years<=end_year-FIRST_YEAR+1:
         raise ValueError(f'Driver profiles support one to {end_year-FIRST_YEAR+1} seasons (from {FIRST_YEAR})')
