@@ -66,3 +66,11 @@ def test_promoted_scripts_change_cache_version_when_reviewed_asset_changes(tmp_p
     assert '_development/assets/phase2.js?v=' in first
     asset.write_text('window.revision=2;')
     assert render(tmp_path)!=first
+
+
+def test_regular_driver_module_keeps_sitewide_race_update_notifications(tmp_path):
+    setup_module_pages(tmp_path)
+    asset=tmp_path/'assets/race-updates.js';asset.parent.mkdir()
+    asset.write_text('// site-wide race updates')
+    text=render(tmp_path)
+    assert 'defer data-race-updates src="assets/race-updates.js?v=' in text

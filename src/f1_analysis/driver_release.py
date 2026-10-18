@@ -49,6 +49,11 @@ def render(root):
     for old, new in [('coureurs_2.html','analysis-lab.html'),
                      ('races_2.html','races.html'),('goat_2.html','goat.html')]:
         text = text.replace('href="'+old, 'href="'+new)
+    notifications=Path(root)/'assets/race-updates.js'
+    if notifications.is_file() and 'data-race-updates' not in text:
+        version=hashlib.sha256(notifications.read_bytes()).hexdigest()[:12]
+        script=f'<script defer data-race-updates src="assets/race-updates.js?v={version}"></script>'
+        text=text.replace('</body>',script+'</body>',1)
     return version_assets(text,root)
 
 
