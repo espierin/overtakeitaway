@@ -1,0 +1,28 @@
+{
+  "race_id": "1167",
+  "race_date": "2026-10-25",
+  "start_utc": "2026-10-25T20:00:00Z",
+  "retrieved_at": "2026-10-17T04:02:12.576422+00:00",
+  "model": "gfs_seamless",
+  "model_run_issued_at": null,
+  "timezone": "UTC",
+  "source": "https://open-meteo.com/en/docs",
+  "available": true,
+  "kind": "forecast_not_observation",
+  "request_url": "https://api.open-meteo.com/v1/forecast?latitude=30.132778&longitude=-97.641111&hourly=temperature_2m%2Cprecipitation_probability%2Cprecipitation%2Cwind_speed_10m&models=gfs_seamless&timezone=UTC&forecast_days=16",
+  "source_sha256": "6c7fe642c04ff146cd3b45ea833f1d82ba602f3e9623dc63560ee46f59f901ad",
+  "forecast_valid_at_utc": "2026-10-25T20:00:00Z",
+  "values": {
+    "temperature_2m": 29.2,
+    "precipitation_probability": 10,
+    "precipitation": 0.0,
+    "wind_speed_10m": 16.6
+  },
+  "units": {
+    "time": "iso8601",
+    "temperature_2m": "°C",
+    "precipitation_probability": "%",
+    "precipitation": "mm",
+    "wind_speed_10m": "km/h"
+  }
+}

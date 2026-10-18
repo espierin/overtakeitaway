@@ -80,6 +80,31 @@ def test_archived_dashboards_receive_shared_components_without_changing_race_dat
     assert with_dashboard_components('<html><body>Archive</body></html>',run/'overzicht.html',root)=='<html><body>Archive</body></html>'
 
 
+def test_phase2_pages_and_dynamic_chunks_survive_automatic_republication(tmp_path):
+    root=tmp_path/'project';root.mkdir();project(root)
+    assets=root/'_development/assets';assets.mkdir(parents=True)
+    (assets/'profile.js').write_text('window.profileReady=true;')
+    data=root/'_development/data/details';data.mkdir(parents=True)
+    (data/'max.js').write_text('window.detail={laps:[1,2,3]};')
+    compressed=gzip.compress(b'{"laps":[1,2,3]}',mtime=0)
+    (data/'max.json.gz').write_bytes(compressed)
+    page='<html><head></head><body><a data-site-link="drivers" href="coureurs_2.html">Coureurs</a><script src="_development/assets/profile.js"></script></body></html>'
+    for name in ('coureurs_2.html','goat_2.html','races_2.html'):
+        (root/name).write_text(page)
+    # No static link points at max.*: the runtime requests these chunks lazily.
+    first=tmp_path/'first';second=tmp_path/'second'
+    build_site(root,first)
+    build_site(first,second,max_bytes=900000000)
+    for site in (first,second):
+        assert (site/'_development/data/details/max.json.gz').read_bytes()==compressed
+        assert (site/'_development/data/details/max.js').read_text()=='window.detail={laps:[1,2,3]};'
+        for name in ('coureurs_2.html','goat_2.html','races_2.html'):
+            soup=BeautifulSoup(site_html(site/name,site),'html.parser')
+            assert soup.select_one('[data-site-link="drivers"]')['href']=='coureurs_2.html'
+            assert soup.select_one('script[data-f1-reader]') is not None
+        assert verify_site(site)['races']==1
+
+
 def test_fastf1_offline_inputs_survive_season_restore(tmp_path):
     root=tmp_path/'project';root.mkdir();run=project(root)
     cache=root/'cache/history/2025-01-v1'

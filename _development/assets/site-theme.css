@@ -1,0 +1,57 @@
+/* Canonical interface palette. Driver, tyre and scientific colour scales retain their data meaning. */
+:root:root{--brand-red:#ff4758;--brand-purple:#b45cff;--brand-cyan:#51d6dd;--brand-gold:#e5bf78;--positive:#36d398;--upcoming:#f5c84c;--reference:#4d8dff;--surface-page:#0e131d;--surface-panel:#171e2a;--surface-plot:#101722;--border-ui:#344053;--text-primary:#f3f6fb;--text-secondary:#a7b5c8;--red:var(--brand-red);--purple:var(--brand-purple);--cyan:var(--brand-cyan);--gold:var(--brand-gold);--bg:var(--surface-page);--card:var(--surface-panel);--muted:var(--text-secondary);--radius-card:12px;--radius-chart:9px;--radius-dialog:14px}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text-primary)}
+body:not(.home-page):not([data-style-guide]){background-color:var(--surface-page)}
+:where(button,a,input,select,summary,[tabindex]):focus-visible{outline:2px solid var(--brand-cyan);outline-offset:4px}
+:where(input,select){accent-color:var(--brand-cyan)}
+:where(.race-hero){border-bottom-color:var(--brand-red)!important}
+:root :is(.card,.interactive-card,.race-card,.kpi,.quality-tile,.metric,.home-tile){border-radius:var(--radius-card)}
+:where(.card,.interactive-card,.metric,.quality-tile){border-color:var(--border-ui)}
+:where(.metric,.quality-tile){background-color:var(--surface-plot)}
+:where(.quality-tile.selected,.quality-tile:hover,.metric){border-top-color:var(--brand-purple)}
+.home-tile.races-tile{--accent:var(--brand-red)}.home-tile.drivers-tile{--accent:var(--brand-purple)}.home-tile.goat-tile{--accent:var(--brand-gold)}
+.season-race-nav .race-previous{--season-accent:var(--brand-red)}.season-race-nav .race-current{--season-accent:var(--brand-purple)}.season-race-nav .race-next{--season-accent:var(--upcoming)}
+.race-card.awaiting-data,.race-card.race-latest{border-color:var(--brand-purple);box-shadow:0 0 18px color-mix(in srgb,var(--brand-purple) 15%,transparent)}
+.race-card.awaiting-data:hover{border-color:var(--brand-purple)}.race-card.awaiting-data .coverage-dot{background:var(--brand-purple);box-shadow:0 0 8px var(--brand-purple)}
+.race-card.race-upcoming,.season-race-nav>a.race-upcoming{border-color:var(--upcoming);box-shadow:0 0 18px color-mix(in srgb,var(--upcoming) 14%,transparent)}
+.race-card.race-upcoming .go,.race-countdown b{color:var(--upcoming)}.race-card.race-upcoming .coverage-dot{background:var(--upcoming)}
+.year-sidebar,.driver-sidebar,#lab-controls,.circuit-sidebar{border-color:var(--border-ui);border-radius:10px;background-color:var(--surface-plot)}
+.driver-number,.badge-number,.highlight-number,.season-winner-number,.badge .number{border-radius:5px!important;font-variant-numeric:tabular-nums}
+.badge .number{min-width:31px;flex-shrink:0}.highlight-number{flex-shrink:0}
+:where(.table-wrap,.starter-scroll,.pace-scroll,.pit-chart-scroll){scrollbar-width:thin;scrollbar-color:#596273 var(--surface-plot)}
+:where(.starter-frame,.pace-frame,.pit-chart-scroll,.race-gain-panels>div){border-radius:var(--radius-chart)}
+:where(.starter-axis,.pace-axis){background:var(--surface-plot)}
+:where(.chart,.chart-scroll,.pace-wrap,.pit-chart-scroll,.starter-scroll,.table-wrap){min-width:0;max-width:100%}
+/* Normal controls share geometry; icon controls and driver rows keep their compact layout. */
+:is(.toolbar-actions,.race-navigation,.rex-controls,.quality-filters,.pit-controls,.goat-links,.radio-actions) :is(button,a),:is(.accent-button,#lab-controls>button,#lab-tabs button,.pagination button){box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:38px;padding:8px 13px;border:1px solid #596273;border-top:3px solid var(--control-accent,var(--brand-cyan));border-radius:4px;background:#080a10;color:var(--text-primary);font:800 13px/20px system-ui,sans-serif;text-decoration:none;white-space:nowrap;cursor:pointer;transition:background-color .18s,border-color .18s}
+.toolbar-actions,.rex-controls{--control-accent:var(--brand-red)}.race-navigation{--control-accent:var(--brand-cyan)}.goat-links{--control-accent:var(--brand-gold)}
+:is(.toolbar-actions,.race-navigation,.rex-controls,.goat-links,.radio-actions) :is(button,a):hover:not([disabled]),:is(.accent-button,#lab-controls>button,#lab-tabs button,.pagination button):hover:not([disabled]){border-color:var(--control-accent,var(--brand-cyan));background:color-mix(in srgb,var(--control-accent,var(--brand-cyan)) 16%,#080a10)}
+:is(.toolbar-actions,.race-navigation,.rex-controls,.goat-links,.radio-actions) :is(button,a)[disabled],:is(.accent-button,#lab-controls>button,#lab-tabs button,.pagination button)[disabled]{opacity:.4;cursor:default}
+#lab-tabs button[aria-selected=true]{border-top-color:var(--brand-purple);background:color-mix(in srgb,var(--brand-purple) 13%,#080a10)}
+/* Same dark popup surfaces and radii; per-module artwork remains intact. */
+dialog{border-radius:var(--radius-dialog);border-color:var(--brand-cyan);background-color:var(--surface-panel);color:var(--text-primary)}
+dialog::backdrop{background:#000c;backdrop-filter:blur(4px)}
+.preseason-dialog{border-color:var(--brand-purple)!important}.winter-dialog{border-color:var(--brand-gold)!important}
+.site-about-dialog{border-color:var(--brand-cyan);border-top-color:var(--brand-purple)}
+.site-about-dialog [data-site-about],.site-about-dialog .about-link.donate{border-top-color:var(--brand-purple)}
+.site-about-dialog .about-eyebrow,.notice,.starter-coverage{border-left-color:var(--brand-cyan)}
+.home-footer a{color:var(--brand-cyan)}
+/* Shared graphics stay independent from photograph layers. */
+.season-race-nav>.season-race-card[href]:hover::before,.season-race-nav>.season-race-card[href]:focus-visible::before{transform:translate(5%,5%)}
+.home-tile:hover>img{transform:translate(1%,1%)}
+#back-to-top::before{background:var(--brand-purple)}#back-to-top::after{border-top-color:var(--brand-purple)}
+@media(max-width:650px){:is(.toolbar-actions,.race-navigation,.rex-controls,.goat-links,.radio-actions) :is(button,a),:is(.accent-button,#lab-controls>button,#lab-tabs button,.pagination button){min-height:40px;padding:8px 10px;font-size:12px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{animation:none!important;transition:none!important}.home-tile:hover>img,.season-race-nav>.season-race-card[href]:hover::before,.season-race-nav>.season-race-card[href]:focus-visible::before{transform:none!important}dialog::backdrop{backdrop-filter:none}}
+
+.quality-tile.selected{border-color:var(--brand-purple)}.goat-links .goat-button.secondary{--control-accent:var(--brand-cyan)}
+
+html .driver-sidebar{border-top:3px solid var(--brand-red);border-radius:10px}
+html .dash-controls{border-top-color:var(--brand-red)!important}
+html .dash-controls .toolbar-actions button{border-top-color:var(--brand-red);border-radius:4px}
+html .dash-controls .toolbar-actions button:hover:not(:disabled),html .dash-controls .toolbar-actions button:focus-visible:not(:disabled){border-color:var(--brand-red);background:color-mix(in srgb,var(--brand-red) 16%,#080a10);outline-color:var(--brand-red)}
+html .range-rail{background:linear-gradient(to right,#344053 0%,#344053 var(--low),var(--brand-red) var(--low),var(--brand-red) var(--high),#344053 var(--high),#344053 100%)}
+html .range-slider input[type=range]::-webkit-slider-thumb{border-color:var(--brand-red)}
+html .range-slider input[type=range]::-moz-range-thumb{border-color:var(--brand-red)}
+
+/* Deselection dims the number tile, preserving the driver/team identity. */
+html .driver-sidebar .driver-row[aria-pressed=false]{opacity:1!important;filter:none;background:#080a10!important}html .driver-sidebar .driver-row[aria-pressed=false] .driver-number{background:#8b939f;color:#080a10}

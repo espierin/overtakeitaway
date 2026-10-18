@@ -1,0 +1,52 @@
+{
+  "reviewed_at": "2026-10-17",
+  "method": "The retained operative ruling and reasons were read. Responsibility or a decision not to assign sole/predominant fault is recorded only for the named actors and this incident. Unreviewed text-pattern hits are not assigned personal blame.",
+  "decisions": {
+    "fia-1177c73c1df084e84bd3": {
+      "driver": "lance-stroll",
+      "degree": "predominant",
+      "basis": "2024 Chinese GP: the operative FIA reasons explicitly identify Car 18 as predominantly to blame for the collision that led to Car 3 retiring.",
+      "reviewed_at": "2026-10-17"
+    },
+    "fia-6b9989a53ec3aff442ca": {
+      "driver": "lando-norris",
+      "degree": "sole",
+      "basis": "2025 Canadian GP: the operative FIA reasons explicitly identify Car 4 as solely to blame and describe its retirement despite a classified result.",
+      "reviewed_at": "2026-10-17"
+    },
+    "fia-410c4679b7dceb49e8aa": {
+      "drivers": [
+        "nico-rosberg",
+        "lewis-hamilton"
+      ],
+      "degree": "neither_predominant",
+      "basis": "2016 Spanish GP, FIA Document 33: neither driver was wholly or predominantly at fault; no further action. Both retired following their opening-lap collision. This does not establish zero responsibility over either career.",
+      "corroborating_url": "https://www.formula1.com/en/latest/article/mercedes-drivers-split-over-racing-incident.6Eg3YzwzWEflkpo6ZD29rL.6Eg3YzwzWEflkpo6ZD29rL",
+      "reviewed_at": "2026-10-17",
+      "retirement_confirmed_drivers": [
+        "nico-rosberg",
+        "lewis-hamilton"
+      ]
+    },
+    "fia-3994b9edee70adcd2af4": {
+      "driver": "max-verstappen",
+      "degree": "predominant",
+      "basis": "The ruling explicitly identifies the driver of Car 33 as predominantly to blame for the collision with Car 44."
+    },
+    "fia-4bd40b764d34ca77f90c": {
+      "driver": "lewis-hamilton",
+      "degree": "predominant",
+      "basis": "The ruling explicitly identifies the driver of Car 44 as predominantly to blame for the collision."
+    },
+    "fia-3f8a63ac9600a0b8896f": {
+      "driver": "max-verstappen",
+      "degree": "sole",
+      "basis": "The reasons explicitly identify Verstappen as wholly to blame for the collision with Ricciardo."
+    },
+    "fia-5cffbdf159a3b594ab06": {
+      "driver": "max-verstappen",
+      "degree": "predominant",
+      "basis": "The reasons explicitly identify the driver of Car 33 as predominantly to blame for the collision with Car 5."
+    }
+  }
+}

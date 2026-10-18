@@ -28,3 +28,6 @@ _documents/
 /analysis-lab.html
 /races.html
 /data-collection.html
+
+# Generated analytical chunks are preserved in verified release snapshots.
+/_development/data/

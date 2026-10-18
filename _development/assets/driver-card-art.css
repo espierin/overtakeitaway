@@ -1,0 +1,20 @@
+/* Generated driver-specialism artwork; the shared race card skin supplies layout and overlays. */
+.quality-grid .quality-tile[data-quality="start"]{--highlight-image:url('../../assets/cards/driver-starter-v1.webp')}
+.quality-grid .quality-tile[data-quality="free"]{--highlight-image:url('../../assets/cards/driver-clear-air-v1.webp')}
+.quality-grid .quality-tile[data-quality="metronome"]{--highlight-image:url('../../assets/cards/driver-metronome-v1.webp')}
+.quality-grid .quality-tile[data-quality="tyres"]{--highlight-image:url('../../assets/cards/driver-tyre-whisperer-v1.webp')}
+.quality-grid .quality-tile[data-quality="warmup"]{--highlight-image:url('../../assets/cards/driver-warm-up-v1.webp')}
+.quality-grid .quality-tile[data-quality="pitwindow"]{--highlight-image:url('../../assets/cards/driver-pitwindow-v1.webp')}
+
+.quality-grid .quality-tile[data-quality="qualifying"]{--highlight-image:url('cards/driver-qualifying-v1.webp')}
+
+/* Each profile card has a permanent accent; these cards navigate, not toggle. */
+.driver-lab-page .quality-grid [data-quality="qualifying"]{--quality-accent:#ff4758}
+.driver-lab-page .quality-grid [data-quality="start"]{--quality-accent:#51d6dd}
+.driver-lab-page .quality-grid [data-quality="free"]{--quality-accent:#f3f6fb}
+.driver-lab-page .quality-grid [data-quality="metronome"]{--quality-accent:#b45cff}
+.driver-lab-page .quality-grid [data-quality="tyres"]{--quality-accent:#e5bf78}
+.driver-lab-page .quality-grid [data-quality="warmup"]{--quality-accent:#568bff}
+.driver-lab-page .quality-grid .kpi.quality-tile[data-quality]{border-color:var(--quality-accent);border-top-color:var(--quality-accent);outline:none;box-shadow:none}
+.driver-lab-page .quality-grid .kpi.quality-tile[data-quality]:hover{border-color:var(--quality-accent);border-top-color:var(--quality-accent);outline:none;box-shadow:none}
+.driver-lab-page .quality-grid .kpi.quality-tile[data-quality]:focus-visible{outline:2px solid var(--quality-accent);outline-offset:3px}

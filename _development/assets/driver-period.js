@@ -1,0 +1,34 @@
+/* Inclusive year range from the driver dataset; preview while dragging, calculate on release. */
+(()=>{'use strict';
+function bounds(data){const years=data.races.map(r=>r.year).filter(Number.isInteger);return{min:Math.min(...years),max:Math.max(...years)};}
+function normalize(data,state){const b=bounds(data),clamp=v=>Math.max(b.min,Math.min(b.max,Math.round(v))),old=Number(state.year);let min=Number(state.yearMin),max=Number(state.yearMax);min=Number.isFinite(min)&&min>0?clamp(min):old?clamp(old):b.min;max=Number.isFinite(max)&&max>0?clamp(max):old?clamp(old):b.max;if(min>max)[min,max]=[max,min];Object.assign(state,{yearMin:min,yearMax:max,year:min===max?min:0});return b;}
+function matches(r,state){return !!r&&(!state.year||r.year===+state.year)&&(!state.yearMin||r.year>=+state.yearMin)&&(!state.yearMax||r.year<=+state.yearMax);}
+function mount({data,state,lang,change}){let host=document.getElementById('driver-period');if(!host){host=document.createElement('section');host.id='driver-period';host.className='driver-period';document.querySelector('.race-hero').insertAdjacentElement('afterend',host);}const b=normalize(data,state),t=(nl,en)=>lang==='en'?en:nl,span=state.yearMax-state.yearMin;
+host.setAttribute('aria-label',t('Periode voor de coureursanalyses','Driver analysis period'));host.innerHTML=`<div class="year-range"><div class="range-heading"><span>${t('JAREN','YEARS')}</span><output id="year-range-value" aria-live="polite">${state.yearMin}–${state.yearMax}</output></div><div class="range-slider" id="year-range-slider"><div class="range-rail"></div><input id="year-min" type="range" min="${b.min}" max="${b.max}" step="1" value="${state.yearMin}" aria-label="${t('Vanaf jaar','From year')}"><input id="year-max" type="range" min="${b.min}" max="${b.max}" step="1" value="${state.yearMax}" aria-label="${t('Tot en met jaar','Through year')}"></div><div class="range-endpoints"><span>${b.min}</span><span>${b.max}</span></div></div><div class="toolbar-actions"><button id="year-reset" ${state.yearMin===b.min&&state.yearMax===b.max?'disabled':''}>RESET</button><button id="year-previous" ${state.yearMin===b.min?'disabled':''} aria-label="${t('Vorige jaarreeks','Previous year range')}">← ${t('PERIODE','RANGE')}</button><button id="year-next" ${state.yearMax===b.max?'disabled':''} aria-label="${t('Volgende jaarreeks','Next year range')}">${t('PERIODE','RANGE')} →</button></div>`;
+const low=host.querySelector('#year-min'),high=host.querySelector('#year-max'),rail=host.querySelector('#year-range-slider'),output=host.querySelector('output');
+function preview(source){let a=+low.value,z=+high.value;if(a>z){if(source===low)a=z;else z=a;}low.value=a;high.value=z;const size=b.max-b.min||1;rail.style.setProperty('--low',100*(a-b.min)/size+'%');rail.style.setProperty('--high',100*(z-b.min)/size+'%');output.value=a===z?String(a):a+'–'+z;low.setAttribute('aria-valuetext',String(a));high.setAttribute('aria-valuetext',String(z));low.style.zIndex=a===b.max?'3':'1';high.style.zIndex=a===b.max?'2':'3';return[a,z];}
+function commit(a,z){if(a===state.yearMin&&z===state.yearMax)return;Object.assign(state,{yearMin:a,yearMax:z,year:a===z?a:0});change();}
+for(const input of [low,high]){input.oninput=()=>preview(input);input.onchange=()=>commit(...preview(input));}preview();
+host.querySelector('#year-reset').onclick=()=>commit(b.min,b.max);host.querySelector('#year-previous').onclick=()=>{const end=Math.max(b.min+span,state.yearMin-1);commit(end-span,end);};host.querySelector('#year-next').onclick=()=>{const start=Math.min(b.max-span,state.yearMax+1);commit(start,start+span);};
+const measure=()=>document.documentElement.style.setProperty('--driver-period-height',host.getBoundingClientRect().height+'px');measure();if(!host._periodResize&&typeof ResizeObserver!=='undefined'){host._periodResize=new ResizeObserver(measure);host._periodResize.observe(host);}
+}
+function identity({source,lang,driver,row}){
+ const host=document.getElementById('driver-period');if(!host)return;
+ host.querySelector('.floating-driver-identity')?.remove();
+ if(!source&&driver){
+  source=document.createElement('p');source.className='profile-identity';
+  const badge=document.createElement('span');badge.className='badge profile-driver-badge';badge.style.setProperty('--driver-color',row?.color||driver.color);
+  const number=document.createElement('span');number.className='number';number.textContent=Number(row?.number??driver.number)>=0?(row?.number??driver.number):'?';
+  const stripe=document.createElement('span');stripe.className='stripe';stripe.setAttribute('aria-hidden','true');
+  const code=document.createElement('span');code.className='profile-driver-code';code.textContent=driver.code;
+  const name=document.createElement('span');name.className='profile-full-name';name.textContent=driver.name;
+  badge.append(number,stripe,code);source.append(badge,name);
+ }
+ if(!source)return;
+ const box=document.createElement('div');box.className='floating-driver-identity';box.setAttribute('aria-live','polite');
+ const heading=document.createElement('span');heading.className='floating-driver-caption';heading.textContent=lang==='en'?'DRIVER PROFILE':'COUREURSPROFIEL';
+ const content=source.cloneNode(true);content.removeAttribute('id');box.append(heading,content);host.append(box);
+ document.documentElement.style.setProperty('--driver-period-height',host.getBoundingClientRect().height+'px');
+}
+window.driverPeriod={bounds,normalize,matches,mount,identity};
+})();

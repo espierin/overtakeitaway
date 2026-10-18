@@ -1,548 +1,487 @@
-# Overtake It Away — onderzoeks- en ontwikkelplan voor fase twee
+# Overtake It Away totaalplan voor fase 2
 
-**Datum:** 12 oktober 2026
+**Versie 2 — 17 oktober 2026**
 
-**Bijgewerkt:** 16 oktober 2026 — verbeterlijst voor positiewinst, coureursanalyses en GOAT gekoppeld.
+**Doel:** bouw een controleerbaar coureursprofiel en een afzonderlijke vergelijking tussen coureurs en tijdperken, op een gedeelde databasis. Verdiep daarna de strategieatlas, raceverslagen en vooruitblikken.
 
-**Doel:** een inhoudelijke en technische basis voor de volgende ontwikkelfase.
+Dit is het leidende plan voor fase 2. Het vervangt de eerdere onderzoeksopzet en verwerkt de afspraken uit de [verbeterlijst](verbeterlijst.md). Die lijst blijft de gedetailleerde werklijst. De [vorige versie](fase-2-onderzoeks-en-ontwikkelplan-archief-20261017.md) blijft beschikbaar als onderzoeksarchief. Bij een verschil gaat dit totaalplan voor; nieuwe besluiten worden in beide actuele documenten bijgewerkt.
 
-**Status:** oorspronkelijke onderzoeksrichting, deels uitgevoerd. De nieuwe scorevoorstellen in de verbeterlijst zijn nog ontwerpwerk.
+De volgende stap is de coureursmodule inhoudelijk ordenen en verrijken. Een volledige GOAT-ranglijst is een latere uitkomst van gecontroleerde vergelijkingen, geen startpunt. Dit plan beschrijft ontwikkelwerk; het is geen verslag van reeds uitgevoerde wijzigingen aan de website. De lokale uitvoering op de afzonderlijke `_2`-pagina’s en de resterende onderzoekspoorten staan in het [uitvoerings- en controleverslag](../_development/IMPLEMENTATION.md).
 
-**Onderzoek:** verkenning van bestaande producten en primaire methodologische bronnen, gecombineerd met de huidige projectdocumentatie. Dit is geen volledige inventarisatie van alle F1-websites.
+## 1 De productbelofte en de grenzen
 
-## 1. Aanbevolen koers
+Overtake It Away laat zien wat er op de baan gebeurde, wat een coureur zelf heeft laten zien en hoe prestaties zich onder vergelijkbare omstandigheden tot elkaar verhouden. Iedere analytische uitspraak moet terug te voeren zijn op waarnemingen, definities en een reproduceerbare berekening.
 
-De nadere uitwerking van positiewinst en positieverlies, met de verdeling tussen individuele coureursprofielen en gestandaardiseerde GOAT-vergelijkingen, staat in de [verbeterlijst](verbeterlijst.md). De scorevoorstellen in die lijst zijn nog ontwerpwerk.
+| Onderdeel | Centrale vraag | Hoofdinhoud |
+|---|---|---|
+| Races | Wat gebeurde er tijdens deze Grand Prix? | Uitslag, verloop, starts, posities, pitcycli en bekende gebeurtenissen |
+| Coureurs | Wat laat deze rijder zien en hoe ontwikkelt dat zich? | Eigen loopbaanfeiten, verdelingen, specialismen en teamgenootduel |
+| GOAT | Wie presteert beter op welke eigenschap, en hoe eerlijk is die vergelijking? | Vergelijkingen binnen velden, op gedeelde omstandigheden en later tussen tijdperken |
+| Strategieatlas | Onder welke omstandigheden werkte eerder, later, meer of minder stoppen? | Kandidaat-pitcycli, eigen stopprogramma’s, tijd- en positiewinst, context |
+| Verslag en vooruitblik | Wat kunnen we onderbouwd zeggen over deze en de volgende race? | Bevindingen met grafieken, later vooraf vastgelegde verwachtingen |
 
-Maak van Overtake It Away een plek waar bezoekers **prestaties in hun omstandigheden kunnen begrijpen**. De race blijft de toegang, maar rijders, teams, circuits en strategische beslissingen krijgen eigen, onderling verbonden dossiers.
+De strategieatlas blijft inhoudelijk verbonden met Races en Coureurs. Een aparte hoofdingang komt pas bij voldoende inhoud; fase 2 wijzigt daarvoor niet automatisch de bestaande hoofdnavigatie.
 
-De meest kansrijke combinatie bestaat uit drie onderdelen:
+De website blijft statisch te publiceren, tweetalig en binnen de ingestelde opslaggrenzen. Bronarchieven en zware berekeningen blijven buiten de interactieve pagina’s. Uitvoering gebeurt eerst lokaal; nieuwe publicatie volgt pas op een expliciete opdracht daarvoor.
 
-1. **Een prestatieprofiel per rijder:** waar, wanneer en onder welke omstandigheden presteert deze rijder beter dan verwacht?
-2. **Een strategieatlas per circuit:** wanneer werkte eerder of later stoppen, voor wie, vanuit welke positie en onder welke omstandigheden?
-3. **Een controleerbaar raceverslag:** een leesbare evaluatie met grafieken, onderbouwde conclusies, onzekerheid en doorklikbare bewijsstukken.
+## 2 De huidige uitgangspositie
 
-Daarna volgt een vierde onderdeel: **een vooruitblik in scenario’s**, waarin teamontwikkeling, circuitkenmerken en weersverwachtingen samenkomen. Eerst moeten de terugblikkende analyses aantoonbaar betrouwbaar zijn.
+De cijfers hieronder zijn momentopnamen van de bewaarde bouw- en publicatiebestanden. Dekking wordt per analyse vastgesteld; het bestaan van een race of profiel betekent niet dat alle metingen beschikbaar zijn.
 
-De onderscheidende belofte kan worden:
+| Onderdeel | Aangetroffen uitgangspositie | Gevolg voor de bouw |
+|---|---|---|
+| Coureursomgeving | Bouwrapport met 1950–2026, 1.166 races, 817 profielen en 26.157 coureur-raceregels | Volledige historische reikwijdte behouden waar feiten beschikbaar zijn |
+| Individuele ronderangen | 639.012 bewaarde ronderangen in het bouwrapport | Iedere geschikte ronde blijft een datapunt; niet terugbrengen tot één punt per race |
+| Start en raceontwikkeling | Eigen verdelingen, modelcurven, onzekerheidsbanden en onderzoek van ronde 1 tot finish bestaan | Grafische aanpak behouden; definities en context verder controleren |
+| Teamgenootduel | Tempo door de tijd met teamperioden, verschillende meetstatussen en vaste procentas bestaat | Binnen Coureurs behouden en zelfstandig uitleggen |
+| Veldvergelijkingen | Metronoom, pitwindow en opwarming tonen ook andere coureurs | Vergelijkende presentaties naar GOAT verplaatsen; eigen figuren blijven bij Coureurs |
+| Bandenspecialismen | Berekeningen bestaan, maar set-, leeftijds- en verkeersdekking is beperkt | Per specialisme tonen wat echt berekenbaar is |
+| Incidenten en straffen | Bewaarde uitvalstatussen en aanvullend incidenten-/besluitenmateriaal | Feitenoverzicht ontsluiten; dekking en verantwoordelijkheid controleren |
+| Basisfeiten | Rijk F1DB-bronarchief aanwezig; WK- en kwalificatiegegevens nog niet volledig in profieluitvoer | Eerst koppelen en controleren, niet opnieuw integraal verzamelen |
+| GOAT | Ontwerppagina met Winter break-status, geen gevalideerde GOAT-score | Eerst vergelijking per eigenschap bouwen |
+| Publicatie | Controlebestand van 16 oktober 2026: 281.252.427 websitebytes | Groei toetsen aan het eigen budget van 900.000.000 bytes |
 
-> Begrijp welke prestaties en beslissingen verschil maakten, hoe zeker we dat weten en wat vergelijkbare situaties zeggen over de volgende race.
+Het actuele [bouwrapport](../assets/phase2-build-report.json) en de [datacollectiepagina](../data-collection.html) blijven de ingang naar dekking en herkomst. Oude documenten met een beperking tot vijf seizoenen of uitsluitend een lokale eerste versie beschrijven eerdere opleveringen en bepalen niet meer de totale historische scope.
 
-Een nieuwe ranglijst van “beste coureurs” is minder interessant dan een antwoord op: *“Wie houdt relatief veel tempo over op oude banden in warm weer, en blijft dat patroon bestaan bij vergelijking met zijn teamgenoot?”*
+## 3 De scherpe scheiding tussen Coureurs en GOAT
 
-## 2. Wat bestaat al, en waar ligt ruimte?
+**Coureurs beschrijft één rijder. GOAT vergelijkt rijders. De rechtstreekse teamgenootvergelijking blijft een expliciete uitzondering binnen Coureurs.**
 
-Telemetrie en gewone statistieken zijn op zichzelf geen onderscheidende propositie. [F1 Tempo](https://www.f1-tempo.com/) biedt telemetrievergelijkingen; [RacePace Analytics](https://www.racepace-analytics.com/) presenteert onder meer vergelijkingen van meerdere rijders en rondes. Formula 1 beschreef al een AWS-grafiek voor undercutdreiging, gebaseerd op onderlinge afstand, pitverlies en bandenprestaties. [Formula 1: introductie van de AWS-inzichten](https://www.formula1.com/en/latest/article/braking-performance-first-of-six-new-f1-insights-powered-by-aws-graphics-set.5Ko3cyGoOoqkbgWVO5T1Nb).
+De plaats van een analyse hangt af van de vraag en de presentatie. Een eigen rondetijdrang gebruikt het veld als referentie. Een eigen startvoordeel kan uit vergelijkbare starts van andere coureurs worden berekend. De coureurspagina toont vervolgens de eigen waarde en verdeling, met voldoende uitleg om die zelfstandig te begrijpen.
 
-Ook het vergelijken van rijders via teamgenoten bestaat al: Formula 1/AWS publiceerde een historische kwalificatierangschikking met dat principe. [Formula 1: Fastest Driver](https://www.formula1.com/en/latest/article/hamilton-schumacher-senna-machine-learning-reveals-the-fastest-f1-driver-of.3DwwPLW4glCmlunjciH1Cz).
+Drie lagen blijven herkenbaar:
 
-De kans ligt daarom in een **samenhangende, controleerbare toepassing**, met een brede historische context:
+1. **Waarneming:** bijvoorbeeld P8 naar P6 in de eerste ronde, of rondetijdrang 4 van 20 gemeten tijden.
+2. **Eigen contextmaat:** bijvoorbeeld 0,4 positie beter dan een passende startreferentie verwacht.
+3. **Onderlinge vergelijking:** verschillende coureurs beoordeeld met dezelfde verdeling van omstandigheden en dezelfde meetlat.
 
-| Bestaand type aanbod | Voorgestelde verdieping voor deze site |
+De eerste twee passen bij Coureurs. De derde hoort bij GOAT. Een kampioenschapspositie blijft een eigen feit, ook al is een kampioenschap relatief. Een overzicht dat meerdere loopbanen daarop rangschikt is een GOAT-weergave.
+
+Bij Coureurs is één profiel tegelijk geselecteerd. Andere coureurs verschijnen daar alleen als werkelijk betrokken teamgenoot of als noodzakelijke context bij een concrete gebeurtenis, zoals een incidentbesluit. Er komt geen volledige-veldgrafiek of verborgen vergelijkingsmodus op de coureurspagina.
+
+Het teamgenootduel laat prestaties binnen teamperioden zien. Het is bruikbare context, maar geen bewijs van identieke auto’s, schade, strategie of opdrachten. GOAT kan dezelfde metingen later gebruiken voor een breder model.
+
+## 4 De opbouw van Coureurs
+
+### 4.1 De volgorde op de pagina
+
+| Volgorde | Blok | Wat de bezoeker ermee begrijpt |
+|---|---|---|
+| 1 | Het coureursprofiel | Identiteit, gekozen periode, kernfeiten en zes specialismen |
+| 2 | De starter | Winst en verlies van grid tot eerste doorkomst |
+| 3 | Het vervolg van de race | Positieontwikkeling na ronde één tot finish |
+| 4 | Het teamgenootduel | Relatief tempo en ontwikkeling binnen teamperioden |
+| 5 | De metronoom | Eigen rondetijdrangen per circuit en afzonderlijk de regelmaat |
+| 6 | De bandenfluisteraar | Behoud van relatief tempo bij ouder wordende banden |
+| 7 | De pitwindow-specialist | Uitvoering in de ronden rond beslissende stops |
+| 8 | De opwarmer | Tempo in de eerste bruikbare ronden op nieuwe sets |
+| 9 | Uitval incidenten en straffen | Eigen gebeurtenissen, oorzaken, beslissingen en dekking |
+| 10 | Bronnen en berekening | Selectieregels, herkomst, onzekerheid en betekenis |
+
+Het profiel begint met nummer–teamkleur–code en de volledige naam in sectiepaars. De zes compacte kaarten blijven: **Starter, vrije-baan-specialist, metronoom, bandenfluisteraar, pitwindow-specialist en opwarmer**. Starter blijft de eerste kaart. Het vrije-baantempo wordt verdiept bij het teamgenootduel; dezelfde hoofdfiguur hoeft niet tweemaal te verschijnen.
+
+Basisfeiten krijgen een compact carrièreoverzicht en eigen seizoen-/kwalificatiedetails. Ze worden geen nieuwe reeks gelijkwaardige specialismekaarten. Raceontwikkeling blijft een zelfstandig onderzoeksblok direct onder Starter.
+
+### 4.2 De eigen basisfeiten
+
+| Feitengroep | Eigen informatie | Belangrijke definitie |
+|---|---|---|
+| Kampioenschap | WK-punten, eigen puntenverloop, positie per seizoen, titels en beste eindpositie | Eindstand onderscheiden van tussenstand met peildatum |
+| Kwalificatie | Resultaten, verdeling, mediaan, beste resultaat, poles en beschikbare tijden | Kwalificatie onderscheiden van uiteindelijke grid en sprintkwalificatie |
+| Deelname | Inschrijvingen, starts, actieve seizoenen, debuut en laatste deelname | DNS, DNQ en DNPQ zijn geen gestarte races |
+| Race-uitslagen | Zeges, podia, puntenfinishes, beste uitslag en positieontwikkeling | Officiële classificatie onderscheiden van rijdend finishen |
+| Ronden | Gereden ronden, snelste ronden en waar gedekt ronden aan de leiding | Persoonlijke snelste ronde is niet de snelste ronde van de race |
+| Loopbaancontext | Teams, teamperioden, nummers en relevante wisselingen | Identiteit hangt niet af van startnummer of drielettercode |
+| Betrouwbaarheid en incidenten | Uitval, oorzaken, verantwoordelijkheid en straffen | Bronfeit onderscheiden van afgeleide classificatie |
+
+Bovenaan gelden de gekozen jaren. Een aanvullend carrièretotaal krijgt expliciet het label en bereik van de hele carrière. Per seizoen komen team(s), starts, zeges/podia, punten, WK-positie en kwalificatiesamenvatting beschikbaar.
+
+Officiële WK-punten worden niet blind gereconstrueerd door racepunten op te tellen. Historische schrapresultaten, gedeelde punten, halve punten, sprints, extra punten en latere besluiten kunnen verschil maken. Behaalde punten en meegetelde kampioenschapspunten blijven afzonderlijke begrippen.
+
+### 4.3 Wat van die basisfeiten al is opgeslagen
+
+De lokale controle van 17 oktober 2026 heeft de bewaarde F1DB-release v2026.17.0 opnieuw gelezen en de archiefhash gecontroleerd. Het oorspronkelijke ZIP bevat 1950–2026; uitslagen, kwalificaties en WK-standen lopen in die momentopname voor 2026 tot ronde 17. Latere kalenderregels zijn geen uitslagen.
+
+| Brontabel | Regels | Wat hiermee beschikbaar is |
+|---|---:|---|
+| WK-standen na races | 21.588 | Punten en posities bij bewaarde tussenstanden |
+| Seizoensstanden | 1.681 | Historische eindstanden of lopende seizoensstand, met titelindicator |
+| Kwalificatieresultaten | 27.083 | 26.947 numerieke posities; tijden en segmenten gedeeltelijk |
+| Race-uitslagen | 27.665 | Deelname, grid, uitslagstatus, puntenvelden en race-indicators |
+| Coureur-seizoenen | 3.416 | Eigen seizoensdeelname en totalen |
+| Coureuridentiteiten | 917 | Identiteit en bewaarde carrièretotalen; niet gelijk aan het aantal analyseprofielen |
+| Persoonlijke snelste ronden | 17.214 | Beschikbare snelste rondetijden per coureur en race |
+| Sprintuitslagen | 612 | Afzonderlijke sprintresultaten vanaf 2021 |
+| Sprintkwalificaties | 488 | Afzonderlijke sprintkwalificaties vanaf 2023 |
+
+Dit zijn bronregels, geen onafhankelijke races en geen volledigheidsgarantie. De WK-tabellen bevatten 388 verschillende rijderidentiteiten, tegenover 860 in de race-uitslagentabel. Controleer vooral ontbrekende noteringen bij coureurs zonder punten.
+
+Voor Jos Verstappen zijn acht seizoensregels aanwezig, maar vijf afzonderlijke WK-standregels. Voor 1995, 1997 en 1998 bevat de seizoensbron nul punten en een lege kampioenschapspositie. Nul punten is een beschikbaar feit; een exacte positie is met die regels niet aangetoond.
+
+De lokale historische SQLite-database bevat de oudere subset 1950–2019. Het complete ZIP bevat ook recentere jaren. De huidige profieluitvoer bevat nog geen volledige WK-/kwalificatielaag. De eerstvolgende datataak is daarom **ontsluiten, koppelen en gericht aanvullen**.
+
+De [verbeterlijst](verbeterlijst.md) bevat de exacte tabel-/veldaantallen, archiefidentiteit en aanvullende controles. Ontbrekende waarden worden per veld onderzocht; niet het hele archief opnieuw binnenhalen.
+
+## 5 De meetlat per specialisme
+
+Iedere kaart en detailfiguur krijgt dezelfde uitleg: wat is gemeten, wat betekent de waarde, hoe ziet de eigen verdeling eruit, waarop is die gebaseerd en welke beperking verandert de interpretatie?
+
+| Specialisme | Hoofdmaat | Eigen figuur | Richting en betekenis |
+|---|---|---|---|
+| Starter | Positiewinst en voordeel boven passende startreferentie | Eigen violins per gridpositie en gecorrigeerde curve | Positieve winst is hoger eindigen na ronde één |
+| Vrije-baan-specialist | Procentueel tempoverschil met teamgenoot | Eigen verschil per race en teamperiode | Negatief tijdverschil betekent sneller |
+| Metronoom tempo | Rondetijdrang op dezelfde raceronde | Alle eigen ronderangen per circuit, met violin en kwartielen | Rang 1 is de snelste gemeten rondetijd |
+| Metronoom regelmaat | Robuuste spreiding rond eigen stinttrend als percentage van tempo | Eigen restafwijkingen, verdeling en ontwikkeling | Lager is regelmatiger; zegt op zichzelf niets over snelheid |
+| Bandenfluisteraar | Verandering van relatief tempovoordeel per tien ronden leeftijd | Eigen gemeten leeftijd/tempoverloop | Positief betekent beter behoud tegenover de gebruikte referentie |
+| Pitwindow-specialist | Procentueel voordeel tegenover eigen stinttrends | Eigen stopvensters, verdeling en tijdlijn | Positief betekent sneller dan de eigen trend verwacht |
+| Opwarmer | Extra tijd bij leeftijd 1–3 tegenover eigen trend uit leeftijd 4–10 | Eigen afwijking per leeftijd en nieuwe set | Lager betekent minder vroeg tijdverlies |
+
+De twee aspecten van Metronoom zijn verschillende metingen binnen één onderdeel. De bestaande rangverdeling blijft behouden; die wordt niet stilzwijgend hernoemd tot zuivere constantheid. De robuuste eigen-spreidingsberekening bestaat in de rekenlaag, maar moet als afzonderlijke profielmaat gecontroleerd en ontsloten worden.
+
+### 5.1 Starter en het vervolg van de race
+
+| Analyse | Beginpositie S | Resultaatpositie E | Selectie |
+|---|---|---|---|
+| Starter | Werkelijke gridpositie | Eerste doorkomst na ronde één | Bekende gridstart en doorkomst; pitlanestarts uitgesloten |
+| Raceontwikkeling | Eerste doorkomst na ronde één | Eindklassering | Beide posities bekend en bevestigde rijdende finish |
+
+Ruwe positiewinst is **S − E**. Iedere race levert één waarneming per analyse. Het tweede onderzoek begint bij de doorkomst na ronde één; het telt geen posities die al bij de start zijn gewonnen. Het beschrijft finishers en wordt daarom altijd naast het uitvaloverzicht geïnterpreteerd.
+
+Behoud de eigen punten, violins, medianen, kwartielen, witte fit en grijze 95%-modelband. De curve blijft dicht bij de medianen, terwijl beperkte modelverlenging bij weinig gegevens herkenbaar blijft. Een modelpunt is geen extra gereden race. Geen extrapolatie naar een veldgrootte waarin de coureur nooit startte, ook als P23/P24 op de as staan.
+
+De taartverdeling winst/behoud/verlies blijft uitsluitend in de Starter-kaart. De gecorrigeerde detailgrafiek blijft, met uitklapbare uitleg Berekening en interpretatie; de eerder verwijderde losse teksten en algemene tabellen keren niet terug.
+
+Een aanvullende eigen maat wordt **verwachte resultaatpositie − werkelijke resultaatpositie**. De verwachting volgt uit dezelfde racefase, beginpositie, werkelijke veldgrootte, circuitvariant en passende periode; weer/starttype worden gebruikt waar onderbouwd. Sluit de beoordeelde coureur uit de referentie en leg de omgang met schaarse context vast.
+
+Illustratieve voorbeelden: P1 behouden bij een verwachting van 1,5 geeft +0,5 positie boven verwachting. P20 naar P17 bij een verwachting van P16 geeft −1,0 ondanks drie plaatsen ruwe winst. Deze cijfers zijn uitlegvoorbeelden, geen nieuwe coureursuitkomsten.
+
+De bestaande gecorrigeerde curvebalans, startscore en winstgrens krijgen een vastgelegde definitieversie. De winstgrens is een modelsamenvatting van waar voordeel ontstaat, met onzekerheid; geen harde fysieke vaardigheidsgrens. Pas een nieuwe score naast de oude toe na controle. De verhouding S/E blijft hoogstens aanvullend: zij corrigeert niet voor de kansen vanuit verschillende posities.
+
+### 5.2 Teamgenootduel en basissnelheid
+
+De tijdlijn Tempo door de tijd blijft bij Coureurs. Toon teamgenootperioden als lichte achtergrond, de juiste historische nummer–kleur–code, tijdelijke invallers als open punten en gemarkeerde overlap met uitvallers. Punten worden niet met lijnen verbonden.
+
+De basisvergelijking gebruikt passende ronden van beide coureurs. Het symmetrische tijdverschil is **200 × (eigen tijd − teamgenoottijd) / (eigen tijd + teamgenoottijd)**. De mediaan wordt per race bepaald; aantallen passende ronden en beperkingen blijven zichtbaar.
+
+Terugval op gemiddelde tijden of minder streng gekoppelde overlap wordt als andere meetstatus getoond, niet als even sterke meting. Een uitvaller sluit de hele race niet automatisch uit: gebruik de bruikbare gezamenlijke ronden en vermeld welke coureur de overlap begrensde.
+
+### 5.3 Metronoom met iedere ronde als datapunt
+
+Rangschik beschikbare volledige rondetijden binnen dezelfde race en dezelfde genummerde raceronde. Bewaar ruwe rang, aantal geldige tijden, race, ronde en contextvlaggen. Gelijke tijden krijgen de vastgelegde gelijke-rangbehandeling. Daarna selecteren we de eigen schone ronden in aantoonbare vrije lucht.
+
+Alle geschikte ronden van de gekozen rijder verschijnen per circuit; jaren binnen de selectie worden standaard samengevoegd. Er komt geen sectoranalyse voor dit onderdeel. De kaart en figuur noemen de mediane rang, kwartielen, aantal ronden én aantal races. Langere races leveren meer rondepunten en dat staat bij de samenvatting.
+
+De rang is een snelheidsrang, geen wedstrijdpositie. Rang 4 van 12 gemeten tijden is niet hetzelfde als rang 4 van 22. Leg vooraf een minimale velddekking vast. Een eventuele genormaliseerde rang wordt een aparte versie/maat en vervangt niet stilzwijgend de ruwe rangen.
+
+Regelmaat wordt afzonderlijk berekend uit de afwijkingen rond de eigen verwachte stinttrend. De robuuste spreiding kan als percentage worden uitgelegd: 0,3% bij een representatief tempo van 100 seconden is ongeveer 0,3 seconde spreiding rond de trend. Het is geen maximale fout of automatisch een percentage ronden binnen die marge.
+
+### 5.4 Banden en pitvensters
+
+Bandenfluisteraar vergelijkt het verloop van gekoppeld relatief tempo over gemeten bandenleeftijd. Het getal is geen directe meting van fysieke slijtage. Opwarmer beoordeelt de vroege volledige ronden op een bevestigde nieuwe set tegenover de eigen latere trend; outlap telt niet mee.
+
+Pitwindow-specialist beoordeelt de twee volledige ronden vóór de inlap en twee na de outlap tegenover eigen stinttrends. Het meet rondetijduitvoering, niet de snelheid van de monteurs of de optimaliteit van de stopkeuze.
+
+Compounds, sets en leeftijd blijven afzonderlijk. Twee nieuwe sets van dezelfde compound blijven twee stints. Een bekende compoundvolgorde bewijst geen nieuwe set, gemeten leeftijd of vrije lucht. Ontbrekende gegevens blokkeren uitsluitend de betreffende maat, niet het hele profiel.
+
+Bestaande selectiedrempels blijven gelden totdat ze expliciet worden herzien en geversioneerd. Elke wijziging krijgt een vergelijking met de eerdere uitkomsten.
+
+## 6 Uitval incidenten en straffen als eigen feiten
+
+Uitval, technische problemen, ongelukken, vastgestelde verantwoordelijkheid en straffen zijn vaste onderdelen van Coureurs. Ze hoeven niet op een GOAT-model te wachten.
+
+| Aspect | Vast te leggen feiten |
 |---|---|
-| Losse rondetijden en telemetrie | Vergelijking onder passende omstandigheden, met zichtbare selectie van vergelijkbare rondes |
-| Aantallen gewonnen posities | Uitsplitsing naar start, baanacties, pitcycli, uitval en onbekende oorzaken |
-| Eén cijfer voor een rijder | Een profiel met meerdere dimensies en onzekerheid per dimensie |
-| Een pitstopvoorspelling | Een historische strategieatlas, inclusief mislukte pogingen en vergelijkbare situaties |
-| Een wedstrijdverslag | Iedere analytische uitspraak gekoppeld aan de berekening en relevante grafiek |
-| Eén voorspelde winnaar | Kansen en scenario’s, plus een openbaar overzicht van eerdere voorspellingskwaliteit |
+| Finishstatus | Rijdend gefinisht, uitgevallen, niet gestart, gediskwalificeerd of onbekend; classificatie afzonderlijk |
+| Uitvaloorzaak | Technisch, botsing/ongeval, overige bevestigde oorzaak of onbekend; nadere bronoorzaak behouden |
+| Verantwoordelijkheid | Eigen, andere, gedeelde of niet vastgesteld, met precieze strekking van de beslissing |
+| Straf | Besluit, reden, type, sanctie, betrokken coureur en waar bekend verwerking in uitslag |
+| Verbanden | Onderbouwde koppeling tussen incident, straf en uitval |
+| Herkomst | Bron, datum, oorspronkelijke tekst/status, normalisatie en onzekerheden |
 
-Dit zijn voorstellen voor positionering. Er is geen basis om te beweren dat geen enkele andere aanbieder dergelijke onderdelen heeft.
+Een zelfstandige crash bewijst niet automatisch een eigen fout. Een straf bewijst niet vanzelf de oorzaak van een uitval. Verantwoordelijkheid wordt alleen als vastgesteld weergegeven wanneer een controleerbare beslissing dat ondersteunt; “overwegend verantwoordelijk” wordt niet vertaald naar exclusieve schuld.
 
-## 3. Andere entiteiten dan races
+Toon eigen aantallen, een verdeling naar oorzaak en een gebeurtenistijdlijn. Een gericht uitklapbaar incidenten-/straffenlog bevat race, ronde indien bekend, feit, beslissing en bron. Dat is geen herintroductie van de verwijderde algemene tabel Onderliggende races.
 
-### 3.1 Rijders
+Tel unieke uitvalbeurten één keer. Een gebeurtenis kan meerdere besluiten en sancties hebben; houd aantallen races, incidenten, besluiten en sancties uit elkaar. Tijdstraffen, gridplaatsen en licentiestrafpunten krijgen eigen eenheden. Een gecumuleerd strafpuntentotaal uit een besluit wordt niet opnieuw als toegekende straf opgeteld.
 
-Een rijderspagina krijgt een carrièreoverzicht, seizoensontwikkeling, teamgenoten, circuitprofiel en sterke of zwakke omstandigheden. Races blijven vanuit elke observatie bereikbaar. Wisselingen van startnummer veranderen de identiteit van de rijder niet.
+Een nulwaarde vraagt voldoende registratie. Geen gevonden document bij onvolledige dekking betekent onbekend. Vermeld bij ieder percentage de noemer: gestarte races, uitvalbeurten of races met voldoende gecontroleerde besluiten.
 
-### 3.2 Teams en auto’s
+## 7 GOAT als afzonderlijke vergelijkingsmodule
 
-Behandel team, seizoen en technische periode afzonderlijk. Een teamnaam is geen constante auto. Laat ontwikkeling zien in kwalificatietempo, racetempo, pituitvoering, betrouwbaarheid en strategie. Registreer historische teamopvolging zonder te suggereren dat alle prestaties van voorgangers één vergelijkbare technische reeks vormen.
+### 7.1 De opbouw
 
-### 3.3 Circuits en circuitversies
+1. **Kies de vraag.** Starts, raceontwikkeling, tempo, regelmaat, bandenbehoud, pitvenster, opwarming of beschrijvende loopbaanfeiten.
+2. **Kies de coureurs en periode.** Overzicht van voldoende gedekte coureurs, met een beperkt aantal tegelijk in detail. Hele carrière, vooraf bepaalde piekperiode en leeftijdsfase zijn verschillende analyses.
+3. **Bekijk de meetlat.** Welke omstandigheden zijn gelijkgesteld, welke overlappen werkelijk en welk deel is modelschatting?
+4. **Vergelijk de uitkomsten.** Eenheid/score, interval, aantal races, dekking en modelstatus staan bij elkaar.
+5. **Onderzoek de verschillen.** Verdelingen, beginposities, circuits, ontwikkeling en gevoeligheid van de conclusie.
 
-Maak dossiers voor inhaalbaarheid, pitverlies, bandenbelasting, startpositiebelang, neutralisaties en strategische mogelijkheden. Een circuitversie heeft een eigen geometrie en geldigheidsperiode. Een verbouwde bocht, gewijzigde DRS-zone of nieuw asfalt kan de historische vergelijking veranderen.
+Een link vanuit een specialisme neemt coureur, periode en eigenschap mee. Terugkeren behoudt die context. Coureurs en GOAT hebben een eigen selectie; een GOAT-vergelijking wijzigt niet stilzwijgend het individuele profiel.
 
-### 3.4 Duels, stints en beslismomenten
+### 7.2 Drie niveaus van vergelijking
 
-Een duel of pitbeslissing kan inhoudelijk interessanter zijn dan de hele uitslag. Geef zulke episodes een eigen link: begincontext, betrokken rijders, banden, beslissingen, verloop en resultaat. Zo kunnen bezoekers bijvoorbeeld alle vergelijkbare duels van een rijder onderzoeken.
-
-## 4. Rijdersanalyses met de meeste meerwaarde
-
-### 4.1 Tempo ten opzichte van de teamgenoot
-
-Vergelijk kwalificatie en race afzonderlijk. Voor de race: gebruik vergelijkbare rondefasen, compounds, bandenleeftijden en neutralisatiestatus. Maak een directe vergelijking alleen als voldoende gemeenschappelijke, bruikbare rondes bestaan.
-
-Begin met het procentuele tijdverschil op zulke rondes. Toon de mediaan, spreiding, aantal rondes én aantal races. Voeg later een modelcorrectie toe voor verkeer en omstandigheden. Laat de ongecorrigeerde vergelijking ook beschikbaar, zodat bezoekers zien wat het model verandert.
-
-**Grafiek:** ontwikkeling per race, met onzekerheidsband en markeringen bij een team- of teamgenootwissel.
-
-**Vraag:** verbetert de rijder relatief, of wordt vooral zijn auto sneller?
-
-Een teamgenoot is een bruikbaar referentiepunt, maar rijdt niet automatisch met identieke specificatie, schade, strategie of omstandigheden. Een lange keten van teamgenootvergelijkingen geeft evenmin een foutloos oordeel over alle tijdperken.
-
-### 4.2 Constante prestaties en herstelvermogen
-
-Meet de spreiding van rondetijden **na correctie voor een verwacht stintverloop**, niet de spreiding van alle ruwe rondetijden. Een langzaam oplopende rondetijd op oude banden is geen bewijs van inconsistent rijden.
-
-Onderzoek daarnaast prestaties na een pitstop, herstart of verloren positie. Houd uitval en incidenten als afzonderlijke uitkomsten zichtbaar; door alleen voltooide races te gebruiken ontstaat een te gunstig beeld.
-
-**Grafiek:** verdeling van tempoafwijkingen per rijder, met aparte weergave van incidentrondes. Vermijd persoonlijkheidslabels als “mentaal zwak” op basis van timinggegevens.
-
-### 4.3 Bandenbeheer en opwarming
-
-Schat per stint het tempoverloop en vergelijk dat tussen teamgenoten onder passende omstandigheden. Scheid opwarming, stabiele fase en eventuele sterke terugval. Een nieuwe set van dezelfde compound begint altijd een nieuwe stint.
-
-**Grafiek:** ronde na pitstop op de horizontale as, aangepast tempo op de verticale as, met onzekerheidsband. Een tweede grafiek toont de relatie met gemeten baantemperatuur.
-
-Brandstofmassa is doorgaans niet rechtstreeks beschikbaar. Gebruik racefase als beperkte benadering en toon gevoeligheid voor verschillende aannames. Noem een geschatte rondetijdhelling daarom niet zonder meer “fysieke bandenslijtage”: verkeer, instructies, brandstof en tempoverandering spelen mee.
-
-### 4.4 Aanvallen en verdedigen, gecorrigeerd voor kansen
-
-Een rijder die achteraan start, krijgt meer gelegenheid om in te halen. Tel daarom naast baanacties ook de blootstelling: hoeveel bruikbare ronden reed hij dicht achter of voor een tegenstander?
-
-Maak onderscheid tussen een aanvalskans, een geregistreerde positiewisseling en een voldoende onderbouwde baanactie. De precieze definitie van “dichtbij” moet aansluiten op de beschikbare intervalmetingen en per reglementperiode worden gecontroleerd.
-
-**Grafiek:** kans op een baanactie tegenover tempo-, banden- en afstandsverschil; aparte lijnen voor aanvallen en verdedigen. Geen betrouwbare noemer betekent geen betrouwbaar conversiepercentage.
-
-### 4.5 Startkwaliteit
-
-Splits start tot eerste meetpunt, eerste sectoren en eerste doorkomst op start/finish, waar de gegevens dit toelaten. Vergelijk winst vanuit overeenkomstige gridposities en vermijd een algemene ranglijst die achteraan starten beloont.
-
-Bewaar de huidige sortering op positie na ronde één. Voeg daarnaast een contextvergelijking toe: hoeveel posities werden gewonnen ten opzichte van vergelijkbare starts? Voor oudere races blijft alleen start tot einde eerste ronde mogelijk.
-
-### 4.6 Prestaties onder omstandigheden
-
-Onderzoek gevoeligheid voor baantemperatuur, nat/droog, wind, baanhoogte, bochtenprofiel, bandenbelasting en verkeer. Toon eerst afzonderlijke relaties en daarna modelmatig gecorrigeerde patronen.
-
-**Grafiek:** per omstandigheid een effect met interval en aantal races. Een spectaculair resultaat uit twee regenraces krijgt een brede marge, geen definitief predicaat “regenspecialist”. Controleer of een patroon bij een teamwissel blijft bestaan.
-
-### 4.7 Circuitvoorkeur tegenover overdraagbare eigenschappen
-
-Combineer prestaties op hetzelfde circuit met prestaties op circuits die vergelijkbare kenmerken hebben. Dit helpt bij een nieuwe baan of een rijder met weinig eerdere starts.
-
-Laat zien of een vermeende voorkeur overeind blijft na correctie voor teamsterkte en seizoen. Rijrichting kan een leuke onderzoeksvraag blijven, maar is mogelijk een proxy voor andere kenmerken. De bestaande Boordradio-grap mag geen ongemerkt geselecteerde statistische conclusie worden.
-
-### 4.8 Verwachting tegenover realisatie
-
-Bewaar vóór iedere race een voorspelling. Toon achteraf waar de rijder beter of slechter eindigde dan de vooraf vastgelegde verdeling verwachtte. Splits snelheid, incidenten en strategie voor zover de bron dat ondersteunt.
-
-De verwachting wordt niet achteraf met de racegegevens herberekend. Een verschil met de voorspelling bewijst ook niet automatisch een uitzonderlijke persoonlijke prestatie.
-
-## 5. Statistisch fundament: wat eerst, wat later?
-
-### 5.1 Eerst heldere metingen
-
-Definieer vóór het modelleren de uitkomst en vergelijkingsgroep: rondetijd, relatieve snelheid, positie na een pitcyclus, finishpositie of kans op uitval. Maak uitsluitingen zichtbaar. Gebruik dezelfde definities in grafieken, kaarten, zoekresultaten en verslagen.
-
-### 5.2 Een hiërarchisch model als hoofdstructuur
-
-Ronden horen bij stints, stints bij rijders in races; teams, circuits en seizoenen kruisen die structuur. Een hiërarchisch model kan die samenhang opnemen en schattingen bij weinig gegevens naar een groepsgemiddelde trekken. Dat beperkt spectaculaire conclusies op basis van enkele observaties.
-
-Er bestaan relevante F1-voorbeelden: Bell en collega’s modelleren rijder- en constructeureffecten op verschillende niveaus; Van Kesteren en Bergkamp gebruiken een Bayesiaans model voor de rangorde van raceuitslagen. Deze onderzoeken zijn een methodologisch vertrekpunt, geen kant-en-klaar bewijs voor onze toekomstige uitkomsten. [Bell e.a., multilevelonderzoek](https://eprints.whiterose.ac.uk/id/eprint/96995/14/WRRO_96995.pdf), [Van Kesteren en Bergkamp, model van raceuitslagen](https://arxiv.org/abs/2203.08489).
-
-Een voorgestelde tempospecificatie bevat:
-
-- Een circuit-/racebasis en teamsterkte die per seizoen en race kan veranderen.
-- Een rijdercomponent en, waar identificeerbaar, rijder–circuitinteracties.
-- Compound, bandenleeftijd, racefase, temperatuur en neutralisaties.
-- Verkeerscontext wanneer die werkelijk gemeten is.
-- Onzekerheid en samenhang tussen opeenvolgende rondes.
-
-Begin eenvoudig en voeg alleen variabelen toe die aantoonbaar helpen. Modelleren maakt niet alle rijder- en auto-effecten identificeerbaar. In sterk verweven situaties moet het product dat expliciet laten zien.
-
-### 5.3 PCA: bruikbaar voor ontdekking, beperkt als verklaring
-
-**Ja, een hoofdcomponentenanalyse kan zinvol zijn.** PCA vat samenhangende numerieke variabelen samen in assen die veel variatie beschrijven. Die assen optimaliseren geen racevoorspelling en bewijzen geen oorzaak. De implementatie in scikit-learn centreert variabelen, maar schaalt ze niet automatisch naar dezelfde variantie. [PCA-documentatie](https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html).
-
-Voorgestelde toepassing: gebruik gecontroleerde kenmerken per rijder–seizoen of rijder–race, zoals relatief tempo, aangepaste consistentie, geschat stintverloop, startprestatie en aanvalsefficiëntie. Vul de matrix niet met zoveel absolute rondetijden dat vooral auto- en circuitverschillen de assen bepalen.
-
-Werkwijze:
-
-1. Kies voldoende gedekte kenmerken; behandel ontbrekende waarden en meetonzekerheid expliciet.
-2. Corrigeer waar mogelijk de context en schaal de variabelen passend.
-3. Pas PCA toe; publiceer verklaarde variantie en bijdragen van variabelen aan iedere as.
-4. Controleer stabiliteit door complete races of seizoenen opnieuw te bemonsteren.
-5. Vergelijk verschillende tijdperken en controleer of profielen bij nieuwe races herkenbaar blijven.
-6. Geef een as alleen een inhoudelijke naam als de variabelebijdragen dat ondersteunen.
-
-**Product:** een interactieve profielkaart met vergelijkbare rijders, plus een begrijpelijke uitleg waarom zij dicht bij elkaar staan. Een afstand op de kaart is geen rangorde van kwaliteit. Een componentnaam zoals “bandenbeheer” blijft een interpretatie die onderzocht moet worden.
-
-Mijn advies: PCA volgt na de eerste betrouwbare metingen en het contextmodel. Maak het geen noodzakelijke voorwaarde voor de eerste rijderspagina.
-
-### 5.4 Methodes kiezen per vraag
-
-| Vraag | Voorgestelde methode | Belangrijkste beperking |
+| Niveau | Betekenis | Voorwaarde |
 |---|---|---|
-| Relatief tempo en omstandigheden | Hiërarchische regressie; eventueel niet-lineaire temperatuur- en leeftijdseffecten | Auto, strategie en rijder blijven gedeeltelijk verweven |
-| Kans op inhalen of stoppen | Gebeurtenismodel met blootstelling per ronde | Afstand, intentie en oorzaak kunnen ontbreken |
-| Rangorde en podiumkansen | Model voor gezamenlijke rangorde, eventueel racesimulatie | Los voorspelde finishposities kunnen onderling strijdig zijn |
-| Ontwikkeling van een team | Dynamisch model met veranderende teamsterkte | Een trend bewijst geen effect van een specifiek upgradepakket |
-| Profielgroepen | PCA als verkenning, eventueel clustering | Groepen hangen af van kenmerken en periode |
-| Andere pitbeslissing | Scenariosimulatie; later zorgvuldig causaal onderzoek | Niet-geobserveerde alternatieven zijn modeluitkomsten |
+| Geobserveerd veld | Beschrijvende verschillen tussen deelnemers in dezelfde races | Dezelfde definitie, zichtbare selectie en dekkingsverschillen |
+| Gedeelde omstandigheden | Vergelijking met dezelfde verdeling van beginposities, circuits en relevante context | Voldoende overlap en vooraf vastgelegde gewichten |
+| Tijdperken | Modelmatige vergelijking tussen coureurs die niet rechtstreeks samen reden | Gevalideerde verbindingen, expliciete aannames en gevoeligheid |
 
-Machine learning met complexere modellen is een latere vergelijkingskandidaat. Het verdient pas een plek wanneer het buiten de trainingsperiode beter presteert dan een uitlegbaar basismodel.
+De bestaande volledige-veldgrafieken van Metronoom, pitwindow en opwarming worden de eerste beschrijvende GOAT-weergaven. Ze zijn nog geen gecorrigeerde vaardigheidsranglijsten. Deelnemen aan dezelfde races garandeert geen identieke bruikbare ronden, compounds, leeftijd of omstandigheden.
 
-## 6. Strategieatlas: undercut en overcut
+De eigen feiten zoals titels, WK-posities, punten, zeges en poles kunnen hier naast elkaar staan. Benoem dat als loopbaanvergelijking. Ruwe puntentotalen, carrièrelengte of historische overwinningen worden niet rechtstreeks een tijdperk-onafhankelijke kwaliteitsscore.
 
-### 6.1 De centrale vraag
+### 7.3 Standaardiseren voor een eerlijke vergelijking
 
-Onderzoek niet alleen *“Hoe vaak lukte een undercut hier?”*, maar:
+Een eigen gemiddelde beschrijft de werkelijk gereden carrière. GOAT moet een gemeenschappelijke doelverdeling gebruiken. Aantallen eigen starts bepalen de precisie; ze bepalen niet vanzelf de juiste weging van omstandigheden voor alle vergeleken coureurs.
 
-> Vanuit welke afstand en positie, met welke banden, verkeerscontext en racefase leverde eerder of later stoppen een gunstige pitcyclus op?
+Illustratief: A is vooraan +0,4 en achteraan +1,2 positie beter dan verwacht; B +0,2 en +1,0. Met eigen carrièreverdelingen 90/10 voor A en 10/90 voor B zijn de gemiddelden +0,48 en +0,92. Bij dezelfde verdeling 50/50 worden dat +0,80 en +0,60. De onderlinge conclusie kan dus omkeren door de verdeling van kansen.
 
-Onderlinge afstand en opwarming kunnen veel verschil maken. Formula 1 beschrijft bijvoorbeeld hoe koude nieuwe banden in Monaco een overcut aantrekkelijk kunnen maken. Dat is een aanleiding om omstandigheden mee te nemen, geen universele regel. [Formula 1: Monaco 2021, undercut versus overcut](https://www.formula1.com/en/latest/article/undercut-vs-overcut-why-tyre-strategy-was-so-finely-poised-in-monaco-and-why.1YYMDkEBnFols8bDWtSXiz.1YYMDkEBnFols8bDWtSXiz).
+Controleer beginpositie, werkelijk startersaantal, circuitvariant, periode en waar bekend weer/starttype. De huidige benadering van veldgrootte met een minimum van twintig moet voor zulke referenties worden vervangen door gecontroleerde startersaantallen. Een aslengte is geen veldgrootte.
 
-### 6.2 Definities vastleggen
+Waar de context onvoldoende overlapt, volgt een beperkte vergelijking of een afzonderlijk gemarkeerde modelschatting. Een nooit waargenomen start vanaf P1 wordt geen eigen waarneming. Als het model onvoldoende onderbouwd is, verschijnt geen rangschikking.
 
-Een undercutpoging: een achterliggende rijder stopt eerder dan de relevante tegenstander met het doel of de mogelijkheid om na de pitcyclus vóór hem te komen. Een overcutpoging gebruikt later stoppen. Timing toont niet altijd de intentie; in dat geval heet het een **kandidaat-pitcyclus**, met onbekende intentie.
+### 7.4 Auto tijdperk en samenhang
 
-Definieer vooraf de toegestane stopafstand, betrokken tegenstander, vergelijkbaarheid en het meetmoment na beide stops. Scheid:
+Onderzoek een hiërarchisch model met coureur-, team-/autoperiode-, race-, circuit- en seizoenscontext, in een eenvoudiger uitvoering vóór een uitgebreid model. Gebruik informatie over autocondities die vóór het te beoordelen resultaat bekend was; corrigeer een uitslag niet met dezelfde uitslag.
 
-- **Positiesucces:** de onderlinge volgorde is na de vergelijkbare cyclus omgedraaid.
-- **Tijdwinst:** verandering van het onderlinge gat, in seconden, met vaste tekenconventie.
-- **Duurzaamheid:** blijft het resultaat later bestaan, of kost het bijvoorbeeld een extra stop?
-- **Verwachte strategische waarde:** een afzonderlijke modeluitkomst ten opzichte van andere beslissingen.
+Teamgenoten en overlappende loopbanen kunnen verbindingen leveren. Toon welke vergelijkingen goed, zwak of niet verbonden zijn. Een lange keten maakt auto en coureur niet volledig identificeerbaar. Controleer grote reglementsbreuken en veranderende veldsterkte afzonderlijk.
 
-### 6.3 De noemer is cruciaal
+Tijdperken krijgen geen gemeenschappelijke bandenbeheerscore als de vereiste oude metingen ontbreken. Gebruik dezelfde dimensies voor alle deelnemers in een totaalanalyse, beperk de vergelijking of toon geen totaalscore.
 
-De huidige site herkent bepaalde succesvolle cycli. Een succespercentage vereist daarnaast de mislukte cycli en een vooraf bepaalde verzameling vergelijkbare mogelijkheden. Alleen gevonden successen tellen en daar een percentage van maken is onjuist.
+Uitval wordt een aparte dimensie naast prestaties bij finish. Technische uitval krijgt niet willekeurig nul vaardigheidspunten en een incident krijgt niet automatisch eigen schuld.
 
-Maak daarom een onafhankelijk register van kandidaatcycli, inclusief mislukkingen, extra stops, neutralisaties en onvolledige informatie. Een niet-genomen mogelijkheid is geen mislukte poging; die hoort in een afzonderlijke analyse van beslismomenten.
+### 7.5 Een eventuele totaalscore
 
-### 6.4 Verklarende omstandigheden
+Begin met een profiel van meerdere dimensies. Een algemeen GOAT-cijfer komt pas nadat de afzonderlijke maten gevalideerd zijn, dezelfde betekenis hebben voor de betrokken coureurs en de gewichten expliciet zijn gekozen.
 
-Sla minimaal op: circuitversie, seizoen, racefase, positie, gat vóór de eerste stop, beide compounds en setleeftijden, nieuwe/gebruikte set indien bekend, relatieve snelheid vóór de stop, stopafstand, pitverlies, verkeer na pitexit en neutralisaties. Voeg gemeten temperatuur en regen toe waar beschikbaar.
+Laat zien hoe redelijke andere gewichten de conclusie veranderen. Houd rekening met dubbel tellen: relatieve snelheid, rangtempo, regelmaat, punten en zeges kunnen samenhangen. Een PCA-as of een verzameling gecorreleerde maten is niet automatisch een verdedigbare kwaliteitsweging.
 
-Alleen informatie die op het beslismoment bekend kon zijn, mag een voorspeller zijn. Het uiteindelijke resultaat en het latere stopmoment van de tegenstander mogen wel de uitkomst definiëren, maar niet ongemerkt de voorafvoorspelling voeden.
+## 8 De strategieatlas en de koppeling met de rijder
 
-### 6.5 Rondes en posities presenteren
+De atlas onderzoekt **wat er gemeten gebeurde** en later welke alternatieve keuzes aannemelijk beter hadden kunnen werken. Er zijn drie aparte vragen.
 
-Maak een warmtekaart met relatieve racefase tegenover afstand tot de tegenstander, met keuze voor positieklasse, compoundwissel en omstandigheden. Relatieve racefase is nodig omdat dezelfde ronde op twee circuits iets anders betekent.
+### 8.1 Kandidaat-undercuts en overcuts
 
-Iedere cel toont aantal cycli, geschatte kans en onzekerheid. Maak daarnaast een tabel met daadwerkelijke rondes voor de geselecteerde race of circuitversie. Trek niet voor iedere afzonderlijke gridpositie een aparte harde conclusie: dat maakt steekproeven snel te klein.
+Bewaar gunstige én ongunstige vergelijkbare cycli. Definieer stopafstand, begincontext, betrokken rijders en meetmoment na beide stops. Rapporteer apart tijdwinst, omgekeerde onderlinge volgorde en eventueel behoud van dat resultaat.
 
-Bij weinig lokale waarnemingen kan een hiërarchisch model informatie uit vergelijkbare circuits gebruiken. Laat dan expliciet zien welk deel van de schatting uit het circuit zelf komt en welk deel uit het bredere model.
+Noem een cyclus zonder bekende intentie geen bewezen poging. Een succespercentage geldt alleen voor de vooraf gedefinieerde verzameling kandidaatcycli, niet voor alle denkbare kansen. Geen meetbare cycli is onbekend; een volledige geaccepteerde selectie met nul successen is nul.
 
-### 6.6 Het alternatief simuleren
+Een warmtekaart kan racefase tegenover beginafstand tonen, met uitsplitsing naar positieklasse, compound en omstandigheden. Iedere cel vermeldt omvang en onzekerheid. De daadwerkelijke ronde blijft beschikbaar voor de gekozen race; relatieve racefase maakt circuits beter te vergelijken.
 
-Bereken later voor een gekozen ronde: stoppen nu, één of meer ronden wachten, of een andere toegestane compound kiezen. Simuleer pitverlies, opwarming, tempoverloop, verkeer en reacties van tegenstanders. Toon een bereik en een gevoeligheidsanalyse.
+### 8.2 Het eigen stopprogramma
 
-Een simulatie is geen bewezen alternatieve werkelijkheid. De waargenomen keuzes zijn selectief: teams stoppen juist eerder als hun informatie dat gunstig maakt. Eenvoudige gemiddelden van vroege en late stoppers kunnen daardoor misleiden. Eerst een verklarende simulatie; pas daarna onderzoek naar causale effecten met expliciete aannames en controle op vergelijkbare beslissituaties.
+Bouw voort op de beschikbare pitprogramma’s. Onderzoek per race het tijd- en positieverloop van de gekozen rijder tegenover tegenstanders met hetzelfde aantal stops. Leg vooraf vast welke vensters en paren volledig genoeg zijn. Meerdere tegenstanders of cycli uit één race vormen geen onafhankelijke races.
 
-## 7. Teamontwikkeling en de volgende race
+Toon bij Coureurs de eigen verdeling en samenvatting. Een concreet duel kan als race-episode worden geopend. De vergelijking van de uitvoering van verschillende coureurs hoort bij GOAT.
 
-### 7.1 Veranderende teamsterkte
+Meer of minder stops is een afzonderlijke analyse. Een verschil in resultaat tussen één en twee stops bewijst niet dat het extra stoppen de oorzaak was. Verkeer, banden, neutralisaties, schade en racefase blijven relevant.
 
-Volg het aangepaste kwalificatie- en racetempo door het seizoen. Geef recentere races meer betekenis waar validatie dat ondersteunt, maar laat toevallige uitschieters niet de hele verwachting bepalen. Reglementwissels en grote technische breuken krijgen een aparte behandeling.
+### 8.3 Alternatieven en scenario’s
 
-Registreer aangekondigde upgrades met bron, datum en betrokken auto. Een verbetering na een upgrade kan ook samenhangen met circuitgeschiktheid of temperatuur. Formuleer daarom eerst “verbetering sinds dit moment”, en alleen bij voldoende bewijs een gevolgtrekking over het pakket.
+Pas later simuleren: nu stoppen, later stoppen of een andere toegestane compound kiezen. Onderscheid pitverlies, opwarming, tempoverloop, verkeer en reacties van tegenstanders. Toon een bereik en de gevoeligheid voor aannames.
 
-### 7.2 Geschiedenis op dezelfde baan
+Waargenomen strategie is selectief: teams kiezen een stop op basis van hun informatie. Vergelijkbare geobserveerde groepen zijn daarom nog geen bewezen alternatief verloop. Een causaal effect vraagt een afzonderlijk onderzoeksontwerp.
 
-Gebruik eerdere prestaties van rijder én team, met correctie voor seizoen, circuitversie en toenmalige teamsterkte. Combineer die met vergelijkbare circuittypen. Vermijd een simpel gemiddelde van oude finishposities: een vroegere dominante auto of uitval kan dat sterk vertekenen.
+## 9 Aanvullende analyses na de kern
 
-### 7.3 Vier verwachtingen met een eigen tijdstip
+De eerdere onderzoeksambitie blijft behouden, met een duidelijke plaats en volgorde.
 
-Bewaar afzonderlijke verwachtingen vóór het weekend, na trainingen, na kwalificatie en vlak vóór de race. Iedere versie mag alleen gegevens gebruiken die toen beschikbaar waren.
+| Onderwerp | Coureurs | GOAT of gedeelde verdieping | Startvoorwaarde |
+|---|---|---|---|
+| Aanvallen en verdedigen | Eigen acties en benutting van meetbare kansen | Vergelijking bij dezelfde blootstelling en context | Betrouwbare definitie van kans, actie en tijd nabij een tegenstander |
+| Omstandigheden | Eigen patroon bij droog/nat, temperatuur of circuittype | Vergelijking na controle van auto, periode en selectie | Voldoende werkelijk gemeten omstandigheden |
+| Circuitprofiel | Eigen prestaties op hetzelfde circuit of variant | Overdraagbaarheid naar vergelijkbare banen | Gecontroleerde circuitversies en kenmerken |
+| Teamontwikkeling | Context bij eigen loopbaanontwikkeling | Dynamische autocorrectie en verwachtingen | Tijdgebonden teaminformatie en valide basismodel |
+| PCA en profielgroepen | Later eventueel uitleg van het eigen profiel | Vergelijkbare profielen zonder automatische rangorde | Stabiele, voldoende gedekte en passend geschaalde kenmerken |
+| Raceverslag | Eigen bijdrage aan onderbouwde racebevindingen | Gedeelde bevindingenlaag voor de racepagina | Gecontroleerde berekeningen en tekstsjablonen |
+| Vooruitblik | Eigen verwachte prestatie onder scenario’s | Gezamenlijke consistente raceverwachting | Tijdgescheiden terugtest en vooraf opgeslagen voorspellingen |
 
-Toon voor de komende race bijvoorbeeld een verdeling van relatief tempo, podiumkans, waarschijnlijke positieband en strategische gevoeligheid. Voeg een toelichting toe op welke recente resultaten, circuitkenmerken en weersscenario’s het meeste bijdragen.
+PCA blijft verkennend. Het vat variatie in de gekozen kenmerken samen; een as is niet vanzelf kwaliteit of een oorzaak. Kies kenmerken per coureur-race of coureur-seizoen, behandel ontbrekende waarden en meetonzekerheid, en controleer de stabiliteit. Schaling en kenmerkselectie worden alleen op trainingsdata geleerd. Een vergelijkingskaart met andere profielen hoort bij GOAT.
 
-## 8. Weer: metingen en verwachtingen gescheiden
+Sectoren en volledige telemetrie vormen geen vereiste voor de Metronoom of de eerste GOAT-versie. FastF1 blijft een aanvullende bron waar bruikbare gegevens beschikbaar zijn; alleen de benodigde afgeleide kenmerken worden gepubliceerd. Uitgebreide telemetrie blijft gerichte latere verdieping.
 
-Voor verklaringen achteraf zijn gemeten omstandigheden nuttig. Voor voorspellingen zijn de **destijds beschikbare verwachtingen** nodig. Een terugtest met het werkelijk opgetreden weer geeft een voordeel dat vooraf niet bestond.
+## 10 Raceverslagen weer en voorspellingen
 
-[OpenF1](https://openf1.org/docs/) heeft weergegevens naast timing en stints. [Open-Meteo](https://open-meteo.com/en/docs/ensemble-api) biedt ensembleverwachtingen. De historische forecastdienst bewaart een aaneengeschakelde reeks van vroege forecasturen; voor een specifieke vooruitblik is een afzonderlijke modelrun met bijbehorende initialisatietijd nodig. [Historische forecasts](https://open-meteo.com/en/docs/historical-forecast-api), [afzonderlijke modelruns](https://open-meteo.com/en/docs/single-runs-api).
+### 10.1 Een bevindingenregister vóór het verslag
 
-Bewaar model, uitgiftetijd, beschikbare horizon, racecoördinaten en UTC-tijdvak. Controleer ook wanneer een run werkelijk gepubliceerd en beschikbaar was; initialisatietijd alleen garandeert dat niet.
+Iedere bevinding krijgt een getal, eenheid, selectie, referentie, onzekerheid, dekking, bron, definitieversie en grafiekverwijzing. Kaarten, grafieken en tekst gebruiken hetzelfde resultaat.
 
-Voorgestelde scenario’s: droog/koel, droog/warm, regen tijdens de race en een overgang van nat naar droog. Gebruik waar mogelijk ensembleleden met hun tijdsverloop. Onafhankelijk willekeurig regen per ronde trekken geeft onrealistische weersreeksen.
+Begin met vaste tweetalige sjablonen. Een eventueel taalmodel mag de formulering helpen, maar geen nieuwe uitslagen, aantallen of oorzaken toevoegen. Maak waarneembare veranderingen niet ongemerkt causaal: “sneller sinds dit moment” is niet automatisch “sneller door deze upgrade”.
 
-Luchttemperatuur is geen baantemperatuur. Een afgeleide baantemperatuur vereist een apart gevalideerd model met onder meer zoninstraling en tijdstip. Regen boven een weermodelcel is bovendien geen directe meting van grip op iedere bocht.
+Een raceverslag behandelt het kernbeeld, start en kantelpunten, tempo, pitcycli, incidenten, opvallende eigen rijderprestaties en beperkingen. Een vooruitblik verschijnt pas als de onderliggende verwachtingen betrouwbaar genoeg zijn.
 
-Begin met een eenvoudige, herkenbare vraag: **verandert de onderlinge verwachting sterk tussen een warme droge race en een koelere race?** Een nauwkeurige voorspelling van het moment waarop intermediates sneller worden is een latere onderzoeksstap.
+### 10.2 Werkelijke omstandigheden en verwachtingen scheiden
 
-## 9. Een statistisch raceverslag met grafieken
+Gemeten regen en temperatuur horen bij de terugblik. Een weersverwachting krijgt uitgiftetijd, modelrun, geldigheid, locatie/tijdzone en bron. UTC is de opslagbasis; de presentatie mag naar lokale tijd omrekenen.
 
-### 9.1 Aanbevolen opbouw
+Een opgeslagen verwachting voor een race mag achteraf niet worden vervangen door het werkelijk waargenomen weer. Bewaar zo nodig afzonderlijke versies vóór het weekend, na trainingen, na kwalificatie en vóór de hoofdrace.
 
-| Deel | Inhoud | Grafiek |
+### 10.3 Kwaliteit van vooruitblikken toetsen
+
+Bewaar verwachtingen voordat de race begint. Gebruik voor winst/podium een gezamenlijke consistente race-uitkomst of duidelijke kansdefinitie. Toets kalibratie en een passende kansfoutmaat, niet alleen de gekozen winnaar.
+
+Vergelijk met eenvoudige basismodellen voor teamsterkte en circuitgeschiedenis. Een ingewikkelder model krijgt pas een productplek als het buiten de trainingsperiode aantoonbaar iets toevoegt.
+
+## 11 Eén gedeelde databasis
+
+Dezelfde feiten voeden verschillende modules. Maak geen twee onafhankelijk bijgehouden databases voor Coureurs en GOAT.
+
+| Laag | Inhoud | Gebruik |
 |---|---|---|
-| Kernbeeld | Drie belangrijkste onderbouwde bevindingen | Compact overzicht met verwijzingen |
-| Verwachting en uitslag | Vooraf bewaarde verwachting tegenover realisatie | Positieverdeling en werkelijk resultaat |
-| Snelheid | Aangepast tempo en teamgenootvergelijking | Stinttempo met intervallen |
-| Kantelpunten | Start, pitcycli, neutralisaties en geregistreerde incidenten | Tijdlijn met doorklikbare episodes |
-| Strategie | Uitgevoerde keuzes en vergelijkbare historische situaties | Pitcyclus en strategieatlas |
-| Rijders | Opvallende afwijkingen van hun eigen profiel | Profiel tegenover recente referentie |
-| Vooruitblik | Wat deze race aan de volgende verwachting verandert | Modelupdate met onzekerheid |
-| Grenzen | Welke conclusies ontbreken of zwak zijn | Dekking en bronnen |
+| Bewaarde bronnen | Originele antwoorden, bestanden, bronversies en hashes | Herstel, controle en gerichte aanvulling |
+| Gecontroleerde feiten | Identiteiten, sessies, uitslagen, punten, status, stints en besluiten | Basisstatistieken en traceerbare observaties |
+| Afgeleide waarnemingen | Ronderangen, starts, vervolgtrajecten, pitvensters en eigen trends | Gedeelde analysebouwstenen |
+| Profielmaten | Eigen getallen en verdelingen binnen periode en context | Coureurs |
+| Vergelijkingsmaten | Gemeenschappelijke referentie, gewichten, model en onzekerheid | GOAT |
+| Bevindingen en presentatie | Uitlegbare resultaten met bron- en grafiekverwijzingen | Kaarten, tekst, verslagen en downloads |
 
-### 9.2 Bewijs vóór tekst
+Gebruik duurzame sleutels voor coureur, team-/autoperiode, race, sessietype, circuitvariant, inschrijving, stint/set, incident en besluit. Startnummer en drielettercode zijn labels. Behoud de alias van Zhou Guanyu en de bestaande scheiding van verschillende coureurs met gelijke codes.
 
-Maak eerst een register van berekende bevindingen. Iedere bevinding bevat getal, eenheid, interval, vergelijkingsgroep, filters, dekking, bronverwijzingen, dataversie en grafiek-ID. De tekst wordt uit dat register opgebouwd.
+Iedere maat legt vraag, definitieversie, eenheid, richting, nulpunt/referentie, invoervereisten, uitsluitingen, weging en minimumdekking vast. Bewaar de eigen bronuitkomst apart van een GOAT-correctie. Gelijke selectie en definitie leveren in beide modules dezelfde basisuitkomst.
 
-Start met vaste tekstsjablonen. Eventueel later een taalmodel voor formulering gebruiken, maar laat het geen nieuwe cijfers, oorzaken of gebeurtenissen bedenken. Dezelfde bevindingen voeden de Nederlandse en Engelse versie.
+De datacollectiepagina wordt onderdeel van iedere inhoudelijke datalevering: parameter, aantal bruikbare waarden, jaren, bron, zoekmethode, controles, conflicten en ontbrekende dekking. Houd opgeslagen, gekoppelde, berekenbare en getoonde waarden uit elkaar.
 
-Een verantwoord sjabloon is bijvoorbeeld:
+Zoek aanvullingen gericht per ontbrekend veld en jaar. Hergebruik de al bewaarde bronnen eerst. Gebruik officiële resultaten/besluiten en gedocumenteerde gespecialiseerde datasets; onderzoek bij verdwenen materiaal ook webarchieven. Een gearchiveerde artikelpagina garandeert niet dat de oorspronkelijke afbeelding of tabel terughaalbaar is.
 
-> Op de vergelijkbare groene-vlagronden was [rijder] gemiddeld [verschil] sneller dan [referentie]. De vergelijking omvat [aantal] rondes uit [aantal] stints. [Beperking] maakt een uitspraak over [oorzaak] onzeker.
+## 12 Statistische afspraken en controle
 
-Dit is een sjabloon, geen gemeten resultaat. Vermijd uitspraken als “de regen kostte precies vier seconden” wanneer alleen een modelmatige samenhang is vastgesteld.
+### 12.1 Wat een uitkomst wel meet
 
-### 9.3 Een scorekaart zonder schijnprecisie
+Beschrijving, referentiemaat, voorspelling en causale claim blijven aparte categorieën. Een goede fit bewijst geen rijvaardigheid los van auto en omstandigheden.
 
-Gebruik afzonderlijke onderdelen: relatief tempo, consistentie, start, duelprestaties en strategische uitkomst. Strategie is deels een teamprestatie. Een totaalcijfer is optioneel en vereist expliciete gewichten plus een gevoeligheidsanalyse. Een profiel met onderbouwing verdient de voorkeur boven één absolute beoordeling.
+Bij Coureurs beschrijft een eigen carrièregemiddelde de eigen verzameling kansen. GOAT gebruikt gemeenschappelijke gewichten en verklaart naar welke situaties de conclusie generaliseert. Een referentiescore is geen percentage vaardigheid of winstkans tenzij die betekenis daadwerkelijk is gemodelleerd.
 
-## 10. Data: wat kan met het huidige project?
+### 12.2 Weging en onzekerheid
 
-Het huidige project bevat een breed uitslagenarchief, aangevulde historische timing, moderne sectorgegevens, stints en bronregistraties. De dekking verschilt echter per race en veld. De historische controlebestanden beschrijven aangevulde races, niet automatisch complete moderne telemetrie voor dat hele archief.
+Iedere geschikte ronde blijft zichtbaar waar dat de vraag is. Voor onzekerheid en algemene conclusies worden ronden niet als onafhankelijke races behandeld. Onderzoek bemonstering op race-/seizoensniveau en tijdsafhankelijkheid; gebruik voor gekoppelde vergelijkingen dezelfde gekoppelde steekproeven.
 
-De recente aanvulling van banden voor Brazilië 2015 illustreert de benodigde aanpak: stints uit bronnen controleren tegen rondeaantallen en pitmomenten. Dat één race reconstrueerbaar is, maakt andere oude races nog niet volledig.
+Mediaan, kwartielbereik, 95%-modelband en voorspellingsinterval krijgen verschillende labels. De huidige 95%-band wordt niet als bewezen gekalibreerde dekking over nieuwe races gepresenteerd. Controleer gevoeligheid voor uitsluitingen, weging en modelkeuze.
 
-| Gegeven | Eerste toepassing | Controle vóór modelleren |
-|---|---|---|
-| Start en eindklassering | Carrière, start, verwachtingen | Gridstraffen, pitlanestart, classificatie tegenover uitval |
-| Rondeposities en rondetijden | Verloop, tempo, kandidaatwisselingen | Werkelijke dekking per rijder; geen baanactie afleiden uit alleen rangwisseling |
-| Sectortijden | Moderne tempoprofielen | Onvolledige of foutieve sectoren herkennen |
-| Pitmomenten en stints | Pitcycli en bandenbeheer | Rondeconventie, setgrenzen, onbekende compound |
-| Intervalmetingen | Verkeer en duelblootstelling | Tijdstempels, gelapte rijders, sampling en gaten |
-| Race-controlberichten | SC/VSC, incidentcontext | Tijdlijn en toepasselijk gebied |
-| Weermetingen | Analyse van omstandigheden | Meetlocatie, tijdsdekking, geen voorspelling noemen |
-| Forecastarchief | Vooruitblik en eerlijke terugtest | De toen beschikbare run en publicatietijd |
-| Circuitkenmerken | Vergelijkbare banen | Versie, meetmethode en reglementperiode |
-| Upgrade-informatie | Teamontwikkeling | Bron, specificatie en werkelijk gebruik |
+### 12.3 Ontbrekende gegevens en uitval
 
-[FastF1](https://github.com/theOehrly/Fast-F1) ontsluit timing, telemetrie en aanvullende sessiegegevens. [OpenF1](https://openf1.org/docs/) vermeldt historische beschikbaarheid vanaf 2023. Dekking bij een leverancier betekent nog niet dat ieder veld lokaal compleet en bruikbaar is. Beide kunnen teruggaan op dezelfde oorspronkelijke timingfeed en gelden dan niet als twee onafhankelijke metingen.
+Onbekend is geen nul. Gedeelde auto’s met onbekende individuele toerekening blijven bewaard maar worden niet als individuele vaardigheidswaarneming gescoord. Gemeten en geschatte waarden blijven afzonderlijk.
 
-Start de eerste diepgaande modellen op een **gecontroleerde moderne subset**. Gebruik oudere races voor de analyses waarvoor hun dekking voldoende is. Modelleer ontbrekende gegevens niet als nul: “geen succesvolle undercut” en “niet vast te stellen” blijven verschillende toestanden.
+Het vervolgonderzoek conditioneert op rijdend finishen. Leg die selectie naast uitval en onderzoek voor GOAT hoe die de vergelijking beïnvloedt. Incidentverantwoordelijkheid en technische betrouwbaarheid zijn geen inwisselbare uitvalcodes.
 
-Bewaar bij historische aanvullingen oorspronkelijke URL, archief-URL indien nodig, documentdatum, verkrijgingsdatum, herkomst en controle. Licentie en herpublicatievoorwaarden moeten per nieuwe bron passen bij het beoogde gebruik.
+### 12.4 Validatie vóór conclusies
 
-## 11. Validatie die conclusies geloofwaardig maakt
+Controleer rekenregels met kleine bekende voorbeelden en bewaar vergelijking met eerdere versies. Houd complete races uit de modeltraining voor toetsing; voor toekomstige prestaties ook een latere periode. Schaling, invulling en parameterkeuze mogen geen informatie uit die toetsraces lekken.
 
-### 11.1 Splits op tijd en complete races
+Leg dekkingsdrempels vast voordat naar de gewenste winnaar of conclusie wordt gekeken. Toets ook nulresultaten, dunne steekproeven, veranderde formats, gedeelde auto’s, tijdperkbreuken en slecht verbonden teamgenootnetwerken.
 
-Train op eerdere races en test op latere. Houd alle ronden, rijders en episodes van een testrace buiten de training. Kies modelinstellingen binnen eerdere tijdblokken en reserveer daarnaast een laatste, onaangeroerde periode. Test overdraagbaarheid naar een onbekend circuittype of nieuwe rijder afzonderlijk.
+## 13 Vormgeving bediening en laden
 
-Ook schaling, imputatie, kenmerkselectie en PCA worden alleen op trainingsdata aangepast. Deze vormen van datalekken kunnen evaluaties te gunstig maken. [scikit-learn: valkuilen en datalekken](https://scikit-learn.org/stable/common_pitfalls.html).
+De [stijlgids](../stijlgids.html) blijft de visuele basis. Rood hoort bij Races, paars bij Coureurs, goud/geel bij GOAT en cyaan ondersteunt context en bediening. Teamkleuren houden hun feitelijke betekenis. Groen/rood mag functioneel gunstig/ongunstig aangeven.
 
-### 11.2 Vergelijk met eenvoudige referenties
+Behoud de gedeelde header met Home, Races, Drivers/Coureurs, Greatest, About me en EN/NL. Het beeldmerk linkt naar de frontpage. Geen nieuwe losse navigatiestijl per module.
 
-Vergelijk met recente teamsterkte, een eenvoudig teamgenootmodel en historische circuitresultaten. Een complex model dat die referenties niet aantoonbaar verbetert, wordt niet als betere voorspeller gepresenteerd.
+Bij Coureurs blijft de sidebar gelijk aan de race-uitstraling: nummer, teamkleur en drielettercode; sortering op code; één actieve rijder; geen teamselectie en geen alles/niets. Bij inactieve rijders wordt alleen het nummer grijs. De volledige profielnaam staat naast het identiteitselement om gelijke codes te onderscheiden.
 
-Meet tempo-afwijkingen, kwaliteit van kansvoorspellingen en dekking van voorspelde intervallen. Voor podium- en winstkansen zijn bijvoorbeeld Brier-score of log-loss en een kalibratiegrafiek passend. Toon niet alleen of de gekozen winnaar goed was.
+De paarse jaarselector gebruikt het bereik van de werkelijk beschikbare dataset. Wisselen van rijder of jaren actualiseert alle relevante kaarten en grafieken, met de gekozen periode in beeld. Voeg de eerder verwijderde globale circuit-/compound-/deelbediening niet stilzwijgend opnieuw toe; noodzakelijke analysekeuzes blijven gericht en worden apart onderbouwd.
 
-### 11.3 Voorkom onterecht veel bewijs
-
-Duizend ronden uit één race zijn geen duizend onafhankelijke races. Bereken onzekerheid met de race-/stintstructuur en tijdsafhankelijkheid in gedachten. Voor algemene rijdersprofielen kan bemonsteren op race- of seizoensniveau passender zijn dan losse ronden trekken.
-
-Veel onderzochte omstandigheden leveren toevallig opvallende patronen op. Gebruik gedeeltelijke pooling, leg kernhypothesen vooraf vast en toets ontdekkingen in latere data. Publiceer ook negatieve uitkomsten.
-
-### 11.4 Publicatievoorwaarden
-
-Een analyse mag zichtbaar worden als definitie, dekking, bron en reproduceerbare berekening beschikbaar zijn. Een voorspellend onderdeel vereist daarnaast een historische terugtest en een prospectieve test met vooraf opgeslagen voorspellingen.
-
-Leg grenswaarden voor minimale dekking en toelaatbare onzekerheid vooraf vast per analyse. Eén willekeurig minimum voor alle vragen is ongeschikt. Bij te weinig informatie verschijnt een uitleg in plaats van een harde rangorde.
-
-## 12. Product en techniek
-
-### 12.1 Vier samenhangende ingangen
-
-De hoofdnavigatie krijgt Races, Rijders, Teams en Circuits. Iedere analyse linkt naar de betrokken entiteiten. Voeg een aparte ingang Strategie toe als de atlas voldoende inhoud heeft.
-
-Een rijderspagina bevat: identiteit en carrière, recent profiel, vergelijking met teamgenoten, omstandigheden, circuitgeschiktheid, duels en onderliggende races. Een circuitpagina bevat: karakteristieken, geschiedenis, strategieatlas en vooruitblik.
-
-Behoud de huidige vormgeving: nummer–teamkleur–drielettercode, bestaande kleurenbetekenis, scherpe grafieken en consistente NL/EN-termen. Selectie blijft een highlight: andere rijders blijven zichtbaar als referentie.
-
-### 12.2 Aanvullende datalaag
-
-Leg duurzame identiteiten vast voor rijder, team, team–seizoen, circuitversie, race, stint, duel, kandidaat-pitcyclus en voorspelling. Bewaar UTC-tijdstempels en de bronconventie voor ronden.
-
-Scheid oorspronkelijke meting, gereconstrueerde gebeurtenis, statistische schatting en simulatie. Voor elke afgeleide uitkomst worden invoerversie, modelversie, parameters en uitsluitingen bewaard. Een onzekerheidsinterval moet aangeven of het meetonzekerheid, schattingsonzekerheid of onzekerheid over een toekomstige uitkomst beschrijft.
-
-### 12.3 Aansluiten op GitHub Pages
-
-Bereken zware analyses vooraf in de bestaande bouwstraat. Publiceer compacte, verliesloos gecomprimeerde uitkomsten per entiteit en laad grote onderdelen pas wanneer ze nodig zijn. Bewaar trainingsdata en volledige modelartefacten buiten de paginabundel volgens het bestaande archiefprincipe.
-
-De browser tekent grafieken en filters; hij traint geen groot model. Een kleine scenariosimulator kan later lokaal draaien als de rekentijd en downloads beperkt blijven. Een server is pas nodig voor functies die niet vooraf te berekenen of compact lokaal uit te voeren zijn.
-
-Herbereken alleen wat door nieuwe racegegevens of een modelwijziging geraakt wordt. Publiceer bijgewerkte gegevens en bijbehorende conclusies als één consistente versie.
-
-## 13. Lessen uit RacePace Analytics: gegevens en dashboards organiseren
-
-**Onderzoeksdatum: 13 oktober 2026.** Onderzocht zijn de [app](https://www.racepace-analytics.com/app), de [introductiepagina](https://www.racepace-analytics.com/) en de publiek geladen [appcode van deze versie](https://www.racepace-analytics.com/assets/index-Dh7aLp7w.js). De interactieve browserverbinding kon niet worden gestart. De onderstaande structuur is gecontroleerd in de clientcode; visuele afwerking, werkelijke laadtijden en complete bediening zijn niet in een draaiende browser getest. De serverdatabase en implementatie van serverberekeningen zijn niet onderzocht.
-
-### 13.1 Wat concreet is vastgesteld
-
-De app heeft een filterzijbalk voor seizoen, Grand Prix, sessie, rijders en rondekeuze. Daartegenover staan tabs voor overzicht, strategie, telemetrie, standen en nieuws. De telemetrievergelijking ondersteunt maximaal vier rijders, beste/gelijke/individuele rondes en overlappende of naast elkaar geplaatste grafieken. De strategiepagina combineert tempo, compoundstints en omstandigheden. De overzichtspagina verwijst door naar een raceverslag. De client gebruikt een gedeelde selectie en afzonderlijke gegevensaanvragen met cachesleutels voor onder meer sessie, rijders en rondekeuze. Dit is aantoonbaar in de [publieke appcode](https://www.racepace-analytics.com/assets/index-Dh7aLp7w.js).
-
-**Belangrijkste les voor ons ontwerp:** organiseer een analyseomgeving rond een gedeelde onderzoeksvraag en context. Voorkom dat iedere grafiek een eigen, losstaande selectie en gegevensdefinitie krijgt.
-
-### 13.2 Twee manieren om de site te gebruiken
-
-Voeg naast de huidige raceverhalen een analyseomgeving toe. Beide gebruiken dezelfde gegevens en berekeningen:
-
-- **Raceverslag:** begeleide lezing met kernbevindingen, grafieken en uitleg; geschikt voor de bezoeker die wil begrijpen wat er gebeurde.
-- **Analyseomgeving:** een vaste contextbalk met onderwerpgerichte werkruimten; geschikt voor de bezoeker die zelf wil vergelijken en onderzoeken.
-
-Een lezer moet vanuit een bevinding rechtstreeks de relevante analyse kunnen openen. Een onderzoeker moet vanuit een grafiek de bijbehorende conclusie en bron kunnen lezen. De overgang neemt rijderselectie, rondevenster en referentie mee.
-
-Behoud Races, Rijders, Teams en Circuits als hoofdentiteiten. Tabs beantwoorden de vraag **wat je onderzoekt**; de entiteit bepaalt **waarover je onderzoekt**. Zo wordt dezelfde inhoud via verschillende ingangen bereikbaar zonder vier afzonderlijke rekensystemen te bouwen.
-
-### 13.3 Voorgestelde werkruimten
-
-| Werkruimte | Kernvraag | Eerste inhoud |
-|---|---|---|
-| Overzicht | Wat is hier het belangrijkste? | Uitslag of profiel, dekking, kernbevindingen en links naar verdieping |
-| Tempo | Wie was snel onder vergelijkbare omstandigheden? | Teamgenootvergelijking, stinttempo, consistentie en uitgesloten rondes |
-| Strategie | Welke beslissingen veranderden de situatie? | Afzonderlijke bandensets, pitcycli, historische vergelijkingen en later scenario’s |
-| Duels | Wie won of verloor posities, en hoe? | Start, baanacties, pitwisselingen en onbekende oorzaken afzonderlijk |
-| Telemetrie | Waar op de baan ontstaat het verschil? | Afstandsgelijke rondevergelijking en sectoren, uitsluitend bij voldoende dekking |
-| Verslag | Wat kunnen we onderbouwd concluderen? | Het bevindingenregister als leesbaar NL/EN-verhaal |
-
-Niet iedere entiteit of historische race hoeft iedere werkruimte te hebben. Toon alleen relevante tabs en verklaar ontbrekende mogelijkheden in de dekkingsinformatie. Laat een deelonderwerp zoals telemetrie niet de andere, wel bruikbare historische analyses blokkeren.
-
-Standen kunnen bij het seizoen horen. Nieuws heeft voor fase twee een lagere prioriteit dan eigen analyses; het hoeft geen permanente dashboardtab te worden.
-
-### 13.4 Gedeelde context tegenover lokale bediening
-
-| Gedeelde context | Bediening van één grafiek of werkruimte |
+| Gedrag | Afspraak |
 |---|---|
-| Entiteit en onderzoeksperiode | Overlay of naast elkaar |
-| Seizoen, race en sessie waar van toepassing | Getoonde telemetriekanalen |
-| Geselecteerde rijders en vergelijking met teamgenoten | Lokale zoom en schaal |
-| Rondevenster of tijdvenster | Tooltip, hover en tijdelijk gemarkeerd punt |
-| Referentierijder en vergelijkingsmethode | Extra legenda of toelichtingspaneel |
-| Betekenis van filters en gegevensversie | Specifieke sortering van deze grafiek |
+| Horizontale grafiek | Alleen de inhoud schuift; y-as, eenheden en beter/slechter-pijlen blijven staan |
+| Starter en tempoverschil | Bestaande niet-lineaire schaal met ankers 0, 1, 3, 6 en 10 behouden; gunstig boven en ongunstig onder |
+| Buiten de schaal | Randmarker met werkelijke waarde; onderliggende berekening niet afkappen |
+| Hover | Informatie tonen; geen onverwachte selectie- of focuswisseling |
+| Scrollwiel | Pagina scrollt normaal; kaartzoom alleen met Ctrl plus wiel |
+| Afbeeldingen | Donkere consistente beelden; bestaande subtiele bewegingen, geen plotselinge zoom |
+| Pop-ups | Zelfde vormtaal, bereikbare sluiting en focus; langere inhoud scrollt binnen de bedoelde zone |
+| Laden | Laat de bestaande inhoud staan tot de nieuwe gegevens klaar zijn; laadindicator in sectiekleur; geen oude cijfers onder nieuwe naam |
+| Mobiel | Geen pagina-overloop of overlappende badges; alleen bedoelde figuren mogen horizontaal scrollen |
+| Toegankelijkheid | Zichtbare toetsenbordfocus, tekst naast kleurbetekenis en respect voor minder beweging |
 
-De globale rijderselectie blijft voldoen aan de eerder gekozen werkwijze: **alle beschikbare rijders en gegevens blijven zichtbaar; geselecteerde rijders krijgen nadruk, de anderen worden gedimd.** Een eventuele limiet voor gedetailleerde telemetrievergelijking geldt alleen voor die vergelijking, niet voor het hele dashboard.
+De algemene referentietabel en Onderliggende races keren niet terug bij Coureurs. Bronraces blijven bereikbaar via eigen punten, gerichte logs en uitklapbare uitleg.
 
-Laat een tabwissel geen nieuwe selectie maken. Behoud bij vorige/volgende race of jaar de actieve werkruimte en de relevante context. Wisselen van jaar op een circuitpagina blijft een vergelijking van hetzelfde circuit. Als een geselecteerde rijder of sessie niet bestaat in de nieuwe context, wordt dat zichtbaar vermeld; kies niet stilzwijgend een andere rijder of een sprint in plaats van de hoofdrace.
+## 14 Opslag prestaties en onderhoud
 
-Gebruik stabiele werkruimte- en module-identiteiten voor terugkeer naar dezelfde inhoud. Bewaar geen absoluut scrollgetal als vervanging voor die betekenis. Maak selecties via de URL deelbaar, inclusief referentie en filters. Een normaal bezoek aan de voorpagina blijft standaard bij het huidige jaar; een expliciete gedeelde analyse-URL opent zijn eigen context.
+De ingestelde websitegrens is **900.000.000 bytes**. De laatst bewaarde controle van 16 oktober 2026 kwam op **281.252.427 bytes**, ongeveer 281 MB. Dit is een eerdere publicatiemeting, geen nieuwe meting van de live website.
 
-### 13.5 Eén gegevensmodel, meerdere weergaven
+De huidige eigen bouwgrens voor de ongecomprimeerde coureursomgeving is **64.000.000 bytes**. Het bouwrapport vermeldt een bovengrens van **53.033.315 bytes**. De eerdere grens van 20 MB en maximaal vijf seizoenen geldt niet meer. Verhoog een grens niet automatisch omdat een nieuwe bundel te groot wordt.
 
-De publieke clientcode laat zien dat RacePace gegevens per onderwerp en sessie opvraagt. Dat is een bruikbaar ontwerpprincipe, maar geen bewijs voor een specifieke serverdatabase. Voor Overtake It Away stellen we vier eigen lagen voor:
+Voor groei:
 
-| Laag | Inhoud | Regel |
-|---|---|---|
-| Bronarchief | Oorspronkelijke timing, documenten, afbeeldingen, tabellen en archiefkopieën | Ongewijzigd bewaren met bron, datum en checksum |
-| Canonieke waarnemingen | Races, inschrijvingen, ronden, sectoren, stints, pitpassages en omstandigheden | Duurzame identiteiten, eenheden, UTC en ontbrekende waarden eenduidig vastleggen |
-| Analytische uitkomsten | Tempometingen, kandidaatcycli, modellen, onzekerheid en tekstbevindingen | Eén definitie en berekening per kengetal, met versie en gebruikte waarnemingen |
-| Dashboarduitvoer | Compacte gegevens voor kaarten, grafieken, tabellen en verslagen | Weergaven verwijzen naar dezelfde uitkomsten en bewijsstukken |
+- Splits profielindex, eigen details en GOAT-uitvoer in compacte gegevensbestanden; laad alleen wat de actieve module nodig heeft.
+- Bewaar iedere benodigde ronderang, maar exporteer niet opnieuw alle oorspronkelijke tijd-, sector- en telemetriereeksen.
+- Dedupliceer gedeelde feiten en assets. Bronbestanden blijven via de bestaande archief-/herstelroute beschikbaar.
+- Gebruik verliesloze compressie met de bestaande laad- en downloadondersteuning. Een download en decompressie moeten dezelfde gegevens opleveren.
+- Meet uiteindelijke publicatiebytes, grootste bestanden, verzoeken, parse-/rekentijd en geheugengebruik. Alleen opslag meten is onvoldoende.
+- Stel vóór een nieuwe gegevenslaag een gecontroleerd budget vast en controleer dat in de bouw. Behoud herstelbaarheid en betekenis bij verkleining.
 
-Een dashboardkaart, grafiek en raceverslag mogen bijvoorbeeld niet ieder zelf “succesvolle undercut” berekenen. Ze gebruiken hetzelfde cyclusregister en dezelfde definitieversie. Sorteervolgorde is een weergave-eigenschap en wordt niet opgeslagen als de algemene volgorde van alle rijders. Daarmee voorkomen we herhaling van het eerdere probleem waarbij positiewinstsortering ook in de sectorheatmap terechtkwam.
+De volledige historische reikwijdte blijft waar de feiten dat dragen. Zware nieuwe bandenanalyse of modellen mogen beginnen in een aantoonbaar voldoende gedekte recente subset. Dat beperkt de betreffende analyse, niet het hele coureursarchief.
 
-Een analytische uitkomst bewaart minstens: onderwerp, periode, definitieversie, bron-/dataversie, eenheid, referentie, filters, beschikbare dekking, aantal bruikbare waarnemingen, schatting, onzekerheid en eventuele uitsluitingsredenen. De betekenis van nul, onbekend en niet van toepassing blijft expliciet.
+Een geplande race-update is geen garantie op onmiddellijke verwerking. Nieuwe feiten krijgen bron-/peildatum, validatie en een gecontroleerde publicatie. Een uitbreiding mag latere bronaanvullingen of lokaal bewaarde aanvullingen niet overschrijven zonder conflictcontrole.
 
-De bandenvondsten van 13 oktober 2026 maken deze scheiding concreet: 53 races zijn volledig en 74 gedeeltelijk gecontroleerd op gemeten compoundstints. Een rijder zonder geaccepteerde sequentie krijgt geen afgeleide compound omdat een teamgenoot die gebruikte. Ook blijft een pitlanepassage iets anders dan een vastgestelde bandenwissel. Zie het [onderzoeks- en dekkingsrapport](../research/tyres/README.md).
+## 15 De bouwvolgorde en beslismomenten
 
-### 13.6 Laden zonder het hele dashboard opnieuw op te bouwen
+| Stap | Oplevering | Afhankelijkheid | Gereed wanneer |
+|---|---|---|---|
+| A | Definities en dekkingsregister | Bestaande bronnen en bouwstatus | Kernmaten, telregels, veldgrootte en ontbrekende dekking vastliggen |
+| B | Coureursfeiten | A | Punten, WK-stand, kwalificatie en basisfeiten correct gekoppeld en verklaard zijn |
+| C | Herordend eigen profiel | A en bruikbare bestaande metingen | Zes kaarten, eigen figuren en teamgenootduel zelfstandig te begrijpen zijn; veldgrafieken verplaatst zijn |
+| D | Incidenten en straffen | A en beschikbaar besluitenmateriaal | Feiten, verantwoordelijkheid, noemers en onbekende dekking controleerbaar zichtbaar zijn |
+| E | GOAT als beschrijvende vergelijking | C en gedeelde definities | Meerdere coureurs met gelijke meetdefinities, dekking en duidelijke beschrijvende status vergeleken worden |
+| F | GOAT op gedeelde omstandigheden | A tot E en voldoende overlap | Gemeenschappelijke gewichten, referentie zonder eigen bijdrage en onzekerheid gevalideerd zijn |
+| G | Vergelijking tussen tijdperken | F en gecontroleerde verbindingen | Modelaannames, verbindingen, gevoeligheid en niet-vergelijkbare context zichtbaar zijn |
+| H | Verdiepte strategieatlas | A en voldoende pit-/bandendekking | Kandidaatcycli, eigen programma’s en verschillende stopaantallen correct gescheiden zijn |
+| I | Verslagen en aanvullende profielen | Stabiele kernmetingen | Bevindingen reproduceerbaar zijn en tekst dezelfde cijfers gebruikt |
+| J | Scenario’s en vooruitblikken | Gevalideerde modellen en tijdgebonden verwachtingen | Terugtest en vooraf opgeslagen proefvoorspellingen bruikbaar blijken |
 
-Splits de publicatie in een kleine catalogus met metadata en dekking, compacte sessiegegevens en afzonderlijke zware bestanden voor telemetrie of modellen. Bouw het scherm met de eerste twee op; laad verdieping pas wanneer zij nodig is.
+B en C vormen de eerste samenhangende productoplevering, met D als vast feitenonderdeel. Beschikbare incidentfeiten hoeven niet op volledige historische documentdekking te wachten. E kan zichtbaar worden vóór het modelonderzoek in F en G, mits het beschrijvende karakter duidelijk blijft.
 
-Onze cache-identiteit moet naast onderwerp en selectie ook de gegevens- en definitieversie bevatten. Bewaar een gedeeld sessiepakket voor meerdere werkruimten. Download niet voor iedere rijderklik opnieuw alle rondetijden als de browser die al heeft. Canonicaliseer een rijderverzameling voor caching, maar bewaar de afzonderlijk gekozen referentierijder: de referentie is inhoudelijk van belang.
+H bouwt voort op bestaand werk en kan na de kern worden verdiept zonder op een totaalscore in GOAT te wachten. I en J zijn geen voorwaarden om Coureurs goed af te ronden. Bij onvoldoende modelonderbouwing kan G langer onderzoek blijven terwijl de andere onderdelen nuttig beschikbaar zijn.
 
-Bij wisselen van race of jaar blijft de huidige inhoud leesbaar terwijl de nieuwe context wordt voorbereid. Toon de gevraagde bestemming en voortgang. Vervang de bij elkaar horende kerngegevens gezamenlijk zodra zij gereed zijn; een afzonderlijke zware telemetriegrafiek mag daarna nog laden. Laat geen oude racewaarden onder een nieuwe racetitel verschijnen.
+De eerdere raming van 80–140 uur betrof een eerste oorspronkelijke oplevering. Deze is geen resterende raming voor dit uitgebreide plan. Begroot ieder blok pas na de inventarisatie van ontbrekende invoer en de gekozen modelomvang.
 
-Deze organisatie kan met vooraf gebouwde, gecomprimeerde bestanden op GitHub Pages. Een vergelijkbare gebruikerservaring vereist niet dat we ook een live analysebackend overnemen.
+## 16 Controle en oplevercriteria
 
-### 13.7 Verbonden grafieken en controleerbare vergelijkingen
+Een stap is inhoudelijk gereed wanneer definitie, herkomst, selectie, eenheid, dekking en relevante onzekerheid beschikbaar zijn. Een productoplevering vraagt daarnaast de volgende controles.
 
-Laat grafieken binnen één werkruimte dezelfde rijderkleuren, referentie en relevante horizontale as gebruiken. Bij een pitcyclus kan dezelfde ronde de gapgrafiek, stintbalk en rondegegevens markeren. Bij telemetrie is de gemeenschappelijke as de afstand op de baan; dat is een andere vergelijking dan een gelijke rondetijd of gelijk rondenummer.
+| Controle | Vereist resultaat |
+|---|---|
+| Identiteit | Geen dubbele profielen door aliassen; gedeelde auto’s correct uitgesloten of toegerekend |
+| Basisfeiten | Eigen aantallen en seizoentotalen aansluiten op bronnoteringen en officiële telregels |
+| Kwalificatie | Sessietype, uitslag, pole, grid en sancties niet door elkaar lopen |
+| Eigen analyses | Alleen eigen waarnemingen in de hoofdfiguren; teamgenootuitzondering herkenbaar |
+| Metronoom | Iedere geschikte ronde behouden, juiste rang/noemer, tempo en regelmaat gescheiden |
+| Starter en vervolg | Pitlanestarts uitgesloten waar nodig; juiste begin/eindposities; alleen bevestigde finishers in vervolgonderzoek |
+| Uitval en straffen | Oorzaak en verantwoordelijkheid gescheiden; nul versus onbekend; geen dubbeltellingen |
+| GOAT | Gelijke definities en gemeenschappelijke context; ruwe en gecorrigeerde resultaten afzonderlijk |
+| Onzekerheid | Kwartielen, modelband en voorspelling niet verward; race-/periodeafhankelijkheid onderzocht |
+| Interface | Desktop en mobiel, badges, vaste assen, scrollen, pop-ups, toetsenbord, NL/EN en deelbare context gecontroleerd |
+| Data-overgang | Geen verdwenen waarnemingen, verloren bandeninformatie of onbedoeld gewijzigde bestaande resultaten |
+| Publicatie | Budget, compressie, downloads, interne links en herstel van archieven gecontroleerd |
 
-Maak de vergelijking expliciet: beste ronde, dezelfde raceronde, overeenkomstige bandenleeftijd of handmatig gekozen rondes beantwoorden verschillende vragen. De beste ronde van elke rijder is niet vanzelf een eerlijke vergelijking van racetempo. Toon verschillen in compound, setleeftijd, vlagstatus en omstandigheden naast de selectie.
+Begin met gerichte rekenvoorbeelden en regressiecontroles voor gewijzigde definities. Voer de passende bestaande tests uit en controleer representatieve moderne én historische profielen in de browser, inclusief een nulpuntenseizoen, gedeelde auto, beperkte timing en een rijder met weinig starts.
 
-Geef kaarten en grafieken steeds een korte betekeniszin en een doorklikbare methode. Bijvoorbeeld: “Tempo op vergelijkbare groene-vlagronden; pit-, uit- en inronden apart gemarkeerd.” Een bezoeker moet de selectie kunnen controleren zonder eerst een apart methodologiedocument te lezen.
+Bouw eerst lokaal en leg de concrete oplevering ter beoordeling voor. Na expliciete publicatieopdracht: gecontroleerde bundel maken, uploaden, deployment volgen en de gepubliceerde pagina’s testen, inclusief laden, navigatie en downloads. Controleer ook de bestaande automatische race-update. Oude goed werkende publicatiegegevens blijven herstelbaar.
 
-Gebruik een kleine vergelijkingstabel boven de grafieken voor de gekozen referenties. Vermijd een verzameling gelijkwaardige tegels waarin de centrale onderzoeksvraag verloren gaat. Op mobiel krijgt de context een compact paneel en komt de hoofdanalyse eerst; voorkom meerdere naast elkaar liggende scrollgebieden.
+## 17 Besluiten voor de eerstvolgende uitvoering
 
-### 13.8 Wat we kritisch moeten beoordelen
+De productkeuzes zijn vastgesteld:
 
-De introductie noemt een strategiesimulator; de onderzochte strategiecomponent toont vooral tempo, stints en omstandigheden. Een werkende tegenfeitelijke simulator is daarmee niet vastgesteld. Ook volgt centimeternauwkeurigheid niet uit de op de site genoemde samplefrequentie van ongeveer 4 Hz. [Beschrijving van RacePace Analytics](https://www.racepace-analytics.com/).
+- Coureurs bevat eigen feiten, zes specialismen, vervolgonderzoek, uitval/incidenten/straffen en het teamgenootduel.
+- GOAT bevat de zichtbare vergelijking met het veld en tussen tijdperken.
+- Metronoom behoudt de individuele ronderangen; regelmaat krijgt een afzonderlijke maat binnen dat onderdeel.
+- De brongegevens voor basisfeiten worden eerst ontsloten voordat grootschalig opnieuw wordt verzameld.
+- Nieuwe definities vervangen bestaande scores pas na een gecontroleerde versieovergang.
 
-Onze terminologie moet daarom aansluiten bij de daadwerkelijk geleverde analyse. “Strategievergelijking” is passend voor geobserveerde stints; “simulatie” vereist berekende alternatieven met aannames en onzekerheid. “Genormaliseerd tempo” krijgt een concrete formule en selectie, geen onbewezen belofte dat alle auto-, banden- en strategieruis verdwenen is.
+Tijdens stap A worden nog concreet vastgelegd: minimale velddekking per ronderang, referentievensters voor starts en vervolgonderzoek, gewichten van een gedeelde context, criteria voor modelmatige verbinding tussen tijdperken en prestatiebudgetten per nieuwe gegevenslaag. Deze keuzes worden onderbouwd vóór het bekijken van de gewenste rangorde. Gewichten voor een eventuele totaalscore zijn pas aan de orde na validatie van de afzonderlijke dimensies.
 
-In de startschermcode zit een sinuscorrectie voor een geanimeerd tijdsverschil. Dat is presentatie, geen nieuwe meting. [Publieke appcode](https://www.racepace-analytics.com/assets/index-Dh7aLp7w.js). Ons ontwerp animeert laden en overgangen; weergegeven racecijfers veranderen alleen door een echte selectie, meting of expliciet aangeduide simulatie.
+## 18 Documenten en projectbasis
 
-### 13.9 Concrete toevoegingen aan de eerste oplevering
+| Document of bestand | Rol |
+|---|---|
+| [Verbeterlijst](verbeterlijst.md) | Detailkeuzes, broninventaris en uitvoerbare verbeterpunten |
+| [Stijlgids](../stijlgids.html) | Kleuren, componenten, figuren en interactie |
+| [Datacollectie](../data-collection.html) | Publieke uitleg over gegevens, aantallen, herkomst en controles |
+| [Bouwrapport Coureurs](../assets/phase2-build-report.json) | Actuele lokale bouwtelling |
+| [Projectdocumentatie](../README.md) | Uitvoering, publicatie, compressie en herstel |
+| [Historische dekking](../analyses/sources/historical/coverage-report.html) | Historische aanvullingen en beperkingen |
+| [Onderzoek banden 2010–2017](../research/tyres/README.md) | Gecontroleerde compoundstints en resterende conflicten |
+| [Bronmetadata F1DB](../analyses/sources/historical/f1db/source.json) | Bewaarde release, licentie en archiefhash |
+| [Bronregister incidenten](../analyses/sources/incidents/registry.json) | Bewaarde incident- en besluitenverzameling |
+| [Oorspronkelijk onderzoeksplan](fase-2-onderzoeks-en-ontwikkelplan-archief-20261017.md) | Eerdere verkenning, bronverwijzingen en achtergrond |
 
-1. Leg het gedeelde selectie- en contextmodel vast voordat nieuwe dashboards worden gebouwd.
-2. Maak een kleine catalogus met beschikbare onderwerpen, sessies, bestanden en dekking.
-3. Bouw één analyseomgeving met eerst Overzicht, Tempo en Strategie; gebruik bestaande grafieken waar zij de vraag al beantwoorden.
-4. Koppel het raceverslag aan exact dezelfde analytische uitkomsten.
-5. Maak selecties deelbaar en behoud werkruimte en referentie bij race-/jaarwisselingen.
-6. Toets de organisatie op een volledige recente race, een gedeeltelijk aangevulde historische race en een race zonder bruikbare bandenstints.
-
-Dit wijzigt de koers van fase twee niet. Het maakt de voorgestelde rijdersprofielen, strategieatlas en raceverslagen toegankelijk via één samenhangende onderzoekservaring.
-
-## 14. Prioriteiten en uitvoeringsvolgorde
-
-| Stap | Concreet resultaat | Voorwaarde om verder te gaan |
-|---|---|---|
-| A — basis | Dekkingsmatrix, definities, duurzame identiteiten, gedeelde selectie, gegevenscatalogus en register van kandidaat-pitcycli | Onbekend, nul en gereconstrueerd zijn overal onderscheiden |
-| B — rijders | Teamgenoottempo, consistentie en startprofiel | Handmatige controle van uiteenlopende races; reproduceerbare uitkomsten |
-| C — strategie | Circuitatlas met successen én mislukkingen | Betrouwbare noemers, bronnen en onzekerheid |
-| D — verslag | Automatisch NL/EN-raceverslag met gekoppelde grafieken | Iedere claim herleidbaar; geen ongefundeerde oorzaakclaims |
-| E — verdieping | Hiërarchische omstandighedenanalyse en PCA-profielkaart | Stabiele patronen en controle buiten de ontwikkeldata |
-| F — vooruitblik | Vooraf opgeslagen scenarioverwachtingen met weer | Eerlijke terugtest, kalibratie en prospectieve controle |
-
-**Mijn aanbevolen eerste oplevering:** een rijderspagina met teamgenoottempo en startprofiel, plus een eerste strategieatlas op circuits met goede pit- en stintgegevens. Dat levert direct bruikbare verdieping en bouwt tegelijk de gegevensbasis voor verslag en voorspelling.
-
-Maak drie onderzoeksproeven vóór brede uitrol:
-
-1. **Rijdersproef:** blijft een relatief tempopatroon bestaan na contextcorrectie en in latere races?
-2. **Strategieproef:** levert afstand, bandenleeftijd en temperatuur een betere pitcyclusvoorspelling op dan circuitgemiddelde alleen?
-3. **Vooruitblikproef:** verbetert het gecombineerde model aantoonbaar op recente teamsterkte als eenvoudige referentie?
-
-Gebruik voor handmatige controles uiteenlopende situaties: droog en nat, veel en weinig baanacties, SC/VSC, uitval, dezelfde compound na een stop, een circuitwijziging en beperkte historische data. Neem geen succesrijke race als enige demonstratie.
-
-## 15. Acceptatiecriteria voor fase twee
-
-- Elke grafiek heeft een duidelijke definitie, eenheid, selectie, dekking en bron.
-- Rijder, team en circuit zijn zelfstandig te onderzoeken en onderling verbonden.
-- Historische positiewisselingen worden niet ongemerkt bevestigde baanacties.
-- Succespercentages voor strategie hebben een geldige, zichtbare noemer.
-- Team- en rijderprestaties worden waar mogelijk onderscheiden; resterende verwevenheid blijft zichtbaar.
-- PCA-assen zijn uitlegbaar en hun stabiliteit is onderzocht.
-- Voorspellingen gebruiken uitsluitend informatie die vóór hun vastgelegde tijdstip beschikbaar was.
-- NL en EN tonen dezelfde onderliggende bevindingen en consistente termen.
-- Raceverslagen bevatten geen cijfers of oorzaken buiten het bevindingenregister.
-- Modelkwaliteit wordt openbaar getoetst; onvoldoende betrouwbare analyses worden afgezwakt of weggelaten.
-- Het geheel blijft snel bruikbaar op de bestaande statische hosting.
-- Alle werkruimten delen dezelfde inhoudelijke selectie en definitieversies; een tabwissel verandert geen rijder- of rondekeuze.
-- Gedeelde analyse-URL’s openen de bedoelde entiteit, werkruimte, referentie en filters.
-- Race-/jaarwisselingen behouden de onderzoeksvraag en tonen geen oude cijfers onder een nieuwe titel.
-- Dekking wordt per onderwerp en rijder getoond; onvolledige stints blokkeren niet de overige bruikbare analyses.
-
-## 16. Bronnen en projectbasis
-
-De links in het document ondersteunen de feitelijke beschrijvingen van bestaande producten, gegevensdiensten en methoden. De voorgestelde functies, prioriteiten en modelkeuzes zijn het eigen ontwerp voor Overtake It Away.
-
-### Primaire externe bronnen
-
-- [Formula 1 — AWS-inzichten en undercutdreiging](https://www.formula1.com/en/latest/article/braking-performance-first-of-six-new-f1-insights-powered-by-aws-graphics-set.5Ko3cyGoOoqkbgWVO5T1Nb).
-- [Formula 1 — historische vergelijking via teamgenoten](https://www.formula1.com/en/latest/article/hamilton-schumacher-senna-machine-learning-reveals-the-fastest-f1-driver-of.3DwwPLW4glCmlunjciH1Cz).
-- [Formula 1 — Monaco: undercut versus overcut](https://www.formula1.com/en/latest/article/undercut-vs-overcut-why-tyre-strategy-was-so-finely-poised-in-monaco-and-why.1YYMDkEBnFols8bDWtSXiz.1YYMDkEBnFols8bDWtSXiz).
-- [F1 Tempo](https://www.f1-tempo.com/) en [RacePace Analytics](https://www.racepace-analytics.com/) — huidige voorbeelden van telemetriepresentatie.
-- [RacePace Analytics-app](https://www.racepace-analytics.com/app) en [publieke clientcode, onderzocht op 13 oktober 2026](https://www.racepace-analytics.com/assets/index-Dh7aLp7w.js) — structuur van filters, werkruimten, selectie en gegevensaanvragen; geen volledige browsertest of serveraudit.
-- [FastF1 — project en gegevensmogelijkheden](https://github.com/theOehrly/Fast-F1).
-- [OpenF1 — gegevens en beschikbaarheid](https://openf1.org/docs/).
-- [Bell e.a. — Formula for success](https://eprints.whiterose.ac.uk/id/eprint/96995/14/WRRO_96995.pdf).
-- [Van Kesteren en Bergkamp — Bayesian Analysis of Formula One Race Results](https://arxiv.org/abs/2203.08489).
-- [scikit-learn — PCA](https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html).
-- [scikit-learn — datalekken en aanbevolen werkwijze](https://scikit-learn.org/stable/common_pitfalls.html).
-- [Open-Meteo — ensembleverwachtingen](https://open-meteo.com/en/docs/ensemble-api), [forecastarchief](https://open-meteo.com/en/docs/historical-forecast-api) en [afzonderlijke modelruns](https://open-meteo.com/en/docs/single-runs-api).
-
-### Lokale basis voor vervolgwerk
-
-- [Projectdocumentatie](../README.md).
-- [Historische dekkingsrapportage](../analyses/sources/historical/coverage-report.html).
-- [Historisch controlebestand](../analyses/sources/historical/coverage-audit.json).
-- [Verkenning van historische timingbeschikbaarheid](../research/historical-timing-availability.json) — steekproef, geen volledige dekkingsmatrix.
-- [Gecontroleerde historische bandenstints](../assets/historical-tyre-stints.json).
-- [Onderzoek historische bandeninformatie 2010–2017](../research/tyres/README.md) — controle per race en rijder, oorspronkelijke bronnen en resterende conflicten.
-- [Eerder advies over RaceReporter](advies-racereporter-2026-10-11.docx).
-
-Deze verwijzingen zijn relatief aan dit document, zodat de projectmap verplaatsbaar blijft. Controleer bij het starten van de uitvoering de actuele dekking en bronvoorwaarden opnieuw.
+De oudere lokale opleveringsnotities blijven historische documentatie. Dit totaalplan bepaalt de nieuwe samenhang en volgorde; de verbeterlijst werkt de afzonderlijke punten verder uit.

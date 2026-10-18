@@ -1,0 +1,5 @@
+{
+  "tool": "image_gen.imagegen (built-in)",
+  "asset": "driver-qualifying-v1.webp",
+  "prompt": "Use case: photorealistic-natural. Asset type: background photo for a Formula 1 statistics website qualifying card. Create a cinematic dark motorsport photograph, portrait composition suited to a narrow vertical card. A realistic physical black F1 pit board displaying only the exact text 'P1' in large white block lettering, on the right half of the composition, near a Formula 1 garage and pit wall at dusk. An out-of-focus single-seater in the distance. Deep black and charcoal tones, subtle cyan and purple edge light, small gold highlights. Low-key photographic lighting, detailed carbon and metal textures, atmospheric, restrained and consistent with dark premium Formula 1 photography. Keep the left and lower parts particularly dark and uncluttered for white UI overlay text, keep P1 readable around the middle/right. No other lettering, no brand logos, no watermarks, no UI or chart elements. Black fading corners."
+}

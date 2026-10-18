@@ -1,0 +1,155 @@
+{
+  "pages": {
+    "coureurs_2.html": {
+      "source": "analysis-lab.html",
+      "source_sha256": "33d9b66cc2451ea49738d5bb65ba489f641be732a997dfe0f105a97555ace67e",
+      "bytes": 50965248
+    },
+    "goat_2.html": {
+      "source": "goat.html",
+      "source_sha256": "267a99d26b9a86c476cbf8c303b83808f412ee32d748f13aef3e33df55ac2e2d",
+      "bytes": 12515
+    },
+    "races_2.html": {
+      "source": "races.html",
+      "source_sha256": "5867bd76db77154166491dac2f2cf8e91effb17770f234634e31fb90f5677b6c",
+      "bytes": 2452223
+    }
+  },
+  "assets": {
+    "_development/assets/driver-card-art.css": {
+      "source": "assets/driver-card-art.css",
+      "source_sha256": "dcaf0fd7d716fde287dc38a9c6ecd8994c0def34cf41fc0a6469c6f6bb8c1408"
+    },
+    "_development/assets/driver-field.js": {
+      "source": "assets/driver-field.js",
+      "source_sha256": "e42d13e5a6986d2ae0b72dc986b6d53788b94802702d14939981fde0c2c07128"
+    },
+    "_development/assets/driver-names.js": {
+      "source": "assets/driver-names.js",
+      "source_sha256": "6855a02d59ed228af9da569eb270ecf6da5030984dfca5d4be844ef55eaae2ce"
+    },
+    "_development/assets/driver-period.css": {
+      "source": "assets/driver-period.css",
+      "source_sha256": "05a68fb4a1fb0194d824ac2cac0dc746b77d5e54c4952225a394783e49457bdf"
+    },
+    "_development/assets/driver-period.js": {
+      "source": "assets/driver-period.js",
+      "source_sha256": "5181d52936bc046207e42774ab07764372b65a6deea98c6acb111a79785f49c6"
+    },
+    "_development/assets/driver-profile-sidebar.css": {
+      "source": "assets/driver-profile-sidebar.css",
+      "source_sha256": "dcf3d20e72ff5489eb3c2e55047a7880f49f6b4b1e81a0dd87678c80bd8b4eb3"
+    },
+    "_development/assets/driver-qualities.js": {
+      "source": "assets/driver-qualities.js",
+      "source_sha256": "5389572211d2a5a18a7f3b17fbf81c5694771af72e04dd889491495e0b0ea72b"
+    },
+    "_development/assets/goat.css": {
+      "source": "assets/goat.css",
+      "source_sha256": "e1913ffaf72f10783c9b7def0054fa5433f25bb6d9848ccd771b91d8630c560c"
+    },
+    "_development/assets/goat.js": {
+      "source": "assets/goat.js",
+      "source_sha256": "3b4831587e02208815a3a7ee8f1f5d8ba4d90b99981026da2232aec8874940b0"
+    },
+    "_development/assets/hero-flag.js": {
+      "source": "assets/hero-flag.js",
+      "source_sha256": "44777091e8791b8c49bc27990fb4157304ef732b558e9ae82c000dfcc5093e20"
+    },
+    "_development/assets/highlights.css": {
+      "source": "assets/highlights.css",
+      "source_sha256": "2e7a67cf1ca5692cab0a261436c5a15794abb1c57e62403841973a6b90f21449"
+    },
+    "_development/assets/homepage.css": {
+      "source": "assets/homepage.css",
+      "source_sha256": "c250b15e89fd03ef8a0d36406408772ba3cff63087c99bc1ead15304d8c9d57f"
+    },
+    "_development/assets/homepage.js": {
+      "source": "assets/homepage.js",
+      "source_sha256": "99ba2bdbd8e5f7aab612809fa3b2ee3c153120006fe55068003c8c255386cd42"
+    },
+    "_development/assets/lap-rankings.js": {
+      "source": "assets/lap-rankings.js",
+      "source_sha256": "15d2b8187baf46c4a3d2622178cf06b794a0def750bdbbb8bcf6c4e881b5c388"
+    },
+    "_development/assets/pace-timeline.js": {
+      "source": "assets/pace-timeline.js",
+      "source_sha256": "85aa81acab24bf132ebe3b78fe1ced79a79b0a02d5d14e1af5298bcd15852e1d"
+    },
+    "_development/assets/phase2.css": {
+      "source": "assets/phase2.css",
+      "source_sha256": "4cd946649590ebe69a044f0ae1bbdd57fc6d228182555f6243dcbea11a002a9b"
+    },
+    "_development/assets/phase2.js": {
+      "source": "assets/phase2.js",
+      "source_sha256": "d90d7c4899467567f2e0390cf576028f0fee00f46266a1545db8394f9861590d"
+    },
+    "_development/assets/pit-programmes.js": {
+      "source": "assets/pit-programmes.js",
+      "source_sha256": "645d13c9f44d7f87ef0c81bdae596205a677674eab5644b1780f0dc2e8fa331e"
+    },
+    "_development/assets/preseason-testing.css": {
+      "source": "assets/preseason-testing.css",
+      "source_sha256": "c41330460589beba7fbdeb28c88bf345b9a0a8fa7d5c407912f124b54f10a7ee"
+    },
+    "_development/assets/preseason-testing.js": {
+      "source": "assets/preseason-testing.js",
+      "source_sha256": "7805f7fa6a3c9f6770b4b77e71eea2528b7917968ad2d6661923cc4adc84ae79"
+    },
+    "_development/assets/site-branding.css": {
+      "source": "assets/site-branding.css",
+      "source_sha256": "81de5db085321e12e14d0f2696b1fede8b1e38fd415abb6016962ffb7e8966b5"
+    },
+    "_development/assets/site-branding.js": {
+      "source": "assets/site-branding.js",
+      "source_sha256": "6488459d2561bd5c92e1273bf26e3fc3963d0d2d0207434c32e6b404c1d296e9"
+    },
+    "_development/assets/site-header.css": {
+      "source": "assets/site-header.css",
+      "source_sha256": "f5252b05df06bc79044860ea2c76ce220b5bdb359eecbbf712fb889eb5ef3287"
+    },
+    "_development/assets/site-navigation.css": {
+      "source": "assets/site-navigation.css",
+      "source_sha256": "13dea601ee229af2aa5472ed70b348f71c447e02dc509998ecd9bf3f78cd6062"
+    },
+    "_development/assets/site-navigation.js": {
+      "source": "assets/site-navigation.js",
+      "source_sha256": "7387efe33a9284c8beb424005717b70c99df78a3b5f0aec99d27d5c5cbdefa59"
+    },
+    "_development/assets/site-theme.css": {
+      "source": "assets/site-theme.css",
+      "source_sha256": "a83fb8faeb02ffd95bf0c205f6c98f528a03a97795407176b7ef604dabc947c0"
+    },
+    "_development/assets/014cf72eb91ada4302d31faa0e99a9fb0fcd638574eec709716383b7da5ed028.js": {
+      "source": "_shared/014cf72eb91ada4302d31faa0e99a9fb0fcd638574eec709716383b7da5ed028.js",
+      "source_sha256": "014cf72eb91ada4302d31faa0e99a9fb0fcd638574eec709716383b7da5ed028"
+    },
+    "_development/assets/418f919ecb5ce4549530f74abb55c6f398aa51f29b979298c0ec241191ab7822.css": {
+      "source": "_shared/418f919ecb5ce4549530f74abb55c6f398aa51f29b979298c0ec241191ab7822.css",
+      "source_sha256": "418f919ecb5ce4549530f74abb55c6f398aa51f29b979298c0ec241191ab7822"
+    },
+    "_development/assets/97cc35a8542541a6f17044ae5396001e59f209ef053bb5bb6fb208c3df94d078.js": {
+      "source": "_shared/97cc35a8542541a6f17044ae5396001e59f209ef053bb5bb6fb208c3df94d078.js",
+      "source_sha256": "97cc35a8542541a6f17044ae5396001e59f209ef053bb5bb6fb208c3df94d078"
+    },
+    "_development/assets/e5249226f1a91c9e333a433cb6d681da27809e430f05379697491d220898d580.css": {
+      "source": "_shared/e5249226f1a91c9e333a433cb6d681da27809e430f05379697491d220898d580.css",
+      "source_sha256": "e5249226f1a91c9e333a433cb6d681da27809e430f05379697491d220898d580"
+    },
+    "_development/assets/catalogue.js": {
+      "source": "assets/catalogue.js",
+      "source_sha256": "bb7afd1bef741a5e12a2aee0d9e1a746a2e6a9ec1ff1c903630e6421a3664c6e"
+    },
+    "_development/assets/race-updates.js": {
+      "source": "assets/race-updates.js",
+      "source_sha256": "db968f904575829a8e13ae23aa72431dacca938d5b1800b5ad43706a3008bf0a"
+    }
+  },
+  "local_adjustments": {
+    "races_2.html": {
+      "omitted_missing_publication_reader": "_data/reader.js",
+      "reason": "Catalogue data is embedded and local feeds remain ordinary JSON; no packed-data register is present locally."
+    }
+  }
+}
