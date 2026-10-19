@@ -41,6 +41,13 @@ function density(values,{min,max,floor=.4}){
 }
 // Chronological trend cache; annual violin summaries remain unchanged.
 const trendCache=new Map();
+// Smooth the chronological fit in season coordinates, including the winter gap.
+// The same linear operator is applied to every bootstrap fit before taking its
+// quantiles, so the band describes this smooth curve rather than the rough fit.
+function temporalSmoother(grid,sigma=.3){
+ const weights=grid.map(x=>grid.flatMap((t,i)=>{const distance=(t-x)/sigma;return Math.abs(distance)<=4?[[i,Math.exp(-.5*distance*distance)]]:[]}));
+ return values=>weights.map((neighbors,j)=>{if(!valid(values[j]))return null;let sum=0,total=0;for(const[i,w]of neighbors)if(valid(values[i])){sum+=w*values[i];total+=w;}return total?sum/total:null;});
+}
 function cubicValues(xs,ys,grid){
  if(xs.length===1)return grid.map(()=>ys[0]);
  const slopes=xs.slice(1).map((x,i)=>(ys[i+1]-ys[i])/(x-xs[i]));
@@ -50,7 +57,7 @@ function cubicValues(xs,ys,grid){
 // Robust Gaussian moving trend over the chronological race sequence. Observation dots
 // and annual violins are deliberately not moved onto this internal time axis.
 function trend(groups,key){
- const signature=JSON.stringify(['gaussian-race-robust-v2',key,groups.map(g=>[g.year,g[key].map(o=>[o.record?.race,o.record?.date,o.value]).sort((a,b)=>String(a[0]).localeCompare(String(b[0]))||String(a[1]).localeCompare(String(b[1]))||a[2]-b[2])])]);if(trendCache.has(signature))return trendCache.get(signature);
+ const signature=JSON.stringify(['gaussian-race-robust-smooth-v3',key,groups.map(g=>[g.year,g[key].map(o=>[o.record?.race,o.record?.date,o.value]).sort((a,b)=>String(a[0]).localeCompare(String(b[0]))||String(a[1]).localeCompare(String(b[1]))||a[2]-b[2])])]);if(trendCache.has(signature))return trendCache.get(signature);
  const supported=groups.filter(g=>g[key].length),runs=[];
  for(const g of supported){if(!runs.length||g.year!==runs.at(-1).at(-1).year+1)runs.push([]);runs.at(-1).push(g)}
  let seed=2166136261;for(const c of signature)seed=Math.imul(seed^c.charCodeAt(0),16777619)>>>0;
@@ -64,11 +71,11 @@ function trend(groups,key){
   // winter towards it. Gaussian chronology + robust local Huber location.
   const weightedMedian=items=>{const sorted=[...items].sort((a,b)=>a.value-b.value),half=sorted.reduce((s,p)=>s+p.weight,0)/2;let sum=0;for(let i=0;i<sorted.length;i++){const p=sorted[i];sum+=p.weight;if(Math.abs(sum-half)<=1e-12*half&&i+1<sorted.length)return(p.value+sorted[i+1].value)/2;if(sum>half)return p.value;}return null;};
   const average=(w,counts=null)=>{const items=[];for(let i=0;i<n;i++){const weight=w[i]*(counts?counts[i]:1);if(weight>0)items.push({weight,value:observations[i].value});}if(!items.length)return null;let center=weightedMedian(items);const mad=weightedMedian(items.map(p=>({...p,value:Math.abs(p.value-center)}))),scale=Math.max(key==='gaps'?.05:.5,1.4826*mad),cutoff=1.5*scale;
-   for(let k=0;k<6;k++){let sum=0,total=0;for(const p of items){const weight=p.weight*Math.min(1,cutoff/Math.max(1e-12,Math.abs(p.value-center)));sum+=weight*p.value;total+=weight;}const next=sum/total;if(Math.abs(next-center)<1e-8){center=next;break;}center=next;}return center;},estimate=kernels.map(w=>average(w)),boot=grid.map(()=>[]);
+   for(let k=0;k<6;k++){let sum=0,total=0;for(const p of items){const weight=p.weight*Math.min(1,cutoff/Math.max(1e-12,Math.abs(p.value-center)));sum+=weight*p.value;total+=weight;}const next=sum/total;if(Math.abs(next-center)<1e-8){center=next;break;}center=next;}return center;},smooth=temporalSmoother(grid),estimate=smooth(kernels.map(w=>average(w))),boot=grid.map(()=>[]);
   // Moving blocks of three whole race observations retain short-range serial
   // dependence. Estimates enter as points; session-translation error is separate.
-  for(let b=0;b<400&&n>=2;b++){const counts=Array(n).fill(0);let sampled=0;while(sampled<n){const from=Math.floor(random()*n);for(let k=0;k<Math.min(3,n)&&sampled<n;k++,sampled++)counts[(from+k)%n]++;}kernels.forEach((w,i)=>{const v=average(w,counts);if(valid(v))boot[i].push(v);});}
-  return grid.map((year,i)=>{const nearest=observations.reduce((a,b)=>Math.abs(a.year-year)<=Math.abs(b.year-year)?a:b),ci=nearest.annualN>=2&&boot[i].length>=360;return{year,value:estimate[i],lo:ci?quantile(boot[i],.025):null,hi:ci?quantile(boot[i],.975):null,sparse:nearest.annualN<5,singleYear:run.length===1,method:'gaussian-race-robust-location',sigma,observations:n};});
+  for(let b=0;b<400&&n>=2;b++){const counts=Array(n).fill(0);let sampled=0;while(sampled<n){const from=Math.floor(random()*n);for(let k=0;k<Math.min(3,n)&&sampled<n;k++,sampled++)counts[(from+k)%n]++;}smooth(kernels.map(w=>average(w,counts))).forEach((v,i)=>{if(valid(v))boot[i].push(v);});}
+  return grid.map((year,i)=>{const nearest=observations.reduce((a,b)=>Math.abs(a.year-year)<=Math.abs(b.year-year)?a:b),ci=nearest.annualN>=2&&boot[i].length>=360;return{year,value:estimate[i],lo:ci?quantile(boot[i],.025):null,hi:ci?quantile(boot[i],.975):null,sparse:nearest.annualN<5,singleYear:run.length===1,method:'gaussian-race-robust-smooth',sigma,temporalSigma:.3,observations:n};});
  });
  if(trendCache.size>=12)trendCache.delete(trendCache.keys().next().value);trendCache.set(signature,result);return result;
 }
@@ -130,7 +137,7 @@ function render({records,poles={},stages={},bridges={},validation={},races=[],st
   const yearLayers=groups.map((g,i)=>yearLayer(g,i,isPosition));
   const model=trend(groups,key),X=year=>x(year-groups[0].year),coord=(p,k)=>`${X(p.year).toFixed(3)},${Y(Math.min(isPosition?positionMax:Infinity,p[k])).toFixed(3)}`;
   const bandRuns=[];for(const run of model){let part=[];for(const p of run){if(valid(p.lo)&&valid(p.hi))part.push(p);else{if(part.length>1)bandRuns.push(part);part=[]}}if(part.length>1)bandRuns.push(part)}
-  const bands=bandRuns.map(run=>`<path class="qualifying-confidence" data-bootstrap="400" d="M${run.map(p=>coord(p,'lo')).join('L')}L${[...run].reverse().map(p=>coord(p,'hi')).join('L')}Z" fill="#b3bcc9" fill-opacity=".22"><title>${t('Indicatieve puntgewijze 95%-bootstrapband van het voortschrijdende gemiddelde','Indicative pointwise 95% bootstrap band of the moving mean')}</title></path>`).join('');
+  const bands=bandRuns.map(run=>`<path class="qualifying-confidence" data-bootstrap="400" d="M${run.map(p=>coord(p,'lo')).join('L')}L${[...run].reverse().map(p=>coord(p,'hi')).join('L')}Z" fill="#b3bcc9" fill-opacity=".22"><title>${t('Indicatieve puntgewijze 95%-bootstrapband van de vloeiende best-fittrend','Indicative pointwise 95% bootstrap band of the smooth best-fit trend')}</title></path>`).join('');
   const segments=[];for(const run of model){for(let j=1;j<run.length;j++){const a=run[j-1],b=run[j],sparse=a.sparse||b.sparse,last=segments.at(-1);if(last&&last.run===run&&last.sparse===sparse)last.points.push(b);else segments.push({run,sparse,points:[a,b]})}}
   let curves=segments.map(({points,sparse})=>`<path class="qualifying-trend" data-support="${sparse?'sparse':'measured'}" d="${smoothPath(points.map(p=>[X(p.year),Y(Math.min(isPosition?positionMax:Infinity,p.value))]))}" fill="none" stroke="#fff" stroke-width="2.4" ${sparse?'stroke-dasharray="6 4"':''} pointer-events="none"/>`).join('');
   for(let i=1;i<model.length;i++){const a=model[i-1].at(-1),b=model[i][0];curves+=`<path class="qualifying-trend qualifying-year-gap" data-support="interpolation" d="M${coord(a,'value')}L${coord(b,'value')}" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="3 5" pointer-events="none"><title>${t('Verbinding over jaren zonder metingen; geen extra waarnemingen of betrouwbaarheidsband','Connection across years without measurements; no additional observations or confidence band')}</title></path>`}

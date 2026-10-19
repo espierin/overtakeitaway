@@ -223,3 +223,19 @@ console.log('Robust chronological curve limits isolated outlier influence, prese
 """
     result=subprocess.run([NODE,'-e',script],cwd=ROOT,text=True,capture_output=True)
     assert result.returncode==0,result.stderr
+
+
+def test_smooth_qualifying_curve_has_gradual_season_transitions():
+    script=r"""
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),ctx={window:{}};vm.createContext(ctx);vm.runInContext(fs.readFileSync('_development/assets/qualifying-years.js','utf8'),ctx);const Q=ctx.window.qualifyingYears;
+// A genuine improvement with noisy race results must remain visible without a
+// sharp winter step or kinks from changes in the robust local weighting.
+const groups=[2020,2021,2022].map(year=>({year,positions:Array.from({length:20},(_,i)=>({record:{race:year+'-'+(i+1)},value:year===2020?10:i%7<3?2:4})),gaps:[]}));
+const original=JSON.stringify(groups),curve=Q.trend(groups,'positions')[0];
+assert.ok(curve[0].value>9);assert.ok(curve.at(-1).value<4);assert.ok(curve.every(p=>p.value>=2&&p.value<=10));
+const bends=curve.slice(2).map((p,i)=>Math.abs(p.value-2*curve[i+1].value+curve[i].value));assert.ok(Math.max(...bends)<.05);
+assert.ok(curve.every(p=>Number.isFinite(p.lo)&&Number.isFinite(p.hi)&&p.lo<=p.hi));assert.equal(JSON.stringify(groups),original);
+console.log('Gradual qualifying season transitions, sustained improvement, valid bootstrap bands and unchanged observations');
+"""
+    result=subprocess.run([NODE,'-e',script],cwd=ROOT,text=True,capture_output=True)
+    assert result.returncode==0,result.stderr

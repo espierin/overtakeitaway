@@ -55,3 +55,38 @@ html .range-slider input[type=range]::-moz-range-thumb{border-color:var(--brand-
 
 /* Deselection dims the number tile, preserving the driver/team identity. */
 html .driver-sidebar .driver-row[aria-pressed=false]{opacity:1!important;filter:none;background:#080a10!important}html .driver-sidebar .driver-row[aria-pressed=false] .driver-number{background:#8b939f;color:#080a10}
+
+/* Shared activated treatment: accent border, pale outer ring and a restrained glow.
+   Semantic selected states remain visible; action buttons use click/keyboard focus.
+   Only actionable cards participate, not the enclosing chart/data panels. */
+:root{--interaction-section-accent:var(--brand-cyan)}
+body:has([data-header-section="races"]){--interaction-section-accent:var(--brand-red)}
+body:has([data-header-section="drivers"]),.driver-lab-page,.preseason-dialog,.pitwall-dialog{--interaction-section-accent:var(--brand-purple)}
+body:has([data-header-section="greatest"]),.goat-page,.winter-dialog{--interaction-section-accent:var(--brand-gold)}
+:where(button,[role="button"],input[type="button"],input[type="submit"],input[type="reset"],.button,.accent-button,.site-nav-button,.language-toggle,.about-link,.goat-button,.header-actions a,.race-navigation a,.home-tile[href],.race-card[href],.season-race-card[href],.demo-tile[href],.quality-tile[data-quality],.kpi[data-highlight],.card[href],.interactive-card[href]){
+ --interaction-color:var(--interaction-accent,var(--nav-accent,var(--control-accent,var(--quality-accent,var(--accent,var(--season-accent,var(--interaction-section-accent)))))));
+ --interaction-ring-offset:4px;
+ --interaction-glow-size:14px;
+}
+:where(.header-actions)>:is(button,a){--interaction-ring-offset:1px}
+:where(.driver-sidebar) .driver-row{--interaction-ring-offset:-2px;--interaction-glow-size:6px}
+:where(.kpi):not(.quality-tile)[data-highlight="winner"]{--interaction-accent:var(--brand-red)}
+:where(.kpi):not(.quality-tile)[data-highlight="fastest"]{--interaction-accent:var(--brand-purple)}
+:where(.kpi):not(.quality-tile)[data-highlight="climb"]{--interaction-accent:var(--positive)}
+:where(.kpi):not(.quality-tile)[data-highlight="pole"]{--interaction-accent:var(--text-primary)}
+:where(.kpi):not(.quality-tile)[data-highlight="overtakes"]{--interaction-accent:var(--action-card-color,#38bdf8)}
+:where(.kpi):not(.quality-tile)[data-highlight="most"]{--interaction-accent:var(--action-card-color,#f4bf4f)}
+:where(.kpi):not(.quality-tile)[data-highlight="undercuts"]{--interaction-accent:var(--action-card-color,#2dd4bf)}
+:where(.kpi):not(.quality-tile)[data-highlight="overcuts"]{--interaction-accent:var(--action-card-color,#568bff)}
+html body :is(button,[role="button"],input[type="button"],input[type="submit"],input[type="reset"],.button,.accent-button,.site-nav-button,.language-toggle,.about-link,.goat-button,.header-actions a,.race-navigation a,.home-tile[href],.race-card[href],.season-race-card[href],.demo-tile[href],.quality-tile[data-quality],.kpi[data-highlight],.card[href],.interactive-card[href]):not(:disabled,[disabled],[aria-disabled="true"],svg,svg *):is(:hover,:focus,:active,[aria-pressed="true"],[aria-selected="true"],[aria-current="page"],[aria-current="true"],[data-active="true"],.is-active,.selected,.active),
+html body :is(.home-tile[href],.race-card[href],.season-race-card[href],.demo-tile[href],.quality-tile[data-quality],.kpi[data-highlight],.card[href],.interactive-card[href]):not(:disabled,[disabled],[aria-disabled="true"]):hover{
+ border-color:var(--interaction-color)!important;
+ outline:2px solid color-mix(in srgb,var(--interaction-color) 65%,white)!important;
+ outline-offset:var(--interaction-ring-offset)!important;
+ box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--interaction-color) 40%,transparent),0 0 var(--interaction-glow-size) color-mix(in srgb,var(--interaction-color) 20%,transparent)!important;
+}
+html body :is(button,[role="button"],input[type="button"],input[type="submit"],input[type="reset"],.button,.accent-button,.site-nav-button,.language-toggle,.about-link,.goat-button,.header-actions a,.race-navigation a):not(.quality-tile,.kpi,.race-card,.home-tile,.season-race-card,.demo-tile,.driver-row,.highlight-driver,:disabled,[disabled],[aria-disabled="true"],svg,svg *):is(:hover,:focus,:active,[aria-pressed="true"],[aria-selected="true"],[aria-current="page"],[aria-current="true"],[data-active="true"],.is-active,.selected,.active){background-color:color-mix(in srgb,var(--interaction-color) 30%,var(--surface-page))!important}
+.preseason-enter{--interaction-accent:var(--brand-purple)}
+.preseason-races{--interaction-accent:var(--brand-cyan)}
+.site-about-dialog .about-link.donate{--interaction-accent:var(--brand-purple)}
+.method-tabs{--control-accent:var(--brand-purple)}

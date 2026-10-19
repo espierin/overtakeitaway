@@ -18,3 +18,25 @@ test('season and overall aggregation give each race one observation, independent
  const rows=[{race:{year:2020},median:10,points:Array(20).fill({gain:10})},{race:{year:2020},median:-2,points:[{gain:-2}]},{race:{year:2020},median:null,points:[]},{race:{year:2021},median:null,points:[]}],s=api.seasons(rows);
  assert.equal(s.length,2);assert.equal(s[0].median,4);assert.equal(s[0].measured.length,2);assert.equal(s[0].comparisons,21);assert.equal(s[0].rows.length,3);assert.equal(s[1].median,null);assert.equal(s[1].measured.length,0);
 });
+test('season axis is symmetric and nonlinear while retaining every signed second',()=>{
+ const axis=api.seasonAxis([-47,0,.01,13]);
+ assert.equal(axis.min,-100);assert.equal(axis.max,100);
+ assert.equal(api.seasonScale(0,100),0);
+ assert.equal(api.seasonScale(100,100),1);assert.equal(api.seasonScale(-100,100),-1);
+ assert.equal(api.seasonScale(-3,100),-api.seasonScale(3,100));
+ assert.ok(api.seasonScale(1,100)>api.seasonScale(31,100)-api.seasonScale(30,100));
+ const values=[-47,0,.01,13];assert.ok(values.every((v,i)=>!i||api.seasonScale(v,100)>api.seasonScale(values[i-1],100)));
+});
+test('archived pit curve preserves the exact production trend, race values and missing years',()=>{
+ vm.runInContext(fs.readFileSync('_development/assets/qualifying-years.js','utf8'),scope);
+ const rows=[2019,2020,2022].flatMap(year=>Array.from({length:7},(_,i)=>({race:{id:year+'-'+i,year,date:year+'-06-'+String(i+1).padStart(2,'0'),name:'Example'},median:year===2020?i-3:i/2,points:[{gain:i}]})));
+ rows.push({race:{id:'missing',year:2021},median:null,points:[]});
+ const before=JSON.stringify(rows),snapshot=api.seasonSnapshot(rows),direct=api.seasonTrend(rows);
+ assert.equal(snapshot.measured,21);assert.equal(snapshot.fit.runs.length,2);
+ assert.equal(snapshot.groups.find(g=>g.year===2021).n,0);
+ assert.equal(JSON.stringify(snapshot.fit.runs),JSON.stringify(direct.map(run=>run.map(p=>[p.year,p.value,p.lo,p.hi,p.sparse]))));
+ assert.equal(JSON.stringify(rows),before);
+ assert.deepEqual(Array.from(snapshot.groups.flatMap(g=>g.observations.map(o=>o.value))).sort((a,b)=>a-b),rows.filter(r=>r.median!==null).map(r=>r.median).sort((a,b)=>a-b));
+ assert.equal(JSON.stringify(api.completeSeasonSnapshot(api.seasonSnapshot(rows,{includeFit:false}))),JSON.stringify(snapshot));
+ const html=api.seasonChart(rows,'nl');assert.ok(html.includes('data-y-scale="signed_log1p"'));assert.ok(!html.includes('NaN'));
+});

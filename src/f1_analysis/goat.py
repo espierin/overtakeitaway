@@ -33,6 +33,10 @@ def render_goat(drivers_available=True):
 
 
 def build(root):
+    from .goat_release import is_promoted, promote
+    if is_promoted(root):
+        promote(root)
+        return Path(root)/'goat.html'
     root=Path(root);source=Path(__file__).parent;ensure_assets(root)
     for name in ('homepage.css','homepage.js','goat.css','goat.js','preseason-testing.css'):
         shutil.copyfile(source/name,root/'assets'/name)

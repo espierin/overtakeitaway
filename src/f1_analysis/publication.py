@@ -317,9 +317,9 @@ def freeze_website(root,output,archives):
         for p in run.rglob('*'):
             if p.is_file() and 'data' not in p.relative_to(run).parts:files.add(p)
         files.update(p for p in (pointer.parent/'corrections').rglob('*') if p.is_file())
-    for name in ['index.html','races.html','analysis-lab.html','goat.html','stijlgids.html','data-collection.html','coureurs_2.html','goat_2.html','races_2.html','_development/clone-manifest.json','_development/data-collection.html','_development/uitleg-start-en-raceonderzoek.html','analyses/index.html','analyses/index.json']:
+    for name in ['index.html','races.html','analysis-lab.html','goat.html','goat-backup-20261019.html','uitleg.html','uitleg-start-en-raceonderzoek.html','stijlgids.html','data-collection.html','coureurs_2.html','goat_2.html','races_2.html','_development/clone-manifest.json','_development/data-collection.html','_development/uitleg-start-en-raceonderzoek.html','analyses/index.html','analyses/index.json']:
         if (root/name).exists():files.add(root/name)
-    for directory in ['assets','config','src','_development/assets','_development/data','_development/source']:
+    for directory in ['assets','config','src','_development/assets','_development/data','_development/source','_development/templates']:
         files.update(p for p in (root/directory).rglob('*') if p.is_file() and '__pycache__' not in p.parts and not any(part.endswith('.egg-info') for part in p.parts))
     # Copy pages and their actually linked source data. Keep original hrefs here.
     pending=list(files);seen=set();overlay=[]
@@ -505,11 +505,11 @@ def build_site(root, output, max_bytes=None, from_year=1950):
         files.add(pointer)
         files.update(p for p in run.rglob('*') if p.is_file() and 'data' not in p.relative_to(run).parts)
         files.update(p for p in (pointer.parent / 'corrections').rglob('*') if p.is_file())
-    for name in ['index.html', 'races.html', 'analysis-lab.html', 'goat.html', 'stijlgids.html', 'data-collection.html', 'coureurs_2.html', 'goat_2.html', 'races_2.html', '_development/clone-manifest.json', '_development/data-collection.html', '_development/uitleg-start-en-raceonderzoek.html', 'analyses/index.html', 'analyses/index.json', '_storage/index.json', '_storage/update-state.json', '_storage/season-calendar.json', 'race-updates.json']:
+    for name in ['index.html', 'races.html', 'analysis-lab.html', 'goat.html', 'goat-backup-20261019.html', 'uitleg.html','uitleg-start-en-raceonderzoek.html', 'stijlgids.html', 'data-collection.html', 'coureurs_2.html', 'goat_2.html', 'races_2.html', '_development/clone-manifest.json', '_development/data-collection.html', '_development/uitleg-start-en-raceonderzoek.html', 'analyses/index.html', 'analyses/index.json', '_storage/index.json', '_storage/update-state.json', '_storage/season-calendar.json', 'race-updates.json']:
         if (root / name).exists(): files.add(root / name)
     # Driver details and model chunks are requested by JavaScript, rather than
     # static HTML links. Retain them across automatic race updates as well.
-    for directory in ['assets', '_shared', '_media', '_documents', '_development/assets', '_development/data', '_development/source']:
+    for directory in ['assets', '_shared', '_media', '_documents', '_development/assets', '_development/data', '_development/source', '_development/templates']:
         files.update(p for p in (root / directory).rglob('*') if p.is_file() and p.name != 'index.json')
     # Presentation files are shared, so restoring a season must not reintroduce
     # thousands of unused copies. Actual links below still include any needed file.

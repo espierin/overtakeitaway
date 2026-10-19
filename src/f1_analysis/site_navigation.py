@@ -17,6 +17,8 @@ def ensure_assets(root):
         if not (directory/'home'/name).exists():shutil.copyfile(bundled/'home'/name,directory/'home'/name)
     for name in ('overtake-wordmark-v2.png','f1-banner-v3.png'):
         if not (directory/name).exists():shutil.copyfile(bundled/name,directory/name)
+    from .readability import install
+    install(root)
     # The per-race template sits six directories deeper than the shared CSS.
     # Keep image references relative to assets/ when updating the shared copy.
     dashboard=directory/'dashboard.css'
@@ -88,6 +90,10 @@ def with_navigation(text,asset_prefix,drivers_available=True):
     if 'data-site-navigation-style' not in text:
         style='<link rel="stylesheet" data-site-navigation-style href="'+escape(asset_prefix+'site-navigation.css',quote=True)+'">'
         text=text.replace('</head>',style+'</head>',1) if '</head>' in text else style+text
+    from .readability import script as readable_script
+    if 'data-readable-copy' not in text:
+        snippet = readable_script(asset_prefix)
+        text = text.replace('</body>', snippet+'</body>', 1) if '</body>' in text else text+snippet
     if 'data-site-navigation-script' not in text:
         script='<script defer data-site-navigation-script src="'+escape(asset_prefix+'site-navigation.js',quote=True)+'"></script>'
         text=text.replace('</body>',script+'</body>',1) if '</body>' in text else text+script
@@ -104,4 +110,6 @@ def with_navigation(text,asset_prefix,drivers_available=True):
     if 'site-wordmark-window' in text and 'data-site-header-style' not in text:
         style='<link rel="stylesheet" data-site-header-style href="'+escape(asset_prefix+'site-header.css',quote=True)+'">'
         text=text.replace('</head>',style+'</head>',1) if '</head>' in text else style+text
-    return text
+    from .readability import decorate
+    from .production import links
+    return links(decorate(text, asset_prefix))

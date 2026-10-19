@@ -62,13 +62,32 @@ def test_strategy_clocks_and_every_original_cycle_survive():
         assert strategy['programs'][race['id']]==race.get('pit_programmes',{}).get('entries',[])
 
 
-def test_original_pages_and_assets_are_unchanged():
+def test_original_evidence_is_preserved_and_promoted_pages_match_sources():
     manifest=json.loads((ROOT/'_development/clone-manifest.json').read_text())
     for source in list(manifest['pages'].values())+list(manifest['assets'].values()):
         from f1_analysis.driver_release import is_promoted, render, source_html
         if source['source']=='analysis-lab.html' and is_promoted(ROOT):
             assert (ROOT/'analysis-lab.html').read_text()==render(ROOT)
             body=source_html(ROOT).encode()
+        elif source['source']=='goat.html':
+            from f1_analysis.goat_release import is_promoted as goat_promoted, render as goat_render, BASELINE, BACKUP
+            assert goat_promoted(ROOT)
+            assert (ROOT/'goat.html').read_text()==goat_render(ROOT)
+            body=gzip.decompress((ROOT/BASELINE).read_bytes())
+            assert (ROOT/BACKUP).read_bytes()==body
+        elif source['source']=='races.html':
+            # Only the reversible shared copy layer changed this original page.
+            from f1_analysis.readability import OLD_CONVERT, NEW_CONVERT, decorate
+            original=(ROOT/source['source']).read_text()
+            undecorated=re.sub(r'<script\b(?=[^>]*\bdata-readable-copy\b)[^>]*>\s*</script>','',original)
+            undecorated=re.sub(r'<p class="readable-help-link"[^>]*>.*?</p>','',undecorated,flags=re.S)
+            undecorated=undecorated.replace(NEW_CONVERT,OLD_CONVERT)
+            assert decorate(undecorated,'assets/')==original
+            body=undecorated.encode()
+        elif source['source']=='assets/site-theme.css':
+            # The shared hover treatment was deliberately changed; retain its old evidence.
+            body=gzip.decompress((ROOT/'_development/source/legacy-site-theme.css.gz').read_bytes())
+            assert (ROOT/source['source']).read_bytes()==(ROOT/'src/f1_analysis/site-theme.css').read_bytes()
         else:body=(ROOT/source['source']).read_bytes()
         assert hashlib.sha256(body).hexdigest()==source['source_sha256']
 

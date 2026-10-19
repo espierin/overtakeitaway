@@ -42,7 +42,8 @@ def source_html(root):
 
 def render(root):
     from .publication import site_html
-    text = site_html(Path(root)/'coureurs_2.html', root)
+    template=Path(root)/'_development/templates/drivers.html.txt'
+    text = site_html(template if template.exists() else Path(root)/'coureurs_2.html', root)
     text = re.sub(r'<meta\b(?=[^>]*\bname=["\']robots["\'])[^>]*>', '', text)
     text = text.replace('</head>', MARKER+'</head>', 1)
     # Only menu destinations change; the reviewed module keeps its own assets.
@@ -54,7 +55,8 @@ def render(root):
         version=hashlib.sha256(notifications.read_bytes()).hexdigest()[:12]
         script=f'<script defer data-race-updates src="assets/race-updates.js?v={version}"></script>'
         text=text.replace('</body>',script+'</body>',1)
-    return version_assets(text,root)
+    from .production import without_development_intro
+    return version_assets(without_development_intro(text),root)
 
 
 def promote(root):

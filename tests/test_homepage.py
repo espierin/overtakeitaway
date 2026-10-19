@@ -1,4 +1,5 @@
 from pathlib import Path
+from urllib.parse import urlsplit
 from bs4 import BeautifulSoup
 from f1_analysis.homepage import build, render_home
 from f1_analysis.branding import branding
@@ -26,7 +27,7 @@ def test_build_preserves_catalogue_and_delivers_small_local_assets(tmp_path):
     assert (tmp_path/'analysis-lab.html').read_text()=='Existing driver workspace'
     soup=BeautifulSoup((tmp_path/'index.html').read_text(),'html.parser')
     for node in soup.select('.home-tile img,link[rel=stylesheet],script[src]'):
-        assert (tmp_path/(node.get('src') or node['href'])).is_file()
+        assert (tmp_path/urlsplit(node.get('src') or node['href']).path).is_file()
     assert sum(p.stat().st_size for p in (tmp_path/'assets/home').glob('*'))<500_000
     build(tmp_path)
     assert len(BeautifulSoup((tmp_path/'index.html').read_text(),'html.parser').select('.home-tile'))==3

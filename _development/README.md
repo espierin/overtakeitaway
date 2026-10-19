@@ -1,4 +1,14 @@
-# Fase 2 · lokale ontwikkelomgeving
+# Analysemodules · ontwikkeling en productie
+
+## Productieversie — 19 oktober 2026
+
+De publieke routes zijn `analysis-lab.html`, `goat.html` en `races.html`. De vroegere `_2.html`-routes zijn doorverwijzingen die query en fragment behouden. De bronopmaak voor Coureurs en GOAT staat nu in `templates/drivers.html.txt` en `templates/goat.html.txt`; `driver_release` en `goat_release` bouwen daarvan de reguliere pagina’s. Het onderzoeksbouwscript werkt deze templates bij. Technische bestanden onder `_development/assets` en `_development/data` blijven gedeelde afhankelijkheden; dit zijn geen aparte openbare versies.
+
+De automatische ontwikkelintroducties zijn verwijderd. Inhoudelijke helpvensters blijven op aanvraag werken en verwijzen naar de reguliere `uitleg-start-en-raceonderzoek.html`. De oude help- en datacollectieroutes sturen door. De exacte voormalige GOAT-pagina blijft als backup behouden.
+
+GOAT opent standaard met Verstappen, Hamilton, Fangio en Senna. Jaarcurves gebruiken standaard jaren sinds debuut; een expliciet opgeslagen kalenderjaarstand blijft behouden. De PCA staat direct onder de selectie en gebruikt standaard zes kenmerken, inclusief typische kwalificatiepositie en geschatte startplek voor positiewinst. Alle voldoende gemeten coureurs blijven de berekening bepalen. Ontbrekende profielen worden uitsluitend gemeld voor geselecteerde coureurs, met nummer, kleur en naam; de lijst met overige ontbrekende profielen wordt niet getoond. Opgeslagen persoonlijke URL-keuzes blijven leidend.
+
+De onderstaande beschrijving van de afzonderlijke ontwikkelroutes is historische documentatie; de productieroutes hierboven vervangen deze navigatie.
 
 Deze omgeving voert het [totaalplan](../documents/fase-2-onderzoeks-en-ontwikkelplan.md) uit op afzonderlijke ontwikkelpagina’s. De oorspronkelijke brongegevens en scripts blijven behouden. Publicatie van deze afzonderlijke pagina’s is op 18 oktober 2026 expliciet toegestaan.
 
@@ -14,7 +24,7 @@ Deze omgeving voert het [totaalplan](../documents/fase-2-onderzoeks-en-ontwikkel
 
 De pagina’s hebben eigen scripts en stijlen in `assets/`. Afbeeldingen, lettertypen en oorspronkelijke raceverslagen worden alleen gelezen. Home en individuele raceverslagen verwijzen naar de bestaande site; de drie ontwikkelmodules verwijzen onderling naar elkaar.
 
-`clone-manifest.json` bevat de oorspronkelijke hashes van bronpagina’s en bronassets. De regressietest controleert dat deze bestanden onveranderd zijn. De publicatiebouwer bewaart de drie ontwikkelpagina’s, hun eigen assets, rekenuitleg en alle dynamisch geladen gegevens bij volgende automatische race-updates. De gegenereerde gegevens staan in de gecontroleerde GitHub Release-momentopname; code, methoden en tests staan in de repository. Op verzoek is de coureursmodule vervolgens de reguliere `analysis-lab.html` geworden. De Races- en GOAT-ontwikkelroutes blijven afzonderlijk.
+`clone-manifest.json` bevat de oorspronkelijke hashes van bronpagina’s en bronassets. De regressietest controleert dat deze bestanden onveranderd zijn. De publicatiebouwer bewaart de drie ontwikkelpagina’s, hun eigen assets, rekenuitleg en alle dynamisch geladen gegevens bij volgende automatische race-updates. De gegenereerde gegevens staan in de gecontroleerde GitHub Release-momentopname; code, methoden en tests staan in de repository. Op verzoek is de coureursmodule vervolgens de reguliere `analysis-lab.html` geworden. De Races-ontwikkelroute blijft afzonderlijk; de nieuwe GOAT-module is op 19 oktober ook naar de reguliere route overgezet (zie hieronder).
 
 ## Gegevens en opbouw
 
@@ -105,3 +115,94 @@ Voorbeelden hergebruiken via `driver-example-charts.js` de bestaande productie-r
 De kwalificatietrend gebruikt een Gaussisch venster op de chronologische racevolgorde (sigma vijf waarnemingen, maximaal vijftien aan weerszijden) met robuuste lokale Huber-locatie. De gewogen mediaan initialiseert de locatie; de gewogen MAD bepaalt de schaal met ondergrens 0,05 seconde of 0,5 positie. Huber-afkapping gebruikt 1,5 maal de robuuste schaal en zes iteraties. De blokbootstrap past dezelfde robuuste schatter toe. Dit voorkomt dat één extreem trage kwalificatie een kunstmatige winterdip domineert. Alle oorspronkelijke punten, violins, kwartielen en jaarmedianen blijven ongewijzigd; een verslechtering over veel races blijft zichtbaar. Het is een beschrijvende trend, geen causale of voorspellende analyse.
 
 De voorbeeldgrafieken in popup en helppagina worden op 40% weergegeven. De twee coureurs staan direct onder elkaar, met gelijke assen en gekoppeld horizontaal scrollen. Gedeelde legenda en schaalnotities staan pas onder de vergelijking. Bij kwalificaties staan eerst beide positiegrafieken bij elkaar en daarna beide afstand-tot-polegrafieken. De hoofdgrafieken behouden hun normale afmetingen.
+
+De kwalificatiecurves krijgen aanvullend een Gaussische verzachting op de interne seizoen-as (sigma 0,3 seizoen, venster ±1,2 seizoen), afzonderlijk per aaneengesloten reeks gemeten jaren. Dezelfde bewerking wordt op elk van de 400 blokbootstrapfits toegepast voordat de 2,5%- en 97,5%-grenzen worden bepaald. Zo volgen lijn en band dezelfde vloeiende schatter, terwijl alle punten, jaarmedianen, kwartielen en violins intact blijven.
+
+### Opgeslagen coureurcurves voor GOAT
+
+`assets/driver-curve-snapshots.js` legt vier curves vast met de bestaande productie-engines, zonder een nieuwe kwaliteitsscore te berekenen:
+
+| Sleutel | Begin / x-as | Uitkomst / y-as |
+| --- | --- | --- |
+| `start` | Startpositie | Positiewinst na ronde één |
+| `race` | Positie na ronde één | Positiewinst tot de finish, alleen bevestigde finishers |
+| `qualifying_position` | Seizoen | Kwalificatiepositie |
+| `gap_to_pole` | Seizoen | Afstand tot pole in seconden, inclusief herkenbare sessieschattingen |
+
+Herbouw met `node _development/research/export-driver-curves.cjs --workers 4`. De standaard is de volledige beschikbare datasetperiode. Met `--from-year 2021 --to-year 2024` ontstaat een afzonderlijke periodeversie. `--drivers max-verstappen,lewis-hamilton` maakt een afzonderlijke selectie; `--output` kan een andere map kiezen. Periode- of circuitselecties vereisen opnieuw berekenen: jaargemiddelden of delen van een bestaande loopbaancurve middelen levert niet dezelfde fit op.
+
+De gegenereerde gegevens staan onder `data/driver-curves/<beginjaar>-<eindjaar>/`. `index.json` verwijst pas na een volledige generatie naar een onveranderlijke versie met `manifest.json` en één verliesloos gecomprimeerd JSON-bestand per coureur. Het manifest bevat bron- en codehashes, meetdekking, beschikbaarheid, bestandsgrootten en controlehashes. De export kan worden hervat en hergebruikt reeds gecontroleerde bestanden van dezelfde versie. Oude versies worden niet overschreven.
+
+De bestanden bevatten curvepunten op de oorspronkelijke rekenschaal, 95%-banden, support-/extrapolatiemarkeringen, groepen met individuele racewaarnemingen, medianen en kwartielen, afkappingen en astransformaties. Positiewinstcurves bewaren uitsluitend zichtbare curvepunten tot en met P22; verborgen historische waarnemingen blijven in de groepen bewaard zoals bij de huidige berekeningen. Kwalificatieruns blijven gescheiden over lege jaren. Ontbrekende of onvoldoende onderbouwde curves krijgen een expliciete status, geen nulcurve. Een geschatte Q3-tijd blijft als schatting herkenbaar.
+
+De GOAT-pagina tekent de opgeslagen `fit.runs` met gedeelde assen. Iedere rij in een run volgt de bijbehorende `fit.columns`; er wordt bij opslag niet afgerond. Browser en Node kunnen circa 10^-14 verschillen in elementaire berekeningen, zonder zichtbaar verschil. Controleer exports daarom op numerieke gelijkheid binnen 10^-10, terwijl observaties en selecties exact gelijk moeten zijn. De proefcontrole gebruikt Verstappen, Hamilton en Ricciardo tegenover de live berekening op de lokale rijderspagina. Het is geen tussen-tijdperken gecorrigeerde ranglijst: gelijke assen maken curves vergelijkbaar als beschrijving, maar maken auto, kalender en omstandigheden niet gelijk.
+
+Bij start en racevervolg zijn de GP-grenzen analytische, puntgewijze modelgrenzen; de vermelde 800 trekkingen behoren tot de overige modelberekeningen. Bij de terugvalfit worden 600 bootstrapherhalingen gebruikt. De kwalificatieband wordt bepaald uit 400 blokbootstrapfits met dezelfde Gaussische verzachting als de witte curve. Deze verschillende onzekerheidsdefinities blijven in de snapshot benoemd.
+
+Deze curvebestanden vallen onder de gegenereerde `_development/data`-opslag. Neem bij een publicatie de complete versie met haar `index.json` en manifest mee in de gecontroleerde website-/Releases-snapshot; alleen de broncode naar Git sturen publiceert de gegenereerde curves niet. De GOAT-interface leest een compacte verliesloze bezorgkopie van deze exacte fits; de oorspronkelijke waarnemingen blijven in dit archief bewaard.
+
+Boven de curve van het racevervolg worden de drie kaarten met kansgecorrigeerde curvebalans, racescore en winstgrens niet meer getoond. Alleen die presentatie is verwijderd: de berekeningen, referentieselecties, onzekerheidsmarges en brongegevens blijven behouden voor GOAT via `driverQualities.startComparison` (met `raceObservation`), `starterCurve` en `starterModel`. De opgeslagen curvebestanden blijven ongewijzigd.
+
+### Vaste interactiestijl voor knoppen en kaarten
+
+Gebruik de gedeelde `site-theme.css` voor hover, klikfocus, toetsenbordfocus en bestaande geselecteerde toestanden: accentkleurige rand, lichtere buitenomlijning van 2 px en een subtiele gloed. Knoppen krijgen ook een donkere vulling in hun accentkleur. Interactieve kaarten behouden hun achtergrondbeeld en eigen accentkleur. Gewone informatiepanelen krijgen geen hoverselectie. Hover wijzigt nooit de selectie of de gegevens. Actieknoppen gebruiken focus; echte toggles gebruiken `aria-pressed` of `aria-selected` voor een blijvend herkenbare toestand. Maak geen kunstmatige toggle van een navigatiekaart. Behoud focus na opnieuw opbouwen van de aangeklikte coureur- of kwaliteitskaart. Compacte coureurrijen gebruiken een binnenomlijning zodat naburige rijen niet worden bedekt. Uitgeschakelde bediening krijgt geen hovergloed. De stijlgids bevat werkende voorbeelden; de drie gedeelde CSS-kopieën blijven gelijk.
+
+### Vaste loopbaanparameters en PCA voor GOAT
+
+De profielkaart op `goat_2.html` gebruikt één samengevoegd loopbaanprofiel per coureur. Seizoenen zijn geen losse stippen meer. `assets/goat-pca.js` berekent een gestandaardiseerde beschrijvende PCA op vier breed beschikbare feiten: gemiddelde relatieve gridpositie, gemiddelde relatieve raceklassering, zeges per bekende uitslag en rijdende finishes per bekende finishstatus. Posities zijn `(positie − 1) / (veldgrootte − 1)`. Elke race telt eenmaal binnen zijn loopbaan; elke coureur telt eenmaal bij het leren van de PCA-assen. Ontbrekende feiten, onzekere gedeelde auto’s, tegenstrijdige bronposities en niet-starts worden expliciet behandeld. Geen imputatie, geen opvullen met nul en geen voorgesteld universeel kwaliteitscijfer.
+
+De volledige datasetperiode vormt de vaste loopbaanscope van deze PCA. De periode/raceset bovenaan blijft voor de overige GOAT-vergelijkingen gelden. Andere coureurs kiezen verandert alleen de nadruk: neutraalgrijze achtergrondpunten, uitsluitend de gekozen coureurs in hun laatste geregistreerde teamkleur en een verbindingslijn naar een nummer–kleur–code–naamlabel. De labels staan buiten de puntenwolk en worden verticaal uit elkaar gehouden. Niet te plaatsen profielen blijven eenmaal zichtbaar in een aparte strook die nadrukkelijk geen PCA-as is. Laat punten op hun echte positie, ook als ze samenvallen. Verander de assen niet bij alleen een andere highlightselectie.
+
+Met ‘PCA-parameters kiezen’ kunnen opgeslagen specialismen worden toegevoegd. De kaart gebruikt uitsluitend complete profielen voor de gekozen parameters en toont hoeveel meetwaarden per parameter beschikbaar zijn. Een ander parameterpakket kan het cohort en de assen veranderen; de coureurselectie kan dat niet. Sterk gecorreleerde parameters tegelijk aanvinken kan één eigenschap extra gewicht geven. De basiskaart en de uitgebreide PCA blijven beschrijvend en corrigeren niet volledig voor auto, tijdperk, betrouwbaarheid of kansen.
+
+Genereer alle vaste waarden met `node _development/research/export-goat-metrics.cjs`. `driver-goat-metrics.js` hergebruikt de productie-engines. De export bewaart per coureur startscore, gecorrigeerde startcurvebalans en startwinstgrens; racescore, gecorrigeerde racecurvebalans en racewinstgrens; mediaan van het teamgenoottempo; mediane vrije-lucht-ronderang en een vast veldpercentiel; mediane pitwinst per race, per tegenstandervergelijking en per kandidaatcyclus. Het veldpercentiel is `100 × (1 − (rang − 1) / (veldgrootte − 1))`, gepoold over alle eigen schone vrije-luchtronden. Het hangt niet af van welke andere rijder geselecteerd is. Het bestaande veldvergelijkingsblok in het profiel blijft bewust de races van de geselecteerde rijder volgen.
+
+Pitwaarden voor GOAT gebruiken een vaste definitie: evenveel stops, afgeronde pitprogramma’s, zonder geregistreerde SC/VSC; de racewaarde is de mediaan van de racemedianen. De kandidaatcycluswaarde gebruikt alle geaccepteerde eigen kandidaatcycli en is een aparte parameter. Beide hebben seconden als eenheid, maar verschillende meeteenheden en dekking. Een onbekende grens of ontoereikende curvebalans krijgt `null` met status en wordt geen nulscore.
+
+De export schrijft onveranderlijke versies onder `data/goat-metrics/<begin>-<eind>/<bronrevisie>/`, één gzip-JSON per coureur en een manifest met bron-/codehashes. Elk record bevat waarden, dekking, onzekerheidsmarges waar beschikbaar, methoden, pitseizoenen, de vier basiskenmerken en de coördinaten van de basis-PCA. `index.json` verwijst naar de afgeronde versie. De kleine `data/goat-metrics.js` en lossloze gzip-variant leveren dezelfde parameters aan de pagina. Gewijzigde brondata vereisen een nieuwe export; oude versies blijven bewijs. De racescore gebruikt exact `startComparison` met `raceObservation`, inclusief 600 race-bootstrapherhalingen. Winstgrenzen komen uit de eerder vastgelegde productiecurvebestanden. Bronbestanden en bestaande curve-exporten worden niet veranderd.
+
+### Pitbalans binnen het coureursprofiel
+
+Het coureursprofiel en de strategieatlas zijn samengevoegd. De pitbalans staat na de opwarmer als zelfstandig onderdeel van het profiel. Aanvullende kandidaatcycli staan er direct onder in een uitklapbaar blok; bestaande race- en stopvensters blijven bedienbaar. Oude `tab=strategy`-links openen het profiel en springen naar de pitbalans. De kaart ‘Mediane gemeten tijdwinst per kandidaatcyclus’ staat naast de mediane tijdwinst per race, met expliciet verschillende noemers.
+
+De seizoensgrafiek behoudt alle racemedianen, jaarmedianen en violins. `pitProgrammes.seasonTrend` gebruikt exact `qualifyingYears.trend`: chronologische Gaussische weging met sigma vijf races, robuuste Huber-locatie, extra verzachting met sigma 0,3 seizoen en 400 blokbootstrapherhalingen van drie races. Ontbrekende meetjaren worden niet overbrugd. Dezelfde transformatie en verzachting gelden voor lijn en 95%-band. Methodetekst staat in de gedeelde Pitwall Briefing én op de helppagina; de grafiek zelf heeft een korte legenda. Een geselecteerde rijder wijzigt nooit de opgeslagen vaste waarden van een andere rijder.
+
+
+### Coureurkeuze en volledige loopbaan (19 oktober 2026)
+
+De doorzoekbare coureurkeuze staat links, de jaarbediening rechts; op smalle schermen staat de coureur boven de jaren. De koppen ‘Coureur’ en ‘Selectiejaren’ zijn boven uitgelijnd. De zoekbediening en jaarknoppen zijn even hoog en onder uitgelijnd. De selectie vervangt direct één profiel. De keuzelijst staat alfabetisch op achternaam en doorzoekt naam, aliassen, lettercode en geregistreerde nummers. De bestaande lettertypen blijven behouden, met de volledige loopbaanjaren direct achter de naam.
+
+De selectieperiode filtert **uitsluitend de keuzelijst**, op werkelijk geregistreerde racejaren. Alle profielanalyses en totalen gebruiken steeds de volledige beschikbare loopbaan van de gekozen rijder. Een periodewijziging verwijdert de huidige selectie niet. Valt deze coureur buiten de zoekperiode, dan meldt de bediening dat expliciet; ‘Gebruik loopbaanjaren’ past alleen de zoekperiode aan. Zes kwaliteitskaarten blijven toegang geven tot de analyses. Bij scrollen blijft alleen de compacte coureurstrook met loopbaanjaren zichtbaar.
+
+De gedeelde laadindicator toont de paarse bandenafbeelding ook tijdens het voorbereiden van grafieken. Bij de metronoom toont de veldvergelijking uitsluitend rijders met bruikbare metingen; ontbrekende rijen worden verborgen zonder berekeningen, referenties of volgorde van gemeten rijders te wijzigen. De dekking blijft het aantal gemeten deelnemers tegenover alle geregistreerde deelnemers noemen.
+
+### GOAT als reguliere module en bruikbare circuitgegevens
+
+`goat_2.html` is nu de bron voor de reguliere `goat.html`. De oorspronkelijke pagina staat exact bewaard als `goat-backup-20261019.html` en gecomprimeerd onder `source/legacy-goat.html.gz`, met SHA-256 in `source/goat-release.json`. `f1_analysis.goat_release.promote` controleert het archief, houdt de backup intact en werkt de reguliere pagina bij. Automatische websitebouw behoudt de promotie en neemt de backup mee.
+
+De GOAT-module toont alle opgeslagen parameters met eenheid en dekking, vijf exacte bewaarde curves en eigen rondegegevens per circuitvariant. Alle vaste waarden gebruiken de volledige eigen loopbaan binnen de bronperiode. De aanvullende vergelijking met een gemeenschappelijke raceset blijft apart. De huidige PCA met één vertegenwoordiging per coureur blijft de standaard; extra opgeslagen kenmerken zijn als optionele PCA-parameters beschikbaar.
+
+De PCA-bediening kiest bij een nieuwe opening standaard zes kenmerken: relatieve gridpositie, relatieve raceklassering, zeges per start, finishpercentage, geschatte startplek voor positiewinst en typische kwalificatiepositie. Een expliciete `pcafeatures`-keuze in een opgeslagen URL blijft behouden, ook als die afwijkt van de standaard of leeg is. De basisberekening en opgeslagen bronwaarden zijn ongewijzigd. Alleen coureurs met alle gekozen gegevens krijgen een berekende positie; de overige coureurs blijven afzonderlijk zichtbaar.
+
+De export bewaart ook kwalificatiepositie, afstand tot pole (inclusief herkenbare schattingen), vrije-baantempo, bandenbehoud, opwarming, pitwindow en regelmaat. Per circuit blijven race, seizoen, variant, compound, veldgrootte, ronderang en beschikbare werkelijke milliseconden behouden. Ontbrekende klokken blijven `null`; absolute rondetijden uit verschillende jaren of auto's zijn geen eerlijke snelheidsranglijst. De compacte `delivery/`-kopie combineert per rijder parameters met de originele curvefits. HTTP gebruikt gzip; lokaal openen gebruikt dezelfde gzip-inhoud via een script. De beide kwalificatiecurves en beide positiecurves hebben gekoppeld horizontaal scrollen. Bronwaarnemingen worden niet verplaatst of opnieuw gefit.
+
+
+### Bewaarde pitbalanscurve en niet-lineaire secondenas
+
+De pitbalans per seizoen gebruikt een symmetrisch logaritmische as: `sign(t) × ln(1 + |t|)` met t in seconden, nul centraal en winst bovenaan. Positieve en negatieve waarden krijgen evenveel ruimte. Punten, kwartielen, curve en 95%-band gebruiken dezelfde omzetting; de bronwaarden en alle berekeningen blijven in echte seconden. De as omvat ook de modelband en kapt geen waarnemingen af. Dezelfde functie verzorgt de as bij de coureurs en bij GOAT.
+
+De vaste GOAT-export bewaart vanaf deze versie ook `pit_curve`: iedere racemediaan met race-id en datum, jaarstatistieken, exacte vloeiende fit, bootstrapband, parameters, asspecificatie en beschikbaarheid. De standaardfilters zijn evenveel stops, afgeronde pitprogramma’s en zonder geregistreerde SC/VSC. De pitbalanscurve verschijnt als vijfde curvevergelijking bij GOAT. De twee aparte PCA-kenmerken blijven `pit_race_gain` (mediaan van racemedianen) en `pit_cycle_gain` (mediaan over geaccepteerde kandidaatcycli); ze hebben eigen dekking en krijgen geen dubbel toegevoegd duplicaat. Voor George Russell zijn de huidige ongeronde waarden respectievelijk `3.50325` s (70 races) en `0.0605` s (200 cycli in 81 races).
+
+Het manifest controleert ook de gzip- en scriptbestanden voor browserbezorging. Iedere bezorgkopie bevat dezelfde ongeronde parameters en fitwaarden als het archief. De oorspronkelijke vier curvearchieven blijven ongewijzigd.
+
+### GOAT: tijdas en herkenbare curvelabels
+
+Bij ‘De bewaarde curves vergelijken’ schakelt de bezoeker tussen kalenderjaren en jaren sinds het debuut. Voor kwalificatiepositie, afstand tot pole en pitbalans wordt uitsluitend de x-coördinaat verschoven: `jaar − eerste geregistreerde loopbaanjaar + 1`. Verstappen 2015 en Fangio 1950 worden dus beide jaar 1. Pauzejaren tellen mee; een rijder die na een onderbreking terugkeert, begint niet opnieuw. Ontbrekende meetjaren blijven leeg. De start- en racecurves blijven per positie weergegeven. De gekozen stand staat in `curveyears=career|calendar` in de URL. Opgeslagen fits, onzekerheidsbanden, parameters en PCA-uitkomsten veranderen niet.
+
+Nummer-kleur-naamlabels staan bij het begin als daar ruimte voor is. Bij botsende beginlabels zoekt de weergave een plek verder langs de curve, met het einde als uitwijkmogelijkheid. De spreiding is stabiel voor dezelfde selectie. Een verbindingslijntje markeert het bijbehorende curvepunt. Lijnen met dezelfde of sterk verwante kleurtint krijgen verschillende streeppatronen; dit geldt ook voor donker- en lichtblauw. Legenda en curve gebruiken hetzelfde patroon.
+
+### Begrijpelijke tekst en gedeelde uitleg
+
+Gebruik op de website eerst de vraag, de eenheid, wat een hoger of lager getal betekent en de feitelijke dekking. Gebruik herkenbare voorbeelden. Een middelste waarde is geen gemiddelde; een meetresultaat bewijst geen oorzaak en een positie gewonnen door uitval is geen aangetoonde inhaalactie. Onzekerheid over de curve en de spreiding van racepunten zijn verschillende zaken. Technische definities, filters, formules en beperkingen horen bij de gedeelde Pitwall Briefing en uitlegpagina’s.
+
+`src/f1_analysis/assets/plain-language.json` bevat de gecontroleerde tweetalige formuleringen. `f1_analysis.readability` bouwt één gedeelde presentatielaag; deze verandert alleen zichtbare tekst, nooit bronwaarden, formuliervelden of grafiekcoördinaten. Officiële broncitaten en technische uitleg worden behouden. `uitleg.html` biedt de algemene leeswijzer en verwijst naar de detailmethoden. Herbouw de leeswijzer via `f1_analysis.help.build` en voer `_development/research/review_site_copy.py --apply` uit voor bestaande pagina’s. Het controlerapport telt pagina’s, controleert ingebedde gegevens vóór en na de bewerking en houdt presentatiehashes bij. Bewaar historische backups ongewijzigd.

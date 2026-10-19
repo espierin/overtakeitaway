@@ -30,15 +30,15 @@ def render_home(drivers_available=True):
 <div class="tile-copy"><span class="tile-kicker" data-nl="ACHTER HET VIZIER" data-en="BEHIND THE VISOR">ACHTER HET VIZIER</span>
 <h2 id="drivers-title" data-nl="Coureurs" data-en="Drivers">Coureurs</h2>
 <p data-nl="Kijk voorbij de uitslag. Vergelijk teamgenoten, onderzoek het racetempo en ontdek de strategie." data-en="Look beyond the result. Compare teammates, investigate race pace and explore strategy.">Kijk voorbij de uitslag. Vergelijk teamgenoten, onderzoek het racetempo en ontdek de strategie.</p>
-<span class="tile-status" data-nl="PRE-SEASON TESTING · IN OPBOUW" data-en="PRE-SEASON TESTING · IN DEVELOPMENT">PRE-SEASON TESTING · IN OPBOUW</span>
+<span class="tile-status" data-nl="PROFIEL · STARTS · RACETEMPO" data-en="PROFILE · STARTS · RACE PACE">PROFIEL · STARTS · RACETEMPO</span>
 <span class="tile-cta"><span data-nl="'''+('Ontdek de rijders' if drivers_available else 'Binnenkort beschikbaar')+'" data-en="'+('Explore the drivers' if drivers_available else 'Coming soon')+'">'+('Ontdek de rijders' if drivers_available else 'Binnenkort beschikbaar')+'''</span><span aria-hidden="true">↗</span></span></div></'''+drivers_close+'''>
 <a class="home-tile goat-tile" href="goat.html" aria-labelledby="goat-title">
 <img src="assets/home/goat-winter-break-v1.webp" width="1536" height="1024" alt="" decoding="async">
 <div class="tile-copy"><span class="tile-kicker">GREATEST OF ALL TIME</span>
 <h2 id="goat-title">GOAT</h2>
-<p data-nl="Wie is de beste, voorbij de auto en het tijdperk? Een nieuwe blik op alle rijders, ook als ze nooit tegen elkaar raceten." data-en="Who is the best, beyond the car and the era? A new look at all drivers, even those who never raced each other.">Wie is de beste, voorbij de auto en het tijdperk? Een nieuwe blik op alle rijders, ook als ze nooit tegen elkaar raceten.</p>
-<span class="tile-status" data-nl="WINTER BREAK · IN ONTWERP" data-en="WINTER BREAK · IN DESIGN">WINTER BREAK · IN ONTWERP</span>
-<span class="tile-cta"><span data-nl="Ontdek het idee" data-en="Explore the idea">Ontdek het idee</span><span aria-hidden="true">↗</span></span></div></a>
+<p data-nl="Vergelijk rijders uit verschillende jaren. Ontdek overeenkomsten, verschillen en de grenzen van wat de cijfers kunnen vertellen." data-en="Compare drivers from different years. Explore similarities, differences and the limits of what the figures can tell us.">Vergelijk rijders uit verschillende jaren. Ontdek overeenkomsten, verschillen en de grenzen van wat de cijfers kunnen vertellen.</p>
+<span class="tile-status" data-nl="VERGELIJKING · LOOPBANEN · GENERATIES" data-en="COMPARISON · CAREERS · GENERATIONS">VERGELIJKING · LOOPBANEN · GENERATIES</span>
+<span class="tile-cta"><span data-nl="Vergelijk de rijders" data-en="Compare drivers">Vergelijk de rijders</span><span aria-hidden="true">↗</span></span></div></a>
 </main><footer class="home-footer"><span>Overtake It Away</span><a href="stijlgids.html" data-nl="Stijlgids" data-en="Style guide">Stijlgids</a><a class="collection-footer-link" href="data-collection.html" data-nl="Datacollectie" data-en="Data collection">Datacollectie</a><span>A reality check on heroic stories.</span></footer></div>
 <script defer src="assets/homepage.js"></script></body></html>'''
     from .site_navigation import with_navigation
@@ -63,6 +63,8 @@ def build(root):
     build_goat(root)
     from .style_guide import build as build_style_guide
     build_style_guide(root)
+    from .help import build as build_help
+    build_help(root)
     from .data_collection import build as build_collection
     build_collection(root)
     return root/'index.html'

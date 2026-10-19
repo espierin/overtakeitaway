@@ -32,3 +32,11 @@ _documents/
 # Generated analytical chunks are preserved in verified release snapshots.
 /_development/data/
 /_development/source/
+
+# Generated publication files are retained in the verified Release snapshot.
+/_data/
+/media-worker.js
+/race-updates.json.gz
+/uitleg.html
+/uitleg-start-en-raceonderzoek.html
+/assets/**/*.gz

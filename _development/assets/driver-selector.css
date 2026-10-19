@@ -1,0 +1,64 @@
+/* Wide profile controls; only identity and period remain fixed while scrolling. */
+body.driver-lab-page{padding:20px!important}
+@media(max-width:900px){body.driver-lab-page{padding:12px!important}}
+.driver-lab-page .lab-layout{grid-template-columns:minmax(0,1fr)!important;gap:0}
+.driver-lab-page #lab-main{grid-column:1/-1;min-width:0}
+.driver-lab-page #driver-period.driver-selection-panel{position:relative!important;top:auto!important;z-index:45;display:grid;grid-template-columns:minmax(320px,.9fr) minmax(0,1.1fr);align-items:center!important;gap:22px;padding:18px 22px!important;border-radius:10px!important;margin:0 0 22px;overflow:visible;--control-accent:#b45cff}
+.driver-selection,.driver-year-controls{min-width:0}
+.driver-selection-label{display:block;margin:0 0 9px;color:#cbd4e0;font-size:12px;font-weight:850;letter-spacing:.06em}
+.driver-selected-identity{display:flex;align-items:center;gap:8px 11px;flex-wrap:wrap;margin:0 0 12px;min-height:28px}
+.driver-selected-identity .profile-full-name{font-size:19px;font-weight:850;color:#b45cff}
+.driver-selected-identity .driver-career-years{color:#a7b5c8;font-size:12px;white-space:nowrap}
+.driver-selection-panel .badge,.driver-compact-bar .badge{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;font-size:18px;font-weight:900;line-height:1.2}
+.driver-selection-panel .badge .number,.driver-compact-bar .badge .number{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:26px;padding:1px 4px;color:#080b11;background:#f3f6fb;border-radius:4px;font-style:italic;font-weight:900}
+.driver-selection-panel .badge .stripe,.driver-compact-bar .badge .stripe{width:4px;height:22px;background:var(--driver-color);flex:none}
+.driver-search-control{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 42px;gap:0}
+.driver-search-control #driver-search{width:100%;min-width:0;height:43px;padding:10px 12px;border:1px solid #596273;border-top:3px solid #b45cff;border-right:0;border-radius:4px 0 0 4px;background:#0d141f;color:#f3f6fb;font-size:14px}
+.driver-search-control #driver-search-toggle{padding:8px;border:1px solid #596273;border-top:3px solid #b45cff;border-radius:0 4px 4px 0;--interaction-ring-offset:1px}
+.driver-search-control svg,.driver-edit-selection svg{display:block;width:20px;height:20px;flex:none}
+.driver-search-results{position:absolute;left:0;right:0;top:calc(100% + 7px);z-index:60;background:#0d141f;border:1px solid #b45cff;border-radius:7px;box-shadow:0 12px 30px #0009;overflow:hidden}
+.driver-search-results[hidden]{display:none!important}
+.driver-search-results.opens-up{top:auto;bottom:calc(100% + 7px)}
+.driver-search-count{padding:7px 11px;border-bottom:1px solid #344053;color:#a7b5c8;font-size:11px}
+#driver-search-list{max-height:var(--driver-popup-height,340px);overflow:auto;scrollbar-width:thin;overscroll-behavior:contain}
+#driver-search-list [role=option]{display:flex;align-items:center;gap:12px;width:100%;min-height:58px;padding:9px 12px;text-align:left;border:0;border-bottom:1px solid #273141;border-radius:0;background:transparent;color:#f3f6fb;font-weight:700;--interaction-ring-offset:-2px;--interaction-glow-size:6px}
+#driver-search-list [role=option].is-option-active{background:#251a37}
+.driver-option-copy{display:flex;flex-direction:column;min-width:0;gap:3px}
+.driver-option-name{font-size:14px;overflow-wrap:anywhere}
+.driver-option-years{font-size:11px;color:#a7b5c8;font-weight:500}
+.driver-option-check{margin-left:auto;color:#b45cff}
+.driver-search-none{padding:15px 12px;color:#b3bece;font-size:13px;margin:0}
+.driver-year-controls{display:grid;gap:12px;align-self:center}
+.driver-selection-panel .driver-year-controls .year-range{width:100%;max-width:none;flex:none}
+.driver-selection-panel .driver-year-controls .toolbar-actions{justify-content:flex-end}
+.driver-period-empty{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:15px 17px;background:#21162f;border:1px solid #7850a0;border-radius:6px}
+.driver-period-empty strong{font-size:15px}.driver-period-empty p{margin:4px 0 0;color:#c6cede;font-size:13px}
+.driver-period-empty button{flex:none;--interaction-accent:#b45cff}
+.driver-compact-bar{position:fixed;top:0;left:20px;right:20px;z-index:50;display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:16px;padding:9px 14px;background:#080b11f5;border:1px solid #344053;border-top:3px solid #b45cff;border-radius:0 0 6px 6px;box-shadow:0 7px 20px #0006;--interaction-section-accent:#b45cff}
+.driver-compact-bar[hidden]{display:none!important}
+.driver-compact-identity{display:flex;align-items:center;gap:10px;min-width:0}
+.driver-compact-identity .profile-full-name{font-size:17px;font-weight:850;color:#b45cff;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+.driver-compact-period{font-size:13px;font-weight:800;white-space:nowrap}
+.driver-edit-selection{display:flex;gap:7px;align-items:center;padding:6px 10px;min-height:35px;border-top-color:#b45cff;font-size:12px;--interaction-accent:#b45cff;--interaction-ring-offset:1px}
+.driver-lab-page #lab-content>section,.driver-lab-page #lab-content>details{scroll-margin-top:80px}
+.driver-lab-page #lab-filters[hidden]{display:none!important}
+@media(max-width:800px){.driver-lab-page #driver-period.driver-selection-panel{grid-template-columns:minmax(0,1fr);gap:18px}.driver-year-controls{padding-top:15px;border-top:1px solid #344053}.driver-selection-panel .driver-year-controls .toolbar-actions{justify-content:flex-start}}
+@media(max-width:650px){.driver-lab-page #driver-period.driver-selection-panel{padding:15px!important}.driver-period-empty{flex-direction:column;align-items:flex-start}.driver-period-empty button{width:100%}.driver-compact-bar{left:12px;right:12px;padding:8px;gap:9px}.driver-edit-selection{padding:6px}.driver-edit-selection span{display:none}.driver-compact-identity{gap:7px}.driver-compact-identity .profile-full-name{font-size:14px}.driver-compact-bar .badge{font-size:14px;gap:4px}.driver-compact-bar .badge .number{min-width:24px;height:23px}.driver-compact-bar .badge .stripe{height:20px;width:3px}.driver-compact-period{font-size:11px}.driver-selection-panel .driver-year-controls .toolbar-actions{width:100%}.driver-selection-panel .driver-year-controls .toolbar-actions button{flex:1;padding:8px 5px;font-size:12px}.driver-selected-identity .profile-full-name{font-size:17px}}
+/* Keep the existing type styling; years follow the name as inline text. */
+.driver-option-copy{display:block}.driver-option-name,.driver-option-years{display:inline}.driver-option-years{margin-left:9px;white-space:nowrap}
+.driver-year-note{margin:0;color:#a7b5c8;font-size:12px;line-height:1.5}
+@media(max-width:800px){.driver-selection-panel .driver-year-controls{border-top:0;padding-top:0}.driver-selection-panel .driver-selection{border-top:1px solid #344053;padding-top:15px}}
+
+/* Driver on the left, years on the right; labels and controls share row heights. */
+.driver-lab-page #driver-period.driver-selection-panel{grid-template-columns:minmax(0,1.1fr) minmax(320px,.9fr);align-items:stretch!important;column-gap:22px;row-gap:14px}
+.driver-selection-panel .driver-selection,.driver-selection-panel .driver-year-controls{display:grid;grid-template-rows:18px minmax(48px,1fr) 43px;gap:10px;align-self:stretch}
+.driver-selection-panel .driver-selection-label{margin:0;line-height:18px;align-self:start}
+.driver-selection-panel .driver-selected-identity{margin:0;align-self:center}
+.driver-selection-panel .driver-year-controls>.range-heading{display:flex;justify-content:space-between;font-size:14px;font-weight:900;font-style:italic;line-height:18px;height:18px;align-self:start}
+.driver-selection-panel .driver-year-controls>.range-heading output{font-variant-numeric:tabular-nums}
+.driver-selection-panel .driver-year-controls .year-range{align-self:center}
+.driver-selection-panel .driver-search-control{height:43px;align-self:end}
+.driver-selection-panel .driver-search-control input,.driver-selection-panel .driver-search-control button,.driver-selection-panel .toolbar-actions button{height:43px;box-sizing:border-box}
+.driver-selection-panel .toolbar-actions{align-self:end;align-items:stretch;height:43px}
+.driver-selection-panel>.driver-year-note{grid-column:1/-1}
+@media(max-width:800px){.driver-lab-page #driver-period.driver-selection-panel{grid-template-columns:minmax(0,1fr)}.driver-selection-panel .driver-selection{border:0;padding-top:0}.driver-selection-panel .driver-year-controls{border-top:1px solid #344053;padding-top:15px}}

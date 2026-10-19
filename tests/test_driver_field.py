@@ -22,3 +22,25 @@ options.state.metronomelaps='all';const filtered=window.driverField.compare(opti
 
 '''
     subprocess.run(['node','-e',script],check=True,timeout=15)
+
+
+def test_profile_metronome_hides_missing_rows_without_changing_measured_values():
+    script = r'''
+const vm=require('node:vm'),fs=require('node:fs'),assert=require('node:assert/strict');
+const window={lapRankings:{pointsFor:r=>r.ranks||[]}};
+vm.runInNewContext(fs.readFileSync('_development/assets/driver-field.js','utf8'),{window});
+const make=(id,points)=>({id,name:id,code:id,number:1,races:[{race:'shared',ranks:points.map(rank=>({rank,lap:2}))}]});
+const a=make('a',[3,1,2]),b=make('b',[5,4]),missing=make('missing',[]);
+const options={data:{drivers:[missing,b,a]},driver:a,rows:a.races,state:{compound:''},lang:'nl',kind:'metronome'};
+const before=window.driverField.compare(options);
+const html=window.driverField.render(options);
+assert.deepEqual([...html.matchAll(/data-field-driver="([^"]+)"/g)].map(m=>m[1]),['a','b']);
+assert.ok(!html.includes('is-missing'));
+assert.ok(html.includes('data-field-median="2" data-field-n="3"'));
+assert.ok(html.includes('data-field-median="4.5" data-field-n="2"'));
+assert.equal(JSON.stringify(window.driverField.compare(options)),JSON.stringify(before));
+assert.equal(before.entries.length,3); // Coverage retains the missing participant.
+options.rows=[];
+assert.ok(window.driverField.render(options).includes('Onvoldoende gedeelde metingen'));
+'''
+    subprocess.run(['node', '-e', script], check=True, timeout=15)

@@ -3,7 +3,7 @@
 
 # Formula 1 Statistics
 
-De gecontroleerde fase 2-coureursmodule is de reguliere [Coureurs-pagina](https://espierin.github.io/overtakeitaway/analysis-lab.html). De afzonderlijke ontwikkelroutes [Coureurs](https://espierin.github.io/overtakeitaway/coureurs_2.html), [GOAT](https://espierin.github.io/overtakeitaway/goat_2.html) en [Races](https://espierin.github.io/overtakeitaway/races_2.html) blijven beschikbaar. Zie [_development/README.md](_development/README.md) voor opbouw, methoden, tests en het gegevensbudget.
+Er is één productieversie: [Coureurs](https://espierin.github.io/overtakeitaway/analysis-lab.html), [GOAT](https://espierin.github.io/overtakeitaway/goat.html) en [Races](https://espierin.github.io/overtakeitaway/races.html). Oude `_2.html`-adressen sturen door en behouden de selectie uit de URL. De ontwikkelintroducties zijn verwijderd; de uitlegvensters blijven beschikbaar. Zie [_development/README.md](_development/README.md) voor opbouw, methoden, tests en het gegevensbudget.
 
 ## Historisch archief / Historical archive
 

@@ -1,5 +1,18 @@
 # Verbeterlijst voor coureursanalyses en GOAT
 
+## Aanvulling 19 oktober 2026: kleine loopbanen in de profielkaart
+
+Nog te onderzoeken, **niet toegepast op de huidige PCA**: temper uitkomsten uit kleine aantallen voordat ze de profielkaart ingaan. Lee Wallards ene zege uit twee starts geeft een gemeten winstpercentage van 50%; dat is juist als loopbaanfeit, maar een onzekere basis voor een blijvende kwaliteitsschatting.
+
+- Bewaar de echte aantallen en percentages ongewijzigd bij de rijder en in het archief.
+- Onderzoek voor de vergelijking een schatting die bij weinig starts meer naar een passende referentie leunt en bij veel starts vooral de eigen resultaten volgt. Kies en toets de referentie en sterkte van deze correctie; neem tijdperk, veldgrootte en afwijkende raceformats mee waar de gegevens dat toelaten.
+- Pas dit waar nodig ook op andere kleine steekproeven toe. Toets stabiliteit bij het weglaten van races en toon meetdekking en onzekerheid. Alleen een stip kleiner tekenen corrigeert de onderliggende positie niet.
+- Houd alle coureurs zichtbaar. Houd ruwe loopbaanfeiten en deze eventuele geschatte vergelijkingswaarden afzonderlijk herkenbaar. De huidige PCA en de opgeslagen feiten blijven tot zo’n gevalideerde nieuwe versie ongewijzigd.
+
+Methodische achtergrond: [Stan — gedeeltelijk samenvoegen bij binaire uitkomsten](https://mc-stan.org/learn-stan/case-studies/pool-binary-trials.html). De toepassing op deze coureursgegevens vereist afzonderlijke toetsing.
+
+Gebouwd: de bewaarde seizoenscurves hebben een schakelaar tussen kalenderjaren en jaren sinds het debuut. De x-waarde is in de tweede stand `jaar − eerste geregistreerde loopbaanjaar + 1`; pauzejaren blijven meetellen. Curves en waarden worden hierbij niet opnieuw geschat.
+
 Bijgewerkt op 17 oktober 2026. Deze lijst is de gedetailleerde werklijst bij het [totaalplan voor fase 2](fase-2-onderzoeks-en-ontwikkelplan.md). Het totaalplan bepaalt de samenhang, module-indeling en bouwvolgorde; deze lijst bevat de nadere analyses, broninventaris en verbeterpunten. Bij een verschil gaat het totaalplan voor en worden beide documenten bijgewerkt. De ontwerpkeuzes blijven leidend. Op 17 oktober 2026 zijn ze lokaal uitgewerkt op de afzonderlijke ontwikkelpagina’s; de bestaande website is daarbij niet gewijzigd. Zie het [uitvoerings- en controleverslag](../_development/IMPLEMENTATION.md) voor de gebouwde onderdelen, controles en nog niet behaalde onderzoekspoorten. Een beschreven ambitie is geen bewijs dat het bijbehorende model al gevalideerd is.
 
 De coureurspagina verklaart wat één coureur tijdens zijn eigen carrière heeft laten zien: zowel gewone loopbaanfeiten zoals WK-punten, kampioenschapsposities en kwalificatieresultaten als de verdiepende specialismen. GOAT onderzoekt hoe verschillende coureurs presteren wanneer hun omstandigheden vergelijkbaar worden gemaakt. Beide gebruiken dezelfde waarnemingen en definities, maar beantwoorden verschillende vragen. **De rechtstreekse teamgenootvergelijking blijft bewust bij Coureurs.**

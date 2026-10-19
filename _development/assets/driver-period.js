@@ -10,10 +10,10 @@ function preview(source){let a=+low.value,z=+high.value;if(a>z){if(source===low)
 function commit(a,z){if(a===state.yearMin&&z===state.yearMax)return;Object.assign(state,{yearMin:a,yearMax:z,year:a===z?a:0});change();}
 for(const input of [low,high]){input.oninput=()=>preview(input);input.onchange=()=>commit(...preview(input));}preview();
 host.querySelector('#year-reset').onclick=()=>commit(b.min,b.max);host.querySelector('#year-previous').onclick=()=>{const end=Math.max(b.min+span,state.yearMin-1);commit(end-span,end);};host.querySelector('#year-next').onclick=()=>{const start=Math.min(b.max-span,state.yearMax+1);commit(start,start+span);};
-const measure=()=>document.documentElement.style.setProperty('--driver-period-height',host.getBoundingClientRect().height+'px');measure();if(!host._periodResize&&typeof ResizeObserver!=='undefined'){host._periodResize=new ResizeObserver(measure);host._periodResize.observe(host);}
+const measure=()=>{if(host.dataset.profileSelector!=='true')document.documentElement.style.setProperty('--driver-period-height',host.getBoundingClientRect().height+'px');};measure();if(!host._periodResize&&typeof ResizeObserver!=='undefined'){host._periodResize=new ResizeObserver(measure);host._periodResize.observe(host);}
 }
 function identity({source,lang,driver,row}){
- const host=document.getElementById('driver-period');if(!host)return;
+ const host=document.getElementById('driver-period');if(!host||host.dataset.profileSelector==='true')return;
  host.querySelector('.floating-driver-identity')?.remove();
  if(!source&&driver){
   source=document.createElement('p');source.className='profile-identity';

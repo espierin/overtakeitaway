@@ -659,7 +659,8 @@ def main():
 
 def patch_pages():
     for filename in ['coureurs_2.html','goat_2.html','races_2.html']:
-        p = ROOT/filename; text = p.read_text()
+        template=ROOT/'_development/templates'/dict(zip(['coureurs_2.html','goat_2.html','races_2.html'],['drivers.html.txt','goat.html.txt','race-research.html.txt']))[filename]
+        p = template if template.exists() else ROOT/filename; text = p.read_text()
         text = re.sub(r'<script[^>]*data-phase2-research[^>]*>.*?</script>', '', text, flags=re.S)
         text = re.sub(r'<link[^>]*data-phase2-research[^>]*>', '', text)
         text = re.sub(r'<script[^>]*src=["\']_development/assets/research-profile.js["\'][^>]*>.*?</script>', '', text)
@@ -667,6 +668,11 @@ def patch_pages():
         # The retained race document has an implicit head, so inserting after title works everywhere.
         text = text.replace('</title>', '</title>'+common, 1)
         if filename == 'coureurs_2.html':
+            text = re.sub(r'<aside\b[^>]*id=["\']lab-controls["\'][^>]*>.*?</aside>', '', text, flags=re.S)
+            if '_development/assets/driver-selector.css' not in text:
+                text = text.replace('</head>', '<link rel="stylesheet" href="_development/assets/driver-selector.css"></head>', 1)
+            if '_development/assets/driver-selector.js' not in text:
+                text = text.replace('<script src="_development/assets/phase2.js">', '<script src="_development/assets/driver-selector.js"></script><script src="_development/assets/phase2.js">', 1)
             text = re.sub(r'(<script[^>]*id=["\']phase2-data["\'][^>]*>).*?(</script>)', r'\1{}\2', text, flags=re.S)
             boot = ''.join('<script data-phase2-research src="_development/data/'+f+'.js"></script>' for f in ('profiles','facts','registry'))
             boot += '<script data-phase2-research src="_development/assets/qualifying-years.js"></script>'
@@ -681,7 +687,7 @@ def patch_pages():
             text = text.replace('This comparison is still in the design phase.','Compare facts, common contexts and research models.')
             boot = ''.join('<script data-phase2-research src="_development/data/'+f+'.js"></script>' for f in ('profiles','facts','models','registry'))
             boot += '<script data-phase2-research src="_development/assets/research-loader.js"></script>'
-            text = text.replace('</body>', boot+'<script data-phase2-research src="_development/assets/research-profile.js"></script><script data-phase2-research src="_development/assets/goat-research.js"></script></body>')
+            text = text.replace('</body>', boot+'<script data-phase2-research src="_development/assets/research-profile.js"></script><script data-phase2-research src="_development/data/goat-metrics.js"></script><script data-phase2-research src="_development/assets/goat-pca.js"></script><script data-phase2-research src="_development/assets/goat-pca-view.js"></script><script data-phase2-research src="_development/assets/qualifying-years.js"></script><script data-phase2-research src="_development/assets/pit-programmes.js"></script><script data-phase2-research src="_development/assets/driver-qualities.js"></script><script data-phase2-research src="_development/assets/goat-parameters.js"></script><script data-phase2-research src="_development/assets/goat-research.js"></script></body>')
         else:
             boot = ''.join('<script data-phase2-research src="_development/data/'+f+'.js"></script>' for f in ('findings','atlas','registry'))
             text = text.replace('</body>', boot+'<script data-phase2-research src="_development/assets/race-research.js"></script></body>')
