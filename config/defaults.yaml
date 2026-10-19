@@ -10,6 +10,6 @@ locatie_max_afstand: 220
 locatie_max_spreiding_segmenten: 18
 heatmap_segmenten: 100
 analytisch_teamorders_uitsluiten: true
-analytisch_technisch_verlies_uitsluiten: false
+analytisch_technisch_verlies_uitsluiten: true
 request_interval_seconden: 1.1
 retries: 4

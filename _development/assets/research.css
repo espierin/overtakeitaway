@@ -57,3 +57,11 @@
 .starter-tile .starter-outcome b{font-size:19px;font-weight:850;font-variant-numeric:tabular-nums;white-space:nowrap}
 
 .starter-tile .starter-outcome>span{hyphens:none}
+
+/* Profile explanations open the matching lightweight help topic. */
+[data-driver-help]{color:#b45cff;text-underline-offset:3px;font-size:.85rem}.driver-help-note{margin:14px 0 0}
+
+.starter-facts-outcomes .starter-outcomes{display:grid;gap:10px;margin:16px 0;width:100%}
+.starter-facts-outcomes .starter-outcome{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 12px;align-items:baseline;font-size:12px}
+.starter-facts-outcomes .starter-outcome b{font-size:20px;font-variant-numeric:tabular-nums}
+.starter-facts-outcomes .starter-outcome small{grid-column:2;text-align:right;color:#a7b5c8;font-size:11px}

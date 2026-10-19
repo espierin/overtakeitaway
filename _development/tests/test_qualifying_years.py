@@ -103,7 +103,7 @@ const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/st
 const ctx={window:{}};vm.createContext(ctx);vm.runInContext(fs.readFileSync('_development/assets/qualifying-years.js','utf8'),ctx);const Q=ctx.window.qualifyingYears;
 const group=(year,n,base)=>({year,positions:Array.from({length:n},(_,i)=>({value:base+(i%3),record:{year,race:year+'-'+i}})),gaps:[]});
 const groups=[group(2020,15,4),group(2021,15,5),group(2022,0,8),group(2023,15,6),group(2024,15,7)];
-const before=JSON.stringify(groups),model=Q.trend(groups,'positions');assert.equal(model.length,2);assert.equal(JSON.stringify(model.map(r=>[r[0].year,r.at(-1).year])),JSON.stringify([[2020,2021],[2023,2024]]));assert.equal(JSON.stringify(groups),before);assert.equal(Q.trend(groups,'positions'),model);
+const before=JSON.stringify(groups),model=Q.trend(groups,'positions');assert.equal(model.length,2);assert.equal(JSON.stringify(model.map(r=>[r[0].year,r.at(-1).year])),JSON.stringify([[2019.6,2021.4],[2022.6,2024.4]]));assert.equal(JSON.stringify(groups),before);assert.equal(Q.trend(groups,'positions'),model);
 assert.ok(model.flat().every(p=>[p.year,p.value,p.lo,p.hi].every(Number.isFinite)&&p.lo<=p.hi&&p.lo>=1));
 const constant=[group(2020,10,1),group(2021,10,1)];constant.forEach(g=>g.positions.forEach(o=>o.value=1));assert.ok(Q.trend(constant,'positions').flat().every(p=>Math.abs(p.value-1)<1e-10&&Math.abs(p.lo-1)<1e-10&&Math.abs(p.hi-1)<1e-10));
 assert.equal(Q.trend([group(2020,1,3),group(2021,3,2)],'positions').length,1);assert.ok(Q.trend([group(2020,1,3)],'positions')[0].every(p=>p.lo===null&&p.hi===null&&p.value===3));
@@ -179,7 +179,7 @@ assert.equal(Q.gap(q2,poles).value,null);assert.equal(Q.gap(q1,poles,{a:[null,mo
 const recorded={...q2,qualifying_ms:{q3Millis:73500,q2Millis:74000}};r=Q.gap(recorded,poles,model);assert.equal(r.value,3.5);assert.equal(r.estimated,false);
 assert.equal(Q.gap({...recorded,qualifying_ms:{q3Millis:69000,q2Millis:74000}},poles,model).reason,'incompatible_time');
 const actual=Array.from({length:6},(_,i)=>({race:'actual-'+i,year:2025,qualifying:i+1,qualifying_ms:{q3Millis:70000+i*100}})),refs={...poles,...Object.fromEntries(actual.map(x=>[x.race,['q3Millis',70000,'pole']]))};
-const input=JSON.stringify([...actual,q1]),base=Q.summarize(actual,refs),mixed=Q.summarize([...actual,q1],refs,{},model);assert.equal(mixed.measured,6);assert.equal(mixed.estimated,1);assert.equal(mixed.times,7);assert.notEqual(Q.trend(base.groups,'gaps'),Q.trend(mixed.groups,'gaps'));assert.equal(Q.trend(mixed.groups,'gaps')[0][0].value,.3);
+const input=JSON.stringify([...actual,q1]),base=Q.summarize(actual,refs),mixed=Q.summarize([...actual,q1],refs,{},model);assert.equal(mixed.measured,6);assert.equal(mixed.estimated,1);assert.equal(mixed.times,7);assert.notEqual(Q.trend(base.groups,'gaps'),Q.trend(mixed.groups,'gaps'));assert.ok(Q.trend(mixed.groups,'gaps')[0][0].value>Q.trend(base.groups,'gaps')[0][0].value);assert.equal(Q.quantile(mixed.groups[0].gaps.map(p=>p.value),.5),.3);
 const html=Q.render({records:[...actual,q1],poles:refs,bridges:model,lang:'en'});assert.ok(html.includes('data-estimated="true"'));assert.ok(html.includes('data-symbol="chevron-down"'));assert.ok(html.includes('data-value="4.5"'));assert.ok(html.includes('data-plot-y="312"'));assert.ok(html.includes('data-median="0.3"'));assert.equal(JSON.stringify([...actual,q1]),input);
 const negative=Q.render({records:[{...q2,qualifying_ms:{q2Millis:70500}}],poles,bridges:model});assert.ok(negative.includes('data-capped-lower="true"'));assert.ok(negative.includes('data-value="-0.5"'));assert.ok(negative.includes('data-symbol="chevron-up"'));assert.ok(!negative.includes('NaN'));
 console.log('bridge provenance, missing support, measured priority, signed raw estimates, edge chevrons and pooled distributions include estimates: passed');
@@ -188,13 +188,38 @@ console.log('bridge provenance, missing support, measured priority, signed raw e
     assert result.returncode==0,result.stderr
 
 
-def test_qualifying_curves_pass_through_medians_keep_shape_and_show_single_years():
+def test_qualifying_chronological_curves_preserve_values_and_show_single_years():
     script=r"""
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');const ctx={window:{}};vm.createContext(ctx);vm.runInContext(fs.readFileSync('_development/assets/qualifying-years.js','utf8'),ctx);const Q=ctx.window.qualifyingYears;
 const grid=Array.from({length:25},(_,i)=>2020+i/12),values=Q.cubicValues([2020,2021,2022],[1,8,2],grid);assert.equal(values[0],1);assert.equal(values[12],8);assert.equal(values[24],2);assert.ok(values.slice(0,13).every(v=>v>=1&&v<=8));assert.ok(values.slice(12).every(v=>v>=2&&v<=8));
-const groups=[{year:2020,positions:[{value:3}],gaps:[]},{year:2021,positions:[{value:9},{value:11}],gaps:[]}],m=Q.trend(groups,'positions')[0];assert.equal(m.find(p=>p.year===2020).value,3);assert.equal(m.find(p=>p.year===2021).value,10);assert.ok(m.every(p=>p.sparse));assert.equal(m[0].lo,null);
+const groups=[{year:2020,positions:[{value:3}],gaps:[]},{year:2021,positions:[{value:9},{value:11}],gaps:[]}],m=Q.trend(groups,'positions')[0];assert.ok(m.every(p=>p.value>=3&&p.value<=11));assert.ok(m[0].value<m.at(-1).value);assert.ok(m.every(p=>p.sparse));assert.equal(m[0].lo,null);
 const records=[{race:'2020-a',year:2020,qualifying:3,qualifying_ms:{timeMillis:70300}}],html=Q.render({records,poles:{'2020-a':['timeMillis',70000,'pole']}});assert.equal((html.match(/class="qualifying-trend"/g)||[]).length,2);assert.ok(!html.includes('class="qualifying-confidence"'));assert.ok(!html.includes('NaN'));
 console.log('shape-preserving median curves, bounded interpolation and single-observation lines: passed');
+"""
+    result=subprocess.run([NODE,'-e',script],cwd=ROOT,text=True,capture_output=True)
+    assert result.returncode==0,result.stderr
+
+
+def test_gaussian_trend_uses_race_order_while_year_distributions_stay_identical():
+    script=r"""
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');const ctx={window:{}};vm.createContext(ctx);vm.runInContext(fs.readFileSync('_development/assets/qualifying-years.js','utf8'),ctx);const Q=ctx.window.qualifyingYears;
+const make=reverse=>[{year:2020,positions:Array.from({length:20},(_,i)=>({record:{race:'2020-'+(i+1)},value:reverse?20-i:i+1})),gaps:[]}];
+const ascending=make(false),descending=make(true),before=JSON.stringify(ascending),up=Q.trend(ascending,'positions')[0],down=Q.trend(descending,'positions')[0];
+assert.equal(Q.quantile(ascending[0].positions.map(o=>o.value),.5),Q.quantile(descending[0].positions.map(o=>o.value),.5));assert.ok(up[0].value<up.at(-1).value);assert.ok(down[0].value>down.at(-1).value);assert.ok(up.every(p=>p.value>=1&&p.value<=20&&p.sigma===5));assert.equal(JSON.stringify(ascending),before);
+const reverseInput=[{...ascending[0],positions:[...ascending[0].positions].reverse()}],again=Q.trend(reverseInput,'positions')[0];assert.equal(JSON.stringify(up),JSON.stringify(again));
+console.log('Chronological smoothing responds to order, preserves distribution and does not depend on input array order: passed');
+"""
+    result=subprocess.run([NODE,'-e',script],cwd=ROOT,text=True,capture_output=True)
+    assert result.returncode==0,result.stderr
+
+
+def test_isolated_slow_qualifying_does_not_create_a_winter_trough():
+    script=r"""
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),ctx={window:{}};vm.createContext(ctx);vm.runInContext(fs.readFileSync('_development/assets/qualifying-years.js','utf8'),ctx);const Q=ctx.window.qualifyingYears;
+const groups=[2021,2022,2023].map(year=>({year,positions:[],gaps:Array.from({length:22},(_,i)=>({record:{race:year+'-'+(i+1),date:year+'-'+String(i+1).padStart(2,'0')},value:.2}))}));
+groups[2].gaps[3].value=18;const before=JSON.stringify(groups),fit=Q.trend(groups,'gaps').flat(),winter=fit.filter(p=>p.year>2022.3&&p.year<2022.7);assert.ok(winter.length>0);assert.ok(winter.every(p=>p.value<.4));assert.equal(JSON.stringify(groups),before);assert.equal(groups[2].gaps[3].value,18);
+const sustained=groups.map(g=>({...g,gaps:g.gaps.map(p=>({...p,value:g.year===2023?2:.2}))}));assert.ok(Q.trend(sustained,'gaps').flat().at(-1).value>1.8);
+console.log('Robust chronological curve limits isolated outlier influence, preserves real points and retains sustained changes');
 """
     result=subprocess.run([NODE,'-e',script],cwd=ROOT,text=True,capture_output=True)
     assert result.returncode==0,result.stderr

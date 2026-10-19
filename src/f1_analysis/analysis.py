@@ -2,7 +2,7 @@ from __future__ import annotations
 from bisect import bisect_right
 from collections import Counter, defaultdict
 from datetime import datetime
-import hashlib, math, statistics
+import hashlib, math, re, statistics
 import numpy as np
 
 
@@ -88,6 +88,107 @@ class Context:
         return [p for p in self.data['pit'] if p['driver_number']==driver and ts(p['date'])-(p.get('lane_duration') or p.get('pit_duration') or 0)-margin<=time<=ts(p['date'])+margin]
     def neutral(self,time):return any(a<=time<=b for a,b in self.neutral_windows)
 
+    def retirement_context(self, driver, time):
+        """Flag terminal, unsupported exchanges without claiming a crash time.
+
+        A DNF alone never invalidates earlier racing passes. Only exchanges after
+        the driver's last measured progress are ambiguous. Keep original records
+        and the timing boundary; the retirement's exact time is not inferred.
+        """
+        result=next((r for r in self.data['session_result'] if r.get('driver_number')==driver),None)
+        if not result or result.get('dnf') is not True or result.get('dns') is True:return None
+        completed=number(result.get('number_of_laps'))
+        if completed is None or completed<0 or int(completed)!=completed:return None
+        rows=self.laps.get(driver,Timeline([])).rows
+        # Conflicting completed-lap evidence cannot establish a terminal boundary.
+        if any((r.get('lap_number') or 0)>completed and number(r.get('lap_duration')) and r['lap_duration']>0 for r in rows):return None
+        progress=[]
+        for row in rows:
+            lap=row.get('lap_number')
+            if not lap or lap>completed+1:continue
+            start=ts(row['date_start']);duration=number(row.get('lap_duration'))
+            if duration is not None and duration>0 and lap<=completed:
+                progress.append((start+duration,lap,'lap_end'))
+            elif lap==completed+1:
+                seconds=0
+                for sector in (1,2,3):
+                    duration=number(row.get(f'duration_sector_{sector}'))
+                    if duration is None or duration<=0:break
+                    seconds+=duration;progress.append((start+seconds,lap,f'sector_{sector}'))
+        if not progress:return None
+        last,lap,basis=max(progress)
+        if time<=last:return None
+        return {'driver_number':driver,'completed_laps':int(completed),
+                'last_progress_time':last,'last_progress_lap':lap,
+                'last_progress_basis':basis,'exact_retirement_time_known':False,
+                'method':'confirmed-dnf-last-measured-progress-v1'}
+
+    def incident_context(self, driver, time):
+        """Corroborate ambiguity around an incident, including drivers who resume.
+
+        Neither a local yellow alone nor a slow lap alone excludes a pass. Require
+        a named-driver collision report, concurrent yellow and a substantially
+        delayed measured sector of that same driver at the event time.
+        """
+        if not any(a-1<=time<=b+1 for a,b in self.flag_windows):return None
+        reports=[]
+        for row in self.data['race_control']:
+            message=row.get('message','').upper();reported=ts(row.get('date'))
+            if reported is None or not -30<=reported-time<=300:continue
+            if 'INCIDENT' not in message or 'COLLISION' not in message:continue
+            named={int(n) for n in re.findall(r'\b(\d+)\s*\([A-Z]{2,4}\)',message)}
+            named.update(int(n) for n in re.findall(r'\bCAR\s+(\d+)\b',message))
+            if row.get('driver_number') is not None:named.add(row['driver_number'])
+            if driver in named:reports.append({'date':row['date'],'message':row['message']})
+        if not reports:return None
+        row=self.lap(driver,time)
+        if not row:return None
+        start=ts(row['date_start']);lap=row['lap_number']
+        for sector in (1,2,3):
+            duration=number(row.get(f'duration_sector_{sector}'))
+            if duration is None or duration<=0:break
+            end=start+duration
+            if start<=time<=end:
+                prior=[r.get(f'duration_sector_{sector}') for r in self.laps[driver].rows
+                       if lap-5<=r['lap_number']<lap and number(r.get(f'duration_sector_{sector}'))
+                       and r[f'duration_sector_{sector}']>0]
+                if len(prior)<3:return None
+                reference=statistics.median(prior)
+                if duration<max(reference*1.5,reference+8):return None
+                return {'driver_number':driver,'lap':lap,'sector':sector,
+                        'sector_duration':duration,'reference_sector_duration':reference,
+                        'reports':reports,'exact_incident_time_known':False,
+                        'method':'named-collision-yellow-delayed-sector-v1'}
+            start=end
+        return None
+
+
+def exclude_incident_exchanges(ctx, events):
+    """Reclassify only unsupported passes; retain sources, IDs and coordinates.
+
+    This also works on retained analyses without reconstructing their event list.
+    Explicit source confirmations and sourced manual type corrections take priority.
+    """
+    for event in events:
+        if event['type']!='inhaalactie' or event.get('classification_confidence')=='bevestigd':continue
+        if any(c.get('field')=='type' for c in event.get('corrections',[])):continue
+        if not event.get('date'):continue
+        time=ts(event['date']);b=event['overtaken']
+        retirement=ctx.retirement_context(b,time)
+        if retirement:
+            event['type']='onzeker'
+            event['reason']='Uitvalcontext: registratie na de laatste gemeten voortgang van een bevestigde uitvaller; een race-inhaalactie is niet te onderscheiden van positiewinst door uitval. Het exacte uitvalmoment is niet vastgesteld.'
+            event['classification_confidence']='onzekere uitvalcontext'
+            event['retirement_context']=retirement
+        else:
+            incident=ctx.incident_context(b,time)
+            if incident:
+                event['type']='onzeker'
+                event['reason']='Incidentcontext: genoemde coureur in een gemeld botsingsincident, gelijktijdige gele vlag en sterk vertraagde sector. Een race-inhaalactie is niet te onderscheiden van winst door het incident.'
+                event['classification_confidence']='onzekere incidentcontext'
+                event['incident_context']=incident
+    return events
+
 
 def event_id(session,a,b,date,lap):
     token=f'{session}|{a}|{b}|{date or "ronde="+str(lap)}'
@@ -149,6 +250,7 @@ def make_events(ctx):
                 if a==claim['overtaker'] and b==claim['overtaken'] and lap and lap>=claim['min_lap'] and typ=='inhaalactie':
                     event['type']=claim['type'];event['reason']=claim['explanation'];event['classification_confidence']='brononderbouwd'
                     event['evidence'].append({'source':source['id'],'url':source['url'],'claim':claim['explanation']})
+        exclude_incident_exchanges(ctx,[event])
         events.append(event)
     # Exact/near duplicate in same direction; preserve original source records.
     merged=[]

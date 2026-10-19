@@ -317,3 +317,156 @@ def test_track_uses_another_complete_lap_when_lap_five_is_pit_out(data,config,tm
     assert len(track)==401
     assert data['track_reference_lap']=={'driver_number':1,'lap_number':2}
     assert len(queries)==1
+
+
+def terminal_driver(data, completed=1):
+    data['session_result'][1].update(dnf=True,number_of_laps=completed)
+    data['laps']=[r for r in data['laps'] if r['driver_number']!=2 or r['lap_number']<=completed]
+    data['laps'].append({'driver_number':2,'lap_number':completed+1,'date_start':date(completed*100+2),'lap_duration':None,'duration_sector_1':20,'duration_sector_2':20,'duration_sector_3':None})
+
+
+def test_terminal_dnf_exchange_is_retained_but_not_counted_as_a_racing_pass(data,config):
+    terminal_driver(data)
+    events=make_events(Context(data,config));event=events[0]
+    assert event['type']=='onzeker'
+    assert event['retirement_context']['last_progress_time']==BASE.timestamp()+142
+    assert event['retirement_context']['last_progress_basis']=='sector_2'
+    assert event['retirement_context']['exact_retirement_time_known'] is False
+    assert event['source_records'][0]['record']==data['overtakes'][0]
+    assert count_events(events,6,config)['analytical']==0
+
+
+def test_dnf_does_not_remove_genuine_earlier_passes(data,config):
+    terminal_driver(data,completed=3)
+    event=make_events(Context(data,config))[0]
+    assert event['type']=='inhaalactie'
+    assert 'retirement_context' not in event
+    assert count_events([event],6,config)['analytical']==1
+
+
+def test_retirement_boundary_requires_confirmed_dnf_and_nonconflicting_timing(data,config):
+    terminal_driver(data)
+    data['session_result'][1]['dnf']=False
+    assert make_events(Context(data,config))[0]['type']=='inhaalactie'
+    data['session_result'][1]['dnf']=True
+    data['laps'][-1]['lap_duration']=100
+    assert make_events(Context(data,config))[0]['type']=='inhaalactie'
+
+
+def test_explicit_verified_pass_takes_precedence_over_uncertain_terminal_context(data,config):
+    terminal_driver(data)
+    data['evidence']=[{'available':True,'id':'verified','url':'https://example.org/race-report','verified_facts':{'passes':[{'overtaker':1,'overtaken':2,'turn':3,'explanation':'Verified pass before a later retirement.'}]}}]
+    event=make_events(Context(data,config))[0]
+    assert event['type']=='inhaalactie'
+    assert event['classification_confidence']=='bevestigd'
+    assert 'retirement_context' not in event
+
+
+def incident_for_finisher(data, *, named=2, slow=True, yellow=True):
+    for event in data['overtakes']:event['date']=date(450)
+    for row in data['position']:
+        if row['date']==date(150):row['date']=date(450)
+    for row in data['laps']:
+        row.update(duration_sector_1=20,duration_sector_2=30,duration_sector_3=50)
+        if row['driver_number']==2 and row['lap_number']==5 and slow:
+            row.update(duration_sector_2=20,duration_sector_3=100,lap_duration=140)
+    if yellow:data['race_control'] += [{'date':date(445),'flag':'YELLOW','scope':'Sector','sector':16,'message':'YELLOW IN TRACK SECTOR 16'}, {'date':date(480),'flag':'CLEAR','scope':'Sector','sector':16,'message':'CLEAR IN TRACK SECTOR 16'}]
+    data['race_control'].append({'date':date(500),'message':f'TURN 15 INCIDENT INVOLVING CARS {named} (BBB) AND 99 (ZZZ) NOTED - CAUSING A COLLISION'})
+
+
+def test_collision_context_also_excludes_ambiguous_passes_against_a_finisher(data,config):
+    incident_for_finisher(data)
+    event=make_events(Context(data,config))[0]
+    assert event['type']=='onzeker'
+    assert event['incident_context']['driver_number']==2
+    assert event['incident_context']['sector']==3
+    assert event['incident_context']['reference_sector_duration']==50
+    assert event['incident_context']['exact_incident_time_known'] is False
+    assert count_events([event],6,config)['analytical']==0
+
+
+@pytest.mark.parametrize('options',[{'named':99},{'slow':False},{'yellow':False}])
+def test_a_local_yellow_or_report_or_slow_sector_alone_is_not_enough(data,config,options):
+    incident_for_finisher(data,**options)
+    event=make_events(Context(data,config))[0]
+    assert event['type']=='inhaalactie'
+    assert 'incident_context' not in event
+
+
+def test_known_technical_position_loss_is_excluded_from_default_racing_count(data,config):
+    events=make_events(Context(data,config))
+    events[0]['type']='technisch_positieverlies'
+    assert config['analytisch_technisch_verlies_uitsluiten'] is True
+    assert count_events(events,6,config)['analytical']==0
+
+
+def test_retained_refresh_preserves_sources_and_map_and_is_idempotent(data,config):
+    from f1_analysis.race_event_refresh import refresh_bundle
+    # Reproduce a previously counted pass with subsequently available DNF context.
+    events=make_events(Context(data,config))
+    events[0]['location']={'progress':.25,'x':12,'y':34}
+    events[0]['location_confidence']='geschatte zone'
+    stats=count_events(events,6,config)
+    terminal_driver(data)
+    original={'data':data,'config':config,'events':events,'stats':stats,'mapping':map_counts(events,config)}
+    updated=refresh_bundle(original)
+    assert original['stats']['analytical']==1 and updated['stats']['analytical']==0
+    assert updated['mapping']['included']==updated['mapping']['located']==sum(updated['mapping']['bins'])==0
+    assert updated['events'][0]['source_records']==original['events'][0]['source_records']
+    assert updated['events'][0]['location']==original['events'][0]['location']
+    assert refresh_bundle(updated)==updated
+
+
+def test_retained_refresh_respects_sourced_manual_pass_correction(data,config):
+    from f1_analysis.analysis import exclude_incident_exchanges
+    events=make_events(Context(data,config))
+    events[0]['corrections']=[{'field':'type','updated':'inhaalactie','reason':'Verified manoeuvre','source_url':'https://example.org'}]
+    terminal_driver(data)
+    exclude_incident_exchanges(Context(data,config),events)
+    assert events[0]['type']=='inhaalactie'
+
+
+def test_page_refresh_preserves_scripts_and_displayed_coordinates():
+    import json
+    from f1_analysis.race_event_refresh import sync_payload,node
+    event={'event_id':'a','type':'inhaalactie','location':{'x':100,'y':200},'source_records':[{'source':'FastF1'}]}
+    page='<style>keep</style><script id="dashboard-data" type="application/json">'+json.dumps({'events':[event],'track':[{'x':1,'y':2}]})+'</script><script>keep()</script>'
+    revised={**event,'location':{'x':999,'y':999},'type':'onzeker','retirement_context':{'method':'test'}}
+    result=sync_payload(page,'dashboard-data',[revised],{'analytical':0})
+    _,payload=node(result,'dashboard-data')
+    assert payload['events'][0]['location']==event['location']
+    assert payload['events'][0]['source_records']==event['source_records']
+    assert payload['track']==[{'x':1,'y':2}] and result.startswith('<style>keep</style>') and result.endswith('<script>keep()</script>')
+    with pytest.raises(ValueError,match='different event IDs'):
+        sync_payload(page,'dashboard-data',[{**revised,'event_id':'wrong'}])
+
+
+def test_all_race_refresh_backups_and_synchronizes_without_touching_history(tmp_path,data,config):
+    import hashlib,json,tarfile
+    from f1_analysis.race_event_refresh import run_audit
+    from f1_analysis.io import write_json
+    events=make_events(Context(data,config));stats=count_events(events,6,config)
+    terminal_driver(data)
+    bundle={'data':data,'config':config,'events':events,'stats':stats,'mapping':map_counts(events,config),'warnings':[]}
+    run=tmp_path/'analyses/2025/test/runs/one';run.mkdir(parents=True)
+    write_json(run/'data/derived/analysis.json',bundle)
+    write_json(run/'manifest.json',{'configuration':config})
+    write_json(run.parents[1]/'latest.json',{'run':'runs/one'})
+    original='<style>unchanged</style><script id="dashboard-data" type="application/json">'+json.dumps({'year':2025,'race':'Test','events':events,'stats':stats})+'</script>'
+    (run/'overzicht.html').write_text(original)
+    history=tmp_path/'analyses/2000/old/runs/one';history.mkdir(parents=True)
+    history_text='<script id="dashboard-data" type="application/json">'+json.dumps({'historical':True,'year':2000,'race':'Old','events':[]})+'</script>'
+    (history/'overzicht.html').write_text(history_text)
+    write_json(history.parents[1]/'latest.json',{'run':'runs/one'})
+    out=tmp_path/'audit';report=run_audit(tmp_path,out,apply=True)
+    assert report['current_races']==2 and report['current_timing_races']==1
+    assert report['current_before']==1 and report['current_after']==0
+    assert (history/'overzicht.html').read_text()==history_text
+    assert json.loads((run/'exports/kerncijfers.json').read_text())['analytical']==0
+    manifest=json.loads((run/'manifest.json').read_text())
+    assert manifest['file_hashes']['exports/kerncijfers.json']==hashlib.sha256((run/'exports/kerncijfers.json').read_bytes()).hexdigest()
+    with tarfile.open(out/'all-races-before.tar.gz','r:gz') as backup:
+        assert backup.extractfile('analyses/2025/test/runs/one/overzicht.html').read().decode()==original
+    updated=(run/'overzicht.html').read_bytes()
+    assert run_audit(tmp_path,out,apply=True)['updated_pages']==0
+    assert (run/'overzicht.html').read_bytes()==updated

@@ -7,7 +7,7 @@ Deze omgeving voert het [totaalplan](../documents/fase-2-onderzoeks-en-ontwikkel
 | [Coureurs](../coureurs_2.html) | Eigen carrièrefeiten, zes specialismen, start en racevervolg, teamgenootduel, regelmaat, incidenten en dekking |
 | [GOAT](../goat_2.html) | Beschrijvende vergelijking, gedeelde context, netwerkonderzoek, profielkaart en modeltoetsen |
 | [Races](../races_2.html#phase2-race-research) | Bestaande catalogus plus racebevindingen, strategieatlas, rekenscenario en gedateerde weersbron |
-| [Rekenuitleg](uitleg-start-en-raceonderzoek.html) | Bewaarde uitleg van modelcurve, onzekerheid en start-/racescores in NL en EN |
+| [Rekenuitleg](uitleg-start-en-raceonderzoek.html) | Berekening en interpretatie van alle coureursanalyses, inclusief de bewaarde start-/racescores, in NL en EN |
 | [Datacollectie](data-collection.html) | Parameters, aantallen, herkomst, koppeling, werkwijze en controles |
 
 ## Afzonderlijk ontwikkelen
@@ -75,3 +75,31 @@ Voer na het afronden van de bouw ook `node _development/tests/incidents-browser.
 De oorspronkelijke coureurspagina is verliesloos bewaard als `_development/source/legacy-drivers.html.gz` en wordt tegen de oorspronkelijke SHA-256 in `clone-manifest.json` gecontroleerd. Deze archiefkopie wordt gebruikt door de integriteitscontroles, de datacollectie en de onderzoeksbouwer; de lege bootstrap van de nieuwe pagina is geen gegevensbron. Het archief reist met de gecontroleerde Release-momentopname en wordt niet als tweede werkdatabase geladen in de browser.
 
 Automatische publicaties behouden de nieuwe presentatie en alle dynamische detailgroepen. Ze bouwen de oude coureursinterface niet opnieuw over de nieuwe heen. De analytische fase 2-momentopname wordt afzonderlijk vernieuwd met de onderzoeksbouwer; reguliere race-updates zijn geen herberekening van alle onderzoeksmodellen.
+
+## Lokale uitlegpagina · 19 oktober 2026
+
+De onderdelen **Berekening en interpretatie** zijn van de reguliere coureurspagina naar `uitleg-start-en-raceonderzoek.html` verplaatst. De pagina bevat negen onderwerpen: start, racevervolg, kwalificatie, vrije-baantempo, rondetijdrang, regelmaat, bandenbehoud, pitvensters en opwarming. De oorspronkelijke plekken verwijzen rechtstreeks naar het passende onderwerp. Rijder- en periodegebonden datadekking blijft in het profiel. De kwalificatietoets leest de actuele bewaarde metadata op aanvraag; de hulp laadt geen individuele coureursdetails. De analyse- en rekenfuncties zijn ongewijzigd. Deze verplaatsing is alleen lokaal uitgevoerd.
+
+## Pitwall briefing · contextuele uitleg
+
+De info-iconen naast sectie- en grafiektitels openen een blijvende, scrollbare popup. Sluiten kan met de sluitknop, Escape, de knop onderaan of een klik buiten het venster; er is geen afteltimer. De kop en bediening blijven staan terwijl alleen de uitleg scrolt. De achtergrond is een gegenereerde pitwallfoto met de moderne Zandvoort-vorm uit de officiële FIA-kaart als referentie. Prompt en herkomst staan in `assets/help/pitwall-briefing-v1.json` en het bijbehorende promptbestand.
+
+`assets/driver-briefings.js` rendert dezelfde tekst en voorbeelden in de popup en op de uitlegpagina. Elf onderwerpen zijn beschikbaar, inclusief het teamgenootduel en de pitbalans. De eerder bewaarde model- en scoreuitleg staat afzonderlijk in `assets/driver-help-archive.js` en wordt alleen bij het openen van uitleg geladen. De popupbesturing is `assets/driver-info.js`; vormgeving staat in `assets/driver-info.css`.
+
+De compacte voorbeeldverdelingen in `assets/help/examples.js` zijn echte waarnemingen uit vaste, expliciet vermelde perioden. Ze veranderen niet met de paginaselectie. Bronhashes, gebruikte races en eventuele schattingen zijn bewaard. Voorbeelden zijn lesmateriaal, geen GOAT-ranglijst; bij minder dan tien gedeelde races wordt onvoldoende zekerheid expliciet vermeld. Massa/Ricciardo tonen het startvoorbeeld vanaf P5; de meeste andere voorbeelden gebruiken Verstappen/Pérez op dezelfde races in 2021–2024. Hun pitbalansvoorbeeld is een rechtstreeks duel, met gespiegeld teken en zonder dubbele telling. Herbouw met `node _development/research/build_help_examples.cjs`.
+
+De kwalificatiecurve gebruikt een Gaussisch gewogen gemiddelde in racevolgorde (schaal vijf races, maximaal vijftien aan elke kant). Alleen de curve gebruikt een interne tijdpositie; de jaarpunten, medianen en violins blijven op hun oorspronkelijke plaats. De indicatieve puntgewijze 95%-band gebruikt 400 bootstrapherhalingen van blokken van drie kwalificaties. Geschatte Q3-tijden tellen als punten mee, zonder hun extra schattingsfout in deze band. De positie-assen op de x-as stoppen bij P22; verborgen historische waarnemingen blijven beschikbaar voor de berekeningen en samenvattingen.
+
+Praktijkcontroles: `node _development/tests/pitwall-browser.cjs`, `node _development/tests/qualifying-bridges-browser.cjs` en de kwalificatierekencontroles in `_development/tests/test_qualifying_years.py`.
+
+### Vast concept: uitleg bij iedere analyse (19 oktober 2026)
+
+Iedere analysekaart, sectie en grafiek heeft een paars-cyaan infoknop bij de titel. Deze opent **Pitwall briefing**, zonder timer. Alleen de inhoud scrollt; kop en sluit-/terugknoppen blijven staan. Sluiten kan ook via Escape en de achtergrond, waarna focus en paginascroll worden hersteld. De knop naast een topkaart staat buiten de kaartknop en verandert de selectie niet.
+
+Popup en helppagina delen `driver-briefings.js`. Beschrijf betekenis, eenheid, noemer, selectie, berekening, interpretatie, dekking en beperkingen. Voeg een controleerbaar voorbeeld toe met echte coureurs, expliciete periode en aantallen. Vergelijkingen leggen een specifieke uitkomst uit; dekking of uitvalcategorie bewijst geen rijvaardigheid of schuld. Onbekend blijft onbekend. Dezelfde regels staan in de zelfstandige stijlgids.
+
+Voorbeelden hergebruiken via `driver-example-charts.js` de bestaande productie-renderers, inclusief asrichting, transformatie, afkapping, punten, violins, curve, modelband en legenda. Geen afzonderlijke histogramtekening, verzonnen illustratie of zelfbedachte as. Bewaar race-, jaar- en circuitverbanden. Assen blijven vaststaan; de twee vergelijkbare voorbeeldgrafieken scrollen samen. Alle voorbeeldgegevens worden pas bij het openen van uitleg geladen. De oorspronkelijke filters van het profiel blijven intact.
+
+`_development/research/build_help_examples.cjs` bouwt de vast begrensde voorbeelden uit bewaarde gegevens. Het voorbeeldbestand bewaart bronhashes, echte rijen, racecontext en seizoensfeiten. Test bij nieuwe onderwerpen zowel echte data/assen als gelijkheid van popup- en helppaginatekst, mobiel gedrag, scrollen en sluitbediening. Een nieuw analyseonderdeel is pas klaar met deze uitleg op beide plaatsen.
+
+De kwalificatietrend gebruikt een Gaussisch venster op de chronologische racevolgorde (sigma vijf waarnemingen, maximaal vijftien aan weerszijden) met robuuste lokale Huber-locatie. De gewogen mediaan initialiseert de locatie; de gewogen MAD bepaalt de schaal met ondergrens 0,05 seconde of 0,5 positie. Huber-afkapping gebruikt 1,5 maal de robuuste schaal en zes iteraties. De blokbootstrap past dezelfde robuuste schatter toe. Dit voorkomt dat één extreem trage kwalificatie een kunstmatige winterdip domineert. Alle oorspronkelijke punten, violins, kwartielen en jaarmedianen blijven ongewijzigd; een verslechtering over veel races blijft zichtbaar. Het is een beschrijvende trend, geen causale of voorspellende analyse.

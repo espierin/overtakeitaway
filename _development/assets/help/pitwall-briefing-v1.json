@@ -1,0 +1,14 @@
+{
+  "tool": "built-in image_gen",
+  "prompt": "Use case: photorealistic-natural. Asset type: wide background photograph for a Formula 1 analytics website help modal called Pitwall briefing. Primary request: a cinematic, realistic Formula 1 pit wall information station at night, several telemetry screens showing abstract lap traces, strategy charts and timing grids without readable words, black carbon surfaces, a headset resting near a keyboard, empty engineer seat. Style: premium dark motorsport editorial photography consistent with existing moody black racing photographs. Composition: landscape 1536x1024; monitors and headset mostly on the right half; the left and central regions mostly dark negative space for white help text. Lighting: subdued purple and cyan screen glow, tiny red and warm gold status lights; near-black background; realistic materials and restrained contrast. Broad natural fade to pure black along every outer edge, blending seamlessly into a black website background, no hard frame. No titles, no labels, no readable text, no logos, no watermark, no identifiable people. This is a decorative photograph, not a user interface screenshot.",
+  "editPrompt": "Edit the supplied pitwall photograph with a very localized correction only: on the large middle-right monitor, near x=78.5%, y=29.2%, replace the double purple/cyan outline with a realistic circuit map drawn as EXACTLY ONE thin continuous single-stroke closed loop. One coherent racing circuit centreline with straights and varied bends, no self intersections, no branches, no parallel duplicate outline or offset track, no second tracing line. Use a single muted purple line throughout. Retain the grid behind the map. Keep the screen perspective and natural monitor glow. Everything else must remain exactly the same: composition, all other screens, headset, chair, lighting, shadows, colours, photographic style, dimensions, and wide black faded borders. Do not add text or logos.",
+  "source": "exec-493d0426-76d6-423e-b343-470a20bd2191.png",
+  "final_edit_prompt_file": "pitwall-briefing-final-prompt.txt",
+  "asset": "pitwall-briefing-v1.webp",
+  "dimensions": [
+    1536,
+    1024
+  ],
+  "circuit_reference": "https://www.fia.com/sites/default/files/doc_1_-_2021_zandvoort_event_-_track_map.pdf",
+  "circuit_reference_page": 2
+}
