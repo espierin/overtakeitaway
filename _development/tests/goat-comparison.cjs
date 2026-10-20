@@ -32,3 +32,11 @@ test('rankings expose measured coverage and do not treat zero wins as missing',(
  const wallard=w.goatRankings.calculate({...options,ids:['lee-wallard']});assert.equal(wallard.pool.length,0);assert.equal(wallard.omitted[0].id,'lee-wallard');
  const all=w.goatRankings.calculate({...options,state:{...options.state,rankingScope:'all',rankingMinimum:0}});assert.ok(all.pool.some(r=>r.value===0));assert.equal(all.pool.length,786);
 });
+
+test('circuit picker combines Barcelona variants and all-circuit default includes every own lap',()=>{
+ const all=w.goatParameters.circuitSelection({...options,state:{...options.state,circuitdetail:''}});assert.equal(all.selected.length,0);assert.equal(all.choices.filter(c=>c.key==='catalunya').length,1);
+ const variants=w.goatParameters.cache.get(ids[0]).record.circuits.filter(c=>c.circuit_id==='catalunya');assert.ok(variants.length>1);
+ const combined=w.goatParameters.circuitEntries([ids[0]],['catalunya'])[0];assert.equal(combined.n,variants.reduce((n,c)=>n+c.summary.laps,0));
+ const legacy=w.goatParameters.circuitSelection({...options,state:{...options.state,circuitdetail:'imola-3'}});assert.equal(legacy.selected.join(','),'imola');
+ assert.equal(w.goatParameters.circuitEntries([ids[0]])[0].n,w.goatParameters.cache.get(ids[0]).record.features.metronome_rank.n);
+});
