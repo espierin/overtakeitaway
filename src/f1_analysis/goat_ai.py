@@ -10,6 +10,7 @@ import os
 from pathlib import Path
 import re
 import subprocess
+import time
 
 import requests
 
@@ -92,11 +93,16 @@ def validate_result(result, ids):
 def generate(prompt, ids, api_key, model, post=requests.post):
     if not re.fullmatch(r'gemini-[a-z0-9.-]+', model):
         raise ValueError('Ongeldige modelnaam')
-    response = post('https://generativelanguage.googleapis.com/v1beta/models/'+model+':generateContent',
+    for attempt in range(3):
+        response = post('https://generativelanguage.googleapis.com/v1beta/models/'+model+':generateContent',
         headers={'x-goog-api-key': api_key, 'Content-Type': 'application/json'},
         json={'contents': [{'role': 'user', 'parts': [{'text': prompt}]}],
               'generationConfig': {'maxOutputTokens': 10000, 'responseFormat': {'text': {
                   'mimeType': 'APPLICATION_JSON', 'schema': output_schema(ids)}}}}, timeout=(20, 240))
+        if response.status_code not in (500, 502, 503, 504) or attempt == 2:
+            break
+        print('Google tijdelijk niet beschikbaar; dezelfde aanvraag wordt opnieuw geprobeerd.')
+        time.sleep(5 * (attempt + 1))
     # Never echo provider responses or headers into public Actions logs.
     if response.status_code != 200:
         raise RuntimeError(f'Gemini-aanvraag gestopt (HTTP {response.status_code}); geen betaald terugvalmodel gebruikt')
