@@ -10,16 +10,6 @@
         "ayrton-senna"
       ],
       "generated_at": "2026-10-20T03:57:36.136075+00:00"
-    },
-    "b01618a657dd61cd4d71b2eaf7357d486d0944436b58e5834623824f407ced29": {
-      "file": "results/b01618a657dd61cd4d71b2eaf7357d486d0944436b58e5834623824f407ced29.json",
-      "drivers": [
-        "lewis-hamilton",
-        "max-verstappen",
-        "michael-schumacher",
-        "sebastian-vettel"
-      ],
-      "generated_at": "2026-10-20T05:38:23.219081+00:00"
     }
   }
 }
