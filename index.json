@@ -1,0 +1,15 @@
+{
+  "schema": "goat-ai-index-v1",
+  "results": {
+    "03057897114cfb62b7152a0ab8466d8690a0360650f96e4704484ac7533c23a5": {
+      "file": "results/03057897114cfb62b7152a0ab8466d8690a0360650f96e4704484ac7533c23a5.json",
+      "drivers": [
+        "max-verstappen",
+        "lewis-hamilton",
+        "juan-fangio",
+        "ayrton-senna"
+      ],
+      "generated_at": "2026-10-20T03:57:36.136075+00:00"
+    }
+  }
+}
