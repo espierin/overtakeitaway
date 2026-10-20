@@ -71,6 +71,7 @@ def test_api_key_is_only_in_header_and_response_is_checked():
     assert 'test-secret-not-real' not in seen['url']
     assert 'test-secret-not-real' not in json.dumps(seen['json'])
     assert 'Authorization' not in seen['headers']
+    assert seen['json']['generationConfig']['thinkingConfig']['thinkingLevel']=='low'
 
 
 def test_provider_error_does_not_echo_secret_or_retry_paid_model():
@@ -157,7 +158,8 @@ def test_ranking_must_cover_every_driver_and_match_winner():
             validate_result(value, IDS)
 
 
-def test_cached_result_is_reused_without_gemini_key_and_repairs_missing_index(tmp_path, monkeypatch):
+@pytest.mark.parametrize('cache_kind',['result','response'])
+def test_cached_result_is_reused_without_gemini_key_and_repairs_missing_index(tmp_path, monkeypatch, cache_kind):
     import hashlib
     from types import SimpleNamespace
     from f1_analysis import goat_ai
@@ -172,7 +174,10 @@ def test_cached_result_is_reused_without_gemini_key_and_repairs_missing_index(tm
         writes = []
         def __init__(self, *args): pass
         def ensure_branch(self): pass
-        def read(self, path): return (envelope, 'sha') if path.startswith('results/') else (None, None)
+        def read(self, path):
+            if cache_kind=='result' and path.startswith('results/'):return envelope,'sha'
+            if cache_kind=='response' and path.startswith('responses/'):return {'prompt_sha256':key,'finish_reason':'STOP','text':json.dumps(value),'model':'gemini-3.8-flash'},'sha'
+            return None,None
         def write(self, path, body): self.writes.append((path, body))
     def prepare(*args, **kwargs):
         (work/'prompt.txt').write_text(prompt)
@@ -187,9 +192,9 @@ def test_cached_result_is_reused_without_gemini_key_and_repairs_missing_index(tm
     for name in ['GEMINI_API_KEY','GITHUB_EVENT_PATH','GITHUB_EVENT_NAME']:
         monkeypatch.delenv(name,raising=False)
     goat_ai.run(SimpleNamespace(request=str(request),output=str(work),node='node',site='.',dry_run=False))
-    assert json.loads((work/'result.json').read_text()) == envelope
-    assert Store.writes[0][0] == 'index.json'
-    assert key in Store.writes[0][1]['results']
+    assert json.loads((work/'result.json').read_text())['result'] == value
+    index=next(body for path,body in Store.writes if path=='index.json')
+    assert key in index['results']
 
 
 def test_provider_uses_simple_shape_but_full_contract_still_rejects_missing_fields():

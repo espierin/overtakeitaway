@@ -280,9 +280,6 @@ def run(args):
         (work/'result.json').write_text(json.dumps(existing, ensure_ascii=False, indent=2)+'\n')
         print('Dezelfde vergelijking is al bewaard; Gemini niet opnieuw aangeroepen.')
         return
-    api_key = os.environ.get('GEMINI_API_KEY', '').strip()
-    if not api_key:
-        raise ValueError('GitHub-secret GEMINI_API_KEY ontbreekt')
     model = os.environ.get('GEMINI_MODEL') or 'gemini-3.8-flash'
     response_path = 'responses/'+key+'.json'
     saved_response, _ = store.read(response_path)
@@ -291,6 +288,9 @@ def run(args):
         model = saved_response['model']
         result = validate_result(json.loads(saved_response['text']), request['drivers'], brief)
     else:
+        api_key = os.environ.get('GEMINI_API_KEY', '').strip()
+        if not api_key:
+            raise ValueError('GitHub-secret GEMINI_API_KEY ontbreekt')
         def capture(value):
             saved = {'schema':'goat-ai-provider-response-v1','prompt_sha256':key,'model':model,
                      'generated_at':datetime.now(timezone.utc).isoformat(),**value}
