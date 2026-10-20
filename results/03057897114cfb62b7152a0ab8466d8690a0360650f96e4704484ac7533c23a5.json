@@ -1,0 +1,61 @@
+{
+  "schema": "goat-ai-result-v1",
+  "prompt_sha256": "03057897114cfb62b7152a0ab8466d8690a0360650f96e4704484ac7533c23a5",
+  "generated_at": "2026-10-20T03:57:36.136075+00:00",
+  "model": "gemini-3.8-flash",
+  "request": {
+    "drivers": [
+      "max-verstappen",
+      "lewis-hamilton",
+      "juan-fangio",
+      "ayrton-senna"
+    ],
+    "from": 1950,
+    "to": 2026,
+    "circuits": [],
+    "lang": "nl",
+    "curveyears": "career",
+    "prompt_sha256": "03057897114cfb62b7152a0ab8466d8690a0360650f96e4704484ac7533c23a5",
+    "source_revision": "2279b762006f7af561815305a100d58fcc3dc06aa8a8c46f52c878f10aeec305"
+  },
+  "result": {
+    "summary": "Vergelijking van Max Verstappen (2015-2026), Lewis Hamilton (2007-2026), Juan Fangio (1950-1958) en Ayrton Senna (1984-1994) op basis van de Overtake It Away-dataset. Tussen de tijdperken ontbreken directe onderlinge races en is er sprake van grote asymmetrie in beschikbare gegevens: voor Fangio en Senna ontbreken rondetijdmetingen (metronoom), pitbalansdata en gestandaardiseerde start- en racescores volledig (aangeduid als null/no_measurements, wat onbekend betekent en geen falen). Het teamgenootnetwerk is niet gevalideerd als tijdperkcorrectie (network_validation.passes = false, test-MAE 0,512 versus baseline-MAE 0,509 met verbeteringsinterval [-0,0268, 0,0175]). Hierdoor vallen tempo, pitbalans en gestandaardiseerde progressiescores af voor een eerlijke cross-era weging. Op de overgebleven universeel beschikbare metrieken (loopbaantotalen en kwalificatiemetingen) toont Fangio de hoogste kwalificatiedominantie en titeldichtheid, terwijl Hamilton ongeëvenaard is in volume en Senna uitblinkt in pole-frequentie. Verstappen leidt in moderne baansnelheid.",
+    "comparisons": [
+      {
+        "driver": "juan-fangio",
+        "strength": "Ongeëvenaarde kwalificatiedominantie (mediane kwalificatiepositie 1, mediane achterstand tot pole 0,000 s over 51 races zonder schattingen) en uitzonderlijke seizoensefficiëntie (5 wereldtitels en 24 zeges in 51 starts).",
+        "limitation": "Slechts 51 gemeten starts, geen moderne telemetriedata (vrije baan, banden, pitbalans en metronoom zijn alle null), en de startcurve toont een negatieve mediane winst vanaf pole (-1 positie over 21 starts)."
+      },
+      {
+        "driver": "lewis-hamilton",
+        "strength": "Grootste totale loopbaanaantoonbaarheid (397 starts, 106 zeges, 104 poles, 7 titels), sterke kwalificatie (mediaan 3e positie, 0,283 s tot pole over 392 races) en een bewezen pitwinstbalans (+10,501 s over 249 races).",
+        "limitation": "Lagere vrije-baan-metronoomscherfte dan Verstappen (rang 3, veldscore 88,89 over 3.934 ronden) en een relatief conservatieve startscore (58,51 over 28 gemeten referentieposities)."
+      },
+      {
+        "driver": "ayrton-senna",
+        "strength": "Uitzonderlijke kwalificatiekracht (65 poles in 161 starts, mediane kwalificatiepositie 2, mediane achterstand tot pole 0,298 s over 161 races) met een dominante piek in 1988-1990 (mediane pole gap 0,000 s).",
+        "limitation": "Volledig ontbreken van gevalideerde moderne tempokenmerken en pitdata; de geregistreerde teamgenootpace (-1,856%) berust op slechts 1 race en is statistisch onbruikbaar; racescore is null wegens onvoldoende vergelijkbare finishes (n=1 over 97 rijdende finishes)."
+      },
+      {
+        "driver": "max-verstappen",
+        "strength": "Hoogste gemeten baansnelheid en metronoomscore binnen het moderne cohort (veldscore 93,75, rang 2 over 5.001 vrije ronden; pace-voordeel t.o.v. teamgenoot -0,406% over 213 races) en sterke racevoortgangsscore (68,94 [54,05; 82,98]).",
+        "limitation": "Iets grotere mediane achterstand tot pole over de gehele loopbaan (0,361 s over 244 races, inclusief 20 schattingen) en minder totale titels (4) en zeges (73) dan Hamilton."
+      }
+    ],
+    "winner": "juan-fangio",
+    "runner_up": "lewis-hamilton",
+    "conclusion": "Op basis van een strikte uitsluiting van metrieken die niet voor alle vier de rijders beschikbaar zijn (waardoor metronoom, pitbalans en start-/racescores afvallen) en gelijke weging van kwalificatieprestaties en loopbaanefficiëntie, is Juan Fangio de voorlopige winnaar dankzij zijn ongeëvenaarde mediane kwalificatiestaat (positie 1,0; 0,000 s gap tot pole) en 5 wereldtitels in 51 races. Lewis Hamilton is de voorlopige nummer twee dankzij de absolute omvang van zijn palmares (7 titels, 106 zeges) en consistente kwalificatietopvorm over 20 seizoenen. Een zwaardere weging van totale volume-opbouw of moderne telemetrische dominantie (metronoom en racevoortgang) zou de balans echter direct verschuiven naar respectievelijk Hamilton of Verstappen.",
+    "confidence": "low",
+    "assumptions": [
+      "Aangenomen is dat kwalificatieposities en tijdsverschillen tot pole uit de jaren 50, 80 en het moderne tijdperk inhoudelijk vergelijkbare indicatoren zijn van pure snelheid, ondanks grote verschillen in circuitlengtes en betrouwbaarheid.",
+      "Aangenomen is dat het ontbreken van metronoom- en pitdata bij Fangio en Senna geen negatieve weerslag mag hebben op hun beoordeling.",
+      "Aangenomen is dat het niet-valideren van het teamgenootnetwerk (passes=false) betekent dat individuele modelcorrecties tussen tijdperken niet als bewijs mogen fungeren."
+    ],
+    "limitations": [
+      "Asymmetrie van gegevens: moderne rijders (Verstappen, Hamilton) hebben duizenden gemeten ronden voor pit- en metronoomkenmerken, terwijl historische rijders (Fangio, Senna) op deze onderdelen 0 metingen hebben.",
+      "Geen directe onderlinge confrontatie: er zijn geen gezamenlijke races tussen de generaties.",
+      "Beperkte steekproefomvang bij Fangio (51 starts, 33 bevestigde finishes) ten opzichte van Hamilton (397 starts, 357 finishes).",
+      "Netwerkvalidatie gefaald (passes=false, MAE 0,5117 vs baseline 0,5091), waardoor er geen wetenschappelijk verantwoorde tijdperkoverstijgende normalisatie mogelijk is."
+    ]
+  }
+}
