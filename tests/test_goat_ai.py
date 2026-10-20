@@ -2,17 +2,22 @@ import json
 
 import pytest
 
-from f1_analysis.goat_ai import generate, normalize_request, request_from_event, validate_result
+from f1_analysis.goat_ai import generate, normalize_request, request_from_event, validate_result, quality_weights, DEFAULT_DRIVERS
 
 
 IDS = ['max-verstappen', 'lewis-hamilton']
 
 
 def result():
-    return {'summary': 'Voorzichtige vergelijking.', 'comparisons': [
-        {'driver': id, 'strength': 'Gemeten resultaat', 'limitation': 'Auto verschilt'} for id in IDS],
+    return {'schema_version': 'goat-comparison-v2', 'input_status': 'complete', 'selected_drivers': IDS,
+        'context': {'source_revision': 'test-revision', 'facts_period': [1950, 2026], 'circuits': [], 'curve_years': 'career'},
+        'summary': 'Voorzichtige vergelijking.', 'comparisons': [
+        {'driver': id, 'strength': 'Gemeten resultaat', 'limitation': 'Auto verschilt', 'evidence': ['career.wins']} for id in IDS],
+        'domains': [{'id': id, 'included_in_verdict': id=='pace', 'weight': 1 if id=='pace' else 0, 'leaders': [], 'explanation': 'Alleen gemeenschappelijke gegevens.'} for id in ['career','qualifying','start','progression','pace','pit_balance']],
+        'ranking': [{'driver': id, 'position': i+1, 'reason': 'Voorlopig oordeel'} for i,id in enumerate(IDS)],
         'winner': IDS[0], 'runner_up': IDS[1], 'conclusion': 'Voorlopige voorkeur.',
-        'confidence': 'low', 'assumptions': ['Dezelfde weging'], 'limitations': ['Onvolledige dekking']}
+        'confidence': 'low', 'assumptions': ['Dezelfde weging'], 'limitations': ['Onvolledige dekking'],
+        'infographic': {'template': 'oia-goat-comparison-v1', 'title': 'Vergelijking', 'subtitle': 'Op basis van de bron', 'metric_ids': ['career.titles','career.wins','features.qualifying_position','features.start_score'], 'takeaway': 'Voorzichtige conclusie.'}}
 
 
 def test_request_accepts_empty_circuit_input_and_rejects_unknown_shape():
@@ -42,6 +47,8 @@ def test_model_cannot_introduce_driver_or_duplicate_comparison():
         validate_result(value, IDS)
     value = result()
     value['winner'] = value['runner_up'] = None
+    for row in value['ranking']:
+        row['position'] = None
     assert validate_result(value, IDS)['winner'] is None
 
 
@@ -81,3 +88,105 @@ def test_provider_error_does_not_echo_secret_or_retry_paid_model():
         generate('data', IDS, 'test-secret-not-real', 'gemini-3.8-flash', post)
     assert 'private provider' not in str(error.value)
     assert len(calls) == 1
+
+
+def test_structured_output_cannot_omit_selected_driver_or_invent_design_values():
+    value = result()
+    value['comparisons'].pop()
+    with pytest.raises(ValueError):
+        validate_result(value, IDS)
+    value = result()
+    value['infographic']['metric_ids'][0] = 'invented.goat_score'
+    with pytest.raises(ValueError):
+        validate_result(value, IDS)
+    value = result()
+    value['infographic']['colour'] = 'red'
+    with pytest.raises(ValueError):
+        validate_result(value, IDS)
+
+
+def test_import_checks_source_and_period_and_same_weighting():
+    brief = {'source_revision': 'test-revision', 'controls': {'facts_period': [1950,2026], 'chosen_circuits': [], 'curve_years': 'career'}}
+    assert validate_result(result(), IDS, brief)['schema_version'] == 'goat-comparison-v2'
+    value = result()
+    value['context']['facts_period'] = [2020,2026]
+    with pytest.raises(ValueError, match='periode'):
+        validate_result(value, IDS, brief)
+    value = result()
+    value['domains'][0]['weight'] = .8
+    with pytest.raises(ValueError, match='weging'):
+        validate_result(value, IDS)
+
+
+def test_incomplete_input_must_keep_all_drivers_and_must_not_choose_a_winner():
+    value = result()
+    value['input_status'] = 'incomplete'
+    with pytest.raises(ValueError):
+        validate_result(value, IDS)
+    value['winner'] = value['runner_up'] = None
+    for row in value['ranking']:
+        row['position'] = None
+    for d in value['domains']:
+        d.update(included_in_verdict=False, weight=0)
+    assert validate_result(value, IDS)['selected_drivers'] == IDS
+
+
+def test_default_selection_and_quality_first_weights():
+    assert DEFAULT_DRIVERS == ['lewis-hamilton', 'max-verstappen', 'sebastian-vettel', 'michael-schumacher']
+    weights = quality_weights(['career','qualifying','start','progression','pace','pit_balance'])
+    assert weights == pytest.approx({'career': .05, 'qualifying': .2, 'start': .15, 'progression': .25, 'pace': .3, 'pit_balance': .05})
+    value = result()
+    for domain in value['domains']:
+        domain.update(included_in_verdict=True, weight=weights[domain['id']])
+    assert validate_result(value, IDS)['winner'] == IDS[0]
+    assert quality_weights(['career','pit_balance']) == dict.fromkeys(weights, 0)
+    sparse = quality_weights(['career','start'])
+    assert sparse['career'] == .05
+    assert sparse['start'] == .95
+    assert sum(sparse.values()) == pytest.approx(1)
+    value['domains'][0]['weight'] = .5
+    with pytest.raises(ValueError, match='weging'):
+        validate_result(value, IDS)
+
+
+def test_ranking_must_cover_every_driver_and_match_winner():
+    for mutate in [lambda v: v['ranking'].pop(), lambda v: v['ranking'][0].update(position=2), lambda v: v['ranking'][0].update(driver=IDS[1])]:
+        value = result()
+        mutate(value)
+        with pytest.raises(ValueError):
+            validate_result(value, IDS)
+
+
+def test_cached_result_is_reused_without_gemini_key_and_repairs_missing_index(tmp_path, monkeypatch):
+    import hashlib
+    from types import SimpleNamespace
+    from f1_analysis import goat_ai
+    prompt = 'same canonical combination'
+    key = hashlib.sha256(prompt.encode()).hexdigest()
+    request = tmp_path/'request.json'
+    request.write_text(json.dumps({'drivers': list(reversed(IDS))}))
+    work = tmp_path/'work'
+    value = result()
+    envelope = {'prompt_sha256': key, 'generated_at': '2026-10-20T12:00:00Z', 'result': value}
+    class Store:
+        writes = []
+        def __init__(self, *args): pass
+        def ensure_branch(self): pass
+        def read(self, path): return (envelope, 'sha') if path.startswith('results/') else (None, None)
+        def write(self, path, body): self.writes.append((path, body))
+    def prepare(*args, **kwargs):
+        (work/'prompt.txt').write_text(prompt)
+        (work/'request.json').write_text(json.dumps({'prompt_sha256':key}))
+        (work/'brief.json').write_text(json.dumps({'source_revision':'test-revision','controls':{'facts_period':[1950,2026],'chosen_circuits':[],'curve_years':'career'}}))
+    monkeypatch.setattr(goat_ai.subprocess, 'run', prepare)
+    monkeypatch.setattr(goat_ai, 'ResultStore', Store)
+    def no_generation(*args, **kwargs): pytest.fail('Cached comparison must not call Gemini')
+    monkeypatch.setattr(goat_ai, 'generate', no_generation)
+    monkeypatch.setenv('GITHUB_REPOSITORY','example/site')
+    monkeypatch.setenv('GITHUB_TOKEN','test-token-not-real')
+    for name in ['GEMINI_API_KEY','GITHUB_EVENT_PATH','GITHUB_EVENT_NAME']:
+        monkeypatch.delenv(name,raising=False)
+    goat_ai.run(SimpleNamespace(request=str(request),output=str(work),node='node',site='.',dry_run=False))
+    assert json.loads((work/'result.json').read_text()) == envelope
+    assert Store.writes[0][0] == 'index.json'
+    assert key in Store.writes[0][1]['results']

@@ -1,6 +1,6 @@
 const assert=require('node:assert/strict'),test=require('node:test'),fs=require('node:fs'),vm=require('node:vm'),zlib=require('node:zlib');
 const context={window:{},URLSearchParams,Map,Set,Number,Math};vm.createContext(context);
-for(const file of ['_development/data/profiles.js','_development/data/facts.js','_development/data/models.js','_development/data/goat-metrics.js','_development/assets/driver-field.js','_development/assets/goat-parameters.js','_development/assets/goat-rankings.js','_development/assets/goat-ai.js'])vm.runInContext(fs.readFileSync(file,'utf8'),context);
+for(const file of ['_development/data/profiles.js','_development/data/facts.js','_development/data/models.js','_development/data/goat-metrics.js','_development/assets/driver-names.js','_development/assets/driver-field.js','_development/assets/goat-parameters.js','_development/assets/goat-rankings.js','_development/assets/goat-ai-contract.js','_development/assets/goat-ai-format.js','_development/assets/goat-ai.js'])vm.runInContext(fs.readFileSync(file,'utf8'),context);
 const w=context.window,D=w.phase2Data;if(D.driver_race_columns)for(const d of D.drivers)d.races=d.races.map(row=>Object.fromEntries(D.driver_race_columns.map((k,i)=>[k,row[i]])));
 const ids=['max-verstappen','lewis-hamilton','juan-fangio','ayrton-senna'],drivers=new Map(D.drivers.map(d=>[d.id,d]));
 for(const id of ids)w.goatParameters.cache.set(id,JSON.parse(zlib.gunzipSync(fs.readFileSync(w.phase2GoatMetrics.delivery+id+'.json.gz'))));
@@ -39,4 +39,30 @@ test('circuit picker combines Barcelona variants and all-circuit default include
  const combined=w.goatParameters.circuitEntries([ids[0]],['catalunya'])[0];assert.equal(combined.n,variants.reduce((n,c)=>n+c.summary.laps,0));
  const legacy=w.goatParameters.circuitSelection({...options,state:{...options.state,circuitdetail:'imola-3'}});assert.equal(legacy.selected.join(','),'imola');
  assert.equal(w.goatParameters.circuitEntries([ids[0]])[0].n,w.goatParameters.cache.get(ids[0]).record.features.metronome_rank.n);
+});
+
+test('Gemini reuses the exact prompt for the same combination in another order',()=>{
+ const text=w.goatAI.prompt(options),reverse=w.goatAI.prompt({...options,ids:[...ids].reverse()});assert.equal(text,reverse);
+ assert.notEqual(text,w.goatAI.prompt({...options,state:{...options.state,from:2000}}));
+ assert.notEqual(text,w.goatAI.prompt({...options,lang:'en'}));
+ assert.ok(text.includes('tempo 30%'));assert.ok(!text.includes('gelijke gewichten voor vergelijkbare onderdelen'));
+ const a=w.goatAI.prompt({...options,state:{...options.state,circuitdetail:'imola,catalunya'}}),b=w.goatAI.prompt({...options,state:{...options.state,circuitdetail:'catalunya,imola'}});assert.equal(a,b);
+});
+
+test('simplified AI section keeps only downloads and the requested title',()=>{
+ const html=w.goatAI.render(options);assert.ok(html.includes('The Answer to the Ultimate Question'));assert.ok(html.includes('goat-info-svg'));assert.ok(html.includes('goat-info-png'));assert.ok(html.includes('Stel de vraag'));assert.ok(html.includes('42'));
+ for(const removed of ['goat-ai-import','goat-ai-copy','goat-ai-refresh','textarea','Maak een vraag'])assert.ok(!html.includes(removed));
+});
+
+test('median uncertainty resamples whole races and breaks median ties by interval width',()=>{
+ const api=w.driverField,one=[{race:'one',values:[1,2,3]}];assert.equal(api.medianInterval(one),null);
+ const repeated=Array.from({length:20},(_,i)=>({race:'r'+i,values:Array(30).fill(2)}));assert.equal(JSON.stringify(api.medianInterval(repeated)),'[2,2]');
+ const broad=[{race:'a',values:Array(200).fill(1)},{race:'b',values:Array(200).fill(5)}],before=JSON.stringify(broad),interval=api.medianInterval(broad);assert.equal(JSON.stringify(interval),'[1,5]');assert.equal(JSON.stringify(broad),before);
+ const rows=[{id:'unknown',median:3,median_interval:null},{id:'broad',median:3,median_interval:[1,5]},{id:'narrow',median:3,median_interval:[2.5,3.5]},{id:'fast',median:2,median_interval:[1,8]}];rows.sort(api.medianOrder);assert.equal(rows.map(r=>r.id).join(','),'fast,narrow,broad,unknown');
+});
+
+test('driver display names normalize uppercase surnames and preserve initials',()=>{
+ assert.equal(w.driverNames.display('Kimi ANTONELLI'),'Kimi Antonelli');assert.equal(w.driverNames.display('Oscar PIASTRI'),'Oscar Piastri');assert.equal(w.driverNames.display("Pat O’BRIEN"),'Pat O’Brien');assert.equal(w.driverNames.display('A.J. Foyt III'),'A.J. Foyt III');
+ assert.equal(w.driverNames.key({id:'guanyu-zhou',name:'Zhou Guanyu'}),'Zhou');
+ const sorted=w.driverNames.sort(D.drivers);assert.equal(sorted.length,817);assert.equal(new Set(sorted.map(d=>d.id)).size,817);assert.ok(sorted.every(d=>!d.name.split(/\s+/).some(part=>part.length>2&&part===part.toUpperCase())));
 });

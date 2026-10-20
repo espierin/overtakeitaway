@@ -99,3 +99,11 @@ def test_archived_pit_curves_and_delivery_keep_original_values_and_pca_parameter
             assert record['features']['pit_race_gain']['value']==3.50325
             assert record['features']['pit_cycle_gain']['value']==.0605
             assert record['features']['pit_cycle_gain']['n']==200
+
+
+def test_three_nearest_use_actual_pca_distance_exclude_self_and_keep_ties_stable():
+    result=run_js("vm.runInContext(fs.readFileSync('_development/assets/driver-pca-neighbours.js','utf8'),c);const near=c.window.driverPCANeighbours.nearest;const m={available:true,points:[{driver:'own',x:0,y:0},{driver:'far',x:9,y:1},{driver:'b',x:1,y:0},{driver:'a',x:0,y:1},{driver:'overlap',x:0,y:0}]};const before=JSON.stringify(m);console.log(JSON.stringify({rows:near(m,'own'),missing:near(m,'unknown'),unavailable:near({...m,available:false},'own'),unchanged:before===JSON.stringify(m)}));")
+    assert [r['driver'] for r in result['rows']] == ['overlap','a','b']
+    assert [r['distance'] for r in result['rows']] == [0,1,1]
+    assert result['missing'] == result['unavailable'] == []
+    assert result['unchanged']

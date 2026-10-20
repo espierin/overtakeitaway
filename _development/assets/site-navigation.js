@@ -1,4 +1,5 @@
 (()=>{'use strict';if(window.siteNavigation)return;
+const ownScript=document.currentScript?.src;if(ownScript&&!document.querySelector('[data-site-visitors]')){const script=document.createElement('script');script.defer=true;script.dataset.siteVisitors='true';script.src=new URL(ownScript.includes('/_development/assets/')?'../../assets/visitors.js':'visitors.js',ownScript).href;document.head.append(script);}
 const button=document.querySelector('[data-site-about]');if(!button)return;
 let dialog,opener,previousOverflow='';const language=()=>document.documentElement.lang.toLowerCase().startsWith('en')?'en':'nl';
 function translate(){const en=language()==='en';document.querySelectorAll('[data-site-link=drivers]').forEach(node=>{const text=en?'Drivers':'Coureurs';if(node.textContent!==text)node.textContent=text;});document.querySelectorAll('[data-about-nl][data-about-en]').forEach(node=>{const text=node.getAttribute(en?'data-about-en':'data-about-nl');if(node.textContent!==text)node.textContent=text;});}

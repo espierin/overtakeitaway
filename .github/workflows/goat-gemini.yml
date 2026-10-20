@@ -4,7 +4,7 @@ on:
     inputs:
       drivers:
         description: Coureurs, gescheiden door komma's
-        default: max-verstappen,lewis-hamilton,juan-fangio,ayrton-senna
+        default: lewis-hamilton,max-verstappen,sebastian-vettel,michael-schumacher
         type: string
       from:
         description: Vanaf

@@ -62,3 +62,5 @@ body.driver-lab-page{padding:20px!important}
 .driver-selection-panel .toolbar-actions{align-self:end;align-items:stretch;height:43px}
 .driver-selection-panel>.driver-year-note{grid-column:1/-1}
 @media(max-width:800px){.driver-lab-page #driver-period.driver-selection-panel{grid-template-columns:minmax(0,1fr)}.driver-selection-panel .driver-selection{border:0;padding-top:0}.driver-selection-panel .driver-year-controls{border-top:1px solid #344053;padding-top:15px}}
+
+.driver-pca-neighbours ol{padding-left:24px;display:grid;gap:8px;max-width:650px}.driver-pca-neighbours li{padding-left:4px}.driver-pca-neighbours button{display:flex;align-items:center;gap:12px;width:100%;padding:10px 12px;color:inherit;background:#0b1019;border:1px solid #344053;border-radius:5px;text-align:left;font:inherit;cursor:pointer}.driver-pca-neighbours .profile-full-name{font-weight:750;color:#d9b3ff}.driver-pca-neighbours a{color:#51d6dd}

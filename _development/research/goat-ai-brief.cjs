@@ -3,7 +3,7 @@ const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),zlib
 const [site,requestPath,output]=process.argv.slice(2),request=JSON.parse(fs.readFileSync(requestPath,'utf8')),c={window:{},URLSearchParams};vm.createContext(c);
 const read=file=>fs.existsSync(file)?fs.readFileSync(file,'utf8'):zlib.gunzipSync(fs.readFileSync(file+'.gz')).toString('utf8');
 for(const file of ['profiles','facts','models','goat-metrics'])vm.runInContext(read(path.join(site,'_development/data/'+file+'.js')),c);
-for(const file of ['driver-field','goat-parameters','goat-ai'])vm.runInContext(read(path.join(__dirname,'../assets/'+file+'.js')),c);
+for(const file of ['driver-names','driver-field','goat-parameters','goat-ai-contract','goat-ai-format','goat-ai'])vm.runInContext(read(path.join(__dirname,'../assets/'+file+'.js')),c);
 const w=c.window,D=w.phase2Data;if(D.driver_race_columns)for(const d of D.drivers)d.races=d.races.map(row=>Object.fromEntries(D.driver_race_columns.map((key,i)=>[key,row[i]])));
 const drivers=new Map(D.drivers.map(d=>[d.id,d])),ids=request.drivers;
 if(!Array.isArray(ids)||ids.length<2||ids.length>4||new Set(ids).size!==ids.length||ids.some(id=>!drivers.has(id)))throw Error('Select 2–4 distinct known drivers');

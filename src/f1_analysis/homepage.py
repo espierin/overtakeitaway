@@ -67,4 +67,6 @@ def build(root):
     build_help(root)
     from .data_collection import build as build_collection
     build_collection(root)
+    from .visitors import build as build_visitors
+    build_visitors(root)
     return root/'index.html'

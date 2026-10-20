@@ -6,6 +6,7 @@ import base64
 from datetime import datetime, timezone
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import re
@@ -14,7 +15,7 @@ import time
 
 import requests
 
-DEFAULT_DRIVERS = ['max-verstappen', 'lewis-hamilton', 'juan-fangio', 'ayrton-senna']
+DEFAULT_DRIVERS = ['lewis-hamilton', 'max-verstappen', 'sebastian-vettel', 'michael-schumacher']
 BRANCH = 'goat-ai-results'
 MARKER = 'goat-ai-request-v1'
 
@@ -52,41 +53,106 @@ def request_from_event(event_name, event):
     return normalize_request(event.get('inputs') or {})
 
 
+def contract():
+    path = Path(__file__).resolve().parents[2]/'_development/assets/goat-ai-contract.js'
+    return json.loads(path.read_text().split('=', 1)[1].strip().removesuffix(';'))
+
+
 def output_schema(ids):
-    text = {'type': 'string'}
-    return {'type': 'object', 'properties': {
-        'summary': text, 'comparisons': {'type': 'array', 'items': {'type': 'object', 'properties': {
-            'driver': {'type': 'string', 'enum': ids}, 'strength': text, 'limitation': text},
-            'required': ['driver', 'strength', 'limitation']}},
-        'winner': {'type': ['string', 'null'], 'enum': ids+[None]},
-        'runner_up': {'type': ['string', 'null'], 'enum': ids+[None]},
-        'conclusion': text, 'confidence': {'type': 'string', 'enum': ['low', 'medium', 'high']},
-        'assumptions': {'type': 'array', 'items': text}, 'limitations': {'type': 'array', 'items': text}},
-        'required': ['summary', 'comparisons', 'winner', 'runner_up', 'conclusion', 'confidence', 'assumptions', 'limitations']}
+    def visit(value):
+        if value == '__COUNT__':
+            return len(ids)
+        if isinstance(value, list):
+            result = []
+            for item in value:
+                result.extend(ids if item == '__DRIVER__' else [visit(item)])
+            return result
+        if isinstance(value, dict):
+            return {key: visit(v) for key, v in value.items()}
+        return value
+    return visit(contract()['schema'])
 
 
-def validate_result(result, ids):
-    if not isinstance(result, dict) or not set(output_schema(ids)['required']) <= result.keys():
-        raise ValueError('Gemini gaf geen volledige vergelijking terug')
-    rows = result['comparisons']
-    if not isinstance(rows, list) or len(rows) != len(ids) or {r.get('driver') for r in rows} != set(ids):
-        raise ValueError('Het antwoord wijkt af van de geselecteerde rijders')
-    for key in ('winner', 'runner_up'):
-        if result[key] is not None and result[key] not in ids:
-            raise ValueError('Onbekende rijder in de conclusie')
+def check_schema(value, schema, path='$'):
+    types = schema['type'] if isinstance(schema['type'], list) else [schema['type']]
+    actual = 'null' if value is None else 'boolean' if isinstance(value, bool) else 'number' if isinstance(value, (int, float)) else 'string' if isinstance(value, str) else 'array' if isinstance(value, list) else 'object' if isinstance(value, dict) else 'invalid'
+    if actual not in types and not ('integer' in types and actual == 'number' and float(value).is_integer()):
+        raise ValueError(path+': onjuist veldtype')
+    if actual == 'number' and not math.isfinite(value):
+        raise ValueError(path+': ongeldig getal')
+    if 'enum' in schema and value not in schema['enum']:
+        raise ValueError(path+': ongeldige keuze')
+    if actual == 'string' and not schema.get('minLength', 0) <= len(value) <= schema.get('maxLength', 10**9):
+        raise ValueError(path+': onjuiste tekstlengte')
+    if actual == 'number' and not schema.get('minimum', -math.inf) <= value <= schema.get('maximum', math.inf):
+        raise ValueError(path+': getal buiten bereik')
+    if actual == 'array':
+        if not schema.get('minItems', 0) <= len(value) <= schema.get('maxItems', 10**9):
+            raise ValueError(path+': onjuist aantal onderdelen')
+        for i, item in enumerate(value):
+            check_schema(item, schema['items'], path+'/'+str(i))
+    if actual == 'object':
+        if not set(schema.get('required', [])) <= value.keys():
+            raise ValueError(path+': verplicht veld ontbreekt')
+        for key, item in value.items():
+            if key not in schema['properties']:
+                if schema.get('additionalProperties') is False:
+                    raise ValueError(path+'/'+key+': onverwacht veld')
+            else:
+                check_schema(item, schema['properties'][key], path+'/'+key)
+
+
+def quality_weights(included):
+    base = contract()['quality_weights']
+    primary = ['qualifying', 'start', 'progression', 'pace']
+    total = sum(base[id] for id in primary if id in included)
+    weights = dict.fromkeys(base, 0)
+    if not total:
+        return weights
+    for id in ['career', 'pit_balance']:
+        if id in included:
+            weights[id] = base[id]
+    share = 1-weights['career']-weights['pit_balance']
+    for id in primary:
+        if id in included:
+            weights[id] = share*base[id]/total
+    return weights
+
+
+def validate_result(result, ids, brief=None):
+    check_schema(result, output_schema(ids))
+    if set(result['selected_drivers']) != set(ids) or len({r['driver'] for r in result['comparisons']}) != len(ids):
+        raise ValueError('Het antwoord moet iedere geselecteerde rijder eenmaal bevatten')
     if result['winner'] is not None and result['winner'] == result['runner_up']:
         raise ValueError('Winnaar en nummer twee zijn gelijk')
-    if result['confidence'] not in ('low', 'medium', 'high'):
-        raise ValueError('Ongeldige zekerheid')
-    for key in ('summary', 'conclusion'):
-        if not isinstance(result[key], str) or not result[key].strip():
-            raise ValueError('Lege conclusie')
-    for row in rows:
-        if any(not isinstance(row.get(k), str) for k in ('strength', 'limitation')):
-            raise ValueError('Ongeldige rijdertekst')
-    for key in ('assumptions', 'limitations'):
-        if not isinstance(result[key], list) or not all(isinstance(v, str) for v in result[key]):
-            raise ValueError('Ongeldige toelichting')
+    if result['winner'] is None and result['runner_up'] is not None:
+        raise ValueError('Geen nummer twee zonder winnaar')
+    domains = result['domains']
+    if len({d['id'] for d in domains}) != 6:
+        raise ValueError('Elk onderdeel moet eenmaal voorkomen')
+    included = [d for d in domains if d['included_in_verdict']]
+    weights = quality_weights([d['id'] for d in included])
+    for domain in domains:
+        if abs(domain['weight']-weights[domain['id']]) > 1e-5 or (domain['included_in_verdict'] and not domain['weight']) or len(set(domain['leaders'])) != len(domain['leaders']):
+            raise ValueError('Onjuiste weging voor racekwaliteiten of dubbele rijder')
+    if (result['input_status'] == 'incomplete' or not included) and (result['winner'] is not None or result['runner_up'] is not None or included):
+        raise ValueError('Onvolledige vergelijking mag geen winnaar opleveren')
+    if len(set(result['infographic']['metric_ids'])) != len(result['infographic']['metric_ids']):
+        raise ValueError('Dubbele infographicparameter')
+    ranking = result['ranking']
+    if len({r['driver'] for r in ranking}) != len(ids):
+        raise ValueError('Iedere rijder moet eenmaal in de klassering staan')
+    ranked = {r['position']: r['driver'] for r in ranking if r['position'] is not None}
+    if result['winner'] is None:
+        if ranked:
+            raise ValueError('Geen klassering zonder onderbouwde winnaar')
+    elif len(ranked) != len(ids) or ranked.get(1) != result['winner'] or ranked.get(2) != result['runner_up']:
+        raise ValueError('Klassering en conclusie moeten overeenkomen')
+    if brief:
+        controls = brief['controls']
+        expected = {'source_revision': brief['source_revision'], 'facts_period': controls['facts_period'], 'circuits': controls['chosen_circuits'], 'curve_years': controls['curve_years']}
+        if result['context'] != expected:
+            raise ValueError('Het antwoord hoort bij een andere selectie of bronperiode')
     return result
 
 
@@ -148,6 +214,15 @@ class ResultStore:
         response.raise_for_status()
 
 
+def index_result(store, key, envelope):
+    index, _ = store.read('index.json')
+    index = index or {'schema': 'goat-ai-index-v1', 'results': {}}
+    entry = {'file': 'results/'+key+'.json', 'drivers': envelope['result']['selected_drivers'], 'generated_at': envelope['generated_at']}
+    if index['results'].get(key) != entry:
+        index['results'][key] = entry
+        store.write('index.json', index)
+
+
 def run(args):
     event = json.loads(Path(os.environ['GITHUB_EVENT_PATH']).read_text()) if os.environ.get('GITHUB_EVENT_PATH') else {}
     request = request_from_event(os.environ.get('GITHUB_EVENT_NAME', 'workflow_dispatch'), event)
@@ -163,6 +238,7 @@ def run(args):
     key = hashlib.sha256(prompt.encode()).hexdigest()
     if key != prepared['prompt_sha256']:
         raise ValueError('Aanvraaghash komt niet overeen')
+    brief = json.loads((work/'brief.json').read_text())
     if args.dry_run:
         print('Aanvraag gecontroleerd; geen gegevens verstuurd en geen API-tegoed gebruikt.')
         return
@@ -170,7 +246,9 @@ def run(args):
     store.ensure_branch()
     existing, _ = store.read('results/'+key+'.json')
     if existing and existing.get('prompt_sha256') == key:
-        validate_result(existing['result'], request['drivers'])
+        validate_result(existing['result'], request['drivers'], brief)
+        index_result(store, key, existing)
+        (work/'result.json').write_text(json.dumps(existing, ensure_ascii=False, indent=2)+'\n')
         print('Dezelfde vergelijking is al bewaard; Gemini niet opnieuw aangeroepen.')
         return
     api_key = os.environ.get('GEMINI_API_KEY', '').strip()
@@ -178,14 +256,12 @@ def run(args):
         raise ValueError('GitHub-secret GEMINI_API_KEY ontbreekt')
     model = os.environ.get('GEMINI_MODEL') or 'gemini-3.8-flash'
     result = generate(prompt, request['drivers'], api_key, model)
-    envelope = {'schema': 'goat-ai-result-v1', 'prompt_sha256': key, 'generated_at': datetime.now(timezone.utc).isoformat(),
+    validate_result(result, request['drivers'], brief)
+    envelope = {'schema': 'goat-ai-result-v2', 'prompt_sha256': key, 'generated_at': datetime.now(timezone.utc).isoformat(),
                 'model': model, 'request': prepared, 'result': result}
     (work/'result.json').write_text(json.dumps(envelope, ensure_ascii=False, indent=2)+'\n')
     store.write('results/'+key+'.json', envelope)
-    index, _ = store.read('index.json')
-    index = index or {'schema': 'goat-ai-index-v1', 'results': {}}
-    index['results'][key] = {'file': 'results/'+key+'.json', 'drivers': request['drivers'], 'generated_at': envelope['generated_at']}
-    store.write('index.json', index)
+    index_result(store, key, envelope)
     summary = os.environ.get('GITHUB_STEP_SUMMARY')
     if summary:
         with open(summary, 'a') as f:

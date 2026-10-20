@@ -17,6 +17,8 @@ def ensure_assets(root):
         if not (directory/'home'/name).exists():shutil.copyfile(bundled/'home'/name,directory/'home'/name)
     for name in ('overtake-wordmark-v2.png','f1-banner-v3.png'):
         if not (directory/name).exists():shutil.copyfile(bundled/name,directory/name)
+    from .visitors import install_assets
+    install_assets(root)
     from .readability import install
     install(root)
     # The per-race template sits six directories deeper than the shared CSS.
