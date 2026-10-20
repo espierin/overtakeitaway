@@ -1,0 +1,197 @@
+{
+  "schema": "goat-ai-result-v2",
+  "prompt_sha256": "a55523df26d74def4c962497d96986d719210e58cbcc05257287c0bdaa3ece88",
+  "generated_at": "2026-10-20T11:45:16.316617+00:00",
+  "model": "gemini-3.8-flash",
+  "request": {
+    "drivers": [
+      "sebastian-vettel",
+      "oscar-piastri",
+      "alain-prost",
+      "kimi-antonelli"
+    ],
+    "from": 1950,
+    "to": 2026,
+    "circuits": [],
+    "lang": "nl",
+    "curveyears": "career",
+    "prompt_sha256": "a55523df26d74def4c962497d96986d719210e58cbcc05257287c0bdaa3ece88",
+    "source_revision": "2279b762006f7af561815305a100d58fcc3dc06aa8a8c46f52c878f10aeec305"
+  },
+  "result": {
+    "schema_version": "goat-comparison-v2",
+    "input_status": "complete",
+    "selected_drivers": [
+      "alain-prost",
+      "kimi-antonelli",
+      "oscar-piastri",
+      "sebastian-vettel"
+    ],
+    "context": {
+      "source_revision": "2279b762006f7af561815305a100d58fcc3dc06aa8a8c46f52c878f10aeec305",
+      "facts_period": [
+        1950,
+        2026
+      ],
+      "circuits": [],
+      "curve_years": "career"
+    },
+    "summary": "Deze vergelijking toetst Alain Prost, Kimi Antonelli, Oscar Piastri en Sebastian Vettel volgens het verplichte assessment plan. Omdat start-, racevoortgangs- en pitscores niet voor alle vier de coureurs beschikbaar zijn, rust het oordeel uitsluitend op tempo ten opzichte van teamgenoten (57%), kwalificatie (38%) en loopbaantotalen (5%). Kimi Antonelli laat over 35 races het sterkste mediane tempoverschil ten opzichte van zijn teamgenoot zien (-0,126%), gevolgd door Sebastian Vettel (-0,065% over 275 races). Vettel combineert dit met 4 wereldtitels, 53 zeges en 57 poles over 299 starts, met een mediane startpositie van 4 en een gat naar pole van 0,661 s. Prost bezit 4 titels, 51 zeges en een mediane startpositie van 3, maar zijn bewaarde tempoverschil met teamgenoten is positief (0,553% over n=3 metingen). Piastri toont een solide kwalificatiemediaan (positie 5, gat 0,487 s), maar levert toe op teamgenoot-tempo (0,207%). Op basis van het zwaarst wegende tempodomein en omvangrijke loopbaanprestaties eindigt Vettel als voorlopige winnaar en Antonelli als tweede.",
+    "comparisons": [
+      {
+        "driver": "alain-prost",
+        "strength": "Uitzonderlijke loopbaanstatistieken met 4 wereldtitels, 51 overwinningen, 106 podiums en een mediane kwalificatiepositie van 3 over 202 starts.",
+        "limitation": "Zijn bewaarde teamgenoot-tempodelta is positief (+0,55293%), gebaseerd op een zeer beperkt aantal van slechts n=3 metingen.",
+        "evidence": [
+          "career.starts",
+          "career.titles",
+          "career.wins",
+          "career.podiums",
+          "features.qualifying_position",
+          "features.teammate_pace"
+        ]
+      },
+      {
+        "driver": "kimi-antonelli",
+        "strength": "Beste relatieve racetempo ten opzichte van teamgenoten met een mediane voorsprong van -0,12596% over 35 gemeten races, gecombineerd met een scherp gat naar pole van 0,459 s.",
+        "limitation": "Nog geen wereldtitels en een aanzienlijk kortere staat van dienst met 41 starts en 8 overwinningen in de gemeten periode.",
+        "evidence": [
+          "features.teammate_pace",
+          "features.gap_to_pole",
+          "features.qualifying_position",
+          "career.starts",
+          "career.wins"
+        ]
+      },
+      {
+        "driver": "oscar-piastri",
+        "strength": "Consistente kwalificatieprestaties met een mediane startplek van 5 en een mediaan gat naar pole van 0,487 s over 87 races.",
+        "limitation": "Verliest gemiddeld op relatief racetempo ten opzichte van zijn teamgenoot met een mediane achterstand van +0,207295% over 78 races.",
+        "evidence": [
+          "features.qualifying_position",
+          "features.gap_to_pole",
+          "features.teammate_pace",
+          "career.starts",
+          "career.wins"
+        ]
+      },
+      {
+        "driver": "sebastian-vettel",
+        "strength": "Grote loopbaanprestaties met 4 wereldtitels, 53 zeges en 57 poles over 299 starts, gecombineerd met een structureel voordeel in teamgenoot-tempo (-0,06527% over 275 races).",
+        "limitation": "Een groter mediaan kwalificatiegat naar pole (0,661 s) en een mediane startpositie van 4, mede beïnvloed door latere seizoenen.",
+        "evidence": [
+          "career.titles",
+          "career.wins",
+          "career.starts",
+          "career.poles",
+          "features.teammate_pace",
+          "features.qualifying_position"
+        ]
+      }
+    ],
+    "domains": [
+      {
+        "id": "career",
+        "included_in_verdict": true,
+        "weight": 0.05,
+        "leaders": [
+          "sebastian-vettel",
+          "alain-prost"
+        ],
+        "explanation": "Vettel (53 zeges, 57 poles, 4 titels uit 299 starts) en Prost (51 zeges, 33 poles, 4 titels uit 199 starts) domineren dit domein ten opzichte van Piastri en Antonelli."
+      },
+      {
+        "id": "qualifying",
+        "included_in_verdict": true,
+        "weight": 0.38,
+        "leaders": [
+          "alain-prost",
+          "kimi-antonelli"
+        ],
+        "explanation": "Prost behaalt de beste mediane gridpositie (3 over 202 races). Antonelli laat het kleinste mediane gat naar pole zien (0,459 s over 41 races, mediane positie 4)."
+      },
+      {
+        "id": "start",
+        "included_in_verdict": false,
+        "weight": 0,
+        "leaders": [],
+        "explanation": "Niet opgenomen in het eindoordeel volgens het gezamenlijke assessment plan wegens ontbrekende vergelijkbare parameters over alle coureurs."
+      },
+      {
+        "id": "progression",
+        "included_in_verdict": false,
+        "weight": 0,
+        "leaders": [],
+        "explanation": "Niet opgenomen in het eindoordeel wegens ontbrekende gestandaardiseerde race_score voor meerdere geselecteerde rijders."
+      },
+      {
+        "id": "pace",
+        "included_in_verdict": true,
+        "weight": 0.57,
+        "leaders": [
+          "kimi-antonelli",
+          "sebastian-vettel"
+        ],
+        "explanation": "Antonelli noteert de scherpste mediane tempovoorsprong op zijn teamgenoot (-0,126%, n=35). Vettel volgt met -0,065% over n=275. Prost (+0,553%, n=3) en Piastri (+0,207%, n=78) geven toe."
+      },
+      {
+        "id": "pit_balance",
+        "included_in_verdict": false,
+        "weight": 0,
+        "leaders": [],
+        "explanation": "Niet opgenomen in het eindoordeel volgens het verplichte assessment plan omdat Prost geen metingen in dit domein heeft."
+      }
+    ],
+    "winner": "sebastian-vettel",
+    "runner_up": "kimi-antonelli",
+    "conclusion": "Binnen de kaders van het assessment plan (57% tempo, 38% kwalificatie, 5% loopbaan) wordt Sebastian Vettel aangewezen als voorlopige winnaar. Hij combineert een bewezen negatieve tempodelta ten opzichte van zijn teamgenoten over 275 races (-0,065%) met 4 wereldtitels en 53 overwinningen. Kimi Antonelli is de runner-up dankzij het sterkste tempo (-0,126%) en het kleinste gat naar pole (0,459 s), hoewel zijn loopbaantotaal beperkt is tot 41 starts. Alain Prost bezit superieure loopbaancijfers en een mediane startplek van 3, maar scoort door een gebrek aan historische rondetijden slechts n=3 positieve teamgenoot-tempometingen (+0,553%), waardoor hij zakt op het zwaarste onderdeel. Oscar Piastri sluit aan op positie 4 wegens een positieve delta ten opzichte van teamgenoten (+0,207%). Een andere weging waarin loopbaanprestaties zwaarder wegen zou Prost direct naar voren schuiven.",
+    "confidence": "medium",
+    "assumptions": [
+      "Het tempoverschil ten opzichte van teamgenoten (features.teammate_pace) is representatief voor de intrinsieke racesnelheid van de coureur.",
+      "Kwalificatiestatistieken uit verschillende technische tijdperken kunnen direct onderling worden vergeleken via mediane positie en secondengat naar pole.",
+      "Ontbrekende data voor historische coureurs in moderne metrieken weerspiegelt archiefbeperkingen en geen prestatieverval."
+    ],
+    "limitations": [
+      "Alain Prost beschikt over slechts n=3 metingen voor teammate_pace, wat zijn score in het zwaarst meewegende domein (57%) onevenredig benadeelt.",
+      "De teamgenootnetwerkvalidatie faalt (passes=false), waardoor netwerkeffecten niet als betrouwbare historische correctie kunnen dienen.",
+      "Vier van de zes prestatiedomeinen (start, voortgang, pitbalans en secundaire kwaliteiten) zijn buiten beschouwing gelaten wegens ontbrekende data voor alle rijders."
+    ],
+    "infographic": {
+      "template": "oia-goat-comparison-v1",
+      "title": "GOAT Vergelijking: Vettel vs Antonelli vs Prost vs Piastri",
+      "subtitle": "Evaluatie op basis van teamgenoot-tempo (57%), kwalificatie (38%) en loopbaantotalen (5%)",
+      "metric_ids": [
+        "career.starts",
+        "career.titles",
+        "career.wins",
+        "career.poles",
+        "features.qualifying_position",
+        "features.gap_to_pole",
+        "features.teammate_pace"
+      ],
+      "takeaway": "Vettel pakt de eindzege dankzij een zeldzame mix van langdurig tempo en vier wereldtitels, terwijl Antonelli imponneert op pure snelheid."
+    },
+    "ranking": [
+      {
+        "driver": "sebastian-vettel",
+        "position": 1,
+        "reason": "Combineert een bewezen tempovoorsprong op teamgenoten over 275 races (-0,065%) met vier wereldtitels en 53 zeges."
+      },
+      {
+        "driver": "kimi-antonelli",
+        "position": 2,
+        "reason": "Hoogste relatieve teamgenoot-tempo (-0,126%) en kleinste gat naar pole (0,459 s), maar nog pril in loopbaanaantallen."
+      },
+      {
+        "driver": "alain-prost",
+        "position": 3,
+        "reason": "Vier wereldtitels en mediane kwalificatiepositie van 3, maar verliest terrein op het 57% zware tempodomein door n=3 data met +0,553%."
+      },
+      {
+        "driver": "oscar-piastri",
+        "position": 4,
+        "reason": "Degelijke kwalificatieprestaties, maar een structurele achterstand op teamgenoot-tempo (+0,207% over 78 races) en nog geen titels."
+      }
+    ]
+  }
+}
