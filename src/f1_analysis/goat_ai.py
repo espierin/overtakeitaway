@@ -156,6 +156,20 @@ def validate_result(result, ids, brief=None):
     return result
 
 
+def api_schema(ids):
+    # Gemini's constrained decoder can reject a large combination of enums and
+    # bounds. Guide it with the shape; the prompt and local checks keep the full
+    # shared contract, including all selection, count and weighting constraints.
+    def simplify(value):
+        if isinstance(value, dict):
+            return {key: simplify(item) for key, item in value.items()
+                    if key not in {'enum', 'minimum', 'maximum', 'minLength', 'maxLength', 'minItems', 'maxItems'}}
+        if isinstance(value, list):
+            return [simplify(item) for item in value]
+        return value
+    return simplify(output_schema(ids))
+
+
 def generate(prompt, ids, api_key, model, post=requests.post):
     if not re.fullmatch(r'gemini-[a-z0-9.-]+', model):
         raise ValueError('Ongeldige modelnaam')
@@ -164,14 +178,22 @@ def generate(prompt, ids, api_key, model, post=requests.post):
         headers={'x-goog-api-key': api_key, 'Content-Type': 'application/json'},
         json={'contents': [{'role': 'user', 'parts': [{'text': prompt}]}],
               'generationConfig': {'maxOutputTokens': 10000, 'responseFormat': {'text': {
-                  'mimeType': 'APPLICATION_JSON', 'schema': output_schema(ids)}}}}, timeout=(20, 240))
+                  'mimeType': 'APPLICATION_JSON', 'schema': api_schema(ids)}}}}, timeout=(20, 240))
         if response.status_code not in (500, 502, 503, 504) or attempt == 2:
             break
         print('Google tijdelijk niet beschikbaar; dezelfde aanvraag wordt opnieuw geprobeerd.')
         time.sleep(5 * (attempt + 1))
     # Never echo provider responses or headers into public Actions logs.
     if response.status_code != 200:
-        raise RuntimeError(f'Gemini-aanvraag gestopt (HTTP {response.status_code}); geen betaald terugvalmodel gebruikt')
+        reason = ''
+        if response.status_code == 400:
+            try:
+                message = str(response.json().get('error', {}).get('message', '')).lower()
+                if 'schema' in message or 'states' in message:
+                    reason = '; Google accepteerde het antwoordformaat niet'
+            except (ValueError, AttributeError):
+                pass
+        raise RuntimeError(f'Gemini-aanvraag gestopt (HTTP {response.status_code}){reason}; geen betaald terugvalmodel gebruikt')
     candidates = response.json().get('candidates') or []
     if not candidates or candidates[0].get('finishReason') != 'STOP':
         raise ValueError('Gemini gaf geen afgerond antwoord; niets gepubliceerd')

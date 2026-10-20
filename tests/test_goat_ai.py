@@ -190,3 +190,13 @@ def test_cached_result_is_reused_without_gemini_key_and_repairs_missing_index(tm
     assert json.loads((work/'result.json').read_text()) == envelope
     assert Store.writes[0][0] == 'index.json'
     assert key in Store.writes[0][1]['results']
+
+
+def test_provider_uses_simple_shape_but_full_contract_still_rejects_missing_fields():
+    from f1_analysis.goat_ai import api_schema,output_schema
+    simple=api_schema(IDS)
+    assert simple['required'] == output_schema(IDS)['required']
+    text=json.dumps(simple)
+    assert 'enum' not in text and 'maxItems' not in text and 'maxLength' not in text
+    invalid=result();invalid['ranking'].pop()
+    with pytest.raises(ValueError):validate_result(invalid,IDS)
