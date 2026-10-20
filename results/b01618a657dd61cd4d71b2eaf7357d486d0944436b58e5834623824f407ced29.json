@@ -1,0 +1,203 @@
+{
+  "schema": "goat-ai-result-v2",
+  "prompt_sha256": "b01618a657dd61cd4d71b2eaf7357d486d0944436b58e5834623824f407ced29",
+  "generated_at": "2026-10-20T05:38:23.219081+00:00",
+  "model": "gemini-3.8-flash",
+  "request": {
+    "drivers": [
+      "lewis-hamilton",
+      "max-verstappen",
+      "sebastian-vettel",
+      "michael-schumacher"
+    ],
+    "from": 1950,
+    "to": 2026,
+    "circuits": [],
+    "lang": "nl",
+    "curveyears": "career",
+    "prompt_sha256": "b01618a657dd61cd4d71b2eaf7357d486d0944436b58e5834623824f407ced29",
+    "source_revision": "2279b762006f7af561815305a100d58fcc3dc06aa8a8c46f52c878f10aeec305"
+  },
+  "result": {
+    "schema_version": "goat-comparison-v2",
+    "input_status": "complete",
+    "selected_drivers": [
+      "lewis-hamilton",
+      "max-verstappen",
+      "michael-schumacher",
+      "sebastian-vettel"
+    ],
+    "context": {
+      "source_revision": "2279b762006f7af561815305a100d58fcc3dc06aa8a8c46f52c878f10aeec305",
+      "facts_period": [
+        1950,
+        2026
+      ],
+      "circuits": [],
+      "curve_years": "career"
+    },
+    "summary": "Binnen deze selectie van vier meervoudig wereldkampioenen toont de data duidelijke onderlinge verschillen per domein. Max Verstappen blinkt uit in zuiver racetempo: met een mediaan voordeel van -0,406% ten opzichte van teamgenoten (n=213) en een metronoomscore van 93,75 (5001 ronden) voert hij het tempodomein aan. Lewis Hamilton combineert een uitzonderlijke kwalificatiebasis (mediaan positie 3 over 392 races, 104 poles) met consistente progressie en ongeëvenaarde loopbaantotalen (106 zeges, 7 titels). Michael Schumacher heeft een sterke pitbalans (mediaan 10,60 s over 170 races) en een solide teamgenootverschil (-0,136% over 221 races), maar mist moderne telemetry- en rondegegevens, waardoor zijn metronoom en gestandaardiseerde race- en startscores ontbreken. Sebastian Vettel kende een buitengewone kwalificatiepiek (2010-2013), maar blijft in tempo (-0,065% tegen teamgenoten) en raceprogressie (race_score 55,25) achter op Hamilton en Verstappen.",
+    "comparisons": [
+      {
+        "driver": "lewis-hamilton",
+        "strength": "Uitzonderlijke kwalificatieconsistentie over 20 seizoenen met een mediaan startpositie van 3 (392 races, 104 poles) en een sterke gecorrigeerde raceprogressiescore van 68,44 (357 races).",
+        "limitation": "Startscore (58,51, n=28) en relatief voordeel ten opzichte van teamgenoten (-0,111%, n=369) zijn minder dominant dan bij Verstappen.",
+        "evidence": [
+          "career.titles",
+          "career.wins",
+          "career.poles",
+          "features.qualifying_position",
+          "features.gap_to_pole",
+          "features.race_score",
+          "features.teammate_pace"
+        ]
+      },
+      {
+        "driver": "max-verstappen",
+        "strength": "Superieur racetempo met een mediaan voorsprong op teamgenoten van -0,406% over 213 races en de hoogste metronoom-veldpercentielscore van 93,75 (5001 ronden).",
+        "limitation": "Heeft met 250 starts en 73 zeges minder omvangrijke loopbaanstatistieken en piekte in kwalificatieafstand tot pole later in zijn loopbaan dan Hamilton en Schumacher.",
+        "evidence": [
+          "features.teammate_pace",
+          "features.metronome",
+          "features.race_score",
+          "features.start_score",
+          "career.wins",
+          "career.titles"
+        ]
+      },
+      {
+        "driver": "michael-schumacher",
+        "strength": "Historische dominantie met 7 titels, 91 zeges en een zeer sterke pitbalanswinst van mediaan 10,60 seconden over 170 gemeten races.",
+        "limitation": "Ontbreken van metronoom- en vrije-baandata (n=0) en ontbrekende gestandaardiseerde start- en raceprogressiescores door gebrek aan referentiemateriaal uit zijn vroege tijdperk.",
+        "evidence": [
+          "career.titles",
+          "career.wins",
+          "career.podiums",
+          "features.pit_race_gain",
+          "features.teammate_pace",
+          "features.qualifying_position"
+        ]
+      },
+      {
+        "driver": "sebastian-vettel",
+        "strength": "Grote piek in kwalificatiedominantie (mediaan pole-gat van 0,000 s in 2011) en sterke pitcycluswinst van 0,375 s over 175 races.",
+        "limitation": "Laagste gecorrigeerde raceprogressiescore (55,25) en het kleinste tempo-onderscheid ten opzichte van teamgenoten (-0,065% over 275 races) binnen de selectie.",
+        "evidence": [
+          "career.titles",
+          "career.poles",
+          "features.gap_to_pole",
+          "features.teammate_pace",
+          "features.race_score",
+          "features.start_score"
+        ]
+      }
+    ],
+    "domains": [
+      {
+        "id": "career",
+        "included_in_verdict": true,
+        "weight": 0.05,
+        "leaders": [
+          "lewis-hamilton",
+          "michael-schumacher"
+        ],
+        "explanation": "Hamilton (106 zeges, 104 poles, 7 titels) en Schumacher (91 zeges, 68 poles, 7 titels) hebben de meest omvangrijke erelijsten in de historie van de sport."
+      },
+      {
+        "id": "qualifying",
+        "included_in_verdict": true,
+        "weight": 0.2,
+        "leaders": [
+          "lewis-hamilton"
+        ],
+        "explanation": "Hamilton behoudt over 392 races een mediaan kwalificatiepositie van 3 met een mediaan pole-gat van 0,283 s, waarbij hij Schumacher (0,565 s) en Verstappen (0,361 s) over de gehele loopbaan klopt."
+      },
+      {
+        "id": "start",
+        "included_in_verdict": true,
+        "weight": 0.15,
+        "leaders": [
+          "max-verstappen"
+        ],
+        "explanation": "Verstappen behaalt de hoogste startscore (59,66, n=36, 238 starts), net voor Hamilton (58,51, n=28) en Vettel (57,06, n=39); Schumacher heeft hier geen valide vergelijkbare score."
+      },
+      {
+        "id": "progression",
+        "included_in_verdict": true,
+        "weight": 0.25,
+        "leaders": [
+          "max-verstappen",
+          "lewis-hamilton"
+        ],
+        "explanation": "Verstappen (race_score 68,94 over 211 races) en Hamilton (race_score 68,44 over 357 races) tonen vrijwel identieke, zeer hoge capaciteiten om posities te winnen na ronde één."
+      },
+      {
+        "id": "pace",
+        "included_in_verdict": true,
+        "weight": 0.3,
+        "leaders": [
+          "max-verstappen"
+        ],
+        "explanation": "Verstappen leidt overtuigend op tempo ten opzichte van teamgenoten (-0,406% over 213 races) en haalt een metronoom-percentiel van 93,75 (5001 ronden), tegenover -0,111% en 88,89 voor Hamilton."
+      },
+      {
+        "id": "pit_balance",
+        "included_in_verdict": true,
+        "weight": 0.05,
+        "leaders": [
+          "michael-schumacher"
+        ],
+        "explanation": "Schumacher behaalt een mediaan racewinst van 10,60 s over 170 pitprogramma's en een cycluswinst van 1,30 s, net voor Hamilton (10,50 s) en Vettel (9,59 s)."
+      }
+    ],
+    "winner": "max-verstappen",
+    "runner_up": "lewis-hamilton",
+    "conclusion": "Onder de vaste beoordelingsprioriteiten (tempo 30%, racevervolg 25%, kwalificatie 20%, starts 15%, loopbaantotalen 5%, pitbalans 5%) eindigt Max Verstappen nipt als voorlopige winnaar, direct gevolgd door Lewis Hamilton. Verstappen dankt deze positie aan zijn superieure relatieve snelheid tegen teamgenoten (-0,406% om -0,111%) en de hoogste metronoomrangscore binnen het veld, gecombineerd met een leidende start- en racevervolgscore. Hamilton staat zeer dichtbij dankzij zijn ongekende kwalificatierecord, lange adem en nagenoeg gelijke raceprogressie. Michael Schumacher ontbeert gestandaardiseerde rondedata en moderne vergelijkingsscores, waardoor hij ondanks 7 titels en sterke pitwinst op P3 belandt. Sebastian Vettel sluit op P4 door bescheidener relatieve temposcores.",
+    "confidence": "medium",
+    "assumptions": [
+      "Het teamgenoot-tempodelta (-0,406% voor Verstappen, -0,111% voor Hamilton) weerspiegelt intrinsieke rijderssnelheid over meerdere seizoenen en auto-ontwerpen.",
+      "De vaste gewichtsverdeling weerspiegelt de relatieve sportieve prioriteiten correct zonder overwaardering van materiaaldirecte kampioenschapstitels."
+    ],
+    "limitations": [
+      "Het teamgenootnetwerk slaagt niet voor de kruisvalidatietoets (improvement_interval [-0,0268, 0,0175]), waardoor netwerkeffecten niet als bewezen tijdperkcorrectie mogen fungeren.",
+      "Michael Schumacher mist metronoomdata (n=0) en start/race-scores door ontbrekende referentieraces in het pre-digitaal geregistreerde tijdperk.",
+      "Afstand tot pole bevat geschatte sessietijden (Schumacher 29, Vettel 74, Hamilton 40, Verstappen 20), wat de onderlinge secondevergelijking beïnvloedt."
+    ],
+    "infographic": {
+      "template": "oia-goat-comparison-v1",
+      "title": "GOAT Vergelijking: Snelheid versus Loopbaanconsistentie",
+      "subtitle": "Grondige data-analyse van Verstappen, Hamilton, Schumacher en Vettel op basis van Overtake It Away",
+      "metric_ids": [
+        "features.teammate_pace",
+        "features.metronome",
+        "features.race_score",
+        "features.start_score",
+        "features.qualifying_position",
+        "career.titles"
+      ],
+      "takeaway": "P1 Verstappen (ongeëvenaard tempo en racevaardigheid), P2 Hamilton (pole-koning en constante piek), P3 Schumacher (tactische pitmeester, datagaten), P4 Vettel."
+    },
+    "ranking": [
+      {
+        "driver": "max-verstappen",
+        "position": 1,
+        "reason": "Beste prestaties in de hoogst gewogen disciplines: superieur racetempo tegenover teamgenoten (-0,406%) en toonaangevend in racevervolg en starts."
+      },
+      {
+        "driver": "lewis-hamilton",
+        "position": 2,
+        "reason": "Ongekende kwalificatiesterkte over twee decennia, toonaangevende loopbaanstatistieken en raceprogressie van absoluut topniveau."
+      },
+      {
+        "driver": "michael-schumacher",
+        "position": 3,
+        "reason": "Zeven titels en de sterkste pitbalanswinst, maar geremd door ontbrekende metronoom- en moderne telemetriecijfers in de vaste vergelijkingsmethode."
+      },
+      {
+        "driver": "sebastian-vettel",
+        "position": 4,
+        "reason": "Vier wereldtitels en sterke pole-jaren, maar de laagste gecorrigeerde raceprogressiescore en het kleinste gemeten voordeel op teamgenoten."
+      }
+    ]
+  }
+}
