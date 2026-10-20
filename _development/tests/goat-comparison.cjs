@@ -66,3 +66,8 @@ test('driver display names normalize uppercase surnames and preserve initials',(
  assert.equal(w.driverNames.key({id:'guanyu-zhou',name:'Zhou Guanyu'}),'Zhou');
  const sorted=w.driverNames.sort(D.drivers);assert.equal(sorted.length,817);assert.equal(new Set(sorted.map(d=>d.id)).size,817);assert.ok(sorted.every(d=>!d.name.split(/\s+/).some(part=>part.length>2&&part===part.toUpperCase())));
 });
+
+test('shared assessment excludes missing Schumacher scores for everyone',()=>{
+ const modern=['lewis-hamilton','max-verstappen','sebastian-vettel','michael-schumacher'];for(const id of modern)if(!w.goatParameters.cache.has(id))w.goatParameters.cache.set(id,JSON.parse(zlib.gunzipSync(fs.readFileSync(w.phase2GoatMetrics.delivery+id+'.json.gz'))));
+ const brief=w.goatAI.snapshot({...options,ids:modern}),byId=new Map(brief.assessment_plan.domains.map(d=>[d.id,d]));assert.equal(byId.get('start').included_in_verdict,false);assert.equal(byId.get('progression').included_in_verdict,false);assert.ok(!brief.assessment_plan.allowed_evidence.includes('features.metronome'));assert.ok(brief.assessment_plan.allowed_evidence.includes('features.teammate_pace'));assert.ok(Math.abs(byId.get('pace').weight-.54)<1e-10);assert.ok(Math.abs(byId.get('qualifying').weight-.36)<1e-10);
+});

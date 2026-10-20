@@ -30,6 +30,7 @@ function validate(value,brief){
  const domains=value.domains;if(new Set(domains.map(d=>d.id)).size!==6)throw Error('Elk onderdeel moet eenmaal voorkomen.');
  const included=domains.filter(d=>d.included_in_verdict),expectedWeights=weights(included.map(d=>d.id));
  for(const d of domains){if(Math.abs(d.weight-expectedWeights[d.id])>1e-5||d.included_in_verdict&&d.weight===0||new Set(d.leaders).size!==d.leaders.length)throw Error('Gebruik de afgesproken weging voor racekwaliteiten.');}
+ if(brief.assessment_plan&&value.input_status==='complete'){for(const d of domains){const plan=brief.assessment_plan.domains.find(p=>p.id===d.id);if(d.included_in_verdict!==plan.included_in_verdict||Math.abs(d.weight-plan.weight)>1e-5)throw Error('Een onderdeel zonder vergelijkbare gegevens voor alle rijders mag niet meetellen.');}if(value.comparisons.some(r=>r.evidence.some(id=>!brief.assessment_plan.allowed_evidence.includes(id))))throw Error('Gebruik alleen gezamenlijk gemeten parameters als bewijs voor het oordeel.');}
  if((value.input_status==='incomplete'||!included.length)&&(value.winner!==null||value.runner_up!==null||included.length))throw Error('Een onvolledige vergelijking mag geen winnaar opleveren.');
  if(new Set(value.infographic.metric_ids).size!==value.infographic.metric_ids.length)throw Error('Dubbele infographicparameter.');
  if(new Set(value.ranking.map(r=>r.driver)).size!==ids.length)throw Error('Iedere rijder moet eenmaal in de klassering staan.');

@@ -153,6 +153,14 @@ def validate_result(result, ids, brief=None):
         expected = {'source_revision': brief['source_revision'], 'facts_period': controls['facts_period'], 'circuits': controls['chosen_circuits'], 'curve_years': controls['curve_years']}
         if result['context'] != expected:
             raise ValueError('Het antwoord hoort bij een andere selectie of bronperiode')
+        plan = brief.get('assessment_plan')
+        if plan and result['input_status'] == 'complete':
+            for domain in domains:
+                prescribed = next(d for d in plan['domains'] if d['id'] == domain['id'])
+                if domain['included_in_verdict'] != prescribed['included_in_verdict'] or abs(domain['weight']-prescribed['weight']) > 1e-5:
+                    raise ValueError('Een onderdeel zonder vergelijkbare gegevens voor alle rijders mag niet meetellen')
+            if any(key not in plan['allowed_evidence'] for row in result['comparisons'] for key in row['evidence']):
+                raise ValueError('Niet gezamenlijk gemeten parameter gebruikt als bewijs')
     return result
 
 

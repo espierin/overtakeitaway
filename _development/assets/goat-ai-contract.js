@@ -138,7 +138,7 @@ window.goatAIContract = {
                   "features.pit_race_gain"
                 ]
               },
-              "minItems": 1,
+              "minItems": 0,
               "maxItems": 8
             }
           },

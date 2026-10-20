@@ -218,3 +218,18 @@ def test_incomplete_output_records_reason_and_safe_metadata_without_publishing()
     assert captured[0]['usage']['thoughtsTokenCount']==9800
     assert 'private reasoning' not in json.dumps(captured)
     assert 'test-secret-not-real' not in json.dumps(captured)
+
+
+def test_shared_data_plan_blocks_missing_metric_penalties():
+    value=result()
+    for row in value['comparisons']:row['evidence']=['features.teammate_pace']
+    brief={'source_revision':'test-revision','controls':{'facts_period':[1950,2026],'chosen_circuits':[],'curve_years':'career'},'assessment_plan':{'domains':[{k:d[k] for k in ['id','included_in_verdict','weight']} for d in value['domains']],'allowed_evidence':['features.teammate_pace']}}
+    assert validate_result(value,IDS,brief)
+    value['comparisons'][0]['evidence']=['features.metronome']
+    with pytest.raises(ValueError,match='gezamenlijk'):validate_result(value,IDS,brief)
+    value=result()
+    for row in value['comparisons']:row['evidence']=['features.teammate_pace']
+    for d in value['domains']:
+        if d['id']=='qualifying':d.update(included_in_verdict=True,weight=.4)
+        if d['id']=='pace':d['weight']=.6
+    with pytest.raises(ValueError,match='alle rijders'):validate_result(value,IDS,brief)
