@@ -186,7 +186,7 @@ def generate(prompt, ids, api_key, model, post=requests.post, capture=None):
         headers={'x-goog-api-key': api_key, 'Content-Type': 'application/json'},
         json={'contents': [{'role': 'user', 'parts': [{'text': prompt}]}],
               'generationConfig': {'maxOutputTokens': 10000, 'thinkingConfig': {'thinkingLevel': 'low'}, 'responseFormat': {'text': {
-                  'mimeType': 'APPLICATION_JSON', 'schema': api_schema(ids)}}}}, timeout=(20, 240))
+                  'mimeType': 'APPLICATION_JSON', 'schema': api_schema(ids)}}}}, timeout=(20, 600))
         if response.status_code not in (500, 502, 503, 504) or attempt == 2:
             break
         print('Google tijdelijk niet beschikbaar; dezelfde aanvraag wordt opnieuw geprobeerd.')
@@ -305,6 +305,7 @@ def run(args):
             (work/'provider-output.json').write_text(json.dumps(saved,ensure_ascii=False,indent=2)+'\n')
             if value['finish_reason'] == 'STOP':
                 store.write(response_path,saved)
+        print('Geen bewaard antwoord gevonden; Gemini wordt eenmaal aangevraagd.', flush=True)
         result = generate(prompt, request['drivers'], api_key, model, capture=capture)
     validate_result(result, request['drivers'], brief)
     envelope = {'schema': 'goat-ai-result-v2', 'prompt_sha256': key, 'generated_at': datetime.now(timezone.utc).isoformat(),
@@ -331,7 +332,12 @@ def main():
         run(args)
     except (ValueError, RuntimeError, requests.RequestException) as error:
         # Error text is controlled above; do not print request headers or tokens.
-        print('Vergelijking niet gepubliceerd:', str(error) if not isinstance(error, requests.RequestException) else 'GitHub-verbinding niet geslaagd')
+        message = str(error)
+        if isinstance(error, requests.RequestException):
+            url = getattr(getattr(error, 'request', None), 'url', '') or ''
+            service = 'Gemini' if url.startswith('https://generativelanguage.googleapis.com/') else 'GitHub'
+            message = service+'-verbinding niet geslaagd; geen antwoord gepubliceerd'
+        print('Vergelijking niet gepubliceerd:', message)
         raise SystemExit(1)
 
 
