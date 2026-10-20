@@ -170,14 +170,14 @@ def api_schema(ids):
     return simplify(output_schema(ids))
 
 
-def generate(prompt, ids, api_key, model, post=requests.post):
+def generate(prompt, ids, api_key, model, post=requests.post, capture=None):
     if not re.fullmatch(r'gemini-[a-z0-9.-]+', model):
         raise ValueError('Ongeldige modelnaam')
     for attempt in range(3):
         response = post('https://generativelanguage.googleapis.com/v1beta/models/'+model+':generateContent',
         headers={'x-goog-api-key': api_key, 'Content-Type': 'application/json'},
         json={'contents': [{'role': 'user', 'parts': [{'text': prompt}]}],
-              'generationConfig': {'maxOutputTokens': 10000, 'responseFormat': {'text': {
+              'generationConfig': {'maxOutputTokens': 10000, 'thinkingConfig': {'thinkingLevel': 'low'}, 'responseFormat': {'text': {
                   'mimeType': 'APPLICATION_JSON', 'schema': api_schema(ids)}}}}, timeout=(20, 240))
         if response.status_code not in (500, 502, 503, 504) or attempt == 2:
             break
@@ -194,11 +194,18 @@ def generate(prompt, ids, api_key, model, post=requests.post):
             except (ValueError, AttributeError):
                 pass
         raise RuntimeError(f'Gemini-aanvraag gestopt (HTTP {response.status_code}){reason}; geen betaald terugvalmodel gebruikt')
-    candidates = response.json().get('candidates') or []
-    if not candidates or candidates[0].get('finishReason') != 'STOP':
-        raise ValueError('Gemini gaf geen afgerond antwoord; niets gepubliceerd')
-    parts = candidates[0].get('content', {}).get('parts', [])
+    payload = response.json()
+    candidates = payload.get('candidates') or []
+    reason = candidates[0].get('finishReason') if candidates else 'NO_CANDIDATE'
+    reason = reason if reason in {'STOP','MAX_TOKENS','SAFETY','RECITATION','LANGUAGE','BLOCKLIST','PROHIBITED_CONTENT','SPII','OTHER','NO_CANDIDATE'} else 'UNKNOWN'
+    parts = candidates[0].get('content', {}).get('parts', []) if candidates else []
     text = ''.join(p.get('text', '') for p in parts if not p.get('thought'))
+    if capture:
+        usage = {key:value for key,value in payload.get('usageMetadata', {}).items()
+                 if key in {'promptTokenCount','candidatesTokenCount','thoughtsTokenCount','totalTokenCount'} and isinstance(value,int)}
+        capture({'finish_reason':reason,'text':text,'usage':usage})
+    if reason != 'STOP':
+        raise ValueError('Gemini gaf geen afgerond antwoord ('+reason+'); niets gepubliceerd')
     return validate_result(json.loads(text), ids)
 
 
@@ -277,7 +284,20 @@ def run(args):
     if not api_key:
         raise ValueError('GitHub-secret GEMINI_API_KEY ontbreekt')
     model = os.environ.get('GEMINI_MODEL') or 'gemini-3.8-flash'
-    result = generate(prompt, request['drivers'], api_key, model)
+    response_path = 'responses/'+key+'.json'
+    saved_response, _ = store.read(response_path)
+    if saved_response and saved_response.get('prompt_sha256') == key and saved_response.get('finish_reason') == 'STOP':
+        print('Volledig ontvangen antwoord hergebruikt; Gemini niet opnieuw aangeroepen.')
+        model = saved_response['model']
+        result = validate_result(json.loads(saved_response['text']), request['drivers'], brief)
+    else:
+        def capture(value):
+            saved = {'schema':'goat-ai-provider-response-v1','prompt_sha256':key,'model':model,
+                     'generated_at':datetime.now(timezone.utc).isoformat(),**value}
+            (work/'provider-output.json').write_text(json.dumps(saved,ensure_ascii=False,indent=2)+'\n')
+            if value['finish_reason'] == 'STOP':
+                store.write(response_path,saved)
+        result = generate(prompt, request['drivers'], api_key, model, capture=capture)
     validate_result(result, request['drivers'], brief)
     envelope = {'schema': 'goat-ai-result-v2', 'prompt_sha256': key, 'generated_at': datetime.now(timezone.utc).isoformat(),
                 'model': model, 'request': prepared, 'result': result}

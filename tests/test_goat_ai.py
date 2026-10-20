@@ -200,3 +200,16 @@ def test_provider_uses_simple_shape_but_full_contract_still_rejects_missing_fiel
     assert 'enum' not in text and 'maxItems' not in text and 'maxLength' not in text
     invalid=result();invalid['ranking'].pop()
     with pytest.raises(ValueError):validate_result(invalid,IDS)
+
+
+def test_incomplete_output_records_reason_and_safe_metadata_without_publishing():
+    captured=[]
+    class Response:
+        status_code=200
+        def json(self):return {'candidates':[{'finishReason':'MAX_TOKENS','content':{'parts':[{'thought':True,'text':'private reasoning'},{'text':'{"partial":'}]}}], 'usageMetadata':{'thoughtsTokenCount':9800,'totalTokenCount':12000}}
+    with pytest.raises(ValueError,match='MAX_TOKENS'):
+        generate('data',IDS,'test-secret-not-real','gemini-3.8-flash',lambda *a,**kw:Response(),capture=captured.append)
+    assert captured[0]['finish_reason']=='MAX_TOKENS'
+    assert captured[0]['usage']['thoughtsTokenCount']==9800
+    assert 'private reasoning' not in json.dumps(captured)
+    assert 'test-secret-not-real' not in json.dumps(captured)
