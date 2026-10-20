@@ -1,0 +1,81 @@
+name: GOAT vergelijken met Gemini
+on:
+  workflow_dispatch:
+    inputs:
+      drivers:
+        description: Coureurs, gescheiden door komma's
+        default: max-verstappen,lewis-hamilton,juan-fangio,ayrton-senna
+        type: string
+      from:
+        description: Vanaf
+        default: '1950'
+        type: string
+      to:
+        description: Tot en met
+        default: '2026'
+        type: string
+      circuits:
+        description: Circuitcodes; leeg betekent alle circuits
+        default: ''
+        type: string
+      lang:
+        description: Taal
+        default: nl
+        type: choice
+        options: [nl, en]
+      curveyears:
+        description: Tijdas
+        default: career
+        type: choice
+        options: [career, calendar]
+  issues:
+    types: [opened]
+  workflow_run:
+    workflows: ['Gecontroleerde website publiceren', 'Races bijwerken en website publiceren']
+    types: [completed]
+permissions:
+  contents: write
+concurrency:
+  group: goat-gemini
+  cancel-in-progress: false
+jobs:
+  compare:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main') ||
+      (github.event_name == 'issues' && startsWith(github.event.issue.title, 'GOAT AI ·') && contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.issue.author_association))
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.14'
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Gereedschap installeren
+        run: python -m pip install requests PyYAML Pillow
+      - name: Geteste websitegegevens herstellen
+        env:
+          PYTHONPATH: src
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p .site/config
+          cp config/publication.yaml .site/config/publication.yaml
+          python -m f1_analysis.github_storage --root .site load --compact
+      - name: Vergelijking aanvragen en bewaren
+        env:
+          PYTHONPATH: src
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
+        run: python -m f1_analysis.goat_ai
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: goat-gemini-vergelijking
+          path: storage/goat-ai-run/
+          retention-days: 14
