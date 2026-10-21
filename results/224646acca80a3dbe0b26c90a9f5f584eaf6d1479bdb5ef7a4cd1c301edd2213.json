@@ -1,0 +1,196 @@
+{
+  "schema": "goat-ai-result-v2",
+  "prompt_sha256": "224646acca80a3dbe0b26c90a9f5f584eaf6d1479bdb5ef7a4cd1c301edd2213",
+  "generated_at": "2026-10-21T21:15:14.058423+00:00",
+  "model": "gemini-3.8-flash",
+  "request": {
+    "drivers": [
+      "lance-stroll",
+      "max-verstappen",
+      "lando-norris",
+      "fernando-alonso"
+    ],
+    "from": 1950,
+    "to": 2026,
+    "circuits": [],
+    "lang": "nl",
+    "curveyears": "career",
+    "prompt_sha256": "224646acca80a3dbe0b26c90a9f5f584eaf6d1479bdb5ef7a4cd1c301edd2213",
+    "source_revision": "2279b762006f7af561815305a100d58fcc3dc06aa8a8c46f52c878f10aeec305"
+  },
+  "result": {
+    "schema_version": "goat-comparison-v2",
+    "input_status": "complete",
+    "selected_drivers": [
+      "fernando-alonso",
+      "lance-stroll",
+      "lando-norris",
+      "max-verstappen"
+    ],
+    "context": {
+      "source_revision": "2279b762006f7af561815305a100d58fcc3dc06aa8a8c46f52c878f10aeec305",
+      "facts_period": [
+        1950,
+        2026
+      ],
+      "circuits": [],
+      "curve_years": "career"
+    },
+    "summary": "Binnen deze vierkoppige selectie tonen de data duidelijke onderlinge verschillen over alle zes vaste beoordelingsdomeinen. Max Verstappen voert het veld aan met de hoogste scores op basistempo (teammate pace -0,41% over 213 races; metronoom-percentiel 93,75), racevoortgang (race score 68,94 over 211 races) en kwalificatie (mediaan positie 3, mediaan pole-gat 0,361 s over 244 races). Fernando Alonso onderscheidt zich door uitzonderlijke loopbaanduur (443 starts, 32 zeges, 2 titels) en solide racevoortgang (race score 57,77 over 352 races), hoewel zijn gemiddelde kwalificatiepositie over zijn hele loopbaan op positie 8 ligt. Lando Norris presteert sterk in kwalificatie (mediaan positie 6, pole-gat 0,726 s) en metronoom-rondetijden (77,78), maar blijft achter op de starts (start score 42,48). Lance Stroll behaalt degelijke openingsronden (start score 54,86 over 185 races), maar blijft achter op racevoortgang (40,38) en teamgenoot-tempo (+0,13%). Verstappen eindigt hierdoor op de eerste plaats, met Alonso als tweede op basis van zijn bredere loopbaantotaal en racevoortgang.",
+    "comparisons": [
+      {
+        "driver": "fernando-alonso",
+        "strength": "Zeer lange loopbaanduur en hoge racevoortgang met een gemeten race score van 57,77 (over 352 races) en een sterke teamgenoot-tempomarge van -0,31% over 393 races.",
+        "limitation": "Zijn loopbaan-mediaan voor kwalificatiepositie (positie 8 over 441 races) en pole-gat (1,098 s) liggen substantieel lager dan die van Verstappen.",
+        "evidence": [
+          "career.starts",
+          "career.wins",
+          "career.titles",
+          "features.race_score",
+          "features.teammate_pace",
+          "features.qualifying_position"
+        ]
+      },
+      {
+        "driver": "lance-stroll",
+        "strength": "Goede startprestaties in openingsronden met een start score van 54,86 over 185 races en een startwinstgrens vanaf startplek 4.",
+        "limitation": "Blijft achter op racevoortgang na ronde één (race score 40,38 over 161 races) en levert gemiddeld tijd in op zijn teamgenoten (+0,13% over 174 races).",
+        "evidence": [
+          "features.start_score",
+          "features.race_score",
+          "features.teammate_pace",
+          "features.qualifying_position"
+        ]
+      },
+      {
+        "driver": "lando-norris",
+        "strength": "Sterk kwalificatie- en baantempo met een mediaan pole-gat van 0,726 s over 169 races en een metronoomscore van 77,78 over 139 races.",
+        "limitation": "Kwetsbare startprestaties in de eerste ronde, zichtbaar in een lage start score van 42,48 over 167 races.",
+        "evidence": [
+          "features.qualifying_position",
+          "features.gap_to_pole",
+          "features.metronome",
+          "features.start_score",
+          "career.wins"
+        ]
+      },
+      {
+        "driver": "max-verstappen",
+        "strength": "Leidt op zowel teamgenoot-tempo (-0,41% over 213 races), racevoortgang (race score 68,94 over 211 races), kwalificatie (mediaan P3) als pitbalans (8,66 s winst).",
+        "limitation": "Heeft minder loopbaanstarts (250) dan de 443 van Alonso, waardoor cumulatieve loopbaanaantallen lager kunnen uitvallen bij extreme nadruk op loopbaanomvang.",
+        "evidence": [
+          "features.teammate_pace",
+          "features.metronome",
+          "features.race_score",
+          "features.qualifying_position",
+          "features.gap_to_pole",
+          "features.pit_race_gain"
+        ]
+      }
+    ],
+    "domains": [
+      {
+        "id": "career",
+        "included_in_verdict": true,
+        "weight": 0.05,
+        "leaders": [
+          "max-verstappen"
+        ],
+        "explanation": "Verstappen leidt op overwinningen (73), poles (50), podiums (136) en wereldtitels (4), terwijl Alonso de meeste starts heeft (443)."
+      },
+      {
+        "id": "qualifying",
+        "included_in_verdict": true,
+        "weight": 0.2,
+        "leaders": [
+          "max-verstappen"
+        ],
+        "explanation": "Verstappen behaalt de sterkste kwalificatiecijfers met een mediaanpositie van 3 en een mediaan gat tot pole van 0,361 s (n=244), voor Norris (P6; 0,726 s)."
+      },
+      {
+        "id": "start",
+        "included_in_verdict": true,
+        "weight": 0.15,
+        "leaders": [
+          "max-verstappen"
+        ],
+        "explanation": "Verstappen noteert de hoogste start score (59,66 over 238 races), nipt voor Stroll (54,86 over 185 races) en Alonso (54,03 over 422 races)."
+      },
+      {
+        "id": "progression",
+        "included_in_verdict": true,
+        "weight": 0.25,
+        "leaders": [
+          "max-verstappen"
+        ],
+        "explanation": "Verstappen boekt de meeste progressie na ronde één met een race score van 68,94 (over 211 races). Alonso volgt met 57,77 (352 races)."
+      },
+      {
+        "id": "pace",
+        "included_in_verdict": true,
+        "weight": 0.3,
+        "leaders": [
+          "max-verstappen"
+        ],
+        "explanation": "Verstappen voert het tempo aan met een voorsprong op teamgenoten van -0,41% (213 races) en een metronoom-percentiel van 93,75. Norris volgt op metronoom (77,78)."
+      },
+      {
+        "id": "pit_balance",
+        "included_in_verdict": true,
+        "weight": 0.05,
+        "leaders": [
+          "max-verstappen"
+        ],
+        "explanation": "Verstappen realiseert een mediane pitwinst van 8,66 s over 124 races, tegenover 4,00 s voor Alonso en 3,81 s voor Norris."
+      }
+    ],
+    "winner": "max-verstappen",
+    "runner_up": "fernando-alonso",
+    "conclusion": "Op basis van het gezamenlijke beoordelingsplan behaalt Max Verstappen de eerste positie. Hij leidt op de zwaarst wegende onderdelen tempo (30%), racevoortgang (25%) en kwalificatie (20%). Fernando Alonso pakt de tweede positie door zijn consistente racevoortgang over 352 races, superieure loopbaanduur en solide voorsprong op teamgenoten ten opzichte van Lando Norris, die vooral in de kwalificatie en metronoomtempo sterk is maar terrein verliest bij starts. Lance Stroll sluit de rij door achterblijvende tempo- en racevoortgangsstatistieken.",
+    "confidence": "high",
+    "assumptions": [
+      "Het vaste wegingsmodel (pace 30%, progression 25%, qualifying 20%, start 15%, career 5%, pit_balance 5%) weerspiegelt de prioriteitstelling tussen piekprestaties en loopbaanduur.",
+      "Data uit verschillende tijdperken (2001 t/m heden) worden binnen de gestandaardiseerde metrieken direct met elkaar vergeleken zonder lineaire tijdperk-omrekening."
+    ],
+    "limitations": [
+      "De teamgenoot-netwerkvalidatie faalde (passes: false met test-MAE 0,512 versus baseline 0,509), waardoor het netwerkmodel niet als bewezen tijdperkcorrectie kan dienen.",
+      "Verschillen in startjaren en competitiviteit van het materiaal beïnvloeden mediane kwalificatieposities en pole-gaten substantieel over een lange carrière."
+    ],
+    "infographic": {
+      "template": "oia-goat-comparison-v1",
+      "title": "Vierhoekige Formule 1-Kwaliteitsvergelijking",
+      "subtitle": "Analyse van tempo, kwalificatie, starts en raceverloop via Overtake It Away",
+      "metric_ids": [
+        "features.teammate_pace",
+        "features.race_score",
+        "features.qualifying_position",
+        "features.start_score",
+        "features.metronome",
+        "features.pit_race_gain"
+      ],
+      "takeaway": "Verstappen domineert baantempo en raceprogressie; Alonso pakt P2 dankzij loopbaanduur en racevoortgang voor Norris en Stroll."
+    },
+    "ranking": [
+      {
+        "driver": "max-verstappen",
+        "position": 1,
+        "reason": "Beste scores op baantempo (-0,41%), metronoom (93,75), racevoortgang (68,94) en kwalificatiepositie (mediaan 3)."
+      },
+      {
+        "driver": "fernando-alonso",
+        "position": 2,
+        "reason": "Sterke racevoortgang (57,77) en teamgenoot-tempo (-0,31%) gekoppeld aan een indrukwekkende loopbaanomvang van 443 starts."
+      },
+      {
+        "driver": "lando-norris",
+        "position": 3,
+        "reason": "Zeer competitief kwalificatietempo en vrije-baansnelheid, maar verliest punten op starts (start score 42,48)."
+      },
+      {
+        "driver": "lance-stroll",
+        "position": 4,
+        "reason": "Solide startprestaties, maar blijft achterop in teamgenoot-tempo (+0,13%) en racevoortgang (40,38)."
+      }
+    ]
+  }
+}
