@@ -1,5 +1,17 @@
 name: Gecontroleerde website publiceren
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/deploy-site.yml'
+      - '.github/workflows/goat-gemini.yml'
+      - '.github/workflows/update-races.yml'
+      - '_development/assets/goat-ai.js'
+      - '_development/templates/goat.html.txt'
+      - 'assets/goat-ai-config.js'
+      - 'src/f1_analysis/goat_ai.py'
+      - 'src/f1_analysis/goat_release.py'
+      - 'workers/goat-ai-request/**'
   workflow_dispatch:
 permissions:
   contents: read
