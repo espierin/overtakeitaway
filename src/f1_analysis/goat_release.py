@@ -30,6 +30,11 @@ def render(root):
     for old, new in [('coureurs_2.html', 'analysis-lab.html'),
                      ('races_2.html', 'races.html'), ('goat_2.html', 'goat.html')]:
         text = text.replace('href="'+old, 'href="'+new)
+    config = root/'assets/goat-ai-config.js'
+    if config.is_file():
+        version = hashlib.sha256(config.read_bytes()).hexdigest()[:12]
+        text = text.replace('src="assets/goat-ai-config.js"',
+                            f'src="assets/goat-ai-config.js?v={version}"')
     from .production import without_development_intro
     return version_assets(without_development_intro(text), root)
 

@@ -275,6 +275,11 @@ def run(args):
     key = hashlib.sha256(prompt.encode()).hexdigest()
     if key != prepared['prompt_sha256']:
         raise ValueError('Aanvraaghash komt niet overeen')
+    expected_hash = str((event.get('inputs') or {}).get('prompt_sha256') or '').strip()
+    if expected_hash and not re.fullmatch(r'[a-f0-9]{64}', expected_hash):
+        raise ValueError('Verwachte aanvraaghash heeft een ongeldig formaat')
+    if expected_hash and expected_hash != key:
+        raise ValueError('Brongegevens zijn gewijzigd sinds deze selectie werd verstuurd; er is geen Gemini-aanvraag gedaan')
     brief = json.loads((work/'brief.json').read_text())
     if args.dry_run:
         print('Aanvraag gecontroleerd; geen gegevens verstuurd en geen API-tegoed gebruikt.')

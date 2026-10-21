@@ -34,6 +34,10 @@ jobs:
         run: python -m pytest -q
       - name: Laatste gecontroleerde website herstellen
         run: python -m f1_analysis.github_storage load
+      - name: GOAT-pagina en automatische Gemini-aanvraag bijwerken
+        run: |
+          git checkout -- _development/assets/goat-ai.js _development/templates/goat.html.txt assets/goat-ai-config.js
+          PYTHONPATH=src python -c "from f1_analysis.goat_release import promote; promote('.')"
       - name: Seizoensagenda ophalen en afgelopen races plannen
         id: agenda
         run: python -m f1_analysis.updater --dry-run

@@ -28,6 +28,10 @@ on:
         default: career
         type: choice
         options: [career, calendar]
+      prompt_sha256:
+        description: Verwachte hash van de browseraanvraag
+        required: false
+        type: string
   issues:
     types: [opened]
   workflow_run:

@@ -1,7 +1,9 @@
 /* Shared Gemini brief and GitHub-hosted comparison results. No browser secrets. */
 (()=>{'use strict';
 const answers=new Map();
+const automaticRequests=new Map();
 const finite=v=>typeof v==='number'&&Number.isFinite(v),curveKeys=['start','race','qualifying_position','gap_to_pole','pit_balance'];
+function requestEndpoint(){const value=window.goatAIConfig?.endpoint||'';try{const url=new URL(value);return url.protocol==='https:'&&url.hostname.endsWith('.workers.dev')&&!url.username&&!url.password&&!url.search&&!url.hash?url.origin+'/request':'';}catch{return'';}}
 function assessmentPlan(brief){
  const rows=brief.drivers,groups={career:['career.starts','career.titles','career.wins','career.podiums','career.poles'],qualifying:['features.qualifying_position','features.gap_to_pole'],start:['features.start_score'],progression:['features.race_score'],pace:['features.teammate_pace','features.metronome'],pit_balance:['features.pit_race_gain']};
  const shared=key=>{const[group,name]=key.split('.');return rows.length>=2&&rows.every(d=>group==='career'?finite(d.career_totals[name])&&d.career_totals.starts>0:finite(d.fixed_career_features[name]?.value));},metrics=Object.fromEntries(Object.entries(groups).map(([id,keys])=>[id,keys.filter(shared)])),eligible=Object.keys(metrics).filter(id=>metrics[id].length),weights=window.goatAIFormat.weights(eligible);
@@ -61,11 +63,12 @@ GEGEVENS (JSON):`;
 }
 function render(options){
  const t=(nl,en)=>options.lang==='en'?en:nl;
- return`<section class="research-panel" id="goat-ai"><div class="goat-ai-heading"><h2>The Answer to the Ultimate Question</h2><div class="research-toolbar goat-ai-downloads"><button type="button" id="goat-info-svg">${t('Download SVG','Download SVG')}</button><button type="button" id="goat-info-png">${t('Download PNG','Download PNG')}</button></div></div><div class="goat-ai-start"><a class="research-link" id="goat-ai-request" target="_blank" rel="noopener noreferrer">${t('Stel de vraag','Ask the question')}</a><p>${t('Geen paniek. Deze keer zoeken we een coureur, geen 42.','Don’t panic. This time we are looking for a driver, not 42.')}</p><small>${t('Verstuur de aanvraag op GitHub. Het antwoord verschijnt hier vanzelf.','Submit the request on GitHub. The answer will appear here automatically.')}</small></div><div class="goat-ai-result" aria-live="polite"></div><div class="goat-infographic-preview"></div><p class="goat-ai-status" role="status" aria-live="polite"></p></section>`;
+ return`<section class="research-panel" id="goat-ai"><div class="goat-ai-heading"><h2>The Answer to the Ultimate Question</h2><div class="research-toolbar goat-ai-downloads"><button type="button" id="goat-info-svg">${t('Download SVG','Download SVG')}</button><button type="button" id="goat-info-png">${t('Download PNG','Download PNG')}</button></div></div><div class="goat-ai-start"><a class="research-link" id="goat-ai-request" target="_blank" rel="noopener noreferrer">${t('Stel de vraag','Ask the question')}</a><p>${t('Geen paniek. Deze keer zoeken we een coureur, geen 42.','Don’t panic. This time we are looking for a driver, not 42.')}</p><small></small></div><div class="goat-ai-result" aria-live="polite"></div><div class="goat-infographic-preview"></div><p class="goat-ai-status" role="status" aria-live="polite"></p></section>`;
 }
 function bind(root,options){
  const section=root.querySelector('#goat-ai');if(!section)return;
- bindInfographic(section,options);section.refreshInfographic();const start=section.querySelector('#goat-ai-request');start.href=issueURL(options);start.onclick=()=>watchResult(section,options,prompt(options));
+ bindInfographic(section,options);section.refreshInfographic();const start=section.querySelector('#goat-ai-request'),endpoint=requestEndpoint();start.href=issueURL(options);start.hidden=Boolean(endpoint);start.onclick=()=>watchResult(section,options,prompt(options));
+ section.querySelector('.goat-ai-start small').textContent=endpoint?(options.lang==='en'?'New comparisons are requested automatically and appear here when ready.':'Nieuwe vergelijkingen worden automatisch aangevraagd en verschijnen hier zodra ze klaar zijn.'):(options.lang==='en'?'Submit a GitHub request for a new comparison. Saved comparisons are reused.':'Dien op GitHub een aanvraag in voor een nieuwe vergelijking. Bewaarde vergelijkingen worden hergebruikt.');
  if(options.ids.length<2){section.querySelector('.goat-ai-start').hidden=true;section.querySelector('.goat-ai-result').textContent=options.lang==='en'?'Select at least two drivers for an AI comparison.':'Kies minstens twee rijders voor een AI-vergelijking.';return;}
  watchResult(section,options,prompt(options));
 }
@@ -84,7 +87,12 @@ async function loadResult(section,options,text){
   if(answers.has(text)){const saved=answers.get(text);showResult(section,options,saved.result,saved);return true;}
   const hash=await promptHash(text),base='https://raw.githubusercontent.com/espierin/overtakeitaway/goat-ai-results/',res=await fetch(base+'index.json?t='+Math.floor(Date.now()/60000),{cache:'no-store'});
   if(!res.ok&&res.status!==404)throw Error('Unavailable');const index=res.ok?await res.json():null;
-  if(!index?.results?.[hash]){if(section.isConnected)target.textContent=t('Voor deze selectie is nog geen AI-vergelijking bewaard.','No AI comparison has been saved for this selection yet.');return;}
+  if(!index?.results?.[hash]){
+   if(section.isConnected)target.textContent=t('Voor deze selectie is nog geen antwoord bewaard.','No answer is saved for this selection yet.');
+   const endpoint=requestEndpoint();
+   if(endpoint)await requestAutomatically(endpoint,options,hash,text,target,t);
+   return;
+  }
   const answer=await fetch(base+'results/'+hash+'.json');if(!answer.ok)throw Error('Unavailable');const envelope=await answer.json(),result=envelope.result;
   if(envelope.prompt_sha256!==hash)throw Error('Invalid answer');
   window.goatAIFormat.validate(result,snapshot(options));
@@ -92,6 +100,22 @@ async function loadResult(section,options,text){
   answers.set(text,envelope);if(answers.size>20)answers.delete(answers.keys().next().value);showResult(section,options,result,envelope);return true;
 
  }catch(error){if(section.isConnected)target.textContent=t('De bewaarde AI-vergelijking is nu niet op te halen.','The saved AI comparison cannot be loaded right now.');}
+}
+async function requestAutomatically(endpoint,options,hash,text,target,t){
+ if(automaticRequests.has(hash))return;
+ automaticRequests.set(hash,'sending');
+ target.textContent=t('Nieuwe vergelijking wordt automatisch aangevraagd…','Automatically requesting a new comparison…');
+ try{
+  const res=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...request(options),prompt_sha256:hash})});
+  const body=await res.json().catch(()=>({}));
+  if(res.status===429){automaticRequests.set(hash,'limited');target.textContent=t('De dagelijkse limiet voor nieuwe vergelijkingen is bereikt.','The daily limit for new comparisons has been reached.');return;}
+  if(!res.ok){automaticRequests.set(hash,'failed');target.textContent=t('De automatische aanvraag is niet gestart. Probeer het later opnieuw.','The automatic request could not be started. Please try again later.');return;}
+  automaticRequests.set(hash,body.status||'queued');
+  target.textContent=body.status==='cached'?t('Antwoord gevonden; dit verschijnt zo.','Saved answer found; it will appear shortly.'):t('De vergelijking is aangevraagd. Het antwoord verschijnt hier vanzelf zodra het klaar is.','The comparison has been requested. The answer will appear here automatically when ready.');
+ }catch{
+  automaticRequests.set(hash,'failed');
+  target.textContent=t('De automatische aanvraag is nu niet bereikbaar. Probeer het later opnieuw.','The automatic request service is unavailable. Please try again later.');
+ }
 }
 function showResult(section,options,result,envelope={}){
  const t=(nl,en)=>options.lang==='en'?en:nl,esc=window.phase2Research.esc,name=id=>options.badge?options.badge(id):esc(options.drivers.get(id)?.name||id);

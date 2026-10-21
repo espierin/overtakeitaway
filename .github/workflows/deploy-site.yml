@@ -32,6 +32,13 @@ jobs:
           mkdir -p .site/config
           cp config/publication.yaml .site/config/publication.yaml
           python -m f1_analysis.github_storage --root .site load --compact
+      - name: GOAT-pagina en automatische Gemini-aanvraag bijwerken
+        run: |
+          mkdir -p .site/_development/assets .site/_development/templates .site/assets
+          cp _development/assets/goat-ai.js .site/_development/assets/goat-ai.js
+          cp _development/templates/goat.html.txt .site/_development/templates/goat.html.txt
+          cp assets/goat-ai-config.js .site/assets/goat-ai-config.js
+          PYTHONPATH=src python -c "from f1_analysis.goat_release import promote; promote('.site')"
           python -m f1_analysis.publication verify --site .site
           rm -rf .site/storage .site/config
       - uses: actions/configure-pages@v5

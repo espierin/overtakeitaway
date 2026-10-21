@@ -1,0 +1,18 @@
+name = "oia-goat-ai-request"
+main = "src/index.js"
+compatibility_date = "2026-10-21"
+workers_dev = true
+
+[vars]
+GITHUB_REPOSITORY = "espierin/overtakeitaway"
+GITHUB_WORKFLOW = "goat-gemini.yml"
+GLOBAL_DAILY_LIMIT = "4"
+PER_IP_DAILY_LIMIT = "2"
+
+[[durable_objects.bindings]]
+name = "REQUEST_BUDGET"
+class_name = "RequestBudget"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["RequestBudget"]
