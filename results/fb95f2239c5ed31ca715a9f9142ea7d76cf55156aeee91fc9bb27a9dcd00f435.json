@@ -1,0 +1,193 @@
+{
+  "schema": "goat-ai-result-v2",
+  "prompt_sha256": "fb95f2239c5ed31ca715a9f9142ea7d76cf55156aeee91fc9bb27a9dcd00f435",
+  "generated_at": "2026-10-21T20:39:26.879649+00:00",
+  "model": "gemini-3.8-flash",
+  "request": {
+    "drivers": [
+      "lance-stroll",
+      "kazuki-nakajima",
+      "jochen-mass",
+      "stoffel-vandoorne"
+    ],
+    "from": 1950,
+    "to": 2026,
+    "circuits": [],
+    "lang": "nl",
+    "curveyears": "career",
+    "prompt_sha256": "fb95f2239c5ed31ca715a9f9142ea7d76cf55156aeee91fc9bb27a9dcd00f435",
+    "source_revision": "2279b762006f7af561815305a100d58fcc3dc06aa8a8c46f52c878f10aeec305"
+  },
+  "result": {
+    "schema_version": "goat-comparison-v2",
+    "input_status": "complete",
+    "selected_drivers": [
+      "jochen-mass",
+      "kazuki-nakajima",
+      "lance-stroll",
+      "stoffel-vandoorne"
+    ],
+    "context": {
+      "source_revision": "2279b762006f7af561815305a100d58fcc3dc06aa8a8c46f52c878f10aeec305",
+      "facts_period": [
+        1950,
+        2026
+      ],
+      "circuits": [],
+      "curve_years": "career"
+    },
+    "summary": "Binnen dit vergelijkingskader zijn uitsluitend de onderdelen loopbaanresultaten (gewicht 0,05) en kwalificatiesnelheid (gewicht 0,95) opgenomen in het eindoordeel, omdat overige metrieken niet voor alle vier coureurs beschikbaar zijn. Kazuki Nakajima noteert met een mediaan van 1,465 seconden (n=36) en positie 14 (n=36) de scherpste kwalificatiewaarden van de vier. Lance Stroll volgt op de voet met een mediaan achterstand tot pole van 1,599 seconden (n=200) over een aanzienlijk langere loopbaan (206 starts, 1 pole, 3 podia). Stoffel Vandoorne (mediaan 2,240 s, n=42) en Jochen Mass (mediaan 2,411 s, n=106, 1 zege, 8 podia) blijven hierop achter. Door het zware gewicht van de kwalificatie leidt Nakajima nipt voor Stroll.",
+    "comparisons": [
+      {
+        "driver": "jochen-mass",
+        "strength": "Behaalde van dit viertal de meeste overwinningen (1 zege) en podiumplekken (8 podia) in 105 starts.",
+        "limitation": "Heeft met een mediaan van 2,411 seconden over 106 races de grootste geregistreerde achterstand tot pole.",
+        "evidence": [
+          "career.starts",
+          "career.wins",
+          "career.podiums",
+          "career.poles",
+          "features.qualifying_position",
+          "features.gap_to_pole"
+        ]
+      },
+      {
+        "driver": "kazuki-nakajima",
+        "strength": "Zet de kleinste mediaan achterstand tot pole neer (1,465 seconden) en de beste mediaan startpositie (14) over 36 races.",
+        "limitation": "Heeft met 36 starts de kortste F1-loopbaan van het veld, zonder overwinningen, podia of polepositions.",
+        "evidence": [
+          "career.starts",
+          "career.wins",
+          "career.podiums",
+          "career.poles",
+          "features.qualifying_position",
+          "features.gap_to_pole"
+        ]
+      },
+      {
+        "driver": "lance-stroll",
+        "strength": "Combineert een sterke mediaan achterstand tot pole (1,599 s over 200 races) met 206 starts, 1 poleposition en 3 podia.",
+        "limitation": "Kwalificeert mediaan op positie 15 en blijft qua absolute tijdsmarge nipt achter Nakajima.",
+        "evidence": [
+          "career.starts",
+          "career.wins",
+          "career.podiums",
+          "career.poles",
+          "features.qualifying_position",
+          "features.gap_to_pole"
+        ]
+      },
+      {
+        "driver": "stoffel-vandoorne",
+        "strength": "Behaalde in 42 kwalificatiesessies een vergelijkbare mediaan startpositie (16) met Mass en Stroll.",
+        "limitation": "Kent een aanzienlijke achterstand tot pole van mediaan 2,240 seconden en behaalde geen podiums of poles.",
+        "evidence": [
+          "career.starts",
+          "career.wins",
+          "career.podiums",
+          "career.poles",
+          "features.qualifying_position",
+          "features.gap_to_pole"
+        ]
+      }
+    ],
+    "domains": [
+      {
+        "id": "career",
+        "included_in_verdict": true,
+        "weight": 0.05,
+        "leaders": [
+          "jochen-mass",
+          "lance-stroll"
+        ],
+        "explanation": "Mass behaalde 1 grandprixzege en 8 podia (105 starts), terwijl Stroll met 206 starts de grootste omvang heeft inclusief 1 pole en 3 podia. Nakajima en Vandoorne behaalden geen overwinningen, podia of poles."
+      },
+      {
+        "id": "qualifying",
+        "included_in_verdict": true,
+        "weight": 0.95,
+        "leaders": [
+          "kazuki-nakajima"
+        ],
+        "explanation": "Nakajima scoort de beste mediaan positie (14) en het kleinste gat naar pole (1,465 s, n=36). Stroll volgt dichtbij (pos 15, 1,599 s, n=200). Vandoorne (pos 16, 2,240 s) en Mass (pos 15, 2,411 s) volgen op grotere afstand."
+      },
+      {
+        "id": "start",
+        "included_in_verdict": false,
+        "weight": 0,
+        "leaders": [],
+        "explanation": "Niet opgenomen in het eindoordeel omdat niet alle geselecteerde coureurs beschikken over een gevalideerde startscore."
+      },
+      {
+        "id": "progression",
+        "included_in_verdict": false,
+        "weight": 0,
+        "leaders": [],
+        "explanation": "Niet opgenomen in het eindoordeel omdat betrouwbare racescores ontbreken voor meerdere rijders in de selectie."
+      },
+      {
+        "id": "pace",
+        "included_in_verdict": false,
+        "weight": 0,
+        "leaders": [],
+        "explanation": "Niet opgenomen in het eindoordeel omdat tempo- en metronoommetingen niet voor de volledige groep beschikbaar zijn."
+      },
+      {
+        "id": "pit_balance",
+        "included_in_verdict": false,
+        "weight": 0,
+        "leaders": [],
+        "explanation": "Niet opgenomen in het eindoordeel omdat pitbalansgegevens ontbreken voor historische seizoenen (Mass n=0)."
+      }
+    ],
+    "winner": "kazuki-nakajima",
+    "runner_up": "lance-stroll",
+    "conclusion": "Binnen de beperkingen van het verplichte beoordelingsplan, waarin kwalificaties voor 95% meewegen en loopbaantotalen voor 5%, eindigt Kazuki Nakajima als voorlopige winnaar dankzij de scherpste mediaan achterstand tot pole (1,465 s). Lance Stroll eindigt vlak daarachter als runner-up (1,599 s en 1 pole). Stoffel Vandoorne pakt de derde plek (2,240 s), nipt voor Jochen Mass (2,411 s), die ondanks zijn superieure aantal overwinningen en podiums zwaar daalt door de kwalificatieweging. Indien loopbaanomvang of raceprogressie zwaarder zou wegen, zou Stroll of Mass direct bovenaan eindigen.",
+    "confidence": "medium",
+    "assumptions": [
+      "Achterstand tot pole (gap_to_pole) is gehanteerd als de voornaamste maatstaf voor pure kwalificatiesnelheid.",
+      "Het vastgestelde beoordelingsplan kent een gewicht van 95% toe aan kwalificatie en 5% aan loopbaantotalen vanwege het ontbreken van gemeenschappelijke race- en tempogegevens."
+    ],
+    "limitations": [
+      "Het teamgenootnetwerk slaagde niet voor de validatietest (passes=false), waardoor dit niet als betrouwbare tijdperkcorrectie kan dienen.",
+      "Bij Nakajima (31 van de 36) en Vandoorne (37 van de 42) bevat het gat tot pole een substantieel aandeel geschatte sessiewaarden.",
+      "Racepace, startvermogen en pitbalans konden niet eerlijk worden meegewogen door ontbrekende meetreeksen bij Mass."
+    ],
+    "infographic": {
+      "template": "oia-goat-comparison-v1",
+      "title": "Kwalificatiekracht en Loopbaanprofielen",
+      "subtitle": "Voorlopige vergelijking op basis van kwalificatiesnelheid en geregistreerde resultaten",
+      "metric_ids": [
+        "career.starts",
+        "career.wins",
+        "career.podiums",
+        "career.poles",
+        "features.qualifying_position",
+        "features.gap_to_pole"
+      ],
+      "takeaway": "P1 Nakajima leidt nipt op kwalificatiemarge (1,47 s), gevolgd door P2 Stroll (1,60 s en 1 pole). P3 Vandoorne (2,24 s) en P4 Mass (2,41 s) sluiten aan."
+    },
+    "ranking": [
+      {
+        "driver": "kazuki-nakajima",
+        "position": 1,
+        "reason": "Laatste mediaan achterstand tot pole (1,465 s) en beste mediaan startpositie (14) binnen het zwaarst wegende domein."
+      },
+      {
+        "driver": "lance-stroll",
+        "position": 2,
+        "reason": "Zeer competitief kwalificatiegat (1,599 s) over 200 races, ondersteund door 1 poleposition en 3 podiums."
+      },
+      {
+        "driver": "stoffel-vandoorne",
+        "position": 3,
+        "reason": "Blijft met een mediaan pole-gat van 2,240 s voor op Mass in het bepalende kwalificatiedomein."
+      },
+      {
+        "driver": "jochen-mass",
+        "position": 4,
+        "reason": "Grootste achterstand tot pole (2,411 s); zijn 1 overwinning en 8 podiums wegen met 5% onvoldoende mee om de achterstand in te halen."
+      }
+    ]
+  }
+}
