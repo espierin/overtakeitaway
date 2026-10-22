@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import re
 from .driver_release import version_assets
+from .io import read_json
 
 MARKER = '<meta name="overtake-goat-release" content="phase2">'
 BASELINE = '_development/source/legacy-goat.html.gz'
@@ -55,7 +56,7 @@ def promote(root):
             'baseline': BASELINE,
             'original_sha256': hashlib.sha256(original).hexdigest(),
         }, indent=2)+'\n')
-    record = json.loads((root/RECORD).read_text())
+    record = read_json(root/RECORD)
     if hashlib.sha256(gzip.decompress((root/BASELINE).read_bytes())).hexdigest() != record['original_sha256']:
         raise ValueError('The former GOAT evidence differs from its recorded hash')
     (root/'goat.html').write_text(render(root))

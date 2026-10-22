@@ -7,6 +7,19 @@ import pytest
 from f1_analysis import goat_release
 
 
+def test_promotion_reads_compressed_release_record(tmp_path):
+    original = '<html><head></head><body>Original GOAT page</body></html>'
+    (tmp_path/'goat.html').write_text(original)
+    (tmp_path/'goat_2.html').write_text('<html><head></head><body>New GOAT page</body></html>')
+    goat_release.promote(tmp_path)
+    record = tmp_path/goat_release.RECORD
+    record.with_name(record.name+'.gz').write_bytes(gzip.compress(record.read_bytes()))
+    record.unlink()
+    goat_release.promote(tmp_path)
+    assert goat_release.is_promoted(tmp_path)
+    assert (tmp_path/goat_release.BACKUP).read_text() == original
+
+
 def test_promotion_retains_exact_old_page_and_survives_rebuild(tmp_path):
     original = '<html><head><title>Old</title></head><body>Winter break</body></html>'
     source = '<html><head><meta name="robots" content="noindex"></head><body><a href="goat_2.html">GOAT</a><a href="coureurs_2.html">Drivers</a></body></html>'
