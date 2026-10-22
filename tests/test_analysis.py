@@ -28,6 +28,29 @@ def test_same_event_multiple_sources_is_one(data,config):
     assert len(events)==1 and stats['analytical']==1 and stats['source_matches']==1
     assert len(events[0]['source_records'])==2
 
+
+@pytest.mark.parametrize('stop_distance,included', [(10, True), (16, True), (17, False)])
+def test_pit_cycle_uses_sixteen_lap_window(data, config, stop_distance, included):
+    early, late = 2, 2 + stop_distance
+    end = late + 2
+    data['laps'] = [
+        {'driver_number': driver, 'lap_number': lap,
+         'date_start': date((lap - 1) * 100 + (2 if lap <= late else -2) * (driver == 1)),
+         'lap_duration': 100}
+        for driver in (1, 2) for lap in range(1, end + 1)
+    ]
+    for result in data['session_result']:
+        result['number_of_laps'] = end
+    data['pit'] = [
+        {'driver_number': 1, 'lap_number': early, 'date': date(early * 100 - 10)},
+        {'driver_number': 2, 'lap_number': late, 'date': date(late * 100 - 10)},
+    ]
+    cycles = pit_cycles(Context(data, config))
+    assert bool(cycles) is included
+    if included:
+        assert cycles[0]['status'] == 'Geslaagd'
+        assert cycles[0]['strategy'] == 'undercutsituatie'
+
 def test_historical_pair_reversal_survives_asynchronous_rank_ties():
     from f1_analysis.history import inversions
     rows=[{'date':date(t),'driver_number':d,'position':p} for t,d,p in [(0,1,2),(0,2,1),(150,1,1),(151,2,2),(152,2,2)]]
