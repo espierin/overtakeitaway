@@ -1,0 +1,196 @@
+{
+  "schema": "goat-ai-result-v2",
+  "prompt_sha256": "7e6ad63f736a0a6d0c6a4207d9ddb25bf9a4d1e6850628cd1eef42efc73720db",
+  "generated_at": "2026-10-22T04:55:10.107262+00:00",
+  "model": "gemini-3.8-flash",
+  "request": {
+    "drivers": [
+      "alexander-albon",
+      "charles-leclerc",
+      "george-russell",
+      "lando-norris"
+    ],
+    "from": 1950,
+    "to": 2026,
+    "circuits": [],
+    "lang": "nl",
+    "curveyears": "career",
+    "prompt_sha256": "7e6ad63f736a0a6d0c6a4207d9ddb25bf9a4d1e6850628cd1eef42efc73720db",
+    "source_revision": "2279b762006f7af561815305a100d58fcc3dc06aa8a8c46f52c878f10aeec305"
+  },
+  "result": {
+    "schema_version": "goat-comparison-v2",
+    "input_status": "complete",
+    "selected_drivers": [
+      "alexander-albon",
+      "charles-leclerc",
+      "george-russell",
+      "lando-norris"
+    ],
+    "context": {
+      "source_revision": "2279b762006f7af561815305a100d58fcc3dc06aa8a8c46f52c878f10aeec305",
+      "facts_period": [
+        1950,
+        2026
+      ],
+      "circuits": [],
+      "curve_years": "career"
+    },
+    "summary": "Deze vergelijking toetst vier tijdgenoten uit de generatie 2018-2019 aan de hand van het vaste beoordelingsplan. Charles Leclerc en Lando Norris onderscheiden zich nadrukkelijk aan de top van het veld qua pure snelheid en kwalificatieprestaties. Leclerc behaalt de sterkste kwalificatieresultaten met een mediane startpositie van 4.5 en een mediaan gat naar pole van 0.5465 s (n=190), gecombineerd met de hoogste metronoomscore van 82.35 (n=3831, 154 races) en een sterke startscore (54.16). Lando Norris zet daar het sterkste relatieve teamgenoot-tempovoordeel tegenover (-0.2024% over 148 races) en de enige wereldtitel in dit gezelschap, naast 13 overwinningen. George Russell toont solide kwalificatietrend en pitwinst, maar blijft qua racetempo en startscore (36.98) achter bij de top twee. Alexander Albon heeft door langdurig verblijf in het middenveld een hogere start- en voortgangsscore vanuit lagere posities, maar kan qua absolute kwalificatieafstand (1.2355 s) en baantempo (metronoom 47.06) niet wedijveren met de voorste rijders.",
+    "comparisons": [
+      {
+        "driver": "alexander-albon",
+        "strength": "Sterke positiewinst in racevervolg (race_score 51.94 over 114 races) en degelijke openingsrondes vanaf het middenveld (start_score 53.64 over 134 races).",
+        "limitation": "Aanzienlijke achterstand in kwalificatie (mediaan gat naar pole 1.2355 s over 141 races) en de laagste metronoom-baantemposcore (47.06 over 2110 ronden).",
+        "evidence": [
+          "features.race_score",
+          "features.start_score",
+          "features.gap_to_pole",
+          "features.metronome"
+        ]
+      },
+      {
+        "driver": "charles-leclerc",
+        "strength": "Beste kwalificatiestatistieken (27 poles, mediane positie 4.5 en 0.5465 s tot pole) en het hoogste absolute baantempo (metronoomscore 82.35 over 3831 ronden).",
+        "limitation": "Iets lagere teamgenoot-tempovoorsprong (-0.1714%) dan Norris en het ontbreken van een wereldtitel ondanks 9 zeges en 55 podiums.",
+        "evidence": [
+          "career.poles",
+          "features.qualifying_position",
+          "features.gap_to_pole",
+          "features.metronome",
+          "career.titles"
+        ]
+      },
+      {
+        "driver": "george-russell",
+        "strength": "Consistente kwalificatie-opmars (12 poles, 0.809 s tot pole over 169 races) en een solide pitbalanswinst van 3.50 s over 70 races.",
+        "limitation": "Laagste startscore van het viertal (36.98 over 160 races) en een neutraal teamgenoot-tempodelta (+0.0025% over 146 races).",
+        "evidence": [
+          "career.poles",
+          "features.gap_to_pole",
+          "features.pit_race_gain",
+          "features.start_score",
+          "features.teammate_pace"
+        ]
+      },
+      {
+        "driver": "lando-norris",
+        "strength": "Hoogste overwinningstotaal (13 zeges) en 1 wereldtitel, gepaard met de grootste mediane voorsprong op teamgenoten (-0.2024% over 148 races).",
+        "limitation": "Minder pole-positions (19) en een lagere mediane kwalificatiepositie (6 vs 4.5) dan Leclerc, plus een matige startscore van 42.48.",
+        "evidence": [
+          "career.wins",
+          "career.titles",
+          "features.teammate_pace",
+          "features.start_score",
+          "features.qualifying_position"
+        ]
+      }
+    ],
+    "domains": [
+      {
+        "id": "career",
+        "included_in_verdict": true,
+        "weight": 0.05,
+        "leaders": [
+          "lando-norris"
+        ],
+        "explanation": "Lando Norris leidt door het behalen van 1 wereldtitel en 13 overwinningen. Leclerc volgt met 9 zeges, 55 podiums en 27 poles; Russell telt 8 zeges en 12 poles; Albon behaalde 2 podiums."
+      },
+      {
+        "id": "qualifying",
+        "included_in_verdict": true,
+        "weight": 0.2,
+        "leaders": [
+          "charles-leclerc"
+        ],
+        "explanation": "Charles Leclerc realiseert de beste mediane kwalificatiepositie (4.5) en het kleinste mediane gat naar pole (0.5465 s over 190 races), voor Norris (positie 6, 0.726 s) en Russell (positie 6, 0.809 s)."
+      },
+      {
+        "id": "start",
+        "included_in_verdict": true,
+        "weight": 0.15,
+        "leaders": [
+          "charles-leclerc"
+        ],
+        "explanation": "Charles Leclerc noteert met 54.16 de hoogste startscore over 179 races, nipt voor Albon (53.64 over 134 races). Norris (42.48) en Russell (36.98) verliezen vaker terrein in ronde één."
+      },
+      {
+        "id": "progression",
+        "included_in_verdict": true,
+        "weight": 0.25,
+        "leaders": [
+          "charles-leclerc"
+        ],
+        "explanation": "Charles Leclerc behaalt een race_score van 52.36 (158 races), nipt boven Albon (51.94, 114 races) en Norris (51.30, 148 races). Russell noteert 49.65 over 144 races."
+      },
+      {
+        "id": "pace",
+        "included_in_verdict": true,
+        "weight": 0.3,
+        "leaders": [
+          "charles-leclerc",
+          "lando-norris"
+        ],
+        "explanation": "Leclerc heeft de hoogste metronoomscore in het veld (82.35 over 3831 ronden vs 77.78 voor Norris), terwijl Norris een groter relatief voordeel op teamgenoten heeft (-0.2024% vs -0.1714% over 148 races)."
+      },
+      {
+        "id": "pit_balance",
+        "included_in_verdict": true,
+        "weight": 0.05,
+        "leaders": [
+          "charles-leclerc"
+        ],
+        "explanation": "Charles Leclerc heeft een mediane pitwinst van +6.11 s over 78 races, voor Norris (+3.81 s over 77 races), Russell (+3.50 s over 70 races) en Albon (-1.91 s over 52 races)."
+      }
+    ],
+    "winner": "charles-leclerc",
+    "runner_up": "lando-norris",
+    "conclusion": "Op basis van het gezamenlijke beoordelingsplan eindigt Charles Leclerc als voorlopige winnaar. Leclerc scoort maximaal op kwalificatie (gewicht 0.20, mediaan 0.5465 s tot pole) en combineert dat met het hoogste veldtempo (metronoom 82.35), de beste startscore (54.16) en een leidende race_score (52.36). Lando Norris eindigt zeer dichtbij als runner-up dankzij zijn superieure teamgenoot-tempovoordeel (-0.2024%) en loopbaanresultaten (1 titel, 13 zeges). Russell pakt P3 via consistente kwalificaties en pitwinst, maar schiet tekort op starts en teamgenoot-tempo. Albon sluit af op P4 door structureel lagere startposities en baansnelheid.",
+    "confidence": "high",
+    "assumptions": [
+      "Alle zes domeinen zijn beschikbaar voor alle vier coureurs en worden strikt gewogen volgens het vaste plan.",
+      "Mediane parameters weerspiegelen de centrale tendens over de gemeten loopbaanjaren zonder overgevoeligheid voor uitschieters."
+    ],
+    "limitations": [
+      "De teamgenootnetwerk-validatie passeert niet (passes=false, interval omspant nul), waardoor netwerkcorrecties niet als bewezen tijdperkcorrectie gebruikt mogen worden.",
+      "De coureurs hebben verschillende perioden in top- versus middenveldauto's doorgebracht, wat startscores en afstand tot pole deels materieel beïnvloedt."
+    ],
+    "infographic": {
+      "template": "oia-goat-comparison-v1",
+      "title": "Vergelijking Generatie 2018-2019: Leclerc vs Norris vs Russell vs Albon",
+      "subtitle": "Evaluatie van snelheid, kwalificaties, starts en raceverloop via Overtake It Away",
+      "metric_ids": [
+        "career.wins",
+        "features.qualifying_position",
+        "features.gap_to_pole",
+        "features.start_score",
+        "features.race_score",
+        "features.teammate_pace",
+        "features.metronome"
+      ],
+      "takeaway": "P1 Leclerc (dominant in één ronde en baantempo), P2 Norris (wereldtitel en sterkste teamgenoot-delta), P3 Russell, P4 Albon."
+    },
+    "ranking": [
+      {
+        "driver": "charles-leclerc",
+        "position": 1,
+        "reason": "Leidt in kwalificatie (0.55 s tot pole), baantempo (metronoom 82.35), startscore (54.16) en pitbalanswinst (+6.11 s)."
+      },
+      {
+        "driver": "lando-norris",
+        "position": 2,
+        "reason": "Behaalt 1 wereldtitel, 13 overwinningen en de sterkste teamgenoot-tempovoorsprong (-0.2024%), maar levert in op starts en kwalificatie."
+      },
+      {
+        "driver": "george-russell",
+        "position": 3,
+        "reason": "Sterke kwalificatiesnelheid (12 poles) en pitwinst, maar verliest terrein door een zwakkere startscore (36.98) en neutraal teamgenoot-tempo."
+      },
+      {
+        "driver": "alexander-albon",
+        "position": 4,
+        "reason": "Goede positiewinst in het middenveld, maar blijft qua absolute rondetijd en kwalificatieachterstand (1.24 s) achter bij de topdrie."
+      }
+    ]
+  }
+}
