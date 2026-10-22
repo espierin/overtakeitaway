@@ -1,0 +1,192 @@
+{
+  "schema": "goat-ai-result-v2",
+  "prompt_sha256": "012761c0086c9fac4ae7a0a8f1cdd908e66cb6ac704e8ab829fb15a1db63c597",
+  "generated_at": "2026-10-22T04:52:16.106917+00:00",
+  "model": "gemini-3.8-flash",
+  "request": {
+    "drivers": [
+      "carlos-sainz",
+      "fernando-alonso",
+      "pierre-gasly",
+      "yuki-tsunoda"
+    ],
+    "from": 1950,
+    "to": 2026,
+    "circuits": [],
+    "lang": "nl",
+    "curveyears": "career",
+    "prompt_sha256": "012761c0086c9fac4ae7a0a8f1cdd908e66cb6ac704e8ab829fb15a1db63c597",
+    "source_revision": "2279b762006f7af561815305a100d58fcc3dc06aa8a8c46f52c878f10aeec305"
+  },
+  "result": {
+    "schema_version": "goat-comparison-v2",
+    "input_status": "complete",
+    "selected_drivers": [
+      "carlos-sainz",
+      "fernando-alonso",
+      "pierre-gasly",
+      "yuki-tsunoda"
+    ],
+    "context": {
+      "source_revision": "2279b762006f7af561815305a100d58fcc3dc06aa8a8c46f52c878f10aeec305",
+      "facts_period": [
+        1950,
+        2026
+      ],
+      "circuits": [],
+      "curve_years": "career"
+    },
+    "summary": "Deze vergelijking toetst Fernando Alonso, Carlos Sainz, Pierre Gasly en Yuki Tsunoda op basis van het vaste beoordelingsplan met zes gemeten domeinen. Fernando Alonso leidt op het zwaarst wegende onderdeel racetempo dankzij een mediane voorsprong op teamgenoten van -0,31% (over 393 races) en voert daarnaast zowel de pitbalans (mediane race-winst van +4,003 s over 263 races) als de loopbaantotalen (32 zeges, 2 titels) aan. Carlos Sainz toont een uitstekend racevervolg met een race_score van 60,70 en de sterkste metronoomscore (68,42 field-percentiel over 3430 ronden), maar levert in op teamgenoot-tempo (+0,027%) ten opzichte van Alonso. Yuki Tsunoda scoort sterk bij de openingsronde met een start_score van 55,28, maar blijft duidelijk achter in racevervolg (race_score 24,03) en teamgenoot-tempo (+0,242%). Pierre Gasly bezet een stabiele middenpositie met een solide teamgenoot-tempovoordeel (-0,122% over 154 races), maar kent de laagste start_score (42,20).",
+    "comparisons": [
+      {
+        "driver": "carlos-sainz",
+        "strength": "Sterkste racevervolg na ronde één (race_score 60,70; n=17 gemeten posities) en de hoogste metronoom-rangorde (68,42 field-percentiel over 3430 ronden).",
+        "limitation": "Blijft qua mediane teamgenoot-pace nipt achter op zijn stalgenoten (+0,027% over 215 races) en noteert een licht negatieve mediane pitbalans (-0,528 s over 118 races).",
+        "evidence": [
+          "features.race_score",
+          "features.metronome",
+          "features.teammate_pace",
+          "features.pit_race_gain"
+        ]
+      },
+      {
+        "driver": "fernando-alonso",
+        "strength": "Grootste relatieve tempovoordeel ten opzichte van teamgenoten (-0,310% over 393 races), leidende pitbalans (+4,003 s over 263 races) en veruit de meest omvangrijke loopbaancijfers.",
+        "limitation": "Heeft met 52,94 een lagere metronoom-fieldscore dan Sainz (68,42) en een iets lagere start_score (54,03) dan Tsunoda (55,28).",
+        "evidence": [
+          "features.teammate_pace",
+          "features.pit_race_gain",
+          "career.wins",
+          "features.metronome",
+          "features.start_score"
+        ]
+      },
+      {
+        "driver": "pierre-gasly",
+        "strength": "Consistente overhand op teamgenoten qua racetempo (-0,122% over 154 races) en een evenwichtige race_score van 53,04.",
+        "limitation": "Laagste start_score van het viertal (42,20 over 178 races) en een kwalificatiemediaan van positie 11.",
+        "evidence": [
+          "features.teammate_pace",
+          "features.race_score",
+          "features.start_score",
+          "features.qualifying_position"
+        ]
+      },
+      {
+        "driver": "yuki-tsunoda",
+        "strength": "Hoogste start_score van de selectie (55,28 over 103 starts; n=15) met positiewinst vanaf startplek 11.",
+        "limitation": "Achterstand op teamgenoot-tempo (+0,242% over 93 races) en de laagste race_score na ronde één (24,03 over 97 races; n=10).",
+        "evidence": [
+          "features.start_score",
+          "features.teammate_pace",
+          "features.race_score",
+          "features.pit_race_gain"
+        ]
+      }
+    ],
+    "domains": [
+      {
+        "id": "career",
+        "included_in_verdict": true,
+        "weight": 0.05,
+        "leaders": [
+          "fernando-alonso"
+        ],
+        "explanation": "Fernando Alonso voert alle loopbaancijfers aan met 443 starts, 32 overwinningen, 106 podiums, 22 poles en 2 wereldtitels, tegenover 4 zeges voor Sainz en 1 voor Gasly."
+      },
+      {
+        "id": "qualifying",
+        "included_in_verdict": true,
+        "weight": 0.2,
+        "leaders": [
+          "fernando-alonso"
+        ],
+        "explanation": "Fernando Alonso kent de scherpste mediane kwalificatiepositie (8 over 441 sessies) en de kleinste mediane achterstand tot pole (1,098 s). Sainz volgt met P9 en 1,243 s."
+      },
+      {
+        "id": "start",
+        "included_in_verdict": true,
+        "weight": 0.15,
+        "leaders": [
+          "yuki-tsunoda"
+        ],
+        "explanation": "Yuki Tsunoda behaalt de hoogste start_score (55,28 over 103 races), nipt voor Alonso (54,03) en Sainz (53,79). Gasly blijft hier achter met 42,20."
+      },
+      {
+        "id": "progression",
+        "included_in_verdict": true,
+        "weight": 0.25,
+        "leaders": [
+          "carlos-sainz"
+        ],
+        "explanation": "Carlos Sainz realiseert de hoogste race_score na ronde één (60,70 over 199 gefinishte races), vóór Alonso (57,77) en Gasly (53,04). Tsunoda blijft steken op 24,03."
+      },
+      {
+        "id": "pace",
+        "included_in_verdict": true,
+        "weight": 0.3,
+        "leaders": [
+          "fernando-alonso"
+        ],
+        "explanation": "Fernando Alonso boekt het sterkste mediane tempoverschil ten opzichte van teamgenoten (-0,310% over 393 races). Sainz scoort weliswaar hoger op de metronoom (68,42 vs 52,94), maar geeft toe op direct onderling tempo (+0,027%)."
+      },
+      {
+        "id": "pit_balance",
+        "included_in_verdict": true,
+        "weight": 0.05,
+        "leaders": [
+          "fernando-alonso"
+        ],
+        "explanation": "Fernando Alonso is de enige met een positieve mediane race-pitwinst (+4,003 s over 263 races), terwijl Sainz (-0,528 s), Gasly (-1,783 s) en Tsunoda (-3,431 s) tijd inleveren."
+      }
+    ],
+    "winner": "fernando-alonso",
+    "runner_up": "carlos-sainz",
+    "conclusion": "Binnen het vaste beoordelingsplan eindigt Fernando Alonso als voorlopige winnaar. Hij combineert een overtuigend tempovoordeel ten opzichte van teamgenoten (-0,310%, gewicht 30%) met kopposities in kwalificaties (20%), pitbalans (5%) en loopbaanresultaten (5%). Carlos Sainz vormt een solide runner-up dankzij zijn toonaangevende race_score (60,70, gewicht 25%) en hoge metronoomwaarde (68,42), maar verliest terrein op direct teamgenoot-tempo. Pierre Gasly bezet positie 3 door een consistent negatieve pace-delta (-0,122%) en betere raceprogressie dan Yuki Tsunoda, die ondanks een sterke openingsronde (start_score 55,28) vierde wordt door aanzienlijk lagere scores op racevervolg en onderling tempo. Een alternatieve weging die zwaar leunt op pure rondetijd-rangorde (metronoom) en racevervolg zou Sainz dichter bij P1 kunnen brengen.",
+    "confidence": "high",
+    "assumptions": [
+      "Alle zes domeinen uit het beoordelingsplan zijn volledig beschikbaar voor de vier coureurs en worden toegepast volgens de vastgelegde gewichten.",
+      "Onderlinge teamgenoot-deltas weerspiegelen representatieve vergelijkingen binnen identiek materiaal over de loopbaan."
+    ],
+    "limitations": [
+      "De netwerkvalidatie van het teamgenootmodel faalt (passes=false, MAE 0,5117 vs baseline 0,5091), waardoor netwerkeffecten niet als tijdperkcorrectie gebruikt mogen worden.",
+      "Ronde-één- en raceprogressiescores meten uitsluitend netto positiewinst, geen individuele inhaalvaardigheid of externe uitvaloorzaken."
+    ],
+    "infographic": {
+      "template": "oia-goat-comparison-v1",
+      "title": "GOAT-Vergelijking: Alonso vs Sainz vs Gasly vs Tsunoda",
+      "subtitle": "Evaluatie op basis van zes gewogen prestatiedomeinen uit Overtake It Away",
+      "metric_ids": [
+        "features.teammate_pace",
+        "features.race_score",
+        "features.start_score",
+        "features.metronome",
+        "features.qualifying_position",
+        "features.pit_race_gain"
+      ],
+      "takeaway": "Alonso pakt P1 via dominant teamgenoot-tempo en kwalificaties, Sainz volgt op P2 met het beste racevervolg, Gasly sluit aan op P3 en Tsunoda op P4."
+    },
+    "ranking": [
+      {
+        "driver": "fernando-alonso",
+        "position": 1,
+        "reason": "Leidt op tempo versus teamgenoten (-0,310%), kwalificaties (P8 mediaan, 1,098 s tot pole), pitbalans (+4,003 s) en loopbaantotalen."
+      },
+      {
+        "driver": "carlos-sainz",
+        "position": 2,
+        "reason": "Beste racevervolg (race_score 60,70) en hoogste metronoomscore (68,42), maar verliest nipt op teamgenoot-tempo (+0,027%)."
+      },
+      {
+        "driver": "pierre-gasly",
+        "position": 3,
+        "reason": "Stabiele negatieve teamgenoot-delta (-0,122%) en redelijke race_score (53,04), ondanks een matige start_score (42,20)."
+      },
+      {
+        "driver": "yuki-tsunoda",
+        "position": 4,
+        "reason": "Sterke startfase (start_score 55,28), maar blijft achter op teamgenoot-tempo (+0,242%) en racevervolg na ronde één (24,03)."
+      }
+    ]
+  }
+}
