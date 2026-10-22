@@ -4,7 +4,7 @@ registratievenster_seconden: 8
 deduplicatie_seconden: 3
 verkeer_grens_seconden: 1.5
 strategie_gap_grens_seconden: 5
-strategie_max_stopafstand_ronden: 8
+strategie_max_stopafstand_ronden: 16
 locatie_venster_seconden: 6
 locatie_max_afstand: 220
 locatie_max_spreiding_segmenten: 18
