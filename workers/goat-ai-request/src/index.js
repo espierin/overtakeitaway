@@ -201,6 +201,7 @@ export default {
         headers: {
           'Authorization': `Bearer ${env.GITHUB_ACTIONS_TOKEN}`,
           'Accept': 'application/vnd.github+json',
+          'User-Agent': 'OvertakeItAway-GOAT-AI/1.0 (+https://espierin.github.io/)',
           'X-GitHub-Api-Version': '2022-11-28',
           'Content-Type': 'application/json',
         },
