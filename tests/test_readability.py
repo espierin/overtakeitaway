@@ -44,3 +44,22 @@ def test_guide_explains_median_uncertainty_and_limits_of_driver_comparison():
     assert 'sign(t) × ln(1 + |t|)' in page
     assert 'een empirisch percentiel' in page
     assert '#goat' in page and 'href="uitleg-start-en-raceonderzoek.html"' in page
+
+
+def test_help_build_tracks_optional_research_guide_without_modifying_it(tmp_path):
+    from f1_analysis.help import build
+
+    guide=tmp_path/'uitleg-start-en-raceonderzoek.html'
+    link='href="uitleg-start-en-raceonderzoek.html"'
+    assert link not in build(tmp_path).read_text()
+    # A directory is not a publishable guide.
+    guide.mkdir()
+    assert link not in build(tmp_path).read_text()
+    guide.rmdir()
+    original=b'<!doctype html><h1>Existing research guide</h1>'
+    guide.write_bytes(original)
+    assert link in build(tmp_path).read_text()
+    assert guide.read_bytes()==original
+    guide.unlink()
+    assert link not in build(tmp_path).read_text()
+    assert not guide.exists()
