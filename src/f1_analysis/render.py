@@ -459,7 +459,7 @@ def update_index(root):
         if m['status'] not in ['volledig','gedeeltelijk']:continue
         rows.append({'year':m['input']['year'],'gp':m.get('session',{}).get('circuit_short_name',m['input']['gp']),
                      'race_date':m.get('session',{}).get('date_start',''),'created_at':m['created_at'],'status':m['status'],
-                     'path':str(run.relative_to(base)),'meeting':m.get('meeting',{}).get('meeting_name',''),
+                     'path':run.relative_to(base).as_posix(),'meeting':m.get('meeting',{}).get('meeting_name',''),
                      'coverage_label':m.get('coverage_label','Uitgebreide timinganalyse'),'analysis_kind':m.get('analysis_kind','timinganalyse')})
     rows.sort(key=lambda r:(r['year'],r['race_date'],r['gp']))
     write_json(base/'index.json',rows)
