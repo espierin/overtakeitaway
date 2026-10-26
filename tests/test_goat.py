@@ -1,3 +1,5 @@
+from urllib.parse import unquote, urlsplit
+
 from bs4 import BeautifulSoup
 from f1_analysis.homepage import build
 from f1_analysis.goat import render_goat
@@ -24,7 +26,7 @@ def test_entry_builder_delivers_goat_and_its_shared_local_assets(tmp_path):
         url=node.get('src') or node['href']
         # Branding is provided by the full publication step, just as on index.
         if url in ('assets/overtake-wordmark-v2.png',):continue
-        assert (tmp_path/url).is_file(),url
+        assert (tmp_path/unquote(urlsplit(url).path)).is_file(),url
     assert (tmp_path/'assets/home/goat-winter-break-v1.webp').stat().st_size<100_000
     assert (tmp_path/'assets/home/goat-winter-break-v1.prompt.txt').is_file()
     assert (tmp_path/'analysis-lab.html').read_text()=='Existing driver analyses'
