@@ -9,7 +9,7 @@ def bilingual(tag,nl,en,attrs=''):
     return f'<{tag}{attrs} data-nl="{escape(nl,quote=True)}" data-en="{escape(en,quote=True)}">{escape(nl)}</{tag}>'
 
 
-def render():
+def render(*, include_research_guide=True):
     p=lambda a,b:bilingual('p',a,b)
     h=lambda a,b:bilingual('h2',a,b)
     sections=[]
@@ -37,7 +37,7 @@ def render():
         p('Vrije baan vergelijkt tempo met de teamgenoot bij passende ronden en banden. De metronoom zet rondetijden naast het veld; P3 betekent hier de derde rondetijd, niet de derde racepositie. Regelmaat kijkt apart naar hoe gelijkmatig het eigen tempo was.','Clear-air pace compares teammates on suitable laps and tyres. The metronome ranks lap times within the field; P3 here means the third lap time, not third race position. Consistency separately examines how steadily a driver repeated their own pace.')+
         p('Bandenbehoud vergelijkt de verandering in tempovoordeel terwijl banden ouder worden. Opwarming vergelijkt vroege ronden op nieuwe banden met het eigen verwachte tempo. Het zijn geen rechtstreekse metingen van slijtage of bandentemperatuur.','Tyre management compares the change in pace advantage as tyres age. Warm-up compares early laps on new tyres with expected own pace. These are not direct measurements of wear or tyre temperature.')+
         p('De pitbalans meet hoeveel het tijdsverschil met een tegenstander veranderde rond hun stops. Eerst 6 seconden achter en daarna 2 seconden achter betekent 4 seconden gewonnen, zonder een plaats te winnen. Tempo en verkeer kunnen daaraan bijdragen.','Pit balance measures how the gap to an opponent changed around their stops. Being 6 seconds behind before and 2 seconds behind afterwards means 4 seconds gained without gaining a place. Pace and traffic can contribute.')+
-        '<a href="uitleg-start-en-raceonderzoek.html" data-nl="Alle berekeningen en echte coureursvoorbeelden →" data-en="All calculations and real driver examples →">Alle berekeningen en echte coureursvoorbeelden →</a>')
+        ('<a href="uitleg-start-en-raceonderzoek.html" data-nl="Alle berekeningen en echte coureursvoorbeelden →" data-en="All calculations and real driver examples →">Alle berekeningen en echte coureursvoorbeelden →</a>' if include_research_guide else ''))
     section('goat','Rijders vergelijken: eerst de omstandigheden','Comparing drivers: start with the circumstances',
         p('De vaste loopbaancijfers gebruiken alle beschikbare eigen races. Een andere rijder selecteren verandert die cijfers niet. De extra vergelijking kan alleen gezamenlijke races gebruiken, of vergelijkbare situaties met dezelfde beginpositie, circuitvariant en veldgrootte. De resterende invloed van auto, weer en tegenstanders verdwijnt daardoor niet.','Fixed career figures use all available races for that driver. Selecting another driver does not change them. The additional comparison can use shared races or matched situations with the same origin position, layout and field size. This does not remove all remaining car, weather and opponent effects.')+
         p('Bij de vergelijkingsscores betekent 50 ongeveer gelijk aan passende andere rijders. De metronoomveldscore werkt anders: 100 is het snelste uiteinde en 0 het langzaamste uiteinde van het gemeten veld. Een veldscore van 75 betekent niet dat 75% van alle rijders is verslagen.','For comparison scores, 50 means roughly level with suitable other drivers. The metronome field score is different: 100 is the fastest end and 0 the slowest end of the measured field. A field score of 75 does not mean 75% of all drivers were beaten.')+
@@ -71,6 +71,6 @@ def render():
 
 def build(root):
     root=Path(root)
-    text=with_hero_flag(render(),root/'index.html',root)
+    text=with_hero_flag(render(include_research_guide=(root/'uitleg-start-en-raceonderzoek.html').is_file()),root/'index.html',root)
     (root/'uitleg.html').write_text(text)
     return root/'uitleg.html'
