@@ -60,6 +60,14 @@
         "yuki-tsunoda"
       ],
       "generated_at": "2026-10-22T04:52:16.106917+00:00"
+    },
+    "65380fa80c8f8bbe561e9db0069032929b5ec8264916d4cff18265af018d57e2": {
+      "file": "results/65380fa80c8f8bbe561e9db0069032929b5ec8264916d4cff18265af018d57e2.json",
+      "drivers": [
+        "kimi-antonelli",
+        "oscar-piastri"
+      ],
+      "generated_at": "2026-11-09T05:20:58.819388+00:00"
     }
   }
 }
