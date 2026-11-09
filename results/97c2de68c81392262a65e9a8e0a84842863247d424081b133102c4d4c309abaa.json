@@ -1,0 +1,174 @@
+{
+  "schema": "goat-ai-result-v2",
+  "prompt_sha256": "97c2de68c81392262a65e9a8e0a84842863247d424081b133102c4d4c309abaa",
+  "generated_at": "2026-11-09T05:23:13.606028+00:00",
+  "model": "gemini-3.8-flash",
+  "request": {
+    "drivers": [
+      "kimi-antonelli",
+      "oscar-piastri",
+      "sebastian-vettel"
+    ],
+    "from": 1950,
+    "to": 2026,
+    "circuits": [],
+    "lang": "nl",
+    "curveyears": "career",
+    "prompt_sha256": "97c2de68c81392262a65e9a8e0a84842863247d424081b133102c4d4c309abaa",
+    "source_revision": "2279b762006f7af561815305a100d58fcc3dc06aa8a8c46f52c878f10aeec305"
+  },
+  "result": {
+    "schema_version": "goat-comparison-v2",
+    "input_status": "complete",
+    "selected_drivers": [
+      "kimi-antonelli",
+      "oscar-piastri",
+      "sebastian-vettel"
+    ],
+    "context": {
+      "source_revision": "2279b762006f7af561815305a100d58fcc3dc06aa8a8c46f52c878f10aeec305",
+      "facts_period": [
+        1950,
+        2026
+      ],
+      "circuits": [],
+      "curve_years": "career"
+    },
+    "summary": "Deze vergelijking toetst Kimi Antonelli, Oscar Piastri en Sebastian Vettel via het verplichte assessment plan. Omdat start- en racevervolgscores niet voor alle drie de coureurs berekend konden worden, wegen uitsluitend tempo (54%), kwalificaties (36%), loopbaantotalen (5%) en pitbalans (5%) mee. Antonelli toont in zijn prille loopbaan de scherpste relatieve tempowaarden tegenover zijn teamgenoot (-0,126% over n=35 metingen) en een metronoom-percentielscore van 88,89 (n=658 ronden in 33 races), maar heeft nog geen titels en slechts 41 starts. Vettel beschikt over een immense loopbaan met 299 starts, 4 wereldtitels, 53 zeges en een zeer sterke pitwinst van 9,593 s (n=187 races), maar noteert een iets lagere metronoom-percentielscore (78,95). Piastri scoort stabiel in de kwalificatie met een mediaan positie 5 over n=87 races, maar levert in op teamgenoottempo (+0,207%).",
+    "comparisons": [
+      {
+        "driver": "kimi-antonelli",
+        "strength": "Antonelli laat het snelste relatieve teamgenoottempo zien met een mediaan van -0,126% (n=35) en noteert een hoge metronoom-percentielscore van 88,89 over 658 ronden.",
+        "limitation": "Met slechts 41 starts en 0 wereldtitels ontbreekt de langdurige prestatiebasis die meervoudige kampioenen kenmerkt.",
+        "evidence": [
+          "features.teammate_pace",
+          "features.metronome",
+          "features.gap_to_pole",
+          "career.starts"
+        ]
+      },
+      {
+        "driver": "oscar-piastri",
+        "strength": "Piastri combineert een degelijke kwalificatiemediaan van positie 5 (n=87) met een sterke pitwinst van 5,704 seconden over n=41 races.",
+        "limitation": "Zijn teamgenoottempo ligt met een mediaanverschil van +0,207% (n=78) achter bij zijn stalgenoot binnen de gemeten sessies.",
+        "evidence": [
+          "features.qualifying_position",
+          "features.gap_to_pole",
+          "features.pit_race_gain",
+          "features.teammate_pace"
+        ]
+      },
+      {
+        "driver": "sebastian-vettel",
+        "strength": "Vettel voert de loopbaanresultaten aan met 4 wereldtitels, 53 overwinningen en 57 poles over 299 starts, naast de hoogste gemeten pitwinst van 9,593 seconden (n=187 races).",
+        "limitation": "Zijn metronoomscore van 78,95 over n=1689 vrije-baanronden ligt lager dan die van Antonelli en Piastri, en de pole-afstand over zijn totale loopbaan kent een mediaan van 0,661 s.",
+        "evidence": [
+          "career.titles",
+          "career.wins",
+          "career.poles",
+          "career.starts",
+          "features.pit_race_gain",
+          "features.teammate_pace"
+        ]
+      }
+    ],
+    "domains": [
+      {
+        "id": "career",
+        "included_in_verdict": true,
+        "weight": 0.05,
+        "leaders": [
+          "sebastian-vettel"
+        ],
+        "explanation": "Vettel overtreft beide opponenten met 4 wereldtitels, 53 overwinningen, 122 podiums en 57 polepositions over 299 starts."
+      },
+      {
+        "id": "qualifying",
+        "included_in_verdict": true,
+        "weight": 0.36,
+        "leaders": [
+          "kimi-antonelli",
+          "sebastian-vettel"
+        ],
+        "explanation": "Zowel Antonelli als Vettel delen een mediaankwalificatiepositie van 4 (n=41 respectievelijk n=295), waarbij Antonelli een kleinere mediaan gap to pole noteert (0,459 s tegenover 0,661 s)."
+      },
+      {
+        "id": "start",
+        "included_in_verdict": false,
+        "weight": 0,
+        "leaders": [],
+        "explanation": "Startscores ontbreken wegens onvoldoende vergelijkbare starts voor Antonelli en Piastri, waardoor dit onderdeel conform het beoordelingsplan neutraal op gewicht 0 staat."
+      },
+      {
+        "id": "progression",
+        "included_in_verdict": false,
+        "weight": 0,
+        "leaders": [],
+        "explanation": "Racevervolgscores ontbreken voor de jongere coureurs en zijn conform het beoordelingsplan voor iedereen buiten beschouwing gelaten."
+      },
+      {
+        "id": "pace",
+        "included_in_verdict": true,
+        "weight": 0.54,
+        "leaders": [
+          "kimi-antonelli"
+        ],
+        "explanation": "Antonelli voert het tempo aan met een mediaan voordeel van -0,126% ten opzichte van teamgenoten (n=35) en de hoogste metronoomscore (88,89 percentiel, n=658 ronden)."
+      },
+      {
+        "id": "pit_balance",
+        "included_in_verdict": true,
+        "weight": 0.05,
+        "leaders": [
+          "sebastian-vettel"
+        ],
+        "explanation": "Vettel realiseerde over 187 gemeten races een mediaan pitrace-winst van 9,593 seconden, ruim meer dan Piastri (5,704 s) en Antonelli (2,851 s)."
+      }
+    ],
+    "winner": "sebastian-vettel",
+    "runner_up": "kimi-antonelli",
+    "conclusion": "Binnen dit specifieke beoordelingskader eindigt Sebastian Vettel voorlopig op de eerste plaats. Hoewel Kimi Antonelli op het zwaarst wegende onderdeel tempo (54%) sterker scoort in teamgenoottempo (-0,126% vs -0,065%) en metronoomwaarde (88,89 vs 78,95), compenseert Vettel via een gedeelde leidende kwalificatiemediaan (positie 4 over 295 races), een aanzienlijk grotere pitwinst (9,593 s over 187 races) en een onbetwiste overmacht in loopbaanprestaties (4 titels en 53 overwinningen). Antonelli pakt de tweede positie dankzij zijn consistente voorsprong op Piastri in zowel tempo als kwalificatiegap. Piastri eindigt als derde doordat hij in relatief racetempo achterblijft (+0,207%). Een andere weging die uitsluitend naar pure vrije-baanrondetijden kijkt zonder ervaringsvolume, zou Antonelli als winnaar kunnen aanwijzen.",
+    "confidence": "medium",
+    "assumptions": [
+      "Ontbrekende start- en raceprogressiescores zijn conform het gezamenlijke assessmentplan neutraal uitgesloten zonder rijders te benadelen.",
+      "De opgeslagen mediaanwaarden van teamgenoottempo en metronoom weerspiegelen representatieve baansnelheid binnen de eigen meetreeksen."
+    ],
+    "limitations": [
+      "Het teamgenootnetwerk slaagde niet voor de validatietoets (passes=false), waardoor netwerkcorrecties niet als hard bewijs kunnen dienen.",
+      "Antonelli heeft slechts 41 starts voltooid, waardoor zijn steekproefomvang veel kleiner en volatieler is dan die van Vettel (299 starts)."
+    ],
+    "infographic": {
+      "template": "oia-goat-comparison-v1",
+      "title": "GOAT Vergelijking: Antonelli vs Piastri vs Vettel",
+      "subtitle": "Evaluatie op basis van zuivere baansnelheid, kwalificatieresultaten, pitbalans en loopbaanvolume",
+      "metric_ids": [
+        "career.starts",
+        "career.wins",
+        "career.titles",
+        "features.qualifying_position",
+        "features.gap_to_pole",
+        "features.teammate_pace",
+        "features.metronome",
+        "features.pit_race_gain"
+      ],
+      "takeaway": "Vettel wint op loopbaanomvang en pitbalans, terwijl Antonelli de scherpste tempowaarden noteert en Piastri derde wordt."
+    },
+    "ranking": [
+      {
+        "driver": "sebastian-vettel",
+        "position": 1,
+        "reason": "Combineert 4 wereldtitels en 53 overwinningen met een gedeelde topnotering in kwalificatiemediaan (positie 4) en de hoogste pitwinst (9,593 s)."
+      },
+      {
+        "driver": "kimi-antonelli",
+        "position": 2,
+        "reason": "Leidt het zwaarwegende tempodomein met -0,126% teamgenootdelta en 88,89 metronoomscore, maar heeft een geringe staat van dienst met 41 starts."
+      },
+      {
+        "driver": "oscar-piastri",
+        "position": 3,
+        "reason": "Stabiele kwalificaties en pitwinst, maar verliest terrein op het cruciale tempodomein met een positief teamgenootverschil (+0,207%)."
+      }
+    ]
+  }
+}
