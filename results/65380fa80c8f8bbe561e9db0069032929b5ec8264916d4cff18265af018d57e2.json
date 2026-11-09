@@ -1,0 +1,156 @@
+{
+  "schema": "goat-ai-result-v2",
+  "prompt_sha256": "65380fa80c8f8bbe561e9db0069032929b5ec8264916d4cff18265af018d57e2",
+  "generated_at": "2026-11-09T05:20:58.819388+00:00",
+  "model": "gemini-3.8-flash",
+  "request": {
+    "drivers": [
+      "kimi-antonelli",
+      "oscar-piastri"
+    ],
+    "from": 1950,
+    "to": 2026,
+    "circuits": [],
+    "lang": "nl",
+    "curveyears": "career",
+    "prompt_sha256": "65380fa80c8f8bbe561e9db0069032929b5ec8264916d4cff18265af018d57e2",
+    "source_revision": "2279b762006f7af561815305a100d58fcc3dc06aa8a8c46f52c878f10aeec305"
+  },
+  "result": {
+    "schema_version": "goat-comparison-v2",
+    "input_status": "complete",
+    "selected_drivers": [
+      "kimi-antonelli",
+      "oscar-piastri"
+    ],
+    "context": {
+      "source_revision": "2279b762006f7af561815305a100d58fcc3dc06aa8a8c46f52c878f10aeec305",
+      "facts_period": [
+        1950,
+        2026
+      ],
+      "circuits": [],
+      "curve_years": "career"
+    },
+    "summary": "Binnen het gezamenlijke beoordelingsplan worden Kimi Antonelli en Oscar Piastri vergeleken op basis van de vier gedeelde gemeten hoofddomeinen: racetempo (gewicht 0,54), kwalificatiesnelheid (0,36), loopbaantotalen (0,05) en pitbalans (0,05). Antonelli behaalt sterkere waarden op de zwaarst wegende kwaliteitsindicatoren: een negatief en dus sneller teamgenoot-tempogeschil (-0,126% over 35 races versus +0,207% over 78 races voor Piastri) en een hogere metronoomscore (88,89 over 658 ronden tegenover 83,33 over 1721 ronden). Ook in de kwalificatiemetingen heeft Antonelli een licht voordeel met een mediane startpositie van 4 (tegenover 5 voor Piastri) en een mediane achterstand tot pole van 0,459 seconde (tegenover 0,487 seconde). Piastri compenseert met een langere staat van dienst (85 starts, 9 zeges en 28 podiums tegenover 41 starts, 8 zeges en 17 podiums) en een grotere gemeten mediane pitwinst per race (5,704 s tegenover 2,851 s). Omdat tempo en kwalificatie samen 90% van het oordeel bepalen, eindigt Antonelli op P1.",
+    "comparisons": [
+      {
+        "driver": "kimi-antonelli",
+        "strength": "Antonelli blinkt uit in zuiver racetempo met een teamgenoot-tempogeschil van -0,126% (n=35 races) en een metronoomwaarde van 88,89 (n=658 ronden, 33 races), gecombineerd met een mediane kwalificatiepositie van 4 en 0,459 s tot pole over 41 races.",
+        "limitation": "Zijn steekproef is met 41 starts en 19 gemeten pitprogrammaraces compacter dan die van Piastri, en zijn mediane pitwinst bedraagt 2,851 seconden.",
+        "evidence": [
+          "features.teammate_pace",
+          "features.metronome",
+          "features.qualifying_position",
+          "features.gap_to_pole",
+          "career.starts"
+        ]
+      },
+      {
+        "driver": "oscar-piastri",
+        "strength": "Piastri heeft een omvangrijkere loopbaanbasis met 85 starts, 9 overwinningen en 28 podiumplaatsen, alsmede een hogere mediane pitwinst per race van 5,704 seconden over 41 races.",
+        "limitation": "Zijn relatieve racetempo ten opzichte van teamgenoten ligt op +0,207% (n=78 races) en zijn metronoomscore bedraagt 83,33 over 1721 ronden, beide lager dan bij Antonelli.",
+        "evidence": [
+          "career.starts",
+          "career.wins",
+          "career.podiums",
+          "features.pit_race_gain",
+          "features.teammate_pace",
+          "features.metronome"
+        ]
+      }
+    ],
+    "domains": [
+      {
+        "id": "career",
+        "included_in_verdict": true,
+        "weight": 0.05,
+        "leaders": [
+          "oscar-piastri"
+        ],
+        "explanation": "Piastri leidt in volume met 85 starts, 9 zeges en 28 podiums, tegenover 41 starts, 8 zeges en 17 podiums voor Antonelli (beiden 6 poles en 0 titels)."
+      },
+      {
+        "id": "qualifying",
+        "included_in_verdict": true,
+        "weight": 0.36,
+        "leaders": [
+          "kimi-antonelli"
+        ],
+        "explanation": "Antonelli behaalt over 41 races een mediane startpositie van 4 en 0,459 s tot pole; Piastri noteert over 87 races mediaan positie 5 en 0,487 s tot pole."
+      },
+      {
+        "id": "start",
+        "included_in_verdict": false,
+        "weight": 0,
+        "leaders": [],
+        "explanation": "Startscore ontbreekt bij beide coureurs wegens onvoldoende vergelijkbare starts; conform het protocol uitgesloten van de weging."
+      },
+      {
+        "id": "progression",
+        "included_in_verdict": false,
+        "weight": 0,
+        "leaders": [],
+        "explanation": "Racevervolgscore ontbreekt bij beide coureurs wegens onvoldoende vergelijkbare gefinishte races; conform het protocol uitgesloten van de weging."
+      },
+      {
+        "id": "pace",
+        "included_in_verdict": true,
+        "weight": 0.54,
+        "leaders": [
+          "kimi-antonelli"
+        ],
+        "explanation": "Antonelli realiseert een scherper relatief teamgenoottempo (-0,126% over 35 races versus +0,207% over 78 races) en een hogere metronoomwaarde (88,89 tegenover 83,33)."
+      },
+      {
+        "id": "pit_balance",
+        "included_in_verdict": true,
+        "weight": 0.05,
+        "leaders": [
+          "oscar-piastri"
+        ],
+        "explanation": "Piastri behaalt een mediane pitwinst per race van 5,704 seconden over 41 races, tegenover 2,851 seconden over 19 races voor Antonelli."
+      }
+    ],
+    "winner": "kimi-antonelli",
+    "runner_up": "oscar-piastri",
+    "conclusion": "Binnen de kaders van het beoordelingsplan, waarin tempo en kwalificatie samen 90% van het totale gewicht vormen, pakt Kimi Antonelli de voorlopige eerste positie. Hij presteert sterker op zowel het teamgenoot-tempogeschil (-0,126% versus +0,207%) als de vrije-baanmetronoom (88,89 versus 83,33) en heeft een kleiner gat naar pole (0,459 s tegenover 0,487 s). Oscar Piastri biedt substantieel tegenwicht met een grotere loopbaanomvang (85 versus 41 starts) en een hogere mediane pitwinst (5,704 s tegenover 2,851 s). Een zwaarder gewicht voor loopbaanresultaten en bewezen continuïteit over meerdere seizoenen zou de balans in het voordeel van Piastri kunnen doen omslaan.",
+    "confidence": "medium",
+    "assumptions": [
+      "Het herverdeelde beoordelingsplan met 54% gewicht voor tempo en 36% voor kwalificatie geeft een representatieve afspiegeling van gemeten rijderskwaliteit.",
+      "Opgeslagen metronoom- en teamgenootverschillen weerspiegelen de inherente basissnelheid van de coureurs binnen hun respectievelijke teamomgevingen."
+    ],
+    "limitations": [
+      "Start- en racevervolgscores ontbreken voor beide rijders wegens onvoldoende referentieraces en konden niet meewegen.",
+      "De teamgenootnetwerkvalidatie slaagt niet (passes: false, interval [-0,027, 0,018]), waardoor netwerkeffecten niet als sluitende tijdperkcorrectie gebruikt mogen worden.",
+      "Antonelli heeft 41 starts en 19 pitmetingen vergeleken met 85 starts en 41 pitmetingen voor Piastri, wat een verschil in ervaringsbasis inhoudt."
+    ],
+    "infographic": {
+      "template": "oia-goat-comparison-v1",
+      "title": "Kimi Antonelli vs Oscar Piastri",
+      "subtitle": "Directe confrontatie op basis van gedeelde Overtake It Away-parameters",
+      "metric_ids": [
+        "career.starts",
+        "career.wins",
+        "features.qualifying_position",
+        "features.gap_to_pole",
+        "features.teammate_pace",
+        "features.metronome",
+        "features.pit_race_gain"
+      ],
+      "takeaway": "P1 Antonelli, P2 Piastri: Antonelli pakt de leiding via scherper racetempo en kwalificatieresultaten, terwijl Piastri domineert in loopbaanvolume en pitwinst."
+    },
+    "ranking": [
+      {
+        "driver": "kimi-antonelli",
+        "position": 1,
+        "reason": "Behaalt de sterkste scores op de zwaarst wegende hoofddomeinen tempo (teamgenootdelta -0,126%, metronoom 88,89) en kwalificatie (mediaan P4, 0,459 s tot pole)."
+      },
+      {
+        "driver": "oscar-piastri",
+        "position": 2,
+        "reason": "Leidt op loopbaanvolume (85 starts, 9 zeges) en pitwinst (5,704 s), maar geeft toe op de doorslaggevende onderdelen relatief racetempo en kwalificatiegat."
+      }
+    ]
+  }
+}
