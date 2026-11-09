@@ -68,6 +68,15 @@
         "oscar-piastri"
       ],
       "generated_at": "2026-11-09T05:20:58.819388+00:00"
+    },
+    "97c2de68c81392262a65e9a8e0a84842863247d424081b133102c4d4c309abaa": {
+      "file": "results/97c2de68c81392262a65e9a8e0a84842863247d424081b133102c4d4c309abaa.json",
+      "drivers": [
+        "kimi-antonelli",
+        "oscar-piastri",
+        "sebastian-vettel"
+      ],
+      "generated_at": "2026-11-09T05:23:13.606028+00:00"
     }
   }
 }
