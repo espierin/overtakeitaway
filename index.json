@@ -77,6 +77,16 @@
         "sebastian-vettel"
       ],
       "generated_at": "2026-11-09T05:23:13.606028+00:00"
+    },
+    "1861b58417876c5fdf8e4194d899d24213ccacf372b2c21de0fbd7df6abbffc6": {
+      "file": "results/1861b58417876c5fdf8e4194d899d24213ccacf372b2c21de0fbd7df6abbffc6.json",
+      "drivers": [
+        "lewis-hamilton",
+        "max-verstappen",
+        "michael-schumacher",
+        "sebastian-vettel"
+      ],
+      "generated_at": "2026-11-22T16:03:54.486385+00:00"
     }
   }
 }
