@@ -1,0 +1,202 @@
+{
+  "schema": "goat-ai-result-v2",
+  "prompt_sha256": "1861b58417876c5fdf8e4194d899d24213ccacf372b2c21de0fbd7df6abbffc6",
+  "generated_at": "2026-11-22T16:03:54.486385+00:00",
+  "model": "gemini-3.8-flash",
+  "request": {
+    "drivers": [
+      "lewis-hamilton",
+      "max-verstappen",
+      "michael-schumacher",
+      "sebastian-vettel"
+    ],
+    "from": 1950,
+    "to": 2026,
+    "circuits": [],
+    "lang": "nl",
+    "curveyears": "calendar",
+    "prompt_sha256": "1861b58417876c5fdf8e4194d899d24213ccacf372b2c21de0fbd7df6abbffc6",
+    "source_revision": "2279b762006f7af561815305a100d58fcc3dc06aa8a8c46f52c878f10aeec305"
+  },
+  "result": {
+    "schema_version": "goat-comparison-v2",
+    "input_status": "complete",
+    "selected_drivers": [
+      "lewis-hamilton",
+      "max-verstappen",
+      "michael-schumacher",
+      "sebastian-vettel"
+    ],
+    "context": {
+      "source_revision": "2279b762006f7af561815305a100d58fcc3dc06aa8a8c46f52c878f10aeec305",
+      "facts_period": [
+        1950,
+        2026
+      ],
+      "circuits": [],
+      "curve_years": "calendar"
+    },
+    "summary": "Binnen het vaste beoordelingsplan steunt het eindoordeel hoofdzakelijk op het relatieve teamgenoottempo (54%), kwalificaties (36%), loopbaanstatistieken (5%) en pitbalans (5%). Omdat start- en racevervolgscores ontbreken bij Michael Schumacher, zijn deze domeinen voor alle vier de coureurs uitgesloten van de eindbeoordeling om methodologische gelijkwaardigheid te waarborgen. Max Verstappen noteert het scherpste mediane tempoverschil ten opzichte van teamgenoten (-0,406% over 213 races). Lewis Hamilton leidt in absolute loopbaantotalen (106 overwinningen en 104 poles over 397 starts) en noteert de kleinste mediane achterstand op pole (0,283 s over 392 metingen). Michael Schumacher handhaaft een sterk teamgenoottempo (-0,136% over 221 races) en de hoogste mediane racewinst via pitstrategie (10,599 s over 170 races). Sebastian Vettel sluit aan met solide cijfers, maar blijft op pure kwalificatiekloof en teamgenoottempo achter bij de overige drie.",
+    "comparisons": [
+      {
+        "driver": "lewis-hamilton",
+        "strength": "Hamilton combineert ongeëvenaarde loopbaantotalen (106 zeges, 104 poles) met de kleinste mediane achterstand tot pole position (0,283 s, n=392).",
+        "limitation": "Zijn mediane teamgenoottempo (-0,111%, n=369) is minder uitgesproken dan dat van Verstappen en Schumacher.",
+        "evidence": [
+          "career.starts",
+          "career.titles",
+          "career.wins",
+          "career.poles",
+          "features.gap_to_pole",
+          "features.teammate_pace",
+          "features.pit_race_gain"
+        ]
+      },
+      {
+        "driver": "max-verstappen",
+        "strength": "Verstappen realiseert het grootste mediane voordeel op teamgenoten in racetempo (-0,406%, n=213) binnen het zwaarst gewogen domein.",
+        "limitation": "Zijn absolute loopbaanaantallen (73 zeges, 50 poles) en mediane kwalificatiegat (0,361 s, n=244) liggen lager dan die van Hamilton.",
+        "evidence": [
+          "career.starts",
+          "career.titles",
+          "career.wins",
+          "career.poles",
+          "features.gap_to_pole",
+          "features.teammate_pace",
+          "features.pit_race_gain"
+        ]
+      },
+      {
+        "driver": "michael-schumacher",
+        "strength": "Schumacher behaalt 7 titels en 91 overwinningen met een robuust teamgenoottempo (-0,136%, n=221) en een hoge mediane pitwinst (10,599 s, n=170).",
+        "limitation": "Zijn mediane achterstand tot pole over zijn loopbaan (0,565 s, n=303) is groter dan die van Hamilton en Verstappen, mede beïnvloed door zijn latere Mercedes-jaren.",
+        "evidence": [
+          "career.starts",
+          "career.titles",
+          "career.wins",
+          "career.poles",
+          "features.gap_to_pole",
+          "features.teammate_pace",
+          "features.pit_race_gain"
+        ]
+      },
+      {
+        "driver": "sebastian-vettel",
+        "strength": "Vettel behaalde 4 wereldtitels en 57 poles over 299 starts, met een stabiele mediane pitwinst van 9,593 s (n=187).",
+        "limitation": "Zijn mediane teamgenoottempo (-0,065%, n=275) en mediane kwalificatiegat tot pole (0,661 s, n=295) zijn het minst gunstig in deze groep.",
+        "evidence": [
+          "career.starts",
+          "career.titles",
+          "career.wins",
+          "career.poles",
+          "features.gap_to_pole",
+          "features.teammate_pace",
+          "features.pit_race_gain"
+        ]
+      }
+    ],
+    "domains": [
+      {
+        "id": "career",
+        "included_in_verdict": true,
+        "weight": 0.05,
+        "leaders": [
+          "lewis-hamilton",
+          "michael-schumacher"
+        ],
+        "explanation": "Hamilton en Schumacher delen het record van 7 wereldtitels; Hamilton voert de lijst aan met 106 overwinningen en 104 poles."
+      },
+      {
+        "id": "qualifying",
+        "included_in_verdict": true,
+        "weight": 0.36,
+        "leaders": [
+          "lewis-hamilton"
+        ],
+        "explanation": "Hamilton noteert de kleinste mediane achterstand op pole (0,283 s, n=392), voor Verstappen (0,361 s, n=244)."
+      },
+      {
+        "id": "start",
+        "included_in_verdict": false,
+        "weight": 0,
+        "leaders": [],
+        "explanation": "Uitgesloten conform het beoordelingsplan omdat representatieve startscores ontbreken voor Schumacher."
+      },
+      {
+        "id": "progression",
+        "included_in_verdict": false,
+        "weight": 0,
+        "leaders": [],
+        "explanation": "Uitgesloten conform het beoordelingsplan wegens onvoldoende vergelijkbare gefinishte data voor Schumacher."
+      },
+      {
+        "id": "pace",
+        "included_in_verdict": true,
+        "weight": 0.54,
+        "leaders": [
+          "max-verstappen"
+        ],
+        "explanation": "Verstappen toont het grootste mediane verschil ten opzichte van teamgenoten (-0,406% over 213 races), gevolgd door Schumacher (-0,136%) en Hamilton (-0,111%)."
+      },
+      {
+        "id": "pit_balance",
+        "included_in_verdict": true,
+        "weight": 0.05,
+        "leaders": [
+          "michael-schumacher"
+        ],
+        "explanation": "Schumacher behaalt de hoogste mediane pit-racewinst met 10,599 s (n=170), nipt voor Hamilton (10,501 s, n=249)."
+      }
+    ],
+    "winner": "max-verstappen",
+    "runner_up": "lewis-hamilton",
+    "conclusion": "Onder de voorwaarden van het gedeelde beoordelingsplan waarin teamgenoottempo (54%) en kwalificatie (36%) 90% van het oordeel bepalen, behaalt Max Verstappen de eerste positie. Zijn aanzienlijke voorsprong in teamgenoottempo compenseert het kwalificatie- en loopbaanvoordeel van Lewis Hamilton. Hamilton eindigt als tweede op basis van zijn leiding in kwalificatieachterstand en loopbaanaantallen. Michael Schumacher volgt op de derde plaats dankzij 7 titels en een sterker teamgenoottempo dan Sebastian Vettel. Deze rangschikking is strikt voorwaardelijk: een alternatieve weging die zwaarder leunt op absolute loopbaanlengte en titels zou Hamilton of Schumacher als winnaar aanwijzen.",
+    "confidence": "medium",
+    "assumptions": [
+      "Het uitsluiten van domeinen start en progressie wegens ontbrekende data bij Schumacher waarborgt een eerlijke onderlinge vergelijking.",
+      "Teamgenoottempo weerspiegelt relatieve snelheid binnen gelijke wagens, hoewel de sterkte van individuele teamgenoten kan variëren.",
+      "De opgeslagen medianen vormen een representatieve maatstaf voor de algehele loopbaanprestaties."
+    ],
+    "limitations": [
+      "De netwerkvalidatie van het teamgenootmodel faalt (passes=false), waardoor dit niet gebruikt kan worden als bewezen tijdperkcorrectie.",
+      "Ronde-gebaseerde statistieken (zoals de metronoom en vrije-baantempo) ontbreken volledig voor het pre-moderne tijdperk van Schumacher.",
+      "Verschillende tijdperken kennen uiteenlopende betrouwbaarheid, punten- en kwalificatieformaten waardoor absolute seconden en posities niet identiek zijn."
+    ],
+    "infographic": {
+      "template": "oia-goat-comparison-v1",
+      "title": "GOAT-Vergelijking: Formule 1 Legendes",
+      "subtitle": "Evaluatie op basis van teamgenoottempo, kwalificatiekloof en loopbaanprestaties",
+      "metric_ids": [
+        "career.titles",
+        "career.wins",
+        "career.poles",
+        "features.gap_to_pole",
+        "features.teammate_pace",
+        "features.pit_race_gain"
+      ],
+      "takeaway": "P1: Verstappen, P2: Hamilton, P3: Schumacher, P4: Vettel. Verstappen domineert teamgenoottempo, terwijl Hamilton leidt in kwalificatiekloof en loopbaanrecords."
+    },
+    "ranking": [
+      {
+        "driver": "max-verstappen",
+        "position": 1,
+        "reason": "Hoogste score in het zwaarst gewogen domein teamgenoottempo (-0,406%), gecombineerd met een sterke tweede plek in kwalificatiekloof."
+      },
+      {
+        "driver": "lewis-hamilton",
+        "position": 2,
+        "reason": "Beste kwalificatiekloof (0,283 s) en de meest omvangrijke loopbaantotalen (106 zeges, 7 titels), met een solide teamgenoottempo."
+      },
+      {
+        "driver": "michael-schumacher",
+        "position": 3,
+        "reason": "Gelijke recordhouder met 7 titels, hoogste pit-racewinst en een scherper teamgenoottempo (-0,136%) dan Vettel."
+      },
+      {
+        "driver": "sebastian-vettel",
+        "position": 4,
+        "reason": "Viervoudig wereldkampioen met uitstekende resultaten, maar het laagste tempoverschil met teamgenoten en de grootste achterstand op pole."
+      }
+    ]
+  }
+}
